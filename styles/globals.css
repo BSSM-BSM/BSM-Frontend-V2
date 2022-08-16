@@ -12,61 +12,63 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 }
 
 body {
-    --black: 0, 0, 0;
-    --gray: 192, 192, 192;
-    --light_gray: 170, 170, 170;
-    --white: 255, 255, 255;
-    --red: 228, 107, 93;
-    --yellow: 255, 165, 0;
-    --green: 126, 226, 126;
+    --gray: #c0c0c0;
+    --light_gray: #aaa;
+    --white: #fff;
+    --red: #e46b5d;
+    --yellow: #ffa500;
+    --green: #7ee27e;
     
-    --main: 17, 136, 187;
+    --main: #1188bb;
     color-scheme: light;
-    --accent: 17, 136, 187;
-    --text: 32, 33, 36;
-    --accent-text: 232, 234, 237;
-    --text-level-1: 96, 97, 100;
-    --text-level-2: 128, 129, 132;
-    --text-level-3: 176, 177, 180;
-    --background: 237, 237, 237;
+    --accent: #1188bb;
+    --text: #202124;
+    --accent-text: #e8eaed;
+    --text-level-1: #606164;
+    --text-level-2: #808184;
+    --text-level-3: #b0b1b4;
+    --background: #ededed;
+    --modal-background: #ededed;
   
-    --level-1: 249, 249, 249;
-    --level-2: 249, 249, 249;
+    --level-1: #f9f9f9;
+    --level-2: #f9f9f9;
+
+    --input: rgba(192, 192, 192, .3);
+    --menu-background: #ffffff88;
   
-    --input: 192, 192, 192;
-    --menu-background: 152, 154, 157;
-  
-    --shadow: .1rem .1rem 1rem rgba(0, 0, 0, .2);
-    --hover: 0, 0, 0;
+    --shadow: .1rem .1rem 1rem (0, 0, 0, .2);
+    --hover: rgba(0, 0, 0, .2);;
     --bright: brightness(0);
     --visited: #800080;
 }
 body.dark {
-    --gray: 82, 82, 82;
-    --red: 250, 128, 114;
-    --yellow: 255, 140, 0;
-    --green: 114, 196, 114;
+    --gray: #525252;
+    --white: #fff;
+    --red: #fa8072;
+    --yellow: #ff8c00;
+    --green: #72c472;
     
-    --main: 98, 205, 254;
+    --main: #62cdfe;
     color-scheme: dark;
-    --accent: 98, 205, 254;
-    --text: 237, 237, 237;
-    --accent-text: 32, 33, 36;
-    --text-level-1: 168, 170, 173;
-    --text-level-2: 136, 138, 141;
-    --text-level-3: 88, 90, 93;
-    --background: 32, 33, 36;
+    --accent: #62cdfe;
+    --text: #e8eaed;
+    --accent-text: #202124;
+    --text-level-1: #a8aaad;
+    --text-level-2: #888a8d;
+    --text-level-3: #585a5d;
+    --background: #202124;
+    --modal-background: #242528;
   
-    --level-1: 48, 49, 52;
-    --level-2: 64, 65, 68;
+    --level-1: #303134;
+    --level-2: #404144;
   
-    --input: 192, 192, 192;
-    --menu-background: 60, 60, 60;
+    --menu-background: #33333388;
   
+    --dim: rgba(0, 0, 0, .3);
     --shadow: 0 0 0 #000;
-    --hover: 168, 170, 173;
+    --hover: #a8aaad66;
     --bright: brightness(20);
-    --visited: 244, 164, 255;
+    --visited: #f4a4ff;
 }
 
 html, body {
@@ -85,8 +87,8 @@ html {
 }
 
 body {
-    background-color: rgb(var(--background));
-    color: rgb(var(--text));
+    background-color: var(--background);
+    color: var(--text);
     font-size: 1.5rem;
     transition: background-color .5s;
     padding: 5rem 0;
@@ -195,13 +197,13 @@ label, summary{
 }
 
 .list {
-    background-color: rgb(var(--level-1));
+    background-color: var(--level-1);
     border-radius: 2rem;
     overflow: hidden;
 }
 
 .list li {
-    border-bottom: 1px solid rgb(var(--gray));
+    border-bottom: 1px solid var(--gray);
     padding: 1.3rem 1.5rem;
     transition: .2s;
     display: flex;
@@ -222,13 +224,13 @@ label, summary{
 }
 
 .list li.detail span:nth-child(2) {
-    color: rgb(var(--text-level-1));
+    color: var(--text-level-1);
 }
 
 .list li.detail span:nth-child(3) {
     cursor: pointer;
     margin-left: auto;
-    color: rgb(var(--text-level-2));
+    color: var(--text-level-2);
 }
 
 .list li.toggle .toggle-button {
@@ -249,7 +251,7 @@ label, summary{
 }
 
 .list li:hover {
-    background-color: rgb(var(--hover), .2);
+    background-color: var(--hover);
 }
 
 .left-slide-menu {
@@ -277,7 +279,7 @@ label, summary{
     word-break: keep-all;
     padding: 1rem;
     transition: .25s;
-    background-color: rgb(var(--menu-background), .6);
+    background-color: var(--menu-background);
     backdrop-filter: blur(5px);
 }
 
@@ -300,14 +302,14 @@ label, summary{
 
 .menu-button:hover {
   box-shadow: var(--shadow);
-  background-color: rgb(var(--hover), .2);
+  background-color: var(--hover);
 }
 
 .menu-button .line {
     width: 3rem;
     height: .3rem;
     border-radius: 1rem;
-    background-color: rgb(var(--text));
+    background-color: var(--text);
     display: block;
     margin: .25rem;
     filter: var(--bright);
@@ -362,17 +364,17 @@ label, summary{
 .toast{
     min-width: 20rem;
     padding: 2rem 1rem;
-    background-color: rgb(var(--level-1));
+    background-color: var(--level-1);
     transition: .25s;
     text-align: center;
     font-weight: bold;
-    color: rgb(var(--text));
+    color: var(--text);
     animation: toast_show 250ms ease-out;
     white-space: pre-line;
 }
 
 .toast:hover {
-    background-color: rgb(var(--hover), .2);
+    background-color: var(--hover);
 }
 
 .toast.hide {
@@ -418,8 +420,8 @@ label, summary{
     max-width: 100rem;
     width: 100%;
     padding: 1.75rem 1rem;
-    color: rgb(var(--white));
-    background-color: rgba(var(--red), .7);
+    color: var(--white);
+    background-color: var(--red);
     backdrop-filter: blur(3px);
     border-radius: 1rem;
     transition: .25s;
@@ -452,9 +454,9 @@ label, summary{
     display: inline-block;
     width: 7.5rem;
     height: 7.5rem;
-    border: 1rem solid rgb(var(--text-level-2));
+    border: 1rem solid var(--text-level-2);
     border-radius: 50%;
-    border-top-color: rgb(var(--accent));
+    border-top-color: var(--accent);
     animation: spin .75s ease-in-out infinite;
     -webkit-animation: spin .75s ease-in-out infinite;
 }
@@ -474,7 +476,7 @@ label, summary{
 
 .button{
     width: auto;
-    color: rgb(var(--text));
+    color: var(--text);
     border: none;
     padding: 1.5rem 2.5rem;
     text-align: center;
@@ -484,17 +486,17 @@ label, summary{
     font-weight: bold;
     cursor: pointer;
     border-radius: .75rem;
-    background-color: rgb(var(--level-2));
+    background-color: var(--level-2);
     transition: .25s;
 }
 
 .button:hover {
     box-shadow: var(--shadow);
-    background-color: rgb(var(--hover), .2) !important;
+    background-color: var(--hover) !important;
 }
 
 .button.delete {
-    background-color: rgb(var(--red));
+    background-color: var(--red);
 }
 
 .toggle-button {
@@ -506,7 +508,7 @@ label, summary{
 }
 
 .toggle-button.active {
-    background-color: rgb(var(--accent));
+    background-color: var(--accent);
 }
 
 .toggle-button .slider {
@@ -528,7 +530,7 @@ label, summary{
 .input-text,
 .textarea {
     border: none;
-    color: rgb(var(--text));
+    color: var(--text);
     width: 37.5rem;
     font-weight: bold;
     font-size: 1.5rem;
@@ -536,7 +538,7 @@ label, summary{
     outline: .2rem solid #00000000;
     padding: 1.5rem;
     border-radius: .5rem;
-    background-color: rgba(var(--input), .3);
+    background-color: var(--input);
     text-align: left;
     transition: .25s;
 }
@@ -558,7 +560,7 @@ input[type=number].year {
     textarea,
     .textarea
 )::placeholder {
-    color: rgb(var(--text));
+    color: var(--text);
 }
 
 :is(
@@ -568,7 +570,7 @@ input[type=number].year {
     .textarea
 ):hover {
     box-shadow: var(--shadow) inset;
-    background-color: rgba(var(--hover), .1) !important;
+    background-color: (var(--hover), .1) !important;
 }
 
 :is(
@@ -577,15 +579,15 @@ input[type=number].year {
     textarea,
     .textarea
 ):focus {
-    box-shadow: 0 0 0 .2rem rgb(var(--main)) inset;
+    box-shadow: 0 0 0 .2rem var(--main) inset;
 }
 
 .accent{
-    color: rgb(var(--accent-text));
-    background-color: rgb(var(--accent));
+    color: var(--accent-text);
+    background-color: var(--accent);
 }
 .accent-text{
-    color: rgb(var(--accent));
+    color: var(--accent);
 }
 
 
@@ -610,7 +612,7 @@ input[type=number].year {
     .edit_button
 ):hover {
     box-shadow: var(--shadow);
-    background-color: rgb(var(--hover), .2);
+    background-color: var(--hover), .2;
 }
 
 .close_button {
@@ -647,7 +649,7 @@ input[type=number].year {
     padding: 1.5rem;
     border-radius: 2rem;
     box-shadow: var(--shadow);
-    background-color: rgb(var(--background));
+    background-color: var(--modal-background);
     z-index: 101;
     animation: modal_show 100ms ease-out;
 }
@@ -711,4 +713,30 @@ input[type=number].year {
     .button.main
 ) {
     width:100% !important;
+}
+
+.oauth-bsm {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    color: rgb(96, 96, 96);
+    background-color: white;
+    border-radius: 1rem;
+}
+
+.oauth-bsm:hover {
+    background-color: white !important;
+}
+
+.oauth-bsm img {
+    height: 3.5rem;
+    padding: .75rem 0;
+}
+
+.oauth-bsm span {
+    font-size: 1.4rem;
+    font-weight: bold;
 }
