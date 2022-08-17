@@ -8,12 +8,13 @@ import { userState } from '../../store/account.store';
 import styles from '../../styles/header.module.css';
 
 export const Header = () => {
+    const [mounted, setMounted] = useState(false);
     const { openModal } = useModal();
     const { ajax } = useAjax();
     const { showToast } = useOverlay();
     const [user] = useRecoilState(userState);
     const resetUser = useResetRecoilState(userState);
-    const [mounted, setMounted] = useState(false);
+    const [sideBar, setSideBar] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -50,7 +51,14 @@ export const Header = () => {
             <div className={styles.top}>
                 <nav className={styles.top_menu_bar}>
                     <ul className={styles.left}>
-                        <li className={`${styles.item} ${styles.home}`}><Link href='/'><img src='/logo/logo.png' alt='logo' className='logo' /></Link></li>
+                        <li className={`${styles.item} ${styles.home}`}>
+                            <Link href='/'><img src='/logo/logo.png' alt='logo' className='logo' /></Link>
+                        </li>
+                        <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(true)}>
+                            <span className='line'></span>
+                            <span className='line'></span>
+                            <span className='line'></span>
+                        </li>
                         <li className={`dropdown-menu ${styles.dropdown}`}>
                             <span className={styles.item}>학교</span>
                             <ul className='dropdown-content'>
@@ -84,7 +92,35 @@ export const Header = () => {
                     </ul>
                 </nav>
             </div>
-            <div className={styles.side}></div>
+            <div className={`${styles.side} ${sideBar? styles.on: ''}`}>
+                <div className={`close_button ${styles.close_button}`} onClick={() => setSideBar(false)}></div>
+                <div className={`dim ${styles.dim}`} onClick={() => setSideBar(false)}></div>
+                <ul className={styles.menus}>
+                    <li className={`${styles.item} ${styles.home}`}><Link href='/'><img src='/logo/logo.png' alt='logo' className='logo'/></Link></li>
+                    <li className={styles.item}><Link href='/timetable'>시간표</Link></li>
+                    <li className={styles.item}><Link href='/meal'>급식</Link></li>
+                    <li className={styles.item}><Link href='/meister'>인증제 / 상벌점</Link></li>
+                    <li className={`dropdown-menu ${styles.dropdown}`}>
+                        <span className={styles.item}>커뮤니티</span>
+                        <ul className='dropdown-content'>
+                            <li><Link href='/board/board'><a className='option'>자유게시판</a></Link></li>
+                            <li><Link href='/board/software'><a className='option'>소프트웨어</a></Link></li>
+                            <li><Link href='/board/embedded'><a className='option'>임베디드</a></Link></li>
+                            <li><Link href='/board/notice'><a className='option'>공지사항</a></Link></li>
+                        </ul>
+                    </li>
+                    <li className={`dropdown-menu ${styles.dropdown}`}>
+                        <span className={styles.item}>다른 서비스</span>
+                        <ul className='dropdown-content'>
+                            <li><a href='https://auth.bssm.kro.kr' className='option'>BSM Auth</a></li>
+                            <li><a href='https://drive.bssm.kro.kr' className='option'>BSM Cloud</a></li>
+                            <li><a href='https://tetris.bssm.kro.kr' className='option'>BSM Tetris</a></li>
+                        </ul>
+                    </li>
+                    <li className={styles.item}><a href='https://school.busanedu.net/bssm-h/main.do'>BSM Cloud</a></li>
+                    <li className={styles.item}><a href='https://github.com/BSSM-BSM'>깃허브</a></li>
+                </ul>
+            </div>
         </header>
     )
 }
