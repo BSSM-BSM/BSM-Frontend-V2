@@ -109,6 +109,16 @@ body {
     src: url('/fonts/NotoSansKR-Bold.woff2') format('woff2');
 }
 
+@keyframes blocking_click {
+    0% {
+        pointer-events: none;
+    }
+    99%{}
+    100% {
+        pointer-events: visible;
+    }
+}
+
 h3 {
     font-size: 2rem;
 }
@@ -121,6 +131,7 @@ li {
 
 a {
     text-decoration: none;
+    color: var(--text);
 }
 
 img{
@@ -193,17 +204,17 @@ label, summary{
 }
 
 .list-wrap > li > h3 {
-    padding: 1.5rem 1.5rem .5rem;
+    padding: 2.5rem 1.5rem .5rem;
 }
 
 .list {
-    background-color: var(--level-1);
+    background-color: rgb(var(--level-1));
     border-radius: 2rem;
     overflow: hidden;
 }
 
 .list li {
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid rgb(var(--background));
     padding: 1.3rem 1.5rem;
     transition: .2s;
     display: flex;
@@ -221,6 +232,10 @@ label, summary{
 
 .list li:is(.detail, .toggle, .picker) span {
     margin: 1.3rem 0;
+}
+
+.list li span:nth-child(1) {
+    min-width: 7rem;
 }
 
 .list li.detail span:nth-child(2) {
@@ -252,6 +267,68 @@ label, summary{
 
 .list li:hover {
     background-color: var(--hover);
+}
+
+.dropdown-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu > .select {
+    position: relative;
+    z-index: 1;
+    padding-right: 2rem;
+}
+
+.dropdown-menu > .select::after {
+    content: ' ▼';
+}
+
+
+.dropdown-content {
+    transform: translateY(-1.5rem);
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    position:  absolute;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    word-break: keep-all;
+    border-radius: .5rem;
+    box-shadow: var(--shadow);
+    background-color: var(--level-1);
+    transition: all .25s;
+}
+
+.dropdown-menu:hover .dropdown-content {
+    transform: translateY(0) !important;
+    opacity: 1;
+    animation: blocking_click 250ms ease;
+    animation-fill-mode:  forwards;
+}
+
+.dropdown-content li {
+    transition: .25s;
+}
+
+.dropdown-content li:first-child {
+    border-radius: .5rem .5rem 0rem 0rem;
+}
+
+.dropdown-content li:last-child {
+    border-radius: 0rem 0rem .5rem .5rem;
+}
+
+.dropdown-content li:hover {
+    background-color: var(--hover);
+}
+
+.dropdown-content .option {
+    display: inline-block;
+    padding: 1.2rem 1.6rem;
+    width: 100%;
+    cursor: pointer;
 }
 
 .left-slide-menu {

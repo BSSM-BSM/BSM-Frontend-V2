@@ -1,0 +1,53 @@
+.header {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: .5rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.dropdown li {
+    width: 16rem;
+}
+
+.header .top {
+    max-width: 132rem;
+    width: 100%;
+    border-radius: 1rem;
+    background-color: var(--menu-background);
+}
+
+.item {
+    display: flex;
+    cursor: pointer;
+    border-radius: .5rem;
+    transition: .25s;
+}
+
+.item.home {
+    padding: 0 .5rem;
+}
+
+.item:not(.home) {
+    padding: 1.4rem 2.5rem;
+}
+
+.item:hover {
+    background-color: var(--hover);
+}
+
+.top_menu_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top_menu_bar :is(.left, .right) {
+    display: flex;
+    align-items: center;
+}

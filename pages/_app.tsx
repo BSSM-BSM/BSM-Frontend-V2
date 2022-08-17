@@ -6,6 +6,7 @@ import LoadingDim from '../components/common/overlay/loadingDim'
 import Toast from '../components/common/overlay/toast'
 import Alert from '../components/common/overlay/alert'
 import { LoginBox } from '../components/common/accountPopup'
+import { Header } from '../components/common/header'
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -13,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <RecoilRoot>
                 <Component {...pageProps} />
                 <>
+                    <Header />
                     <LoginBox />
                     <Toast />
                     <Alert />

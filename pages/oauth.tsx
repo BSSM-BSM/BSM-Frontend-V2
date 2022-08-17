@@ -24,11 +24,12 @@ const OauthPage: NextPage = () => {
             method: 'post',
             url: `user/oauth/bsm?code=${authCode}`,
             callback: data => {
-                const userInfo = JSON.parse(decodeBase64(data.accessToken.split('.')[1])) as User;
-                setUser({
-                    ...userInfo,
+                const userInfo = {
+                    ...JSON.parse(decodeBase64(data.accessToken.split('.')[1])),
                     isLogin: true
-                });
+                } as User;
+                localStorage.setItem('user', JSON.stringify(userInfo));
+                setUser(userInfo);
                 closeModal('login');
                 router.push('/');
             }
