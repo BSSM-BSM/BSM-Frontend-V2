@@ -1,4 +1,6 @@
 import axios, { AxiosError, AxiosPromise } from "axios";
+import { useResetRecoilState } from "recoil";
+import { userState } from "../store/account.store";
 import { useModal } from "./useModal";
 import { useOverlay } from "./useOverlay";
 
@@ -18,6 +20,7 @@ interface ErrorResType {
 export const useAjax = () => {
     const { loading, showAlert } = useOverlay();
     const { openModal } = useModal();
+    const resetUser = useResetRecoilState(userState);
 
     const ajax = async <T>({
         method,
@@ -76,6 +79,7 @@ export const useAjax = () => {
             }
             switch (err.response.data.statusCode) {
                 case 401:
+                    resetUser();
                     openModal('login');
                     break;
                 default:

@@ -1,13 +1,18 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
+import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
 import styles from '../../styles/header.module.css';
 
 export const Header = () => {
     const { openModal } = useModal();
+    const { ajax } = useAjax();
+    const { showToast } = useOverlay();
     const [user] = useRecoilState(userState);
+    const resetUser = useResetRecoilState(userState);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -15,13 +20,25 @@ export const Header = () => {
         return () => setMounted(false);
     }, []);
 
+    const logout = () => {
+        ajax({
+            method: 'delete',
+            url: 'user/logout',
+            callback() {
+                resetUser();
+                showToast('로그아웃 되었습니다');
+            }
+        })
+    }
+
     const userMenuView = () => (
         mounted && (
             user.isLogin
             ?<div className={`dropdown-menu ${styles.dropdown}`}>
                 <span className={styles.item}>{user.nickname}</span>
                 <ul className='dropdown-content'>
-                    <li><a href='https://auth.bssm.kro.kr/user' className='option' >유저 정보 수정</a></li>
+                    <li><a href='https://auth.bssm.kro.kr/user' className='option'>유저 정보</a></li>
+                    <li><span onClick={logout} className='option'>로그아웃</span></li>
                 </ul>
             </div>
             :(<span className={styles.item} onClick={() => openModal('login')}>로그인</span>)
@@ -55,9 +72,9 @@ export const Header = () => {
                         <li className={`dropdown-menu ${styles.dropdown}`}>
                             <span className={styles.item}>다른 서비스</span>
                             <ul className='dropdown-content'>
-                                <li><a href='https://auth.bssm.kro.kr/' className='option' >BSM Auth</a></li>
-                                <li><a href='https://drive.bssm.kro.kr/' className='option' >BSM Cloud</a></li>
-                                <li><a href='https://tetris.bssm.kro.kr/' className='option' >BSM Tetris</a></li>
+                                <li><a href='https://auth.bssm.kro.kr/' className='option'>BSM Auth</a></li>
+                                <li><a href='https://drive.bssm.kro.kr/' className='option'>BSM Cloud</a></li>
+                                <li><a href='https://tetris.bssm.kro.kr/' className='option'>BSM Tetris</a></li>
                             </ul>
                         </li>
                     </ul>
