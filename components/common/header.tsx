@@ -79,6 +79,7 @@ export const Header = () => {
                         </li>
                     </ul>
                     <ul className={styles.right}>
+                        <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>
                         <li>{userMenuView()}</li>
                     </ul>
                 </nav>

@@ -208,17 +208,18 @@ label, summary{
 }
 
 .list {
-    background-color: rgb(var(--level-1));
+    background-color: var(--level-1);
     border-radius: 2rem;
     overflow: hidden;
 }
 
 .list li {
-    border-bottom: 1px solid rgb(var(--background));
+    border-bottom: 2px solid var(--background);
     padding: 1.3rem 1.5rem;
     transition: .2s;
     display: flex;
     align-items: center;
+    transition: none;
 }
 
 .list li.pointer {
@@ -647,7 +648,7 @@ input[type=number].year {
     .textarea
 ):hover {
     box-shadow: var(--shadow) inset;
-    background-color: (var(--hover), .1) !important;
+    background-color: var(--hover) !important;
 }
 
 :is(
@@ -689,7 +690,7 @@ input[type=number].year {
     .edit_button
 ):hover {
     box-shadow: var(--shadow);
-    background-color: var(--hover), .2;
+    background-color: var(--hover);
 }
 
 .close_button {

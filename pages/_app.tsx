@@ -7,6 +7,7 @@ import Toast from '../components/common/overlay/toast'
 import Alert from '../components/common/overlay/alert'
 import { LoginBox } from '../components/common/accountPopup'
 import { Header } from '../components/common/header'
+import { SettingBox } from '../components/common/settingPopup'
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <>
                     <Header />
                     <LoginBox />
+                    <SettingBox />
                     <Toast />
                     <Alert />
                     <LoadingDim />
