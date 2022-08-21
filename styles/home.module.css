@@ -48,12 +48,41 @@
     padding: .5rem;
 }
 
-.user_info {
+.sub_content {
     font-size: 1.7rem;
 }
 
-.user_name {
+.main_content {
     font-size: 2.2rem;
+}
+
+.meister .sub_content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+}
+
+.meister .main_content {
+    font-size: 1.8rem;
+}
+
+.meister .main_content span:nth-child(2) {
+    margin-left: .5rem;
+    font-size: 1.5rem;
+    color: var(--text-level-1);
+}
+
+.meister_info {
+    display: inline-flex;
+    align-items: center;
+    gap: .1rem;
+}
+
+.refresh {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
 }
 
 /* 가로 메뉴 */
@@ -79,12 +108,12 @@
         padding: .5rem;
     }
 
-    .user_info {
+    .sub_content {
         font-size: 1.4rem;
     }
 
-    .user_name {
-        font-size: 1.8rem;
+    .main_content {
+        font-size: 1.8rem !important;
     }
 }
 
@@ -109,14 +138,6 @@
         width: 3.5rem;
         height: 3.5rem;
         padding: .5rem;
-    }
-
-    .user_info {
-        font-size: 1.4rem;
-    }
-
-    .user_name {
-        font-size: 1.8rem;
     }
 }
 
@@ -152,11 +173,11 @@
         padding: 0;
     }
 
-    .user_info {
+    .sub_content {
         font-size: 1.4rem;
     }
 
-    .user_name {
-        font-size: 1.8rem;
+    .main_content {
+        font-size: 1.8rem !important;
     }
 }

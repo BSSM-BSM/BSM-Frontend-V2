@@ -4,16 +4,60 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useModal } from '../hooks/useModal';
 import { userState } from '../store/account.store';
+import { useAjax } from '../hooks/useAjax';
+import Modal from '../components/common/modal';
+
+interface MeisterInfo {
+    isLoading: boolean;
+    score?: number;
+    positivePoint?: number;
+    negativePoint?: number;
+    lastUpdate: string;
+    uniqNo?: string;
+    loginError?: boolean;
+    authError?: boolean
+}
 
 const Home: NextPage = () => {
     const [mounted, setMounted] = useState(false);
     const [user] = useRecoilState(userState);
+    const [meisterInfo, setMeisterInfo] = useState<MeisterInfo>({
+        isLoading: true,
+        lastUpdate: ''
+    });
     const { openModal } = useModal();
+    const { ajax } = useAjax();
 
     useEffect(() => {
         setMounted(true);
+        loadMeisterInfo();
         return () => setMounted(false);
     }, []);
+
+    const loadMeisterInfo = (type?: string) => {
+        setMeisterInfo({
+            isLoading: true,
+            lastUpdate: ''
+        });
+        ajax<MeisterInfo>({
+            url: `meister${type === 'update'? '/update': ''}`,
+            method: 'get',
+            callback(data) {
+                setMeisterInfo({...data, isLoading: false});
+            },
+            errorCallback(data) {
+                if (data?.statusCode === 401) {
+                    setMeisterInfo({
+                        isLoading: false,
+                        lastUpdate: new Date().toString(),
+                        authError: true
+                    });
+                    return true;
+                }
+                return false;
+            },
+        })
+    }
 
     const userMenuView = () => (
         mounted && (
@@ -21,8 +65,8 @@ const Home: NextPage = () => {
             ?<a className={styles.menu} href='https://auth.bssm.kro.kr/user'>
                 <img className={`${styles.icon} ${styles.user_icon} user-profile`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
                 <div>
-                    <div className={styles.user_info}>{user.grade}학년 {user.classNo}반 {user.studentNo}번 {user.name}</div>
-                    <div className={styles.user_name}>{user.nickname}</div>
+                    <div className={styles.sub_content}>{user.grade}학년 {user.classNo}반 {user.studentNo}번 {user.name}</div>
+                    <div className={styles.main_content}>{user.nickname}</div>
                 </div>
             </a>
             :<div className={styles.menu} onClick={() => openModal('login')}>
@@ -32,6 +76,23 @@ const Home: NextPage = () => {
         )
     )
 
+    const meisterInfoView = () => {
+        const { isLoading, authError, loginError, score, positivePoint, negativePoint } = meisterInfo;
+
+        if (isLoading) return '로딩중';
+        if (authError) return '로그인후 이용 가능합니다';
+        if (loginError) return (
+            <>
+                <span>정보를 자동으로 불러올 수 없습니다</span>
+                <span onClick={e => {
+                    e.preventDefault();
+                    openModal('meister_login_error');
+                }}>해결 방법</span>
+            </>
+        );
+        return `${score}점 상점: ${positivePoint} 벌점: ${negativePoint}`;
+    }
+
     return (
         <div className='full-screen'>
             <section className={styles.quick_menu_section}>
@@ -40,9 +101,23 @@ const Home: NextPage = () => {
                         {userMenuView()}
                     </li>
                     <li>
-                        <a className={styles.menu} href='/meister'>
+                        <a className={`${styles.menu} ${styles.meister}`} href='/meister'>
                             <img className={styles.icon} src='/icons/person.svg' alt='meister'></img>
-                            마이스터 인증제 / 상벌점
+                            <div>
+                                <div className={styles.sub_content}>
+                                    <span>
+                                        점수 / 상벌점
+                                    </span>
+                                    <span className={styles.meister_info} onClick={e => {
+                                        e.preventDefault();
+                                        loadMeisterInfo('update');
+                                    }}>
+                                        {!meisterInfo.isLoading && `Update: ${new Date(meisterInfo.lastUpdate).toLocaleTimeString('ko-KR', {hour12: false, timeStyle: 'medium'})}`}
+                                        {!meisterInfo.isLoading && <img className={`${styles.icon} ${styles.refresh}`} src='/icons/refresh.svg' alt='refresh'></img>}
+                                    </span>
+                                </div>
+                                <div className={styles.main_content}>{meisterInfoView()}</div>
+                            </div>
                         </a>
                     </li>
                     <li>
@@ -83,8 +158,19 @@ const Home: NextPage = () => {
                     </li>
                 </ul>
             </section>
+            <Modal type="main" id="meister_login_error" title="해결 방법">
+                <div>
+                    <a href="https://bssm.meistergo.co.kr" className='accent-text'>마이스터 역량 인증제 사이트</a><span>의 비밀번호를 초기 비밀번호로 재설정한 뒤 다시 새로고침 해주세요</span>
+                    <br />
+                    <br />
+                    <details>
+                        {meisterInfo.uniqNo}
+                        <summary>초기 비밀번호 보기</summary>
+                    </details>
+                </div>
+            </Modal>
         </div>
     )
 }
 
-export default Home
+export default Home;
