@@ -36,7 +36,10 @@ export const Header = () => {
         mounted && (
             user.isLogin
             ?<div className={`dropdown-menu ${styles.dropdown}`}>
-                <span className={styles.item}>{user.nickname}</span>
+                <span className={`${styles.item} ${styles.user_profile_wrap}`}>
+                    <span>{user.nickname}</span>
+                    <img className='user-profile' src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
+                </span>
                 <ul className='dropdown-content'>
                     <li><a href='https://auth.bssm.kro.kr/user' className='option'>유저 정보</a></li>
                     <li><span onClick={logout} className='option'>로그아웃</span></li>
@@ -51,8 +54,8 @@ export const Header = () => {
             <div className={styles.top}>
                 <nav className={styles.top_menu_bar}>
                     <ul className={styles.left}>
-                        <li className={`${styles.item} ${styles.home}`}>
-                            <Link href='/'><img src='/logo/logo.png' alt='logo' className='logo' /></Link>
+                        <li className={styles.home}>
+                            <Link href='/'><img src='/logo/logo.png' alt='logo' className={`logo ${styles.item}`} /></Link>
                         </li>
                         <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(true)}>
                             <span className='line'></span>

@@ -203,6 +203,14 @@ label, summary{
     }
 }
 
+.full-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .list-wrap > li > h3 {
     padding: 2.5rem 1.5rem .5rem;
 }
@@ -220,6 +228,7 @@ label, summary{
     display: flex;
     align-items: center;
     transition: none;
+    transition: background-color .25s;
 }
 
 .list li.pointer {
@@ -791,6 +800,11 @@ input[type=number].year {
     .button.main
 ) {
     width:100% !important;
+}
+
+.user-profile {
+    border-radius: 50%;
+    height: 2rem;
 }
 
 .oauth-bsm {
