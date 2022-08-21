@@ -1,0 +1,114 @@
+.result {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.point {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.point * {
+    all: unset !important;
+}
+
+.point > div {
+    flex: 100% !important;
+    font-size: 2.2rem !important;
+}
+
+.point > li {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    width: 50% !important;
+    height: 12.5rem !important;
+    border-radius: 1rem !important;
+    transition: .25s !important;
+}
+
+.point > li:hover {
+    box-shadow: var(--shadow) !important;
+    background-color: var(--hover) !important;
+}
+
+.point > .bad {
+    color: var(--accent-text) !important;
+    background-color: var(--red) !important;
+}
+
+.point > li > div {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 1rem 2rem !important;
+}
+
+.point > li:not(.bad) > div {
+    font-weight: normal !important;
+}
+
+.point > li > div > div:first-child {
+    font-size: 1.6rem !important;
+    font-weight: bold !important;
+}
+
+.score > div {
+    padding: 0 !important;
+    font-size: 1.6rem !important;
+    font-weight: bold !important;
+}
+
+.score table {
+    background-color: var(--level-1) !important;
+    box-shadow: var(--shadow) !important;
+    border-radius: 2rem !important;
+}
+
+.score > h1 {
+    font-size: 2.4rem !important;
+    margin: 1rem 0 !important;
+}
+
+.score > table tbody tr td {
+    background: none !important;
+    border: none !important;
+}
+
+.score > table tbody tr td * {
+    color: var(--text) !important;
+}
+
+.score > table:not(:nth-child(3)) tbody tr:first-child,
+.score > table:not(:nth-child(3)) tbody tr:not(:first-child) td:not(:nth-child(4)) {
+    display: none !important;
+}
+
+.score > table:not(:nth-child(3)) tbody tr td {
+    padding: 2rem !important;
+}
+
+.score > table:nth-child(3) tbody tr td:first-child {
+    width: 10%;
+}
+
+.score > table:nth-child(3) tbody tr:first-child td {
+    padding-top: 2rem !important;
+}
+
+.score > table:nth-child(3) tbody tr:last-child td {
+    padding-bottom: 2rem !important;
+}
+
+@media screen and (min-width: 0px) and (max-width: 1023px) {
+    .point > li {
+        width: 100% !important;
+        height: 15rem !important;
+    }
+
+    .point > li > div {
+        padding: 1rem !important;
+    }
+}

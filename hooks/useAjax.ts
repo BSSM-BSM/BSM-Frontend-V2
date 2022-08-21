@@ -5,11 +5,11 @@ import { useModal } from "./useModal";
 import { useOverlay } from "./useOverlay";
 
 const instance = axios.create({
-    baseURL:'/api',
+    baseURL: '/api',
     headers: {
-        'Pragma': 'no-cache'
+        Pragma: 'no-cache'
     },
-    timeout:3000,
+    timeout: 5000,
 });
 
 interface ErrorResType {

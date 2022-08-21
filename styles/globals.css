@@ -119,6 +119,10 @@ body {
     }
 }
 
+h1 {
+    font-size: 3.6rem;
+}
+
 h3 {
     font-size: 2rem;
 }
@@ -144,15 +148,15 @@ label, summary{
 }
 
 .left {
-    text-align: left;
+    text-align: left !important;
 }
 
 .right {
-    text-align: right;
+    text-align: right !important;
 }
 
 .center {
-    text-align: center;
+    text-align: center !important;
 }
 
 .bold {
@@ -192,15 +196,19 @@ label, summary{
 }
 
 .container .title {
-    font-size: 3.6rem;
+    margin-top: 5rem;
     margin-left: 2.5rem;
     text-align: left;
 }
+
 @media screen and (min-width: 0) and (max-width: 920px)  {
     .container .title {
-        font-size: 3rem;
         margin-left: 1rem;
     }
+}
+
+.container .title.center {
+    margin-left: 0;
 }
 
 .full-screen {
@@ -677,6 +685,12 @@ input[type=number].year {
     color: var(--accent);
 }
 
+.inactive {
+    color: var(--text) !important;
+    background-color: var(--gray) !important;
+    opacity: .5;
+    cursor: not-allowed;
+}
 
 .close_button,
 .edit_button {
@@ -728,6 +742,7 @@ input[type=number].year {
 
 .modal {
     pointer-events: all;
+    margin-top: 5rem;
     min-width: 20rem;
     min-height: 6rem;
     position: absolute;
@@ -768,6 +783,8 @@ input[type=number].year {
 .modal--content {
     margin-top: 1rem;
     text-align: center;
+    max-height: calc(100vh - 15rem);
+    overflow-y: auto;
 }
 
 .modal form {
@@ -800,6 +817,12 @@ input[type=number].year {
     .button.main
 ) {
     width:100% !important;
+}
+
+.detail {
+    color: var(--text-level-1);
+    font-size: 1.6rem;
+    cursor: pointer;
 }
 
 .user-profile {

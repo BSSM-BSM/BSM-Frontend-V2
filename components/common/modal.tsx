@@ -8,14 +8,16 @@ interface ModalProps {
     children: ReactNode,
     id: string,
     type?: string,
-    title?: string | ReactNode
+    title?: string | ReactNode,
+    callback?: Function
 }
 
 const Modal = ({
     children,
     id,
     type,
-    title
+    title,
+    callback
 }: ModalProps) => {
     const { closeModal } = useModal();
     const [mounted, setMounted] = useState(false);
@@ -25,6 +27,11 @@ const Modal = ({
         setMounted(true);
         return () => setMounted(false);
     }, []);
+
+    useEffect(() => {
+        if (!callback || !mounted || !modalList[id]) return;
+        callback();
+    }, [modalList]);
     
     return mounted? createPortal(
         modalList[id] && (

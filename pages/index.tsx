@@ -6,6 +6,7 @@ import { useModal } from '../hooks/useModal';
 import { userState } from '../store/account.store';
 import { useAjax } from '../hooks/useAjax';
 import Modal from '../components/common/modal';
+import Link from 'next/link';
 
 interface MeisterInfo {
     isLoading: boolean;
@@ -15,7 +16,7 @@ interface MeisterInfo {
     lastUpdate: string;
     uniqNo?: string;
     loginError?: boolean;
-    authError?: boolean
+    error: string | false;
 }
 
 const Home: NextPage = () => {
@@ -23,7 +24,8 @@ const Home: NextPage = () => {
     const [user] = useRecoilState(userState);
     const [meisterInfo, setMeisterInfo] = useState<MeisterInfo>({
         isLoading: true,
-        lastUpdate: ''
+        lastUpdate: '',
+        error: false
     });
     const { openModal } = useModal();
     const { ajax } = useAjax();
@@ -37,23 +39,33 @@ const Home: NextPage = () => {
     const loadMeisterInfo = (type?: string) => {
         setMeisterInfo({
             isLoading: true,
-            lastUpdate: ''
+            lastUpdate: '',
+            error: false
         });
         ajax<MeisterInfo>({
             url: `meister${type === 'update'? '/update': ''}`,
             method: 'get',
             callback(data) {
-                setMeisterInfo({...data, isLoading: false});
+                setMeisterInfo({
+                    ...data,
+                    isLoading: false,
+                    error: data.loginError? 'login': false
+                });
             },
             errorCallback(data) {
                 if (data?.statusCode === 401) {
                     setMeisterInfo({
                         isLoading: false,
                         lastUpdate: new Date().toString(),
-                        authError: true
+                        error: 'auth'
                     });
                     return true;
                 }
+                setMeisterInfo({
+                    isLoading: false,
+                    lastUpdate: new Date().toString(),
+                    error: 'unknown'
+                });
                 return false;
             },
         })
@@ -77,11 +89,11 @@ const Home: NextPage = () => {
     )
 
     const meisterInfoView = () => {
-        const { isLoading, authError, loginError, score, positivePoint, negativePoint } = meisterInfo;
+        const { isLoading, error, score, positivePoint, negativePoint } = meisterInfo;
 
         if (isLoading) return '로딩중';
-        if (authError) return '로그인후 이용 가능합니다';
-        if (loginError) return (
+        if (error === 'auth') return '로그인후 이용 가능합니다';
+        if (error === 'login') return (
             <>
                 <span>정보를 자동으로 불러올 수 없습니다</span>
                 <span onClick={e => {
@@ -90,7 +102,8 @@ const Home: NextPage = () => {
                 }}>해결 방법</span>
             </>
         );
-        return `${score}점 상점: ${positivePoint} 벌점: ${negativePoint}`;
+        if (error) return '알 수 없는 에러가 발생하였습니다';
+        return `${score}점 / 상점: ${positivePoint} 벌점: ${negativePoint}`;
     }
 
     return (
@@ -101,60 +114,74 @@ const Home: NextPage = () => {
                         {userMenuView()}
                     </li>
                     <li>
-                        <a className={`${styles.menu} ${styles.meister}`} href='/meister'>
-                            <img className={styles.icon} src='/icons/person.svg' alt='meister'></img>
-                            <div>
-                                <div className={styles.sub_content}>
-                                    <span>
-                                        점수 / 상벌점
-                                    </span>
-                                    <span className={styles.meister_info} onClick={e => {
-                                        e.preventDefault();
-                                        loadMeisterInfo('update');
-                                    }}>
-                                        {!meisterInfo.isLoading && `Update: ${new Date(meisterInfo.lastUpdate).toLocaleTimeString('ko-KR', {hour12: false, timeStyle: 'medium'})}`}
-                                        {!meisterInfo.isLoading && <img className={`${styles.icon} ${styles.refresh}`} src='/icons/refresh.svg' alt='refresh'></img>}
-                                    </span>
+                        <Link href='/meister'>
+                            <a className={`${styles.menu} ${styles.meister}`}>
+                                <img className={styles.icon} src='/icons/person.svg' alt='meister'></img>
+                                <div>
+                                    <div className={styles.sub_content}>
+                                        <span>
+                                            점수 / 상벌점
+                                        </span>
+                                        <span className={styles.meister_info} onClick={e => {
+                                            e.preventDefault();
+                                            loadMeisterInfo('update');
+                                        }}>
+                                            {!meisterInfo.isLoading && `Update: ${new Date(meisterInfo.lastUpdate).toLocaleTimeString('ko-KR', {hour12: false, timeStyle: 'medium'})}`}
+                                            {!meisterInfo.isLoading && <img className={`${styles.icon} ${styles.refresh}`} src='/icons/refresh.svg' alt='refresh'></img>}
+                                        </span>
+                                    </div>
+                                    <div className={styles.main_content}>{meisterInfoView()}</div>
                                 </div>
-                                <div className={styles.main_content}>{meisterInfoView()}</div>
-                            </div>
-                        </a>
+                            </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className={styles.menu} href='/meal'>
-                            <img className={styles.icon} src='/icons/meal.svg' alt='meal'></img>
-                            <span>급식</span>
-                        </a>
+                       <Link href='/meal'>
+                            <a className={styles.menu}>
+                                <img className={styles.icon} src='/icons/meal.svg' alt='meal'></img>
+                                <span>급식</span>
+                            </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className={styles.menu} href='/timetable'>
-                            <img className={styles.icon} src='/icons/timetable.svg' alt='timetable'></img>
-                            시간표
-                        </a>
+                       <Link href='/timetable'>
+                            <a className={styles.menu}>
+                                <img className={styles.icon} src='/icons/timetable.svg' alt='timetable'></img>
+                                시간표
+                            </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className={styles.menu} href='/board/anonymous'>
-                            <img className={styles.icon} src='/icons/people.svg' alt='anonymous board'></img>
-                            익명게시판
-                        </a>
+                        <Link href='/board/anonymous'>
+                            <a className={styles.menu}>
+                                <img className={styles.icon} src='/icons/people.svg' alt='anonymous board'></img>
+                                익명게시판
+                            </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className={styles.menu} href='/board/qna'>
-                            <img className={styles.icon} src='/icons/people.svg' alt='Q&A board'></img>
-                            질문게시판
-                        </a>
+                        <Link href='/board/qna'>
+                            <a className={styles.menu}>
+                                <img className={styles.icon} src='/icons/people.svg' alt='Q&A board'></img>
+                                질문게시판
+                            </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className={styles.menu} href='/board/software'>
-                            <img className={styles.icon} src='/icons/people.svg' alt='software board'></img>
-                            소프트웨어 게시판
-                        </a>
+                        <Link href='/board/software'>
+                            <a className={styles.menu}>
+                                <img className={styles.icon} src='/icons/people.svg' alt='software board'></img>
+                                소프트웨어 게시판
+                            </a>
+                        </Link>
                     </li>
                     <li>
-                        <a className={styles.menu} href='/board/embedded'>
-                            <img className={styles.icon} src='/icons/people.svg' alt='embedded board'></img>
-                            임베디드 게시판
-                        </a>
+                        <Link href='/board/embedded'>
+                            <a className={styles.menu}>
+                                <img className={styles.icon} src='/icons/people.svg' alt='embedded board'></img>
+                                임베디드 게시판
+                            </a>
+                        </Link>
                     </li>
                 </ul>
             </section>

@@ -80,9 +80,9 @@
 }
 
 .refresh {
-    width: 2rem;
-    height: 2rem;
-    padding: 0;
+    width: 2rem !important;
+    height: 2rem !important;
+    padding: 0 !important;
 }
 
 /* 가로 메뉴 */
