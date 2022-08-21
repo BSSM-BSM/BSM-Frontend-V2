@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         mounted && (
             user.isLogin
             ?<a className={styles.menu} href='https://auth.bssm.kro.kr/user'>
-                <img className={`${styles.icon} ${styles.no_filter} user-profile`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
+                <img className={`${styles.icon} ${styles.user_icon} user-profile`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
                 <div>
                     <div className={styles.user_info}>{user.grade}학년 {user.classNo}반 {user.studentNo}번 {user.name}</div>
                     <div className={styles.user_name}>{user.nickname}</div>
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
         <div className='full-screen'>
             <section className={styles.quick_menu_section}>
                 <ul className={styles.quick_menu_list}>
-                    <li className='user'>
+                    <li>
                         {userMenuView()}
                     </li>
                     <li>

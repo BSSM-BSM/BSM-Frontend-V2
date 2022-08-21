@@ -47,6 +47,7 @@
 .user_profile_wrap {
     display: flex;
     align-items: center;
+    gap: .5rem;
     padding: 0;
     height: 100%;
 }
