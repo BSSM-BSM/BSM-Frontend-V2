@@ -38,10 +38,11 @@
     width: 5rem;
     height: 5rem;
     padding: .75rem;
+    filter: var(--bright);
 }
 
-.icon:not(.user_icon) {
-    filter: var(--bright);
+.icon.user_icon {
+    filter: none;
 }
 
 .user_icon {

@@ -1,13 +1,12 @@
 import styles from '../styles/timetable.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../store/account.store';
 import { useAjax } from '../hooks/useAjax';
-import { useModal } from '../hooks/useModal';
-import Modal from '../components/common/modal';
 import { useInterval } from '../hooks/useInterval';
+import { useOverlay } from '../hooks/useOverlay';
 
 interface TimetableInfo {
     className: string,
@@ -18,6 +17,7 @@ interface TimetableInfo {
 
 const TimetablePage: NextPage = () => {
     const { ajax } = useAjax();
+    const { showAlert } = useOverlay();
     const [user] = useRecoilState(userState);
     const [grade, setGrade] = useState(user.grade);
     const [classNo, setClassNo] = useState(user.classNo);
@@ -26,28 +26,102 @@ const TimetablePage: NextPage = () => {
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
 
+    const timetableListRef = useRef<HTMLUListElement>(null);
+    const [focus, setFocus] = useState(true);
+    const [scrollX, setScrollX] = useState(0);
+    const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
+
     useEffect(() => {
         loadTimetableInfo();
     }, []);
 
-    useInterval(() => {
+    const timeTableRender = () => {
+        if (!timetableList.length) return;
+        
         const newDate = new Date();
 
         const currentTime = newDate.toLocaleTimeString('ko-KR', {hour12: false, timeStyle: 'medium'});
         if (time == currentTime) return;
         setTime(currentTime);
 
+        syncTimetable(newDate);
+
         const currentDate = newDate.toLocaleDateString();
         if (date == currentDate) return;
         setDate(currentDate);
-    }, 500);
+    }
+
+    useInterval(timeTableRender, 500);
+
+    useEffect(timeTableRender, [timetableList]);
+    useEffect(() => {
+        timetableListRef.current?.scrollTo({
+            left: scrollX
+        });
+    }, [scrollX]);
+
+    const syncTimetable = (newDate: Date) => {
+        let startTotalTime = 0;
+        let endTotalTime = 0;
+        let currentTotalTime = 0;
+        let currentTimeIndex = 0;
+        timetableList.some((timetable, i) => {
+            startTotalTime = convertTime(timetable.startTime);
+            endTotalTime = convertTime(timetable.endTime);
+            currentTotalTime = convertTime(`${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`);
+            if (startTotalTime <= currentTotalTime && currentTotalTime <= endTotalTime) {
+                currentTimeIndex = i;
+                setCurrentTimeIndex(i);
+                return true;
+            }
+        });
+        
+        if (focus) {
+            const normalElOffset = 350;
+            const breaktimeElOffset = 150;
+            let totalOffset = 0;
+
+            timetableList.some((timetable, i) => {
+                if (currentTimeIndex <= i) {
+                    totalOffset += ((currentTotalTime - startTotalTime) / (endTotalTime - startTotalTime)) * (timetable.type === 'break'? breaktimeElOffset: normalElOffset);
+                    return true;
+                }
+                if (timetable.type === 'break') {
+                    totalOffset += breaktimeElOffset;
+                } else {
+                    totalOffset += normalElOffset;
+                }
+            });
+            setScrollX(Math.floor(totalOffset));
+        }
+    }
+
+    const convertTime = (dateString: string) => {
+        const temp = dateString.split(':');
+        return (Number(temp[0]) * 60 * 60) + (Number(temp[1]) * 60) + Number(temp[2]);
+    }
 
     const loadTimetableInfo = () => {
         ajax<TimetableInfo[]>({
             url: `timetable/${grade}/${classNo}/${day}`,
             method: 'get',
             callback(data) {
-                setTimetableList(data);
+                const newTimetableList: TimetableInfo[] = [];
+                data.forEach((timetable, i, arr) => {
+                    newTimetableList.push(timetable);
+                    if (timetable.type === 'class' && arr[i+1]?.type === 'class') {
+                        newTimetableList.push({
+                            className: '쉬는시간',
+                            type: 'break',
+                            startTime: timetable.endTime,
+                            endTime: data[i + 1].startTime
+                        });
+                    }
+                });
+                setTimetableList(newTimetableList);
+                if (!newTimetableList.length) {
+                    showAlert('시간표 데이터가 없습니다');
+                }
             },
             errorCallback() {
                 setTimetableList([]);
@@ -67,27 +141,39 @@ const TimetablePage: NextPage = () => {
             </div>
             <div className={styles.timetable_wrap}>
                 <div className={styles.time_wrap}>
-                    <h2>{time}</h2>
+                    <h2 className={!focus? 'gray': ''}>{time}</h2>
                     <h2>{date}</h2>
                 </div>
-                <div className={styles.time_line}></div>
-                <ul className={styles.timetable}>{
+                {timetableList.length > 0 && <div className={styles.time_line}></div>}
+                <ul
+                    className={styles.timetable}
+                    ref={timetableListRef}
+                    onScroll={e => {
+                        if (e.currentTarget.scrollLeft === scrollX) return;
+                        setFocus(false);
+                    }}
+                >{
                     timetableList.map((timetable, i) => (
-                        <li key={timetable.className}>
+                        <li key={i} className={`${styles[timetable.type]} ${i === currentTimeIndex? styles.active: ''}`}>
                             {
-                                i == 0 &&
+                                i !== 0 &&
                                 <span className={styles.start_time}>
-                                    {timetable.startTime.split(':').filter((str, i) => i != 2).join(':')}
+                                    {timetable.startTime.split(':').filter((str, j) => j != 2).join(':')}
                                 </span>
                             }
                             <span>{timetable.className}</span>
-                            <span className={styles.end_time}>
-                            {timetable.endTime.split(':').filter((str, i) => i != 2).join(':')}
-                            </span>
                         </li>
                     ))
                 }</ul>
             </div>
+            { !focus && <button className={styles.sync_button} onClick={() => {
+                timetableListRef.current?.scrollTo({
+                    left: scrollX
+                });
+                setFocus(true);
+            }}>
+                현재 시간과 동기화
+            </button>}
         </div>
     );
 }

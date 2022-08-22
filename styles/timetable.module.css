@@ -33,14 +33,19 @@
     transform: translateY(-50%);
     display: flex;
     width: 100%;
-    overflow: auto;
+    overflow-x: auto;
     padding: calc(50vh - 6rem) 50%;
 }
 
 .timetable li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 35rem;
+    width: 100%;
+    height: 8rem;
     position: relative;
     word-break: keep-all;
-    padding: 3rem 15rem;
     font-size: 2rem;
     font-weight: bold;
 }
@@ -53,6 +58,22 @@
     background-color: var(--level-2);
 }
 
+.timetable li.active {
+    background-color: var(--accent);
+}
+
+.timetable li.active span:last-child {
+    color: var(--background);
+}
+
+.break {
+    min-width: 15rem !important;
+}
+
+.break span:last-child {
+    font-size: 1.6rem !important;
+}
+
 .timetable li:first-child {
     border-radius: 1.5rem 0 0 1.5rem;
 }
@@ -61,14 +82,28 @@
     border-radius: 0 1.5rem 1.5rem 0;
 }
 
-.start_time, .end_time {
+.start_time {
     position: absolute;
     top: calc(100% + 2rem);
     right: 100%;
     transform: translateX(50%);
 }
 
-.end_time {
-    right: 0%;
-    transform: translateX(50%);
+.sync_button {
+    position: fixed;
+    z-index: 2;
+    right: 3rem;
+    bottom: 3rem;
+    padding: 1.5rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: var(--level-1);
+    cursor: pointer;
+    transition: .25s;
+}
+
+.sync_button:hover {
+    background-color: var(--hover);
 }
