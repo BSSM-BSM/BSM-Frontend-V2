@@ -82,7 +82,7 @@ const MeisterPage: NextPage = () => {
             }}>
                 <div>
                     <input
-                        value={user.grade}
+                        value={user.grade && ''}
                         type='number'
                         className='input-text'
                         placeholder='학년'
@@ -92,7 +92,7 @@ const MeisterPage: NextPage = () => {
                         onChange={e => setGrade(Number(e.target.value))}
                     />
                     <input
-                        value={user.classNo}
+                        value={user.classNo && ''}
                         type='number'
                         className='input-text'
                         placeholder='반'
@@ -102,7 +102,7 @@ const MeisterPage: NextPage = () => {
                         onChange={e => setClassNo(Number(e.target.value))}
                     />
                     <input
-                        value={user.studentNo}
+                        value={user.studentNo && ''}
                         type='number'
                         className='input-text'
                         placeholder='번호'

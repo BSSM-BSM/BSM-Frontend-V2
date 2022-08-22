@@ -1,0 +1,74 @@
+.time_wrap {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: calc(25% + 10rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time_wrap h2:first-child {
+    font-size: 3.4rem;
+}
+
+.time_line {
+    pointer-events: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    height: 15rem;
+    border: solid 2px var(--text);
+    opacity: .8;
+}
+
+.timetable {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    width: 100%;
+    overflow: auto;
+    padding: calc(50vh - 6rem) 50%;
+}
+
+.timetable li {
+    position: relative;
+    word-break: keep-all;
+    padding: 3rem 15rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.timetable li:nth-child(2n + 1) {
+    background-color: var(--level-1);
+}
+
+.timetable li:nth-child(2n) {
+    background-color: var(--level-2);
+}
+
+.timetable li:first-child {
+    border-radius: 1.5rem 0 0 1.5rem;
+}
+
+.timetable li:last-child {
+    border-radius: 0 1.5rem 1.5rem 0;
+}
+
+.start_time, .end_time {
+    position: absolute;
+    top: calc(100% + 2rem);
+    right: 100%;
+    transform: translateX(50%);
+}
+
+.end_time {
+    right: 0%;
+    transform: translateX(50%);
+}
