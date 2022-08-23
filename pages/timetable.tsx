@@ -7,6 +7,7 @@ import { userState } from '../store/account.store';
 import { useAjax } from '../hooks/useAjax';
 import { useInterval } from '../hooks/useInterval';
 import { useOverlay } from '../hooks/useOverlay';
+import { numberInBetween } from '../utils/util';
 
 interface TimetableInfo {
     className: string,
@@ -19,8 +20,8 @@ const TimetablePage: NextPage = () => {
     const { ajax } = useAjax();
     const { showAlert } = useOverlay();
     const [user] = useRecoilState(userState);
-    const [grade, setGrade] = useState(user.grade);
-    const [classNo, setClassNo] = useState(user.classNo);
+    const [grade, setGrade] = useState(0);
+    const [classNo, setClassNo] = useState(0);
     const [day, setDay] = useState(new Date().getDay());
     const [timetableList, setTimetableList] = useState<TimetableInfo[]>([]);
     const [time, setTime] = useState('');
@@ -33,12 +34,19 @@ const TimetablePage: NextPage = () => {
     const dayNames = ['일', '월', '화', '수', '목', '금'];
 
     useEffect(() => {
+        setGrade(user.grade);
+        setClassNo(user.classNo);
+    }, []);
+
+    useEffect(() => {
+        if (!grade || !classNo) return;
+        
         loadTimetableInfo();
         if (day !== new Date().getDay()) {
             setFocus(false);
             setCurrentTimeIndex(-1);
         }
-    }, [day]);
+    }, [day, grade, classNo]);
 
     const timeTableRender = () => {
         if (!timetableList.length) return;
@@ -140,6 +148,39 @@ const TimetablePage: NextPage = () => {
         });
     }
 
+    const selectMenuView = () => (
+        <>
+            <span className='dropdown-menu'>
+                <span className='select button'>{grade}학년</span>
+                <ul className='dropdown-content'>{
+                    [1, 2, 3].map(i => (
+                        <li
+                            className='option'
+                            key={i}
+                            onClick={() => setGrade(i)}
+                        >
+                            {i}반
+                        </li>
+                    ))
+                }</ul>
+            </span>
+            <span className='dropdown-menu'>
+                <span className='select button'>{classNo}반</span>
+                <ul className='dropdown-content'>{
+                    [1, 2, 3, 4].map(i => (
+                        <li
+                            className='option'
+                            key={i}
+                            onClick={() => setClassNo(i)}
+                        >
+                            {i}반
+                        </li>
+                    ))
+                }</ul>
+            </span>
+        </>
+    )
+
     return (
         <div>
             <div className='container _100'>
@@ -169,12 +210,14 @@ const TimetablePage: NextPage = () => {
                         ))
                     }
                 </ul>
+                <div className={styles.select_box}>{selectMenuView()}</div>
                 <ul
                     className={styles.timetable}
                     ref={timetableListRef}
                     onScroll={e => {
-                        if (e.currentTarget.scrollLeft === scrollX) return;
-                        setFocus(false);
+                        if (!numberInBetween(scrollX-2, scrollX+2, e.currentTarget.scrollLeft)) {
+                            setFocus(false);
+                        }
                     }}
                 >{
                     timetableList.map((timetable, i) => (
