@@ -107,3 +107,31 @@
 .sync_button:hover {
     background-color: var(--hover);
 }
+
+.select_day {
+    position: fixed;
+    z-index: 2;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    background-color: var(--menu-background);
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.select_day li {
+    padding: 1rem 2rem;
+    transition: .25s;
+}
+
+.select_day li:hover {
+    background-color: var(--hover);
+}
+
+.select_day li.active {
+    background-color: var(--accent);
+    color: var(--background);
+}

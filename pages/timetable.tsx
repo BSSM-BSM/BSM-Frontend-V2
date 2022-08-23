@@ -30,10 +30,15 @@ const TimetablePage: NextPage = () => {
     const [focus, setFocus] = useState(true);
     const [scrollX, setScrollX] = useState(0);
     const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
+    const dayNames = ['일', '월', '화', '수', '목', '금'];
 
     useEffect(() => {
         loadTimetableInfo();
-    }, []);
+        if (day !== new Date().getDay()) {
+            setFocus(false);
+            setCurrentTimeIndex(-1);
+        }
+    }, [day]);
 
     const timeTableRender = () => {
         if (!timetableList.length) return;
@@ -44,7 +49,13 @@ const TimetablePage: NextPage = () => {
         if (time == currentTime) return;
         setTime(currentTime);
 
-        syncTimetable(newDate);
+        if (focus && day !== newDate.getDay()) {
+            setDay(newDate.getDay());
+        }
+
+        if (day === newDate.getDay()) {
+            syncTimetable(newDate);
+        }
 
         const currentDate = newDate.toLocaleDateString();
         if (date == currentDate) return;
@@ -109,7 +120,7 @@ const TimetablePage: NextPage = () => {
                 const newTimetableList: TimetableInfo[] = [];
                 data.forEach((timetable, i, arr) => {
                     newTimetableList.push(timetable);
-                    if (timetable.type === 'class' && arr[i+1]?.type === 'class') {
+                    if (timetable.type === 'class' && arr[i + 1]?.type === 'class') {
                         newTimetableList.push({
                             className: '쉬는시간',
                             type: 'break',
@@ -145,6 +156,19 @@ const TimetablePage: NextPage = () => {
                     <h2>{date}</h2>
                 </div>
                 {timetableList.length > 0 && <div className={styles.time_line}></div>}
+                <ul className={styles.select_day}>
+                    {
+                        dayNames.map((name, i) => (
+                            <li
+                                key={name}
+                                className={i === day? styles.active: ''}
+                                onClick={() => setDay(i)}
+                            >
+                                {name}
+                            </li>
+                        ))
+                    }
+                </ul>
                 <ul
                     className={styles.timetable}
                     ref={timetableListRef}
@@ -170,6 +194,7 @@ const TimetablePage: NextPage = () => {
                 timetableListRef.current?.scrollTo({
                     left: scrollX
                 });
+                setDay(new Date().getDay());
                 setFocus(true);
             }}>
                 현재 시간과 동기화
