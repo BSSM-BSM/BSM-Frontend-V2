@@ -22,6 +22,7 @@
     align-items: center;
     gap: 1.5rem;
     background-color: var(--menu-background);
+    box-shadow: var(--shadow);
     padding: 2rem;
     border-radius: 1rem;
     transition: .25s;

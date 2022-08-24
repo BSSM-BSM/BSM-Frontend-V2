@@ -119,6 +119,10 @@ body {
     }
 }
 
+span {
+    vertical-align: baseline;
+}
+
 h1 {
     font-size: 3.6rem;
 }
@@ -157,6 +161,9 @@ label, summary{
 
 .center {
     text-align: center !important;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bold {
@@ -169,6 +176,10 @@ label, summary{
 
 .cols {
     flex-direction: column;
+}
+
+.gap-1 {
+    gap: 1rem;
 }
 
 .space-between {
@@ -586,6 +597,7 @@ label, summary{
     cursor: pointer;
     border-radius: .75rem;
     background-color: var(--level-2);
+    box-shadow: var(--shadow);
     transition: .25s;
 }
 

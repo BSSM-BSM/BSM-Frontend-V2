@@ -1,12 +1,13 @@
-import styles from '../styles/meister.module.css';
+import styles from '../../styles/meister/index.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { userState } from '../store/account.store';
-import { useAjax } from '../hooks/useAjax';
-import { useModal } from '../hooks/useModal';
-import Modal from '../components/common/modal';
+import { userState } from '../../store/account.store';
+import { useAjax } from '../../hooks/useAjax';
+import { useModal } from '../../hooks/useModal';
+import Modal from '../../components/common/modal';
+import Link from 'next/link';
 
 interface MeisterInfo {
     scoreHtmlContent: string;
@@ -82,7 +83,7 @@ const MeisterPage: NextPage = () => {
             }}>
                 <div>
                     <input
-                        value={user.grade || ''}
+                        value={grade || ''}
                         type='number'
                         className='input-text'
                         placeholder='학년'
@@ -92,7 +93,7 @@ const MeisterPage: NextPage = () => {
                         onChange={e => setGrade(Number(e.target.value))}
                     />
                     <input
-                        value={user.classNo || ''}
+                        value={classNo || ''}
                         type='number'
                         className='input-text'
                         placeholder='반'
@@ -102,7 +103,7 @@ const MeisterPage: NextPage = () => {
                         onChange={e => setClassNo(Number(e.target.value))}
                     />
                     <input
-                        value={user.studentNo || ''}
+                        value={studentNo || ''}
                         type='number'
                         className='input-text'
                         placeholder='번호'
@@ -125,13 +126,16 @@ const MeisterPage: NextPage = () => {
                     <br />
                     <label>
                         <input type='checkbox' checked={noPw} onChange={e => setNoPw(e.target.checked)} />
-                        비밀번호 사용 안함
+                        <span>비밀번호 사용 안함</span>
                     </label>
                 </div>
                 <br />
                 {!noPw && <h4>마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
                 <br />
-                <button type='submit' className='button accent'>조회</button>
+                <div className='rows gap-1 center'>
+                    <Link href='/meister/ranking'><a className='button'>랭킹</a></Link>
+                    <button type='submit' className='button accent'>조회</button>
+                </div>
             </form>
             {
                 meisterInfo.scoreHtmlContent && 

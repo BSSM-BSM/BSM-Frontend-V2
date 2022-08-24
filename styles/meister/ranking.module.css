@@ -1,0 +1,68 @@
+.ranking_list {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    font-size: 2rem;
+}
+
+.ranking_list li {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    padding-right: 2rem;
+    background-color: var(--level-1);
+    border-radius: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.rank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--background);
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: 2rem;
+    font-size: 1.8rem;
+}
+
+.rank::after {
+    margin-left: .25rem;
+    content: '위';
+}
+
+.student_info {
+    display: flex;
+    justify-content: left;
+    gap: 1rem;
+    font-weight: bold;
+}
+
+.score_info {
+    flex: 1;
+    display: flex;
+    justify-content: right;
+}
+
+.score_info span {
+    width: 10rem;
+}
+
+.score_info span:nth-child(1)::after {
+    content: '점';
+}
+
+.score_info span:nth-child(2)::before {
+    content: '상점: ';
+}
+
+.score_info span:nth-child(3)::before {
+    content: '벌점: ';
+}
+
+.last_update {
+    font-size: 1.6rem;
+    color: var(--text-level-1);
+}

@@ -48,6 +48,7 @@
     word-break: keep-all;
     font-size: 2rem;
     font-weight: bold;
+    box-shadow: var(--shadow);
 }
 
 .timetable li:nth-child(2n + 1) {
@@ -102,6 +103,7 @@
     background-color: var(--level-1);
     cursor: pointer;
     transition: .25s;
+    box-shadow: var(--shadow);
 }
 
 .sync_button:hover {
@@ -120,6 +122,7 @@
     font-weight: bold;
     border-radius: 1rem;
     overflow: hidden;
+    box-shadow: var(--shadow);
 }
 
 .select_day li {
