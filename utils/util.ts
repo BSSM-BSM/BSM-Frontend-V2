@@ -8,3 +8,19 @@ export const numberInBetween = (start: number, end: number, given: number): bool
     if (given >= start && given <= end) return true;
     return false;
 }
+
+export const elapsedTime = (date: string): string => {
+    const diff = (new Date().getTime() - new Date(date).getTime());
+    const times = [
+        {name: "년", time: 1000 * 60 * 60 * 24 * 365},
+        {name: "개월", time: 1000 * 60 * 60 * 24 * 30},
+        {name: "일", time: 1000 * 60 * 60 * 24},
+        {name: "시간", time: 1000 * 60 * 60},
+        {name: "분", time: 1000 * 60},
+    ];
+    for (const value of times) {
+        const betweenTime = Math.floor(diff / value.time);
+        if (betweenTime > 0) return `${betweenTime}${value.name} 전`;
+    }
+    return "방금 전";
+}

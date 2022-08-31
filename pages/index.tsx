@@ -7,6 +7,7 @@ import { userState } from '../store/account.store';
 import { useAjax } from '../hooks/useAjax';
 import Modal from '../components/common/modal';
 import Link from 'next/link';
+import { elapsedTime } from '../utils/util';
 
 interface MeisterInfo {
     isLoading: boolean;
@@ -126,7 +127,7 @@ const Home: NextPage = () => {
                                             e.preventDefault();
                                             loadMeisterInfo('update');
                                         }}>
-                                            {!meisterInfo.isLoading && `Update: ${new Date(meisterInfo.lastUpdate).toLocaleTimeString('ko-KR', {hour12: false, timeStyle: 'medium'})}`}
+                                            {!meisterInfo.isLoading && `Update: ${elapsedTime(meisterInfo.lastUpdate)}`}
                                             {!meisterInfo.isLoading && <img className={`${styles.icon} ${styles.refresh}`} src='/icons/refresh.svg' alt='refresh'></img>}
                                         </span>
                                     </div>

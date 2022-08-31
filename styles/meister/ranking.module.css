@@ -33,17 +33,25 @@
     content: '위';
 }
 
+.info_wrap {
+    display: flex;
+    justify-content: space-between;
+    flex: auto;
+}
+
+.score_info_wrap {
+    display: flex;
+    align-items: center;
+}
+
 .student_info {
     display: flex;
-    justify-content: left;
     gap: 1rem;
     font-weight: bold;
 }
 
 .score_info {
-    flex: 1;
     display: flex;
-    justify-content: right;
 }
 
 .score_info span {
@@ -65,4 +73,38 @@
 .last_update {
     font-size: 1.6rem;
     color: var(--text-level-1);
+    width: 15rem;
+}
+
+@media screen and (min-width: 0) and (max-width: 750px) {
+    .ranking_list {
+        font-size: 1.8rem;
+    }
+
+    .rank {
+        margin-right: 1rem;
+        font-size: 1.6rem;
+    }
+
+    .info_wrap {
+        flex-direction: column;
+    }
+
+    .score_info_wrap {
+        font-size: 1.6rem;
+        justify-content: space-between;
+    }
+
+    .score_info {
+        gap: 1rem;
+    }
+    
+    .score_info span {
+        width: auto;
+    }
+
+    .last_update {
+        font-size: 1.5rem;
+        width: auto;
+    }
 }
