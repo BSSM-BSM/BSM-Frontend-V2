@@ -1,3 +1,9 @@
+export enum MeisterResultType {
+    SUCCESS = 'SUCCESS',
+    PRIVATE = 'PRIVATE',
+    LOGIN_ERROR = 'LOGIN_ERROR'
+}
+
 export interface MeisterRanking {
     score: number;
     positivePoint: number;
@@ -8,6 +14,6 @@ export interface MeisterRanking {
         studentNo: number,
         name: string
     };
-    loginError: boolean;
+    result: MeisterResultType;
     lastUpdate: string;
 }

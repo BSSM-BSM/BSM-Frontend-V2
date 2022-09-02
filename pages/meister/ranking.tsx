@@ -3,9 +3,8 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useAjax } from '../../hooks/useAjax';
-import { elapsedTime } from '../../utils/util';
 import { MeisterRanking } from '../../types/meisterType';
-import { MeisterRankingItem } from './rankingItem';
+import { MeisterRankingItem } from '../../components/meister/rankingItem';
 
 const MeisterPage: NextPage = () => {
     const { ajax } = useAjax();
@@ -35,7 +34,7 @@ const MeisterPage: NextPage = () => {
             </div>
             <br /><br /><br />
             <ul className={styles.ranking_list}>{
-                rankingList.map((ranking, i) => <MeisterRankingItem key={i} ranking={ranking} i={i} />)
+                rankingList.map((ranking, i) => <MeisterRankingItem key={i} ranking={ranking} i={i} reloadRanking={loadMeisterInfo} />)
             }</ul>
         </div>
     );
