@@ -15,7 +15,7 @@ const Toast = () => {
     return mounted? createPortal(
         <div className="toast-wrap">{
             Object.values(toastList).map(toast => (
-                <div key={toast.id} className={`toast ${toast.status}`}>{toast.msg}</div>
+                <div key={toast.id} className={`toast ${toast.status}`}>{toast.content}</div>
             ))
         }</div>,
         document.querySelector('#overlay-wrap') as HTMLElement

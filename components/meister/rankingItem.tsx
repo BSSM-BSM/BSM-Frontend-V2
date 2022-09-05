@@ -1,5 +1,4 @@
 import { useRecoilState } from 'recoil';
-import { useAjax } from '../../hooks/useAjax';
 import { userState } from '../../store/account.store';
 import styles from '../../styles/meister/ranking.module.css';
 import { MeisterRanking, MeisterResultType } from '../../types/meisterType';
@@ -8,26 +7,12 @@ import { elapsedTime } from '../../utils/util';
 interface MeisterRankingItemProps {
     ranking: MeisterRanking,
     i: number,
-    reloadRanking: Function
+    updatePrivateRanking: (flag: boolean) => void
 }
 
-export const MeisterRankingItem = ({ranking, i, reloadRanking}: MeisterRankingItemProps) => {
+export const MeisterRankingItem = ({ranking, i, updatePrivateRanking}: MeisterRankingItemProps) => {
     const [user] = useRecoilState(userState);
-    const { ajax } = useAjax();
     const { grade, classNo, studentNo } = ranking.student;
-
-    const updatePrivateRanking = () => {
-        ajax({
-            method: 'put',
-            url: 'meister/privateRanking',
-            payload: {
-                privateRanking: ranking.result === MeisterResultType.SUCCESS
-            },
-            callback() {
-                reloadRanking();
-            },
-        });
-    }
 
     const scoreInfoView = () => {
         switch (ranking.result) {
@@ -60,13 +45,7 @@ export const MeisterRankingItem = ({ranking, i, reloadRanking}: MeisterRankingIt
                         classNo === user.classNo &&
                         studentNo === user.studentNo &&
                         ranking.result !== MeisterResultType.LOGIN_ERROR &&
-                        <span onClick={updatePrivateRanking}>
-                        {
-                            ranking.result === MeisterResultType.SUCCESS
-                            ? '비공개로 변경'
-                            : '공개로 변경'
-                        }
-                        </span>
+                        <span onClick={() => updatePrivateRanking(true)}>비공개로 변경</span>
                     }
                 </div>
                 <div className={styles.score_info_wrap}>

@@ -481,6 +481,7 @@ label, summary{
     color: var(--text);
     animation: toast_show 250ms ease-out;
     white-space: pre-line;
+    cursor: pointer;
 }
 
 .toast:hover {

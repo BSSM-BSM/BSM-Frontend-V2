@@ -1,10 +1,10 @@
-import { prepareServerlessUrl } from "next/dist/server/base-server";
+import { ReactNode } from "react";
 import { useRecoilState } from "recoil";
 import { alertState, alertTimerState, loadingState, toastCountState, toastState } from "../store/overlay.store";
 
 interface UseOverlay {
     loading: (flag: boolean) => void;
-    showToast: (msg: string) => Promise<void>;
+    showToast: (msg: string | ReactNode, time?: number) => Promise<void>;
     showAlert: (msg: string) => void;
 }
 
@@ -19,7 +19,7 @@ export const useOverlay = (): UseOverlay => {
         setLoading(() => flag);
     }
 
-    const showToast = async (msg: string) => {
+    const showToast = async (content: string | ReactNode, time: number = 5000) => {
         let index = toastCount;
         setToastCount(prev => ++prev);
 
@@ -27,10 +27,10 @@ export const useOverlay = (): UseOverlay => {
             return {...prev, [index]: {
                 id: index,
                 status: 'active',
-                msg
+                content
             }}
         });
-        await new Promise((resolve) => setTimeout(() => {resolve(true)}, 5000));
+        await new Promise((resolve) => setTimeout(() => {resolve(true)}, time));
         setToastList(prev => {
             return {
                 ...prev,
