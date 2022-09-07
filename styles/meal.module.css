@@ -1,0 +1,54 @@
+.meals {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+}
+
+.meals li {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 2rem;
+    border-radius: 2rem;
+    box-shadow: var(--shadow);
+    background-color: var(--level-1);
+    min-height: 30rem;
+    transform: scale(.85);
+    opacity: .75;
+}
+
+.meals li:is(:last-child, :first-child) {
+    transform: scale(.75);
+    opacity: .5;
+}
+
+.meals li.center {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.meals li h3 {
+    font-size: 2.4rem;
+}
+
+.meals li.date_color_0 {
+    background-color: var(--red-level-1);
+}
+
+.meals li.date_color_1 {
+    background-color: var(--yellow-level-1);
+}
+
+.meals li.date_color_2 {
+    background-color: var(--green-level-1);
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

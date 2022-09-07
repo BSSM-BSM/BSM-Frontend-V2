@@ -18,6 +18,9 @@ body {
     --red: #e46b5d;
     --yellow: #ffa500;
     --green: #7ee27e;
+    --red-level-1: #ffd7ca;
+    --yellow-level-1: #fafab0;
+    --green-level-1: #d3fad3;
     
     --main: #1188bb;
     color-scheme: light;
@@ -47,6 +50,9 @@ body.dark {
     --red: #fa8072;
     --yellow: #ff8c00;
     --green: #72c472;
+    --red-level-1: #c3685e;
+    --yellow-level-1: #c77109;
+    --green-level-1: #5d9b5e;
     
     --main: #62cdfe;
     color-scheme: dark;

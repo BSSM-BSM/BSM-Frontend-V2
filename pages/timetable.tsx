@@ -34,8 +34,8 @@ const TimetablePage: NextPage = () => {
     const dayNames = ['일', '월', '화', '수', '목', '금'];
 
     useEffect(() => {
-        setGrade(user.grade);
-        setClassNo(user.classNo);
+        setGrade(user.grade || 1);
+        setClassNo(user.classNo || 1);
     }, []);
 
     useEffect(() => {
