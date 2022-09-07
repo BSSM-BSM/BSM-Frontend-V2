@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useModal } from '../hooks/useModal';
 import { userState } from '../store/account.store';
-import { useAjax } from '../hooks/useAjax';
+import { HttpMethod, useAjax } from '../hooks/useAjax';
 import Modal from '../components/common/modal';
 import Link from 'next/link';
 import { elapsedTime } from '../utils/util';
@@ -45,7 +45,7 @@ const Home: NextPage = () => {
         });
         ajax<MeisterInfo>({
             url: `meister${type === 'update'? '/update': ''}`,
-            method: 'get',
+            method: HttpMethod.GET,
             callback(data) {
                 setMeisterInfo({
                     ...data,

@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
-import { useAjax } from '../../hooks/useAjax';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
 import Modal from '../../components/common/modal';
 import Link from 'next/link';
@@ -37,7 +37,7 @@ const MeisterPage: NextPage = () => {
     const loadMeisterInfo = () => {
         ajax<MeisterInfo>({
             url: 'meister/detail',
-            method: 'post',
+            method: HttpMethod.GET,
             payload: {
                 grade,
                 classNo,

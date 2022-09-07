@@ -2,7 +2,7 @@ import styles from '../../styles/meister/ranking.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { useAjax } from '../../hooks/useAjax';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { MeisterRanking } from '../../types/meisterType';
 import { MeisterRankingItem } from '../../components/meister/rankingItem';
 import { useOverlay } from '../../hooks/useOverlay';
@@ -19,7 +19,7 @@ const MeisterPage: NextPage = () => {
     const loadMeisterInfo = () => {
         ajax<MeisterRanking[]>({
             url: 'meister/ranking',
-            method: 'get',
+            method: HttpMethod.GET,
             callback(data) {
                 setRankingList(data);
             },
@@ -40,7 +40,7 @@ const MeisterPage: NextPage = () => {
     const updatePrivateRanking = (flag: boolean) => {
         if (!confirm('설정을 변경하면 하루동안 다시 변경 할 수 없습니다!\n 정말 변경하시겠습니까?')) return;
         ajax({
-            method: 'put',
+            method: HttpMethod.PUT,
             url: 'meister/privateRanking',
             payload: {
                 privateRanking: flag

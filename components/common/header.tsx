@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { useAjax } from '../../hooks/useAjax';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
 import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
@@ -23,7 +23,7 @@ export const Header = () => {
 
     const logout = () => {
         ajax({
-            method: 'delete',
+            method: HttpMethod.DELETE,
             url: 'user/logout',
             callback() {
                 resetUser();

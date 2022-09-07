@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../store/account.store';
-import { useAjax } from '../hooks/useAjax';
+import { HttpMethod, useAjax } from '../hooks/useAjax';
 import { useInterval } from '../hooks/useInterval';
 import { useOverlay } from '../hooks/useOverlay';
 import { numberInBetween } from '../utils/util';
@@ -123,7 +123,7 @@ const TimetablePage: NextPage = () => {
     const loadTimetableInfo = () => {
         ajax<TimetableInfo[]>({
             url: `timetable/${grade}/${classNo}/${day}`,
-            method: 'get',
+            method: HttpMethod.GET,
             callback(data) {
                 const newTimetableList: TimetableInfo[] = [];
                 data.forEach((timetable, i, arr) => {

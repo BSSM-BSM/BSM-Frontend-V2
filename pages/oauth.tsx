@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { useAjax } from '../hooks/useAjax';
+import { HttpMethod, useAjax } from '../hooks/useAjax';
 import { useModal } from '../hooks/useModal';
 import { User, userState } from '../store/account.store';
 import { decodeBase64 } from '../utils/util';
@@ -21,7 +21,7 @@ const OauthPage: NextPage = () => {
 
     useEffect(() => {
         authCode && ajax<LoginRes>({
-            method: 'post',
+            method: HttpMethod.POST,
             url: `user/oauth/bsm?code=${authCode}`,
             callback: data => {
                 const userInfo = {
