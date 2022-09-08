@@ -2,8 +2,10 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+import { HttpMethod, useAjax } from "../hooks/useAjax";
 import { screenScaleState } from "../store/common.store";
 import styles from '../styles/meal.module.css';
+import { dateToShortStr, shrotStrToDate } from "../utils/util";
 
 enum MealTime {
     MORNING = 'morning',
@@ -13,69 +15,31 @@ enum MealTime {
 
 interface MealType {
     date: string,
-    time: MealTime,
+    time?: MealTime,
     content: string
 }
 
+type MealRes = {
+    [index in MealTime]: string | null;
+};
+
 const MealPage: NextPage = () => {
-    const mealList: MealType[] = [
-        {
-            date: '220907',
-            time: MealTime.MORNING,
-            content: '아침'
-        },
-        {
-            date: '220907',
-            time: MealTime.LUNCH,
-            content: '점심'
-        },
-        {
-            date: '220907',
-            time: MealTime.DINNER,
-            content: '저녁'
-        },
-        {
-            date: '220908',
-            time: MealTime.MORNING,
-            content: '아침'
-        },
-        {
-            date: '220908',
-            time: MealTime.LUNCH,
-            content: '점심'
-        },
-        {
-            date: '220908',
-            time: MealTime.DINNER,
-            content: '저녁'
-        },
-        {
-            date: '220909',
-            time: MealTime.MORNING,
-            content: '아침'
-        },
-        {
-            date: '220909',
-            time: MealTime.LUNCH,
-            content: '점심'
-        },
-        {
-            date: '220909',
-            time: MealTime.DINNER,
-            content: '저녁'
-        }
-    ];
+    const { ajax } = useAjax();
+    const [mealList, setMealList] = useState<MealType[]>([]);
     const [renderMealList, setRenderMealList] = useState<MealType[]>([]);
-    const [mealIdx, setMealIdx] = useState<number>(2);
+    const [mealIdx, setMealIdx] = useState<number>(0);
     const [viewRange, setViewRange] = useState<number>(5);
     const [isSameDay, setIsSameDay] = useState<boolean>(false);
-    const [startBlank, setStartBlank] = useState<number>(0);
-    const [endBlank, setEndBlank] = useState<number>(0);
     const [screenScale] = useRecoilState(screenScaleState);
+
+    // inti
+    useEffect(() => {
+        loadMealList(dateToShortStr(new Date), 0);
+    }, []);
 
     useEffect(() => {
         renderMeal();
-    }, [mealIdx, viewRange]);
+    }, [mealList, mealIdx, viewRange]);
 
     useEffect(() => {
         window.addEventListener('resize', calcViewRange);
@@ -88,6 +52,66 @@ const MealPage: NextPage = () => {
         calcViewRange();
     }, [screenScale]);
 
+    const loadMealList = (date: string, position: number) => {
+        ajax<MealRes>({
+            url: `meal/${date}`,
+            method: HttpMethod.GET,
+            callback(data) {
+                const tempMealList: MealType[] = [];
+                Object.entries(data).forEach(value => {
+                    if (!value[1]) return;
+                    tempMealList.push({
+                        date,
+                        time: Object.values(MealTime)[
+                            Object.keys(MealTime).indexOf(value[0].toUpperCase())
+                        ],
+                        content: value[1]
+                    })
+                });
+
+                switch (position) {
+                    case -1: {
+                        setMealList(prev => [...tempMealList, ...prev]);
+                        setMealIdx(prev => prev + tempMealList.length);
+                        break;
+                    }
+                    case 0: {
+                        setMealList(tempMealList);
+                        break;
+                    }
+                    case 1: {
+                        setMealList(prev => [...prev, ...tempMealList]);
+                        break;
+                    }
+                }
+            },
+            errorCallback(data) {
+                if (data && data.statusCode === 404) {
+                    const emptyMeal = {
+                        date,
+                        content: '급식이 없습니다'
+                    }
+                    switch (position) {
+                        case -1: {
+                            setMealList(prev => [emptyMeal, ...prev]);
+                            setMealIdx(prev => ++prev);
+                            break;
+                        }
+                        case 0: {
+                            setMealList([emptyMeal]);
+                            break;
+                        }
+                        case 1: {
+                            setMealList(prev => [...prev, emptyMeal]);
+                            break;
+                        }
+                    }
+                    return true;
+                }
+            },
+        })
+    }
+
     const calcViewRange = () => {
         const screenWidth = (window.innerWidth / screenScale) * 100;
         let range = Math.floor(screenWidth / 450);
@@ -96,26 +120,44 @@ const MealPage: NextPage = () => {
     }
 
     const renderMeal = () => {
+        if (!mealList.length) return;
         if (viewRange % 2 == 0) throw new Error('Even range is not available');
 
         const offset = Math.floor(viewRange / 2);
 
         const tempMealList: MealType[] = [];
-        let tempStartBlank = 0;
-        let tempEndBlank = 0;
+        let mealLoadFlag = false;
         
         // 렌더링될 급식 리스트 가져오기
         [...Array(viewRange).keys()].forEach(i => {
             if (mealList[mealIdx - offset + i])
                 tempMealList.push(mealList[mealIdx - offset + i]);
             else {
-                // 양옆에 남는 공간을 채우기 위해 몇 칸이 비는지 카운팅
-                if (offset > i)
-                    tempStartBlank++;
-                else if (offset < i)
-                    tempEndBlank++;
+                mealLoadFlag = true;
+                // 이전, 다음 급식 불러오기
+                if (offset > i) {
+                    const nextDate = mealList[mealIdx - offset + i + 1]?.date;
+                    if (!nextDate) return;
+                    const prevDate = shrotStrToDate(nextDate);
+                    console.log(prevDate, shrotStrToDate(nextDate).getDate() - 1)
+                    prevDate.setDate(
+                        shrotStrToDate(nextDate).getDate() - 1
+                    );
+                    
+                    loadMealList(dateToShortStr(prevDate), -1);
+                } else if (offset < i) {
+                    const prevDate = mealList[mealIdx - offset + i - 1]?.date;
+                    if (!prevDate) return;
+                    const nextDate = shrotStrToDate(prevDate);
+                    nextDate.setDate(
+                        shrotStrToDate(prevDate).getDate() + 1
+                    );
+
+                    loadMealList(dateToShortStr(nextDate), 1);
+                }
             }
         });
+        if (mealLoadFlag) return;
 
         // 전부 같은 날인지 확인
         tempMealList.some((meal, i) => {
@@ -130,8 +172,6 @@ const MealPage: NextPage = () => {
         });
 
         setRenderMealList(tempMealList);
-        setStartBlank(tempStartBlank);
-        setEndBlank(tempEndBlank);
     }
 
     const checkShowMealDate = (meal: MealType, i: number): boolean => {
@@ -168,12 +208,8 @@ const MealPage: NextPage = () => {
                 </div>
                 <ul className={styles.meals}>
                     {
-                        // 왼쪽에 남는 공간 채우기
-                        [...Array(startBlank).keys()].map(i => <li key={i}></li>)
-                    }
-                    {
                         renderMealList.map((meal, i) => {
-                            const middleIdx = Math.floor((renderMealList.length - startBlank + endBlank) / 2);
+                            const middleIdx = Math.floor((renderMealList.length) / 2);
                             return (
                                 <li 
                                     key={`${meal.date}${meal.time}`}
@@ -200,15 +236,11 @@ const MealPage: NextPage = () => {
                                     }
                                     <div className={styles.content}>
                                         {meal.time}
-                                        {i}
+                                        {meal.content}
                                     </div>
                                 </li>
                             )
                         })
-                    }
-                    {
-                        // 오른쪽에 남는 공간 채우기
-                        [...Array(endBlank).keys()].map(i => <li key={i}></li>)
                     }
                 </ul>
             </div>

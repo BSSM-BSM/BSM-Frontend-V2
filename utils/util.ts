@@ -15,8 +15,8 @@ export const numberInBetween = (start: number | undefined, end: number | undefin
     return false;
 }
 
-export const elapsedTime = (date: string): string => {
-    const diff = (new Date().getTime() - new Date(date).getTime());
+export const elapsedTime = (time: string): string => {
+    const diff = (new Date().getTime() - new Date(time).getTime());
     const times = [
         {name: "년", time: 1000 * 60 * 60 * 24 * 365},
         {name: "개월", time: 1000 * 60 * 60 * 24 * 30},
@@ -29,4 +29,20 @@ export const elapsedTime = (date: string): string => {
         if (betweenTime > 0) return `${betweenTime}${value.name} 전`;
     }
     return "방금 전";
+}
+
+export const shrotStrToDate = (
+    str: string // 220909, 211231
+): Date => {
+    const year = Number(`20${str.substring(0, 2)}`);
+    const month = Number(str.substring(2, 4)) - 1;
+    const day = Number(str.substring(4, 6));
+    return new Date(year, month, day);
+}
+
+export const dateToShortStr = (date: Date): string => {
+    const year = `${date.getFullYear()}`.substring(2, 4);
+    const month = `${date.getMonth() + 1}`.padStart(2, '0');
+    const day = `${date.getDate()}`.padStart(2, '0');
+    return `${year}${month}${day}`;
 }

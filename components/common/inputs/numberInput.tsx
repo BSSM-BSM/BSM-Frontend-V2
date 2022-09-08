@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { useState } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
 import { numberInBetween } from "../../../utils/util";
 
@@ -11,7 +11,7 @@ interface NumberInputProps {
     immediately?: boolean
 }
 
-export const NumberInput = memo(({
+export const NumberInput = ({
     setCallback,
     initial,
     min,
@@ -48,4 +48,4 @@ export const NumberInput = memo(({
             <span>{msg}</span>
         </label>
     );
-})
+}
