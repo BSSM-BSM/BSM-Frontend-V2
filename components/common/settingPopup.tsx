@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { screenScaleState, themeState } from "../../store/common.store";
 import { ToggleButton } from "./buttons/toggleButton";
+import { NumberInput } from "./inputs/numberInput";
 import Modal from "./modal";
 
 export const SettingBox = () => {
@@ -46,17 +47,13 @@ export const SettingBox = () => {
                         </li>
                         <li className='picker'>
                             <span>배율</span>
-                            <label>
-                                <input
-                                    className="input-text"
-                                    type="number"
-                                    min={50}
-                                    max={500}
-                                    onChange={(event) => setScreenScale(Number(event.target.value))}
-                                    value={screenScale}
-                                ></input>
-                                <span>%</span>
-                            </label>
+                            <NumberInput
+                                setCallback={setScreenScale}
+                                initial={screenScale}
+                                min={50}
+                                max={500}
+                                msg='%'
+                            />
                         </li>
                     </ul>
                 </li>

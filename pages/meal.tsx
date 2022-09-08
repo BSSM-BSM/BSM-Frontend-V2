@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { screenScaleState } from "../store/common.store";
 import styles from '../styles/meal.module.css';
 
 enum MealTime {
@@ -69,10 +71,29 @@ const MealPage: NextPage = () => {
     const [isSameDay, setIsSameDay] = useState<boolean>(false);
     const [startBlank, setStartBlank] = useState<number>(0);
     const [endBlank, setEndBlank] = useState<number>(0);
+    const [screenScale] = useRecoilState(screenScaleState);
 
     useEffect(() => {
         renderMeal();
     }, [mealIdx, viewRange]);
+
+    useEffect(() => {
+        window.addEventListener('resize', calcViewRange);
+        return () => {
+            window.removeEventListener('resize', calcViewRange);
+        }
+    }, []);
+
+    useEffect(() => {
+        calcViewRange();
+    }, [screenScale]);
+
+    const calcViewRange = () => {
+        const screenWidth = (window.innerWidth / screenScale) * 100;
+        let range = Math.floor(screenWidth / 450);
+        if (range % 2 === 0) range++;
+        setViewRange(range);
+    }
 
     const renderMeal = () => {
         if (viewRange % 2 == 0) throw new Error('Even range is not available');
