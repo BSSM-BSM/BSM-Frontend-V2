@@ -1,54 +1,85 @@
+.meals_wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
 .meals {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
+    width: 115%;
     display: flex;
+    pointer-events: none;
 }
 
 .meals li {
+    font-size: 1.3rem;
+    flex: 1;
+    padding: 1rem .5rem;
+    min-height: 25rem;
+    pointer-events: all;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.meals li > div {
+    position: relative;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    width: 100%;
+    height: 100%;
     padding: 2rem;
-    border-radius: 2rem;
-    box-shadow: var(--shadow);
     background-color: var(--level-1);
-    min-height: 30rem;
-    transform: scale(.85);
-    opacity: .75;
-}
-
-.meals li:is(:last-child, :first-child) {
-    transform: scale(.75);
-    opacity: .5;
-}
-
-.meals li.center {
-    transform: scale(1);
-    opacity: 1;
+    box-shadow: var(--shadow);
+    border-radius: 2rem;
+    opacity: .65;
+    transition: .2s;
 }
 
 .meals li h3 {
-    font-size: 2.4rem;
+    font-size: 1.8rem;
 }
 
-.meals li.date_color_0 {
+.meals:not(:hover) li.center,
+.meals li:hover {
+    transform: scale(1.25);
+    flex: 1.25;
+    padding: 0 7.5rem;
+}
+
+.meals:not(:hover) li.center > div,
+.meals li:hover > div {
+    opacity: 1;
+}
+
+.meals li.date_color_0 > div {
     background-color: var(--red-level-1);
 }
 
-.meals li.date_color_1 {
+.meals li.date_color_1 > div {
     background-color: var(--yellow-level-1);
 }
 
-.meals li.date_color_2 {
+.meals li.date_color_2 > div {
     background-color: var(--green-level-1);
 }
 
 .content {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+}
+
+.date {
+    position: absolute;
+    font-size: 1.6rem;
+    top: -4rem;
+    left: 50%;
+    transform: translateX(-50%);
 }
