@@ -85,6 +85,7 @@ const MealPage: NextPage = () => {
     const calcViewRange = () => {
         const screenWidth = (window.innerWidth / screenScale) * 100;
         let range = Math.floor(screenWidth / 250);
+        if (range < 3) range = 3;
         if (range % 2 === 0) range++;
         setViewRange(range);
     }
@@ -183,7 +184,7 @@ const MealPage: NextPage = () => {
         const month = Number(date.substring(2, 4));
         const day = Number(date.substring(4, 6));
 
-        return (((year * 100) + (month * 10) + day) % 3);
+        return (((year * 100) + (month * 10) + day) % 2);
     }
 
     return (

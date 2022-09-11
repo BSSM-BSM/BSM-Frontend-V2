@@ -35,11 +35,13 @@ body {
   
     --level-1: #f9f9f9;
     --level-2: #dcdcdc;
+    --level-3: #bababa;
 
     --input: rgba(192, 192, 192, .3);
     --menu-background: #ffffff88;
   
     --shadow: .1rem .1rem 1rem rgba(0, 0, 0, .2);
+    --shadow-level-1: .2rem .2rem 5rem rgba(0, 0, 0, .2);
     --hover: rgba(0, 0, 0, .2);;
     --bright: brightness(0);
     --visited: #800080;
@@ -66,12 +68,14 @@ body.dark {
     --modal-background: #242528;
   
     --level-1: #303134;
-    --level-2: #404144;
+    --level-2: #404145;
+    --level-3: #505156;
   
     --menu-background: #33333388;
   
     --dim: rgba(0, 0, 0, .3);
     --shadow: 0 0 0 #000;
+    --shadow-level-1: .2rem .2rem 5rem rgba(0, 0, 0, .2);
     --hover: #a8aaad66;
     --bright: brightness(20);
     --visited: #f4a4ff;
