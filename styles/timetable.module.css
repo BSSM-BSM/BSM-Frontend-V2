@@ -100,7 +100,7 @@
     border-radius: 1rem;
     font-size: 1.6rem;
     font-weight: bold;
-    background-color: var(--level-1);
+    background-color: var(--level-2);
     cursor: pointer;
     transition: .25s;
     box-shadow: var(--shadow);
@@ -159,6 +159,7 @@
     .select_box {
         top: auto;
         bottom: 1rem;
+        transition: .25s;
     }
 
     .select_box ul {
@@ -167,8 +168,11 @@
     }
 
     .sync_button {
-        right: unset;
-        left: 8rem;
+        right: 2.5rem;
         bottom: 1rem;
+    }
+
+    .sync_button ~ .select_box {
+        bottom: 7rem;
     }
 }

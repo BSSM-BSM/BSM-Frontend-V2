@@ -6,6 +6,7 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
 import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
+import { titleState } from '../../store/common.store';
 import styles from '../../styles/header.module.css';
 
 export const Header = () => {
@@ -16,6 +17,7 @@ export const Header = () => {
     const [user] = useRecoilState(userState);
     const resetUser = useResetRecoilState(userState);
     const [sideBar, setSideBar] = useState(false);
+    const [title] = useRecoilState(titleState);
 
     useEffect(() => {
         Router.events.on('routeChangeStart', () => setSideBar(false));
@@ -59,7 +61,21 @@ export const Header = () => {
                         <li className={styles.home}>
                             <Link href='/'><img src='/logo/logo.png' alt='logo' className={`logo ${styles.item}`} /></Link>
                         </li>
-                        <li className={`dropdown-menu ${styles.dropdown}`}>
+                        <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(true)}>
+                            <span className='line'></span>
+                            <span className='line'></span>
+                            <span className='line'></span>
+                        </li>
+                        <h2 className={styles.title}>
+                            {title}
+                        </h2>
+                        <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>
+                    </ul>
+                    <h2 className={styles.title}>
+                        {title}
+                    </h2>
+                    <ul className={styles.right}>
+                    <li className={`dropdown-menu ${styles.dropdown}`}>
                             <span className={styles.item}>학교</span>
                             <ul className='dropdown-content'>
                                 <li><Link href='/meal'><a className='option'>급식</a></Link></li>
@@ -85,14 +101,6 @@ export const Header = () => {
                                 <li><a href='https://tetris.bssm.kro.kr/' className='option'>BSM Tetris</a></li>
                             </ul>
                         </li>
-                    </ul>
-                    <ul className={styles.right}>
-                        <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(true)}>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                        </li>
-                        <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>
                     </ul>
                 </nav>
             </div>

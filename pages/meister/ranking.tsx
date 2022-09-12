@@ -6,13 +6,17 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { MeisterRanking } from '../../types/meisterType';
 import { MeisterRankingItem } from '../../components/meister/rankingItem';
 import { useOverlay } from '../../hooks/useOverlay';
+import { titleState } from '../../store/common.store';
+import { useRecoilState } from 'recoil';
 
 const MeisterPage: NextPage = () => {
+    const [, setTitle] = useRecoilState(titleState);
     const { ajax } = useAjax();
     const { showAlert, showToast } = useOverlay();
     const [rankingList, setRankingList] = useState<MeisterRanking[]>([]);
 
     useEffect(() => {
+        setTitle('마이스터 랭킹');
         loadMeisterInfo();
     }, []);
 
@@ -65,10 +69,6 @@ const MeisterPage: NextPage = () => {
             <Head>
                 <title>마이스터 랭킹 - BSM</title>
             </Head>
-            <div className='title center'>
-                <h1>마이스터 랭킹</h1>
-            </div>
-            <br /><br /><br />
             <ul className={styles.ranking_list}>{
                 rankingList.map((ranking, i) => <MeisterRankingItem key={i} ranking={ranking} i={i} updatePrivateRanking={updatePrivateRanking} />)
             }</ul>

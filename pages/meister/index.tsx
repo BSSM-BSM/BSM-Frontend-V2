@@ -1,7 +1,7 @@
 import styles from '../../styles/meister/index.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
@@ -10,6 +10,7 @@ import Modal from '../../components/common/modal';
 import Link from 'next/link';
 import { TextInput } from '../../components/common/inputs/textInput';
 import { NumberInput } from '../../components/common/inputs/numberInput';
+import { titleState } from '../../store/common.store';
 
 interface MeisterInfo {
     scoreHtmlContent: string;
@@ -20,6 +21,7 @@ interface MeisterInfo {
 }
 
 const MeisterPage: NextPage = () => {
+    const [, setTitle] = useRecoilState(titleState);
     const { ajax } = useAjax();
     const { openModal } = useModal();
     const [noPw, setNoPw] = useState(true);
@@ -35,6 +37,10 @@ const MeisterPage: NextPage = () => {
         positivePoint: 0,
         negativePoint: 0,
     });
+
+    useEffect(() => {
+        setTitle('마이스터 점수 및 상벌점 조회');
+    }, []);
 
     const loadMeisterInfo = () => {
         ajax<MeisterInfo>({
@@ -75,11 +81,7 @@ const MeisterPage: NextPage = () => {
             <Head>
                 <title>마이스터 역량인증제 - BSM</title>
             </Head>
-            <div className='title center'>
-                <h1>마이스터 점수 및 상벌점 조회</h1>
-            </div>
-            <br /><br /><br />
-            <form className='cols gap-1' autoComplete='off' onSubmit={e => {
+            <form className={`${styles.form} cols gap-1`} autoComplete='off' onSubmit={e => {
                 e.preventDefault();
                 loadMeisterInfo();
             }}>

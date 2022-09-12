@@ -12,3 +12,8 @@ export const screenScaleState = atom<number>({
     default: 100,
     effects: [localStorageEffect('screenScale', 'number')?? 100]
 });
+
+export const titleState = atom<string>({
+    key: 'title',
+    default: ''
+});

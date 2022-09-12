@@ -8,6 +8,7 @@ import { HttpMethod, useAjax } from '../hooks/useAjax';
 import { useInterval } from '../hooks/useInterval';
 import { useOverlay } from '../hooks/useOverlay';
 import { numberInBetween } from '../utils/util';
+import { titleState } from '../store/common.store';
 
 interface TimetableInfo {
     className: string,
@@ -17,6 +18,7 @@ interface TimetableInfo {
 }
 
 const TimetablePage: NextPage = () => {
+    const [, setTitle] = useRecoilState(titleState);
     const { ajax } = useAjax();
     const { showAlert } = useOverlay();
     const [user] = useRecoilState(userState);
@@ -34,6 +36,7 @@ const TimetablePage: NextPage = () => {
     const dayNames = ['일', '월', '화', '수', '목', '금'];
 
     useEffect(() => {
+        setTitle('시간표');
         setGrade(user.grade || 1);
         setClassNo(user.classNo || 1);
     }, []);
@@ -187,9 +190,6 @@ const TimetablePage: NextPage = () => {
                 <Head>
                     <title>시간표 - BSM</title>
                 </Head>
-                <div className='title center'>
-                    <h1>시간표</h1>
-                </div>
             </div>
             <div className={styles.timetable_wrap}>
                 <div className={styles.time_wrap}>
@@ -210,6 +210,18 @@ const TimetablePage: NextPage = () => {
                         ))
                     }
                 </ul>
+                {
+                    !focus && 
+                    <button className={`${styles.sync_button} button`} onClick={() => {
+                        timetableListRef.current?.scrollTo({
+                            left: scrollX
+                        });
+                        setDay(new Date().getDay());
+                        setFocus(true);
+                    }}>
+                        현재 시간과 동기화
+                    </button>
+                }
                 <div className={styles.select_box}>{selectMenuView()}</div>
                 <ul
                     className={styles.timetable}
@@ -233,15 +245,6 @@ const TimetablePage: NextPage = () => {
                     ))
                 }</ul>
             </div>
-            { !focus && <button className={`${styles.sync_button} button`} onClick={() => {
-                timetableListRef.current?.scrollTo({
-                    left: scrollX
-                });
-                setDay(new Date().getDay());
-                setFocus(true);
-            }}>
-                현재 시간과 동기화
-            </button>}
         </div>
     );
 }

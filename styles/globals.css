@@ -440,7 +440,7 @@ label, summary{
     border-radius: 1rem;
     background-color: var(--text);
     display: block;
-    margin: .25rem;
+    margin: .25rem 0;
     filter: var(--bright);
     transition: .4s ease-in-out;
 }
@@ -745,7 +745,7 @@ label, summary{
 
 .modal {
     pointer-events: all;
-    margin-top: 5rem;
+    margin: 6rem 0 0 0;
     min-width: 20rem;
     min-height: 6rem;
     position: absolute;
@@ -772,6 +772,14 @@ label, summary{
 .modal.big {
     min-width: 60rem;
     max-width: 80rem;
+}
+
+@media screen and (min-width: 0px) and (max-width: 800px) {
+    .modal {
+        max-width: calc(100% - 1rem) !important;
+        min-width: 40rem !important;
+        width: 100% !important;
+    }
 }
 
 @keyframes modal_show {
