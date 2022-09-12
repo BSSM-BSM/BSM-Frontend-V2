@@ -8,6 +8,8 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
 import Modal from '../../components/common/modal';
 import Link from 'next/link';
+import { TextInput } from '../../components/common/inputs/textInput';
+import { NumberInput } from '../../components/common/inputs/numberInput';
 
 interface MeisterInfo {
     scoreHtmlContent: string;
@@ -37,7 +39,7 @@ const MeisterPage: NextPage = () => {
     const loadMeisterInfo = () => {
         ajax<MeisterInfo>({
             url: 'meister/detail',
-            method: HttpMethod.GET,
+            method: HttpMethod.POST,
             payload: {
                 grade,
                 classNo,
@@ -77,59 +79,49 @@ const MeisterPage: NextPage = () => {
                 <h1>마이스터 점수 및 상벌점 조회</h1>
             </div>
             <br /><br /><br />
-            <form autoComplete='off' onSubmit={e => {
+            <form className='cols gap-1' autoComplete='off' onSubmit={e => {
                 e.preventDefault();
                 loadMeisterInfo();
             }}>
-                <div>
-                    <input
-                        value={grade || ''}
-                        type='number'
-                        className='input-text'
+                <div className='rows gap-05 center'>
+                    <NumberInput
+                        setCallback={setGrade}
+                        initial={grade || undefined}
+                        min={1}
+                        max={3}
+                        required
                         placeholder='학년'
-                        min='1'
-                        max='3'
-                        required
-                        onChange={e => setGrade(Number(e.target.value))}
                     />
-                    <input
-                        value={classNo || ''}
-                        type='number'
-                        className='input-text'
+                    <NumberInput
+                        setCallback={setClassNo}
+                        initial={classNo || undefined}
+                        min={1}
+                        max={4}
+                        required
                         placeholder='반'
-                        min='1'
-                        max='4'
-                        required
-                        onChange={e => setClassNo(Number(e.target.value))}
                     />
-                    <input
-                        value={studentNo || ''}
-                        type='number'
-                        className='input-text'
-                        placeholder='번호'
-                        min='1'
-                        max='16'
+                    <NumberInput
+                        setCallback={setStudentNo}
+                        initial={studentNo || undefined}
+                        min={1}
+                        max={16}
                         required
-                        onChange={e => setStudentNo(Number(e.target.value))}
+                        placeholder='번호'
                     />
                 </div>
-                <div>
-                    <input
+                <div className='cols gap-1 center'>
+                    <TextInput
                         disabled={noPw}
-                        className={`input-text ${noPw? 'inactive': ''}`}
                         type='password'
+                        setCallback={setPw}
                         placeholder='마이스터 인증제 사이트 비밀번호'
                         required
-                        value={pw}
-                        onChange={e => setPw(e.target.value)}
                     />
-                    <br />
-                    <label>
+                    <label className='checkbox center'>
                         <input type='checkbox' checked={noPw} onChange={e => setNoPw(e.target.checked)} />
                         <span>비밀번호 사용 안함</span>
                     </label>
                 </div>
-                <br />
                 {!noPw && <h4>마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
                 <br />
                 <div className='rows gap-1 center'>

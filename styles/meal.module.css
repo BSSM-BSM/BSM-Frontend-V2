@@ -66,13 +66,27 @@
     background-color: var(--yellow-level-1);
 }
 
+.meals li.date_color_2 > div {
+    background-color: var(--green-level-1);
+}
+
+.meals li.date_color_3 > div {
+    background-color: var(--blue-level-1);
+}
+
 body:global(.dark)
-.meals li.date_color_0 > div {
+.meals li:is(
+    .date_color_0,
+    .date_color_2
+) > div {
     background-color: var(--level-1);
 }
 
 body:global(.dark)
-.meals li.date_color_1 > div {
+.meals li:is(
+    .date_color_1,
+    .date_color_3
+) > div {
     background-color: var(--level-3);
 }
 

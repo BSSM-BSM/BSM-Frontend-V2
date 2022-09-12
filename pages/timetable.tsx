@@ -197,7 +197,7 @@ const TimetablePage: NextPage = () => {
                     <h2>{date}</h2>
                 </div>
                 {timetableList.length > 0 && <div className={styles.time_line}></div>}
-                <ul className={styles.select_day}>
+                <ul className={`${styles.select_day} button_wrap`}>
                     {
                         dayNames.map((name, i) => (
                             <li
@@ -233,7 +233,7 @@ const TimetablePage: NextPage = () => {
                     ))
                 }</ul>
             </div>
-            { !focus && <button className={styles.sync_button} onClick={() => {
+            { !focus && <button className={`${styles.sync_button} button`} onClick={() => {
                 timetableListRef.current?.scrollTo({
                     left: scrollX
                 });

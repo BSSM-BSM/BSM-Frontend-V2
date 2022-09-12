@@ -184,7 +184,7 @@ const MealPage: NextPage = () => {
         const month = Number(date.substring(2, 4));
         const day = Number(date.substring(4, 6));
 
-        return (((year * 100) + (month * 10) + day) % 2);
+        return (((year * 100) + (month * 10) + day) % 4);
     }
 
     return (

@@ -2,11 +2,11 @@
     display: flex;
     justify-content: center;
     position: fixed;
-    z-index: 100;
+    z-index: 103;
     top: 0;
     left: 0;
     width: 100%;
-    padding: .5rem;
+    padding: 1rem .5rem;
     font-size: 1.6rem;
     font-weight: bold;
     user-select: none;
@@ -34,6 +34,10 @@
     transition: .25s;
     padding: 1.4rem 2.5rem;
     user-select: none;
+}
+
+.item:active {
+    transform: scale(.8);
 }
 
 .top li:not(.home) .item {
@@ -86,6 +90,10 @@
 }
 
 @media screen and (min-width: 0px) and (max-width: 720px) {
+    .header {
+        padding: .5rem;
+    }
+    
     .top_menu_bar .left .item:not(.all_menu) {
         display: none;
     }

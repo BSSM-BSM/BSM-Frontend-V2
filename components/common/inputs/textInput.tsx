@@ -1,35 +1,30 @@
 import styles from '../../../styles/input.module.css';
 import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useState } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
-import { numberInBetween } from "../../../utils/util";
 
-interface NumberInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
-    setCallback: Dispatch<SetStateAction<number>>,
-    initial?: number,
-    min?: number,
-    max?: number,
-    msg?: string,
-    immediately?: boolean
+interface TextInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+    setCallback: Dispatch<SetStateAction<string>>,
+    initial?: string,
+    placeholder?: string,
+    immediately?: boolean,
+    inactive?: boolean
 }
 
-export const NumberInput = (props: NumberInputProps) => {
+export const TextInput = (props: TextInputProps) => {
     const {
         setCallback,
-        initial,
+        initial = '',
         placeholder,
-        type = 'number',
-        min,
-        max,
-        msg,
+        type = 'text',
+        pattern,
         className = '',
         immediately
     } = props;
     const [tempValue, setTempValue] = useState(initial);
     const { showToast } = useOverlay();
     
-    const applyValue = (value?: number) => {
-        if (tempValue === undefined) return;
-        if (!numberInBetween(min, max, value || tempValue)) {
+    const applyValue = (value?: string) => {
+        if (pattern && !new RegExp(pattern).test(value || tempValue)) {
             showToast('정상적인 값이 아닙니다');
             return;
         }
@@ -44,14 +39,13 @@ export const NumberInput = (props: NumberInputProps) => {
                 type={type}
                 value={tempValue}
                 onChange={(event) => {
-                    setTempValue(Number(event.target.value));
-                    if (immediately) applyValue(Number(event.target.value));
+                    setTempValue(event.target.value);
+                    if (immediately) applyValue(event.target.value);
                 }}
                 placeholder=''
                 onBlur={() => applyValue()}
                 onKeyDown={e => e.key === 'Enter' && applyValue()}
             ></input>
-            <span>{msg}</span>
             <span className={styles.placeholder}>{placeholder}</span>
         </div>
     );

@@ -34,7 +34,7 @@
     display: flex;
     width: 100%;
     overflow-x: auto;
-    padding: calc(50vh - 6rem) 50%;
+    padding: calc(50vh - 5rem) 50%;
 }
 
 .timetable li {
@@ -128,6 +128,7 @@
 .select_day li {
     padding: 1rem 2rem;
     transition: .25s;
+    border-radius: .5rem;
 }
 
 .select_day li:hover {
@@ -152,6 +153,7 @@
     .select_day {
         top: auto;
         bottom: 1rem;
+        transform: none;
     }
 
     .select_box {
@@ -162,5 +164,11 @@
     .select_box ul {
         bottom: 100%;
         transform: translateY(1.5rem);
+    }
+
+    .sync_button {
+        right: unset;
+        left: 8rem;
+        bottom: 1rem;
     }
 }

@@ -18,9 +18,11 @@ body {
     --red: #e46b5d;
     --yellow: #ffa500;
     --green: #7ee27e;
+    --blue: #1188bb;
     --red-level-1: #ffd7ca;
     --yellow-level-1: #fafab0;
     --green-level-1: #d3fad3;
+    --blue-level-1: #b7e3f7;
     
     --main: #1188bb;
     color-scheme: light;
@@ -52,9 +54,11 @@ body.dark {
     --red: #fa8072;
     --yellow: #ff8c00;
     --green: #72c472;
+    --blue: #62cdfe;
     --red-level-1: #c3685e;
     --yellow-level-1: #c77109;
     --green-level-1: #5d9b5e;
+    --blue-level-1: #4296bd;
     
     --main: #62cdfe;
     color-scheme: dark;
@@ -184,8 +188,16 @@ label, summary{
     display: flex;
 }
 
+.inline-flex {
+    display: inline-flex;
+}
+
 .cols {
     flex-direction: column;
+}
+
+.gap-05 {
+    gap: .5rem;
 }
 
 .gap-1 {
@@ -295,13 +307,16 @@ label, summary{
     margin-left: auto;
 }
 
-.list li.picker label {
-    margin-left: auto;
+.list li.picker div {
+    margin: 0 0 0 auto !important;
 }
 
 .list li.picker input {
     background: none;
-    margin: 0;
+}
+
+.list li.picker input:valid:not(:focus) {
+    box-shadow: none !important;
 }
 
 .list li:last-child {
@@ -351,10 +366,6 @@ label, summary{
     animation-fill-mode:  forwards;
 }
 
-.dropdown-content li {
-    transition: .25s;
-}
-
 .dropdown-content li:first-child {
     border-radius: .5rem .5rem 0rem 0rem;
 }
@@ -363,15 +374,21 @@ label, summary{
     border-radius: 0rem 0rem .5rem .5rem;
 }
 
-.dropdown-content li:hover {
-    background-color: var(--hover);
-}
-
 .dropdown-content .option {
     display: inline-block;
     padding: 1.2rem 1.6rem;
     width: 100%;
     cursor: pointer;
+    transition: .25s;
+    border-radius: .5rem;
+}
+
+.dropdown-content .option:hover {
+    background-color: var(--hover);
+}
+
+.dropdown-content .option:active {
+    transform: scale(.8);
 }
 
 .left-slide-menu {
@@ -617,6 +634,15 @@ label, summary{
     background-color: var(--hover) !important;
 }
 
+.button:active,
+.button_wrap > *:active {
+    transform: scale(.8);
+}
+
+.button_wrap > * {
+    transition: .25s;
+}
+
 .button.delete {
     background-color: var(--red);
 }
@@ -641,7 +667,7 @@ label, summary{
     height: 1.6rem;
     width: 1.6rem;
     background-color: white;
-    border-radius: 12px;
+    border-radius: 50%;
     transition: .25s;
 }
 
@@ -649,72 +675,25 @@ label, summary{
     left: calc(100% - .3rem - 1.6rem);
 }
 
-.input-text,
-.textarea {
-    border: none;
-    color: var(--text);
-    width: 37.5rem;
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin: 1rem 0;
-    outline: .2rem solid #00000000;
-    padding: 1.5rem;
-    border-radius: .5rem;
-    background-color: var(--input);
-    text-align: left;
+.checkbox {
+    display: inline-flex;
+    gap: .5rem;
     transition: .25s;
 }
 
-input[type=number] {
-    width: 5.5rem;
-    padding: 1rem 0 1rem 1rem;
-    margin: 1rem .2rem;
+.checkbox:active {
+    transform: scale(.8);
 }
 
-input[type=number].year {
-    width: 8rem;
-    padding: 1rem 0 1rem 1rem;
-}
-
-:is(
-    .input-text,
-    input[type=number],
-    textarea,
-    .textarea
-)::placeholder {
-    color: var(--text);
-}
-
-:is(
-    .input-text,
-    input[type=number],
-    textarea,
-    .textarea
-):hover {
-    box-shadow: var(--shadow) inset;
-    background-color: var(--hover) !important;
-}
-
-:is(
-    .input-text,
-    input[type=number],
-    textarea,
-    .textarea
-):focus {
-    box-shadow: 0 0 0 .2rem var(--main) inset;
-}
-
-.accent{
+.accent {
     color: var(--accent-text);
     background-color: var(--accent);
 }
-.accent-text{
+.accent-text {
     color: var(--accent);
 }
 
 .inactive {
-    color: var(--text) !important;
-    background-color: var(--gray) !important;
     opacity: .5;
     cursor: not-allowed;
 }
@@ -845,7 +824,7 @@ input[type=number].year {
 }
 
 .modal.modal :is(
-    .input-text:is([type=text], [type=password]),
+    .input:is([type=text], [type=password]),
     .button.main
 ) {
     width:100% !important;

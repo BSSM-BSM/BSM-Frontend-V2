@@ -1,0 +1,117 @@
+.input_wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.input_wrap :is(
+    input,
+    textarea
+) {
+    border: none;
+    outline: none;
+    width: 37.5rem;
+    padding: 1.5rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--text);
+    background-color: var(--input);
+    border-radius: .5rem;
+    text-align: left;
+    transition: .25s;
+}
+
+.input_wrap input[type=number] {
+    width: 5.5rem;
+    padding: 1rem 0 1rem 1rem;
+}
+
+.input_wrap input[type=number].year {
+    width: 8rem;
+}
+
+:is(
+    .input,
+    .textarea
+):hover {
+    box-shadow: var(--shadow) inset;
+}
+
+.input_wrap .placeholder {
+    position: absolute;
+    left: 0;
+    padding: 1.5rem;
+    font-weight: bold;
+    pointer-events: none;
+    color: var(--text);
+    transition: .15s;
+}
+
+.input_wrap input[type=number] ~ .placeholder {
+    padding: 1rem 0 1rem 1rem;
+}
+
+.input_wrap input:is(
+    :valid,
+    :focus
+) {
+    background: none !important;
+}
+
+.input_wrap input:is(
+    :valid,
+    :focus
+) ~ .placeholder {
+    color: var(--accent);
+    transform: translate(1.5rem, -2.25rem);
+    padding: 0 .5rem;
+    font-size: 1.3rem;
+    background-color: var(--background);
+}
+
+.input_wrap input[type=number]:is(
+    :valid,
+    :focus
+) ~ .placeholder {
+    transform: translate(.5rem, -1.8rem);
+}
+
+.input_wrap :is(
+    input,
+    textarea
+):focus {
+    box-shadow: 0 0 0 .2rem var(--main) inset;
+}
+
+.input_wrap input:valid:not(:focus) {
+    box-shadow: 0 0 0 .2rem var(--green) inset;
+}
+
+.input_wrap input:valid:not(:focus) ~ .placeholder {
+    color: var(--green);
+}
+
+.input_wrap input:not(:valid):not(:focus) {
+    color: rgba(0, 0, 0, 0);
+}
+
+.input_wrap input[disabled] {
+    opacity: .3;
+    color: rgba(0, 0, 0, 0);
+    cursor: not-allowed;
+}
+
+.input_wrap input[disabled] ~ .placeholder {
+    opacity: .3;
+}
+
+.input_wrap :is(
+    input,
+    textarea
+):active {
+    transform: scale(.95);
+}
+
+.input_wrap input[type=number]:active {
+    transform: scale(.8);
+}
