@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
@@ -17,6 +18,7 @@ export const Header = () => {
     const [sideBar, setSideBar] = useState(false);
 
     useEffect(() => {
+        Router.events.on('routeChangeStart', () => setSideBar(false));
         setMounted(true);
         return () => setMounted(false);
     }, []);
@@ -57,11 +59,6 @@ export const Header = () => {
                         <li className={styles.home}>
                             <Link href='/'><img src='/logo/logo.png' alt='logo' className={`logo ${styles.item}`} /></Link>
                         </li>
-                        <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(true)}>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                        </li>
                         <li className={`dropdown-menu ${styles.dropdown}`}>
                             <span className={styles.item}>학교</span>
                             <ul className='dropdown-content'>
@@ -90,8 +87,12 @@ export const Header = () => {
                         </li>
                     </ul>
                     <ul className={styles.right}>
+                        <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(true)}>
+                            <span className='line'></span>
+                            <span className='line'></span>
+                            <span className='line'></span>
+                        </li>
                         <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>
-                        <li>{userMenuView()}</li>
                     </ul>
                 </nav>
             </div>
@@ -100,9 +101,10 @@ export const Header = () => {
                 <div className={`dim ${styles.dim}`} onClick={() => setSideBar(false)}></div>
                 <ul className={styles.menus}>
                     <li className={`${styles.item} ${styles.home}`}><Link href='/'><img src='/logo/logo.png' alt='logo' className='logo'/></Link></li>
-                    <li className={styles.item}><Link href='/timetable'>시간표</Link></li>
-                    <li className={styles.item}><Link href='/meal'>급식</Link></li>
-                    <li className={styles.item}><Link href='/meister'>점수 / 상벌점</Link></li>
+                    <li>{userMenuView()}</li>
+                    <li><Link href='/timetable'><a className={styles.item}>시간표</a></Link></li>
+                    <li><Link href='/meal'><a className={styles.item}>급식</a></Link></li>
+                    <li><Link href='/meister'><a className={styles.item}>점수 / 상벌점</a></Link></li>
                     <li className={`dropdown-menu ${styles.dropdown}`}>
                         <span className={styles.item}>커뮤니티</span>
                         <ul className='dropdown-content'>
@@ -120,8 +122,8 @@ export const Header = () => {
                             <li><a href='https://tetris.bssm.kro.kr' className='option'>BSM Tetris</a></li>
                         </ul>
                     </li>
-                    <li className={styles.item}><a href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
-                    <li className={styles.item}><a href='https://github.com/BSSM-BSM'>깃허브</a></li>
+                    <li><a className={styles.item} href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
+                    <li><a className={styles.item} href='https://github.com/BSSM-BSM'>깃허브</a></li>
                 </ul>
             </div>
         </header>

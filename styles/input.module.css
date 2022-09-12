@@ -30,9 +30,9 @@
     width: 8rem;
 }
 
-:is(
-    .input,
-    .textarea
+.input_wrap :is(
+    input,
+    textarea
 ):hover {
     box-shadow: var(--shadow) inset;
 }
@@ -84,11 +84,11 @@
 }
 
 .input_wrap input:valid:not(:focus) {
-    box-shadow: 0 0 0 .2rem var(--green) inset;
+    box-shadow: 0 0 0 .2rem var(--text-level-1) inset;
 }
 
 .input_wrap input:valid:not(:focus) ~ .placeholder {
-    color: var(--green);
+    color: var(--text-level-1);
 }
 
 .input_wrap input:not(:valid):not(:focus) {

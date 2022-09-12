@@ -17,7 +17,7 @@ body {
     --white: #fff;
     --red: #e46b5d;
     --yellow: #ffa500;
-    --green: #7ee27e;
+    --green: #6fd16f;
     --blue: #1188bb;
     --red-level-1: #ffd7ca;
     --yellow-level-1: #fafab0;
@@ -364,14 +364,6 @@ label, summary{
     opacity: 1;
     animation: blocking_click 250ms ease;
     animation-fill-mode:  forwards;
-}
-
-.dropdown-content li:first-child {
-    border-radius: .5rem .5rem 0rem 0rem;
-}
-
-.dropdown-content li:last-child {
-    border-radius: 0rem 0rem .5rem .5rem;
 }
 
 .dropdown-content .option {

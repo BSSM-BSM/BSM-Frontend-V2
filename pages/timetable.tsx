@@ -159,7 +159,7 @@ const TimetablePage: NextPage = () => {
                             key={i}
                             onClick={() => setGrade(i)}
                         >
-                            {i}반
+                            {i}학년
                         </li>
                     ))
                 }</ul>

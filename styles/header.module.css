@@ -32,7 +32,7 @@
     cursor: pointer;
     border-radius: 1rem;
     transition: .25s;
-    padding: 1.4rem 2.5rem;
+    padding: 1.4rem 2.2rem;
     user-select: none;
 }
 
@@ -47,26 +47,6 @@
 .home .item {
     padding: 1.4rem 1.5rem;
 }
-
-.user_profile_wrap {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    padding: 0;
-    height: 100%;
-}
-
-.user_profile_wrap span {
-    margin-left: 1.25rem;
-}
-
-.user_profile_wrap img {
-    padding: .75rem;
-    margin-right: .5rem;
-    width: 5.2rem;
-    height: 5.2rem;
-}
-
 
 .item.all_menu {
     padding: 1.4rem;
@@ -94,26 +74,31 @@
         padding: .5rem;
     }
     
-    .top_menu_bar .left .item:not(.all_menu) {
+    .top_menu_bar .left .item {
         display: none;
+    }
+
+    .top_menu_bar .right {
+        width: 100%;
+        justify-content: space-between;
     }
 }
 
 .side {
     position: fixed;
     z-index: 100;
-    left: -100%;
+    right: 100%;
     top: 0;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
-    transition: left .4s;
+    transition: right .4s;
     font-size: 1.8rem;
 }
 
 .side.on {
-    left: 0;
+    right: 0;
 }
 
 .side .dim {
@@ -134,9 +119,17 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    pointer-events: none;
 }
 
-.side .menus li {
+.side .menus > li {
+    pointer-events: all;
+}
+
+.side .menus :is(
+    li,
+    .dropdown
+) {
     width: 100%;
 }
 
@@ -187,4 +180,23 @@
 .setting img {
     width: 3rem;
     filter: var(--bright);
+}
+
+.user_profile_wrap {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: 0;
+    height: 100%;
+}
+
+.user_profile_wrap span {
+    margin-left: auto;
+}
+
+.user_profile_wrap img {
+    padding: .75rem;
+    margin-right: 2rem;
+    width: 5.2rem;
+    height: 5.2rem;
 }
