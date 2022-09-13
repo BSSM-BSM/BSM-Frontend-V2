@@ -156,18 +156,18 @@ const Home: NextPage = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link href='/board/anonymous'>
+                        <Link href='/board/board'>
                             <a className={styles.menu}>
-                                <img className={styles.icon} src='/icons/people.svg' alt='anonymous board'></img>
-                                익명게시판
+                                <img className={styles.icon} src='/icons/people.svg' alt='free board'></img>
+                                자유게시판
                             </a>
                         </Link>
                     </li>
                     <li>
-                        <Link href='/board/qna'>
+                        <Link href='/board/notice'>
                             <a className={styles.menu}>
-                                <img className={styles.icon} src='/icons/people.svg' alt='Q&A board'></img>
-                                질문게시판
+                                <img className={styles.icon} src='/icons/people.svg' alt='notice'></img>
+                                공지사항
                             </a>
                         </Link>
                     </li>

@@ -18,7 +18,7 @@
 }
 
 .meals li {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     flex: 1;
     padding: 1.5rem .5rem;
     min-height: 25rem;
@@ -51,11 +51,17 @@
     flex: 1.25;
     padding: 0 2rem;
     margin: 0 5rem;
+    font-size: 1.7rem;
 }
 
 .meals:not(:hover) li.center > div,
 .meals li:hover > div {
     opacity: 1;
+}
+
+.meals:not(:hover) li.center h3,
+.meals li:hover h3 {
+    font-size: 2rem;
 }
 
 .meals li.date_color_0 > div {
