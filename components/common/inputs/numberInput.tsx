@@ -15,7 +15,7 @@ interface NumberInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInp
 export const NumberInput = (props: NumberInputProps) => {
     const {
         setCallback,
-        initial,
+        initial = '',
         placeholder,
         type = 'number',
         min,
@@ -24,16 +24,16 @@ export const NumberInput = (props: NumberInputProps) => {
         className = '',
         immediately
     } = props;
-    const [tempValue, setTempValue] = useState(initial);
+    const [tempValue, setTempValue] = useState<string>(String(initial));
     const { showToast } = useOverlay();
     
-    const applyValue = (value?: number) => {
-        if (tempValue === undefined) return;
-        if (!numberInBetween(min, max, value || tempValue)) {
+    const applyValue = (value?: string) => {
+        if (!tempValue.length) return;
+        if (!numberInBetween(min, max, Number(value) || Number(tempValue))) {
             showToast('정상적인 값이 아닙니다');
             return;
         }
-        setCallback(value || tempValue);
+        setCallback(Number(value) || Number(tempValue));
     }
 
     return (
@@ -44,8 +44,8 @@ export const NumberInput = (props: NumberInputProps) => {
                 type={type}
                 value={tempValue}
                 onChange={(event) => {
-                    setTempValue(Number(event.target.value));
-                    if (immediately) applyValue(Number(event.target.value));
+                    setTempValue(event.target.value);
+                    if (immediately) applyValue(event.target.value);
                 }}
                 placeholder=''
                 onBlur={() => applyValue()}
