@@ -1,0 +1,64 @@
+.post_list {
+    gap: 2rem;
+}
+
+.post_item {
+    padding: 1rem 1rem 1rem 0;
+    border-radius: 1rem;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.post_item:hover {
+    background-color: var(--level-1);
+    box-shadow: var(--shadow);
+}
+
+.total_comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+.post_title {
+    font-size: 2.2rem;
+    text-align: left;
+    font-weight: bold;
+}
+
+.user_info {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.post_info {
+    display: flex;
+    gap: 1rem;
+}
+
+.total_likes::after {
+    content: ' ♥';
+}
+
+.post_hit::after {
+    content: ' 조회';
+}
+
+@media screen and (min-width: 0) and (max-width: 1023px) {
+    .post_item {
+        font-size: 1.4rem;
+    }
+
+    .post_title {
+        font-size: 1.7rem;
+    }
+
+    .total_comments {
+        width: 3rem;
+        font-size: 1.6rem;
+    }
+}

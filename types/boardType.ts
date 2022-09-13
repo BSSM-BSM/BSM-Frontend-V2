@@ -21,7 +21,7 @@ export interface Category {
 export interface Post {
     id: string,
     user: UserInfo,
-    category: string,
+    category: string | null,
     title: string,
     createdAt: string,
     hit: number,

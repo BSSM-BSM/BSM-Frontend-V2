@@ -25,7 +25,7 @@ export const PostItem = ({
     return (
         <li className={`${styles.post_item} rows`}>
             <div className={styles.total_comments}>{totalComments}</div>
-            <div className='flex-main cols'>
+            <div className='flex-main cols gap-05'>
                 <Link href={`/board/${boardId}/${id}`}>
                     <a className={styles.post_title}>{title}</a>
                 </Link>
@@ -36,7 +36,7 @@ export const PostItem = ({
                     </div>
                     <div className={styles.post_info}>
                         <span className={styles.total_likes}>{totalLikes}</span>
-                        {category !== 'normal' && <span>{categoryList[category]?.name}</span>}
+                        {category !== null && <span>{categoryList[category]?.name}</span>}
                         <span className={styles.post_hit}>{hit}</span>
                         <span className={styles.post_date}>{new Date(createdAt).toLocaleDateString()}</span>
                     </div>
