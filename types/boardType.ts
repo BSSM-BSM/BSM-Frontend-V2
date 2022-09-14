@@ -19,7 +19,7 @@ export interface Category {
 }
 
 export interface Post {
-    id: string,
+    id: number,
     user: UserInfo,
     category: string | null,
     title: string,

@@ -23,7 +23,7 @@ export const PostItem = ({
 }: PostItemProps) => {
 
     return (
-        <li className={`${styles.post_item} rows`}>
+        <li className={styles.post_item}>
             <div className={styles.total_comments}>{totalComments}</div>
             <div className='flex-main cols gap-05'>
                 <Link href={`/board/${boardId}/${id}`}>
