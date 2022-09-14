@@ -115,6 +115,10 @@ body, .scroll_bar, .modal--content {
     overflow: overlay !important;
 }
 
+.no-overlay {
+    overflow: auto;
+}
+
 :is(
     body,
     .scroll-bar
@@ -225,13 +229,9 @@ label, summary{
     flex-direction: column;
 }
 
-.gap-05 {
-    gap: .5rem;
-}
-
-.gap-1 {
-    gap: 1rem;
-}
+.gap-05 {gap: .5rem;}
+.gap-1 {gap: 1rem;}
+.gap-5 {gap: 5rem;}
 
 .space-between {
     justify-content: space-between;
@@ -286,7 +286,9 @@ label, summary{
 }
 
 .list-wrap > li > h3 {
-    padding: 2.5rem 1.5rem .5rem;
+    padding: 2rem 1.5rem 1rem;
+    font-size: 1.6rem;
+    color: var(--text-level-1);
 }
 
 .list {

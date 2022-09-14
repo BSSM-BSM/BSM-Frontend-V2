@@ -45,8 +45,34 @@
     content: ' ♥';
 }
 
-.post_hit::after {
-    content: ' 조회';
+.post_hit img {
+    width: 2rem;
+    height: 2rem;
+    filter: var(--bright);
+}
+
+.post_load_bar {
+    height: 5rem;
+    background-color: var(--level-1);
+}
+
+.category_list {
+    padding: 0 1rem 1rem;
+}
+
+.category_list li {
+    padding: 1rem 1.25rem;
+    border-radius: 1.5rem;
+    background-color: var(--level-1);
+    transition: .25s;
+}
+
+.category_list li:hover {
+    background-color: var(--hover);
+}
+
+.category_list .active {
+    background-color: var(--level-2);
 }
 
 @media screen and (min-width: 0) and (max-width: 1023px) {

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { postLimitState } from "../../store/board.store";
 import { screenScaleState, themeState } from "../../store/common.store";
 import { ToggleButton } from "./buttons/toggleButton";
 import { NumberInput } from "./inputs/numberInput";
@@ -8,6 +9,7 @@ import Modal from "./modal";
 export const SettingBox = () => {
     const [theme, setTheme] = useRecoilState(themeState);
     const [screenScale, setScreenScale] = useRecoilState(screenScaleState);
+    const [postLimit, setPostLimit] = useRecoilState(postLimitState);
 
     useEffect(() => {
         if (theme === 'dark') {
@@ -53,6 +55,21 @@ export const SettingBox = () => {
                                 min={50}
                                 max={500}
                                 msg='%'
+                            />
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>커뮤니티</h3>
+                    <ul className='list'>
+                        <li className='picker'>
+                            <span>한 번에 불러올 게시글 개수</span>
+                            <NumberInput
+                                setCallback={setPostLimit}
+                                initial={postLimit}
+                                min={10}
+                                max={100}
+                                msg='개'
                             />
                         </li>
                     </ul>

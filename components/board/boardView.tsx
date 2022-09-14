@@ -4,6 +4,9 @@ import { useInView } from 'react-intersection-observer';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { Board, Post, PostListRes } from '../../types/boardType';
 import { PostItem } from './postItem';
+import { useRecoilState } from 'recoil';
+import { postLimitState } from '../../store/board.store';
+import { CategoryList } from './categoryList';
 
 interface BoardViewProps {
     boardId: string,
@@ -12,34 +15,35 @@ interface BoardViewProps {
 
 export const BoardView = ({ boardId, board }: BoardViewProps) => {
     const { ajax } = useAjax();
+    const [postLimit] = useRecoilState(postLimitState);
     const [postList, setPostList] = useState<Post[]>([]);
-    const [postLimit, setPostLimit] = useState<number>(0);
-    const [startPostId, setStartPostId] = useState<number>(-1);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [postCategory, setPostCategory] = useState<string>('all');
+    const [loading, setLoading] = useState<boolean>(true);
     const [postLoadRef, inView] = useInView();
 
     useEffect(() => {
-        loadPosts();
-    }, []);
+        if (loading) return;
+        if (postList.length) setPostList([]);
+        else loadPosts(-1);
+    }, [postCategory]);
 
-    // useEffect(() => {
-    // }, [postList]);
+    useEffect(() => {
+        if (postList.length) return;
+        loadPosts(-1);
+    }, [postList]);
     
     useEffect(() => {
-        if (!inView || loading) return;
+        if (!postList.length || !inView || loading) return;
         setLoading(true);
-        loadPosts();
+        loadPosts(postList[postList.length-1]?.id ?? -1);
     }, [inView]);
 
-    const loadPosts = () => {
+    const loadPosts = (startPostId: number) => {
         ajax<PostListRes>({
             method: HttpMethod.GET,
-            url: `post/${boardId}?i=${startPostId}`,
+            url: `post/${boardId}?i=${startPostId}&l=${postLimit}&c=${postCategory}`,
             callback(data) {
-                if (!data.posts.length) return;
-                setStartPostId(data.posts[data.posts.length-1].id);
-                setPostLimit(data.limit);
-                setPostList(prev => [...prev, ...data.posts]);
+                if (data.posts.length) setPostList(prev => [...prev, ...data.posts]);
                 setLoading(false);
             },
             errorCallback() {
@@ -49,8 +53,20 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
     }
     
     return (
-        <div className={styles.board}>
-            {`${startPostId} | ${inView} | ${loading}`}
+        <div>
+            <div>
+                <CategoryList
+                    postCategory={postCategory}
+                    setPostCategory={setPostCategory}
+                    categoryList={
+                        [
+                            {id: 'all', name: '전체'},
+                            {id: 'normal', name: '일반'},
+                            ...Object.values(board.categoryList)
+                        ]
+                    }
+                />
+            </div>
             <ul className={styles.post_list}>
                 {postList.map(post => (
                     <PostItem
@@ -60,8 +76,8 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
                         categoryList={board.categoryList}
                     />
                 ))}
-                {startPostId > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
+                {postList[postList.length-1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
             </ul>
         </div>
-    )
+    );
 }
