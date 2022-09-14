@@ -261,6 +261,10 @@ label, summary{
     max-width: 100rem;
 }
 
+.container._120 {
+    max-width: 120rem;
+}
+
 .container .title {
     margin-top: 5rem;
     margin-left: 2.5rem;

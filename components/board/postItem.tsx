@@ -36,12 +36,12 @@ export const PostItem = ({
                         <span>{user.nickname}</span>
                     </div>
                     <div className={styles.post_info}>
-                        {category !== null && <span>{categoryList[category]?.name}</span>}
                         {totalLikes !== 0 && <span className={styles.total_likes}>{totalLikes}</span>}
                         <span className={`${styles.post_hit} rows gap-05`}>
                             <span>{hit}</span>
                             <img src="/icons/view.svg" alt="viewers"/>
                         </span>
+                        {category !== null && <span>{categoryList[category]?.name}</span>}
                         <span className={styles.post_date}>{
                             elapsedTime(createdAt, MilliSecondTime.MONTH) || new Date(createdAt).toLocaleDateString()
                         }</span>

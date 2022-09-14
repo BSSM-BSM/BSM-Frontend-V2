@@ -39,6 +39,7 @@
 .post_info {
     display: flex;
     gap: 1rem;
+    color: var(--text-level-2);
 }
 
 .total_likes::after {

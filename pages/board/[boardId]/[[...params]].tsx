@@ -52,7 +52,7 @@ const BoardPage: NextPage = () => {
     }, [boardId]);
 
     return (
-        <div className='container _100'>
+        <div className='container _120'>
             <Head>
                 <title>커뮤니티 - BSM</title>
             </Head>

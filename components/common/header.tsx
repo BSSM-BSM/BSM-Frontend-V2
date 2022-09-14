@@ -46,12 +46,12 @@ export const Header = () => {
                 </span>
                 <ul className='dropdown-content'>
                     <li><a href='https://auth.bssm.kro.kr/user' className='option'>유저 정보</a></li>
-                    <li><span onClick={logout} className='option'>로그아웃</span></li>
+                    <li><span onClick={() => {logout(); setSideBar(false);}} className='option'>로그아웃</span></li>
                 </ul>
             </div>
-            :(<span className={styles.item} onClick={() => openModal('login')}>로그인</span>)
+            :(<span className={styles.item} onClick={() => {openModal('login'); setSideBar(false);}}>로그인</span>)
         )
-    )
+    );
 
     return (
         <header className={styles.header}>
@@ -91,14 +91,6 @@ export const Header = () => {
                                 <li><Link href='/board/software'><a className='option'>소프트웨어</a></Link></li>
                                 <li><Link href='/board/embedded'><a className='option'>임베디드</a></Link></li>
                                 <li><Link href='/board/notice'><a className='option'>공지사항</a></Link></li>
-                            </ul>
-                        </li>
-                        <li className={`dropdown-menu ${styles.dropdown}`}>
-                            <span className={styles.item}>다른 서비스</span>
-                            <ul className='dropdown-content'>
-                                <li><a href='https://auth.bssm.kro.kr/' className='option'>BSM Auth</a></li>
-                                <li><a href='https://drive.bssm.kro.kr/' className='option'>BSM Cloud</a></li>
-                                <li><a href='https://tetris.bssm.kro.kr/' className='option'>BSM Tetris</a></li>
                             </ul>
                         </li>
                     </ul>
