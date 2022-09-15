@@ -26,7 +26,15 @@ export const MeisterRankingItem = ({ranking, i, updatePrivateRanking}: MeisterRa
                     <span className={styles.last_update}>Update: {elapsedTime(ranking.lastUpdate)}</span>
                 </>
             );
-            case MeisterResultType.LOGIN_ERROR: return '정보를 자동으로 불러올 수 없습니다';
+            case MeisterResultType.LOGIN_ERROR: return (
+                <>
+                    <div className={styles.score_info}>
+                        <span>{ranking.score}</span>
+                        <div>{'상벌점을 불러올 수 없음'}</div>
+                    </div>
+                    <span className={styles.last_update}>Update: {elapsedTime(ranking.lastUpdate)}</span>
+                </>
+            );
             case MeisterResultType.PRIVATE: return '랭킹을 비공개로 설정하였습니다';
         }
     }

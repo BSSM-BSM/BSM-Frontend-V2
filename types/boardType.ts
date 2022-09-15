@@ -29,6 +29,12 @@ export interface Post {
     totalLikes: number
 }
 
+export interface DetailPost extends Post {
+    content: string,
+    permission: boolean,
+    like: boolean
+}
+
 export interface BoardListRes extends Omit<Board, 'categoryList'> {
     categoryList: Category[]
 }
