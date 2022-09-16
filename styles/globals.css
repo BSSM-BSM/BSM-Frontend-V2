@@ -231,6 +231,7 @@ label, summary{
 
 .gap-05 {gap: .5rem;}
 .gap-1 {gap: 1rem;}
+.gap-2 {gap: 2rem;}
 .gap-5 {gap: 5rem;}
 
 .space-between {
@@ -253,17 +254,9 @@ label, summary{
     align-items: center;
 }
 
-.container._50 {
-    max-width: 50rem;
-}
-
-.container._100 {
-    max-width: 100rem;
-}
-
-.container._120 {
-    max-width: 120rem;
-}
+.container._50 {max-width: 50rem;}
+.container._100 {max-width: 100rem;}
+.container._110 {max-width: 110rem;}
 
 .container .title {
     margin-top: 5rem;

@@ -1,4 +1,4 @@
-
+import postStyles from '../../../styles/board/post.module.css';
 import type { NextPage } from 'next'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { titleState } from '../../../store/common.store';
-import { Board, BoardListRes, Category } from '../../../types/boardType';
+import { Board, BoardListRes, Category, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
+import { PostView } from '../../../components/board/postView';
 
 const BoardPage: NextPage = () => {
     const { ajax } = useAjax();
@@ -15,6 +16,8 @@ const BoardPage: NextPage = () => {
     const router = useRouter();
     const [ { boardId }, postId ] = [router.query, router.query.params?.[0]];
     const [boardList, setBoardList] = useState<{[index: string]: Board}>({});
+    const [post, setPost] = useState<DetailPost | null>(null);
+    const [postOpen, setPostOpen] = useState<boolean>(true);
     
     useEffect(() => {
         if (typeof boardId !== 'string') return setTitle('');
@@ -51,8 +54,30 @@ const BoardPage: NextPage = () => {
         });
     }, [boardId]);
 
+    useEffect(() => {
+        if (typeof postId !== 'string') setPostOpen(false);
+    }, [postId]);
+
+    useEffect(() => {
+        if (
+            typeof boardId !== 'string'
+            || typeof postId !== 'string'
+        ) return;
+        ajax<DetailPost>({
+            method: HttpMethod.GET,
+            url: `post/${boardId}/${postId}`,
+            callback(data) {
+                setPostOpen(true);
+                setPost(data);
+            },
+            errorCallback() {
+                setPost(null)
+            },
+        })
+    }, [postId, boardId]);
+
     return (
-        <div className='container _120'>
+        <div className='container'>
             <Head>
                 <title>커뮤니티 - BSM</title>
             </Head>
@@ -61,6 +86,13 @@ const BoardPage: NextPage = () => {
                 && boardList[boardId] 
                 && <BoardView boardId={boardId} board={boardList[boardId]} />
             }
+            <div className={`${postStyles.post} ${postOpen? postStyles.open: ''}`}>
+                {
+                    typeof postId === 'string'
+                    && post
+                    && <PostView post={post} />
+                }
+            </div>
         </div>
     );
 }
