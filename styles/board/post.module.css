@@ -4,6 +4,7 @@
     height: 100%;
     top: 0;
     left: 100%;
+    padding: .5rem;
     padding-top: 15rem;
     background-color: var(--background);
     transition: .25s;
@@ -17,7 +18,6 @@
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    padding: .5rem;
 }
 
 .post_info {

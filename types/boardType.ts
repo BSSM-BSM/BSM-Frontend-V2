@@ -45,3 +45,23 @@ export interface PostListRes {
     page: number,
     limit: number
 }
+
+export interface Comment {
+    id: number,
+    user: {
+        code: number,
+        nickname: string
+    },
+    content: string,
+    createdAt: string,
+    permission: boolean,
+    depth: number,
+    child?: (Comment | DeletedComment)[]
+}
+
+export interface DeletedComment {
+    id: number,
+    depth: number,
+    delete: true
+    child?: (Comment | DeletedComment)[]
+}

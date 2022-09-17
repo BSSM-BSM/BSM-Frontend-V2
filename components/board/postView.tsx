@@ -1,7 +1,14 @@
 import styles from '../../styles/board/post.module.css';
-import { DetailPost } from "../../types/boardType";
+import { Comment, DeletedComment, DetailPost } from "../../types/boardType";
+import { CommentView } from './commentView';
 
-export const PostView = ({post}: {post: DetailPost}) => {
+export const PostView = ({
+    post,
+    commentList
+}: {
+    post: DetailPost,
+    commentList: (Comment | DeletedComment)[]
+}) => {
 
     return (
         <div className='container _110'>
@@ -22,6 +29,7 @@ export const PostView = ({post}: {post: DetailPost}) => {
                 </div>
                 <div className={styles.post_content} dangerouslySetInnerHTML={{__html: post.content}} />
             </div>
+            <CommentView commentList={commentList} />
         </div>
     );
 }

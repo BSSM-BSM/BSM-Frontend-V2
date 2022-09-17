@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { titleState } from '../../../store/common.store';
-import { Board, BoardListRes, Category, DetailPost } from '../../../types/boardType';
+import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
 import { PostView } from '../../../components/board/postView';
 
@@ -18,6 +18,7 @@ const BoardPage: NextPage = () => {
     const [boardList, setBoardList] = useState<{[index: string]: Board}>({});
     const [post, setPost] = useState<DetailPost | null>(null);
     const [postOpen, setPostOpen] = useState<boolean>(true);
+    const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
     
     useEffect(() => {
         if (typeof boardId !== 'string') return setTitle('');
@@ -73,7 +74,17 @@ const BoardPage: NextPage = () => {
             errorCallback() {
                 setPost(null)
             },
-        })
+        });
+        ajax<(Comment | DeletedComment)[]>({
+            method: HttpMethod.GET,
+            url: `comment/${boardId}/${postId}`,
+            callback(data) {
+                setCommentList(data);
+            },
+            errorCallback() {
+                setCommentList([]);
+            },
+        });
     }, [postId, boardId]);
 
     return (
@@ -90,7 +101,7 @@ const BoardPage: NextPage = () => {
                 {
                     typeof postId === 'string'
                     && post
-                    && <PostView post={post} />
+                    && <PostView post={post} commentList={commentList} />
                 }
             </div>
         </div>
