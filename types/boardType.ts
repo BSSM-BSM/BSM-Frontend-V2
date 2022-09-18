@@ -56,6 +56,7 @@ export interface Comment {
     createdAt: string,
     permission: boolean,
     depth: number,
+    delete: false,
     child?: (Comment | DeletedComment)[]
 }
 

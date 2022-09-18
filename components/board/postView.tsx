@@ -4,10 +4,12 @@ import { CommentView } from './commentView';
 
 export const PostView = ({
     post,
-    commentList
+    commentList,
+    loadComments
 }: {
     post: DetailPost,
-    commentList: (Comment | DeletedComment)[]
+    commentList: (Comment | DeletedComment)[],
+    loadComments: Function
 }) => {
 
     return (
@@ -29,7 +31,7 @@ export const PostView = ({
                 </div>
                 <div className={styles.post_content} dangerouslySetInnerHTML={{__html: post.content}} />
             </div>
-            <CommentView commentList={commentList} />
+            <CommentView commentList={commentList} loadComments={loadComments} />
         </div>
     );
 }

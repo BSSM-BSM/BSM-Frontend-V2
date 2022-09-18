@@ -1,51 +1,49 @@
 import styles from '../../../styles/input.module.css';
-import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
+import ContentEditable from 'react-contenteditable';
 
-interface TextInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+interface EditorInputProps {
     setCallback: Dispatch<SetStateAction<string>>,
+    className?: string,
     initial?: string,
     placeholder?: string,
     immediately?: boolean,
     inactive?: boolean
 }
 
-export const TextInput = (props: TextInputProps) => {
+export const EditorInput = (props: EditorInputProps) => {
     const {
         setCallback,
         initial = '',
         placeholder,
-        type = 'text',
-        pattern,
         className = '',
         immediately
     } = props;
-    const [tempValue, setTempValue] = useState(initial);
+    const content = useRef(initial);
     const { showToast } = useOverlay();
     
     const applyValue = (value?: string) => {
-        if (pattern && !new RegExp(pattern).test(value || tempValue)) {
+        if (!content.current.length) {
             showToast('정상적인 값이 아닙니다');
             return;
         }
-        setCallback(value || tempValue);
+        setCallback(value ?? content.current);
     }
 
     return (
-        <div className={styles.input_wrap}>
-            <input
-                {...props}
-                className={`${styles.input} ${className}`}
-                type={type}
-                value={tempValue}
+        <div className={`${styles.input_wrap} ${styles.editor}`}>
+            <ContentEditable
+                html={content.current}
+                disabled={false}
+                className={`${styles.input} ${content.current.length? styles.active: ''} ${className}`}
                 onChange={(event) => {
-                    setTempValue(event.target.value);
+                    content.current = event.target.value;
                     if (immediately) applyValue(event.target.value);
                 }}
-                placeholder=''
                 onBlur={() => applyValue()}
                 onKeyDown={e => e.key === 'Enter' && applyValue()}
-            ></input>
+            />
             <span className={styles.placeholder}>{placeholder}</span>
         </div>
     );

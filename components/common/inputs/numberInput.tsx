@@ -40,7 +40,7 @@ export const NumberInput = (props: NumberInputProps) => {
         <div className={styles.input_wrap}>
             <input
                 {...props}
-                className={`input ${className}`}
+                className={`${styles.input} ${className}`}
                 type={type}
                 value={tempValue}
                 onChange={(event) => {

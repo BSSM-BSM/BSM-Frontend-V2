@@ -4,10 +4,7 @@
     align-items: center;
 }
 
-.input_wrap :is(
-    input,
-    textarea
-) {
+.input_wrap .input {
     border: none;
     outline: none;
     width: 37.5rem;
@@ -21,17 +18,17 @@
     transition: .25s;
 }
 
-.input_wrap input[type=number] {
+.input_wrap .input[type=number] {
     width: 5.5rem;
     padding: 1rem 0 1rem 1rem;
 }
 
-.input_wrap input[type=number].year {
+.input_wrap .input[type=number].year {
     width: 8rem;
 }
 
 .input_wrap :is(
-    input,
+    .input,
     textarea
 ):hover {
     box-shadow: var(--shadow) inset;
@@ -47,71 +44,90 @@
     transition: .15s;
 }
 
-.input_wrap input[type=number] ~ .placeholder {
+.input_wrap .input[type=number] ~ .placeholder {
     padding: 1rem 0 1rem 1rem;
 }
 
-.input_wrap input:is(
+.input_wrap .input:is(
     :valid,
-    :focus
+    :focus,
+    .active
 ) {
     background: none !important;
 }
 
-.input_wrap input:is(
+.input_wrap .input:is(
     :valid,
-    :focus
+    :focus,
+    .active
 ) ~ .placeholder {
-    color: var(--accent);
+    left: 0;
     transform: translate(1.5rem, -2.25rem);
     padding: 0 .5rem;
     font-size: 1.3rem;
+    color: var(--accent);
     background-color: var(--background);
 }
 
-.input_wrap input[type=number]:is(
+.input_wrap .input[type=number]:is(
     :valid,
-    :focus
+    :focus,
+    .active
 ) ~ .placeholder {
     transform: translate(.5rem, -1.8rem);
 }
 
-.input_wrap :is(
-    input,
-    textarea
-):focus {
+.input_wrap .input:focus {
     box-shadow: 0 0 0 .2rem var(--main) inset;
 }
 
-.input_wrap input:valid:not(:focus) {
+.input_wrap .input:is(
+    :valid,
+    .active
+):not(:focus) {
     box-shadow: 0 0 0 .2rem var(--text-level-1) inset;
 }
 
-.input_wrap input:valid:not(:focus) ~ .placeholder {
+.input_wrap .input:is(
+    :valid,
+    .active
+):not(:focus) ~ .placeholder {
     color: var(--text-level-1);
 }
 
-.input_wrap input:not(:valid):not(:focus) {
+.input_wrap .input:not(:valid, .active):not(:focus) {
     color: rgba(0, 0, 0, 0);
 }
 
-.input_wrap input[disabled] {
+.input_wrap .input[disabled] {
     opacity: .3;
     color: rgba(0, 0, 0, 0);
     cursor: not-allowed;
 }
 
-.input_wrap input[disabled] ~ .placeholder {
+.input_wrap .input[disabled] ~ .placeholder {
     opacity: .3;
 }
 
-.input_wrap :is(
-    input,
-    textarea
-):active {
+.input_wrap .input:active {
     transform: scale(.95);
 }
 
-.input_wrap input[type=number]:active {
+.input_wrap .input[type=number]:active {
     transform: scale(.8);
+}
+
+.editor {
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.editor .input {
+    width: 100%;
+}
+
+.editor .placeholder {
+    top: 1.5rem;
+    left: 1.5rem;
+    padding: 0;
 }

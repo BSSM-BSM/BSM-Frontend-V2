@@ -9,17 +9,20 @@ import { titleState } from '../../../store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
 import { PostView } from '../../../components/board/postView';
+import { boardAndPostIdState } from '../../../store/board.store';
 
 const BoardPage: NextPage = () => {
     const { ajax } = useAjax();
     const [, setTitle] = useRecoilState(titleState);
     const router = useRouter();
+    const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
+
     const [ { boardId }, postId ] = [router.query, router.query.params?.[0]];
     const [boardList, setBoardList] = useState<{[index: string]: Board}>({});
     const [post, setPost] = useState<DetailPost | null>(null);
     const [postOpen, setPostOpen] = useState<boolean>(true);
     const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
-    
+
     useEffect(() => {
         if (typeof boardId !== 'string') return setTitle('');
         if (postId === undefined) setTitle(boardList[boardId]?.boardName);
@@ -68,6 +71,10 @@ const BoardPage: NextPage = () => {
             method: HttpMethod.GET,
             url: `post/${boardId}/${postId}`,
             callback(data) {
+                setBoardAndPostId({
+                    boardId,
+                    postId: Number(postId)
+                });
                 setPostOpen(true);
                 setPost(data);
             },
@@ -75,6 +82,10 @@ const BoardPage: NextPage = () => {
                 setPost(null)
             },
         });
+        loadComments();
+    }, [postId, boardId]);
+
+    const loadComments = () => {
         ajax<(Comment | DeletedComment)[]>({
             method: HttpMethod.GET,
             url: `comment/${boardId}/${postId}`,
@@ -85,7 +96,7 @@ const BoardPage: NextPage = () => {
                 setCommentList([]);
             },
         });
-    }, [postId, boardId]);
+    }
 
     return (
         <div className='container'>
@@ -101,7 +112,7 @@ const BoardPage: NextPage = () => {
                 {
                     typeof postId === 'string'
                     && post
-                    && <PostView post={post} commentList={commentList} />
+                    && <PostView post={post} commentList={commentList} loadComments={loadComments} />
                 }
             </div>
         </div>

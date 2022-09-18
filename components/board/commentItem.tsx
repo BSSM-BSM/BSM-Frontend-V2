@@ -1,14 +1,21 @@
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
+import { CommentWrite } from './commentWrite';
 
-export const CommentList = ({commentList}: {commentList: (Comment | DeletedComment)[]}) => {
+export const CommentList = ({
+    commentList,
+    loadComments
+}: {
+    commentList: (Comment | DeletedComment)[],
+    loadComments: Function
+}) => {
     return (
         <ul className='left'>{
             commentList.map(comment => (
                 <li key={comment.id}>
                     <div className={styles.item}>
                         {
-                            'delete' in comment
+                            comment.delete
                             ? '삭제된 댓글 입니다'
                             : <>
                                 <div className='rows gap-1'>
@@ -27,8 +34,9 @@ export const CommentList = ({commentList}: {commentList: (Comment | DeletedComme
                             </>
                         }
                     </div>
+                    <CommentWrite depth={comment.depth+1} parentId={comment.id} loadComments={loadComments} />
                     <div className={styles.child}>
-                        {comment.child && <CommentList commentList={comment.child} />}
+                        {comment.child && <CommentList commentList={comment.child} loadComments={loadComments} />}
                     </div>
                 </li>
             ))
