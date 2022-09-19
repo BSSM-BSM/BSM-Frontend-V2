@@ -113,7 +113,7 @@ const Home: NextPage = () => {
     return (
         <div className='full-screen'>
             <section className={styles.quick_menu_section}>
-                <ul className={`${styles.quick_menu_list} button_wrap`}>
+                <ul className={`${styles.quick_menu_list} button-wrap`}>
                     <li>
                         {userMenuView()}
                     </li>

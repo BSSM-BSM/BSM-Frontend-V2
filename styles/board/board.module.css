@@ -2,17 +2,23 @@
     gap: 2rem;
 }
 
-.post_item {
+.post_item_wrap {
     display: flex;
-    padding: 1rem 1rem 1rem 0;
     border-radius: 1rem;
     transition: .25s;
     cursor: pointer;
 }
 
-.post_item:hover {
+.post_item_wrap:hover {
     background-color: var(--level-1);
     box-shadow: var(--shadow);
+}
+
+.post_item {
+    flex: 1;
+    display: flex;
+    padding: 1rem 1rem 1rem 0;
+    border-radius: 1rem;
 }
 
 .total_comments {
@@ -76,7 +82,28 @@
     background-color: var(--level-2);
 }
 
+.refresh {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 1rem 1rem 0;
+    background-color: var(--level-2);
+    transition: .25s;
+}
+
+.refresh:hover {
+    background-color: var(--hover);
+}
+
+.refresh img {
+    width: 5rem;
+    height: 5rem;
+    padding: 1rem;
+    filter: var(--bright);
+}
+
 @media screen and (min-width: 0) and (max-width: 1023px) {
+
     .post_item {
         font-size: 1.4rem;
     }

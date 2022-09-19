@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Comment } from "../types/boardType";
+import { Comment, DetailPost } from "../types/boardType";
 import { localStorageEffect } from "../utils/localStorage";
 
 export const postLimitState = atom<number>({
@@ -17,6 +17,16 @@ export const boardAndPostIdState = atom<{
         boardId: '',
         postId: 0
     }
+});
+
+export const postState = atom<DetailPost | null>({
+    key: 'post',
+    default: null
+});
+
+export const postOpenState = atom<boolean>({
+    key: 'postOpen',
+    default: false
 });
 
 export const parentCommentState = atom<Comment | null>({

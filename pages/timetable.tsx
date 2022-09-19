@@ -197,7 +197,7 @@ const TimetablePage: NextPage = () => {
                     <h2>{date}</h2>
                 </div>
                 {timetableList.length > 0 && <div className={styles.time_line}></div>}
-                <ul className={`${styles.select_day} button_wrap`}>
+                <ul className={`${styles.select_day} button-wrap`}>
                     {
                         dayNames.map((name, i) => (
                             <li

@@ -659,11 +659,11 @@ label, summary{
 }
 
 .button:active,
-.button_wrap > *:active {
+.button-wrap > *:active {
     transform: scale(.8);
 }
 
-.button_wrap > * {
+.button-wrap > * {
     transition: .25s;
 }
 

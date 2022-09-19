@@ -9,7 +9,7 @@ import { titleState } from '../../../store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
 import { PostView } from '../../../components/board/postView';
-import { boardAndPostIdState } from '../../../store/board.store';
+import { boardAndPostIdState, postOpenState, postState } from '../../../store/board.store';
 
 const BoardPage: NextPage = () => {
     const { ajax } = useAjax();
@@ -19,8 +19,8 @@ const BoardPage: NextPage = () => {
 
     const [ { boardId }, postId ] = [router.query, router.query.params?.[0]];
     const [boardList, setBoardList] = useState<{[index: string]: Board}>({});
-    const [post, setPost] = useState<DetailPost | null>(null);
-    const [postOpen, setPostOpen] = useState<boolean>(true);
+    const [post, setPost] = useRecoilState(postState);
+    const [postOpen, setPostOpen] = useRecoilState(postOpenState);
     const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
 
     useEffect(() => {
@@ -34,6 +34,7 @@ const BoardPage: NextPage = () => {
 
     useEffect(() => {
         if (typeof boardId !== 'string') return;
+        setPost(null);
         ajax<BoardListRes>({
             method: HttpMethod.GET,
             url: `board/${boardId}`,
@@ -67,6 +68,14 @@ const BoardPage: NextPage = () => {
     }, [postId]);
 
     useEffect(() => {
+        if (post?.id === Number(postId)) {
+            setPostOpen(true);
+        } else {
+            loadPostAndComments();
+        }
+    }, [postId, boardId]);
+
+    const loadPostAndComments = () => {
         if (
             typeof boardId !== 'string'
             || typeof postId !== 'string'
@@ -87,7 +96,7 @@ const BoardPage: NextPage = () => {
             },
         });
         loadComments();
-    }, [postId, boardId]);
+    }
 
     const loadComments = () => {
         ajax<(Comment | DeletedComment)[]>({
