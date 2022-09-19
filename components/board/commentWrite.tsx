@@ -45,7 +45,7 @@ export const CommentWrite = ({
                 placeholder='댓글 내용'
                 className='comment-input'
             />
-            <button className="button accent" onClick={writeComment}>쓰기</button>
+            <button className="button" onClick={writeComment}>쓰기</button>
         </div>
     );
 }

@@ -28,10 +28,23 @@
 
 .write_bar {
     position: fixed;
+    min-width: 50rem;
     bottom: 0;
     left: 50%;
+    padding: .5rem;
+    width: auto;
     animation: show-write-bar .25s forwards;
-    width: 100%;
+}
+
+@media screen and (min-width: 0) and (max-width: 600px) {
+    .child {
+        margin-left: 3rem;
+    }
+
+    .write_bar {
+        min-width: 0;
+        width: 100%;
+    }
 }
 
 @keyframes show-write-bar {
@@ -48,6 +61,7 @@
     border-radius: 1rem;
     background-color: var(--menu-background);
     backdrop-filter: blur(3px);
+    width: calc(100% - 78px);
 }
 
 .write_wrap :global(.comment-input) {

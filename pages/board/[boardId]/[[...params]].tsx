@@ -25,7 +25,11 @@ const BoardPage: NextPage = () => {
 
     useEffect(() => {
         if (typeof boardId !== 'string') return setTitle('');
-        if (postId === undefined) setTitle(boardList[boardId]?.boardName);
+        if (postId === undefined) {
+            setTitle(boardList[boardId]?.boardName);
+        } else {
+            post && setTitle(post.title);
+        }
     }, [boardId, postId, boardList]);
 
     useEffect(() => {

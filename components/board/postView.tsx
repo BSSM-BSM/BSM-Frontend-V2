@@ -20,9 +20,9 @@ export const PostView = ({
                 <div className={styles.post_info}>
                     <img className={`user-profile ${styles.user_profile}`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${post.user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
                     <div className='cols space-between flex-main'>
-                        <h2 className='left'>{post.title}</h2>
+                        <h2 className={styles.title}>{post.title}</h2>
                         <div className='rows space-between'>
-                            <span>{post.user.nickname}</span>
+                            <span className='bold'>{post.user.nickname}</span>
                             <div className='rows gap-2'>
                                 <span>{post.totalComments} 댓글</span>
                                 <span>조회 {post.hit}</span>
@@ -34,7 +34,7 @@ export const PostView = ({
                 <div className={styles.post_content} dangerouslySetInnerHTML={{__html: post.content}} />
             </div>
             <CommentView commentList={commentList} />
-            <div className={`${commentStyles.write_bar} container`}>
+            <div className={`${commentStyles.write_bar} container _110`}>
                 <CommentWrite depth={0} parentId={0} loadComments={loadComments} />
             </div>
         </div>

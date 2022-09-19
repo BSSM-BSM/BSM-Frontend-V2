@@ -19,6 +19,10 @@
     gap: 3rem;
 }
 
+.title {
+    text-align: left;
+}
+
 .post_info {
     display: flex;
     gap: 2rem;
@@ -31,4 +35,29 @@
 
 .post_content {
     text-align: initial;
+}
+
+@media screen and (min-width: 0) and (max-width: 750px) {
+
+    .post {
+        padding: 7rem .5rem 1rem;
+    }
+
+    .post_wrap {
+        padding: 0 1rem;
+    }
+
+    .post_info {
+        gap: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .user_profile {
+        width: 4rem;
+        height: 4rem;
+    }
 }

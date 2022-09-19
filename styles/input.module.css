@@ -2,6 +2,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
+    transition: .25s;
 }
 
 .input_wrap .input {
@@ -109,11 +110,11 @@
     opacity: .3;
 }
 
-.input_wrap .input:active {
+.input_wrap:active {
     transform: scale(.95);
 }
 
-.input_wrap .input[type=number]:active {
+.input_wrap.number:active  {
     transform: scale(.8);
 }
 

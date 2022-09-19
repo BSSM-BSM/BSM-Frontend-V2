@@ -37,7 +37,7 @@ export const NumberInput = (props: NumberInputProps) => {
     }
 
     return (
-        <div className={styles.input_wrap}>
+        <div className={`${styles.input_wrap} ${styles.number}`}>
             <input
                 {...props}
                 className={`${styles.input} ${className}`}
