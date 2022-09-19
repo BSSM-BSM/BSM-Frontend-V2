@@ -4,8 +4,7 @@
     height: 100%;
     top: 0;
     left: 100%;
-    padding: .5rem;
-    padding-top: 15rem;
+    padding: 15rem .5rem 0;
     background-color: var(--background);
     transition: .25s;
 }

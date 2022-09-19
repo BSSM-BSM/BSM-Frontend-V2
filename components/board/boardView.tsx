@@ -53,7 +53,7 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
     }
     
     return (
-        <div>
+        <div className='container'>
             <div>
                 <CategoryList
                     postCategory={postCategory}

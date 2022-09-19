@@ -1,6 +1,8 @@
 import styles from '../../styles/board/post.module.css';
+import commentStyles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment, DetailPost } from "../../types/boardType";
 import { CommentView } from './commentView';
+import { CommentWrite } from './commentWrite';
 
 export const PostView = ({
     post,
@@ -31,7 +33,10 @@ export const PostView = ({
                 </div>
                 <div className={styles.post_content} dangerouslySetInnerHTML={{__html: post.content}} />
             </div>
-            <CommentView commentList={commentList} loadComments={loadComments} />
+            <CommentView commentList={commentList} />
+            <div className={`${commentStyles.write_bar} container`}>
+                <CommentWrite depth={0} parentId={0} loadComments={loadComments} />
+            </div>
         </div>
     );
 }

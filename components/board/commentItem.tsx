@@ -1,13 +1,10 @@
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
-import { CommentWrite } from './commentWrite';
 
 export const CommentList = ({
-    commentList,
-    loadComments
+    commentList
 }: {
-    commentList: (Comment | DeletedComment)[],
-    loadComments: Function
+    commentList: (Comment | DeletedComment)[]
 }) => {
     return (
         <ul className='left'>{
@@ -34,9 +31,8 @@ export const CommentList = ({
                             </>
                         }
                     </div>
-                    <CommentWrite depth={comment.depth+1} parentId={comment.id} loadComments={loadComments} />
                     <div className={styles.child}>
-                        {comment.child && <CommentList commentList={comment.child} loadComments={loadComments} />}
+                        {comment.child && <CommentList commentList={comment.child} />}
                     </div>
                 </li>
             ))

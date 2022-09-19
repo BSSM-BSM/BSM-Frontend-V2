@@ -1,3 +1,4 @@
+import styles from '../../styles/board/comment.module.css';
 import { useState } from "react";
 import { useRecoilState } from "recoil"
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
@@ -27,7 +28,7 @@ export const CommentWrite = ({
             payload: {
                 depth,
                 parentId,
-                content: content,
+                content,
                 anonymous: false
             },
             callback() {
@@ -38,10 +39,11 @@ export const CommentWrite = ({
     }
 
     return (
-        <div>
+        <div className={styles.write_wrap}>
             <EditorInput
                 setCallback={setContent}
                 placeholder='댓글 내용'
+                className='comment-input'
             />
             <button className="button accent" onClick={writeComment}>쓰기</button>
         </div>

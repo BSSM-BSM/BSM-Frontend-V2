@@ -103,12 +103,14 @@ const BoardPage: NextPage = () => {
             <Head>
                 <title>커뮤니티 - BSM</title>
             </Head>
-            {
-                typeof boardId === 'string' 
-                && boardList[boardId] 
-                && <BoardView boardId={boardId} board={boardList[boardId]} />
-            }
-            <div className={`${postStyles.post} ${postOpen? postStyles.open: ''}`}>
+            <div className='scroll-bar'>
+                {
+                    typeof boardId === 'string' 
+                    && boardList[boardId] 
+                    && <BoardView boardId={boardId} board={boardList[boardId]} />
+                }
+            </div>
+            <div className={`${postStyles.post} ${postOpen? postStyles.open: ''} scroll-bar`}>
                 {
                     typeof postId === 'string'
                     && post

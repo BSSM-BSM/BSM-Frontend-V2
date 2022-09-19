@@ -119,6 +119,10 @@ body, .scroll_bar, .modal--content {
     overflow: auto;
 }
 
+.scroll-bar {
+    overflow: overlay;
+}
+
 :is(
     body,
     .scroll-bar

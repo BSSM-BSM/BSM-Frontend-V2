@@ -1,5 +1,5 @@
 .comment_wrap {
-    margin-top: 10rem;
+    margin: 10rem 0 5rem;
 }
 
 .item {
@@ -24,4 +24,32 @@
 .user_profile {
     width: 3rem;
     height: 3rem;
+}
+
+.write_bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    animation: show-write-bar .25s forwards;
+    width: 100%;
+}
+
+@keyframes show-write-bar {
+    from {transform: translate(-50%, 100%);}
+    to {transform: translate(-50%, 0);}
+}
+
+.write_wrap {
+    display: flex;
+}
+
+.write_wrap > div:first-child {
+    flex: 1;
+    border-radius: 1rem;
+    background-color: var(--menu-background);
+    backdrop-filter: blur(3px);
+}
+
+.write_wrap :global(.comment-input) {
+    background: none !important;
 }

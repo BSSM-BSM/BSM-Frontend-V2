@@ -1,6 +1,5 @@
 import styles from '../../../styles/input.module.css';
 import { Dispatch, SetStateAction, useRef } from "react";
-import { useOverlay } from "../../../hooks/useOverlay";
 import ContentEditable from 'react-contenteditable';
 
 interface EditorInputProps {
@@ -21,11 +20,9 @@ export const EditorInput = (props: EditorInputProps) => {
         immediately
     } = props;
     const content = useRef(initial);
-    const { showToast } = useOverlay();
     
     const applyValue = (value?: string) => {
         if (!content.current.length) {
-            showToast('정상적인 값이 아닙니다');
             return;
         }
         setCallback(value ?? content.current);
