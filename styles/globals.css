@@ -441,7 +441,6 @@ label, summary{
     padding: 1rem;
     transition: .25s;
     background-color: var(--menu-background);
-    backdrop-filter: blur(5px);
 }
 
 .left-slide-menu .menu-button:hover ~ .menu-list,

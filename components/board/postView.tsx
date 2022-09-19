@@ -33,7 +33,7 @@ export const PostView = ({
                 </div>
                 <div className={styles.post_content} dangerouslySetInnerHTML={{__html: post.content}} />
             </div>
-            <CommentView commentList={commentList} />
+            <CommentView commentList={commentList} loadComments={loadComments} />
             <div className={`${commentStyles.write_bar} container _110`}>
                 <CommentWrite loadComments={loadComments} />
             </div>

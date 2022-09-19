@@ -3,11 +3,13 @@ import { Comment, DeletedComment } from "../../types/boardType"
 import { CommentList } from './commentItem';
 
 export const CommentView = ({
-    commentList
+    commentList,
+    loadComments
 }: {
-    commentList: (Comment | DeletedComment)[]
+    commentList: (Comment | DeletedComment)[],
+    loadComments: Function
 }) => (
     <div className={styles.comment_wrap}>
-        {<CommentList commentList={commentList} />}
+        {<CommentList commentList={commentList} loadComments={loadComments} />}
     </div>
 )
