@@ -1,3 +1,5 @@
+import { useRecoilState } from 'recoil';
+import { parentCommentState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
 
@@ -6,11 +8,13 @@ export const CommentList = ({
 }: {
     commentList: (Comment | DeletedComment)[]
 }) => {
+    const [, setParentComment] = useRecoilState(parentCommentState);
+    
     return (
         <ul className='left'>{
             commentList.map(comment => (
                 <li key={comment.id}>
-                    <div className={styles.item}>
+                    <div className={styles.item} onClick={() => !comment.delete && setParentComment(comment)}>
                         {
                             comment.delete
                             ? '삭제된 댓글 입니다'

@@ -30,7 +30,7 @@ const BoardPage: NextPage = () => {
         } else {
             post && setTitle(post.title);
         }
-    }, [boardId, postId, boardList]);
+    }, [boardId, postId, boardList, post]);
 
     useEffect(() => {
         if (typeof boardId !== 'string') return;

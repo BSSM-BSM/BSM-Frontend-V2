@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useRef } from "react";
 import ContentEditable from 'react-contenteditable';
 
 interface EditorInputProps {
-    setCallback: Dispatch<SetStateAction<string>>,
+    setCallback: Dispatch<SetStateAction<string | null>>,
     className?: string,
     initial?: string,
     placeholder?: string,

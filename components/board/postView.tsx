@@ -35,7 +35,7 @@ export const PostView = ({
             </div>
             <CommentView commentList={commentList} />
             <div className={`${commentStyles.write_bar} container _110`}>
-                <CommentWrite depth={0} parentId={0} loadComments={loadComments} />
+                <CommentWrite loadComments={loadComments} />
             </div>
         </div>
     );
