@@ -8,7 +8,8 @@ interface EditorInputProps {
     initial?: string,
     placeholder?: string,
     immediately?: boolean,
-    inactive?: boolean
+    inactive?: boolean,
+    full?: boolean
 }
 
 export const EditorInput = (props: EditorInputProps) => {
@@ -17,7 +18,8 @@ export const EditorInput = (props: EditorInputProps) => {
         initial = '',
         placeholder,
         className = '',
-        immediately
+        immediately,
+        full
     } = props;
     const content = useRef(initial);
     
@@ -29,7 +31,7 @@ export const EditorInput = (props: EditorInputProps) => {
     }
 
     return (
-        <div className={`${styles.input_wrap} ${styles.editor}`}>
+        <div className={`${styles.input_wrap} ${styles.editor} ${full? styles.full: ''}`}>
             <ContentEditable
                 html={content.current}
                 disabled={false}

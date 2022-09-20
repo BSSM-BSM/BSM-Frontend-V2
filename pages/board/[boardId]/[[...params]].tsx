@@ -10,6 +10,7 @@ import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } fr
 import { BoardView } from '../../../components/board/boardView';
 import { PostView } from '../../../components/board/postView';
 import { boardAndPostIdState, postOpenState, postState } from '../../../store/board.store';
+import { PostWrite } from '../../../components/board/postWrite';
 
 const BoardPage: NextPage = () => {
     const { ajax } = useAjax();
@@ -21,6 +22,7 @@ const BoardPage: NextPage = () => {
     const [boardList, setBoardList] = useState<{[index: string]: Board}>({});
     const [post, setPost] = useRecoilState(postState);
     const [postOpen, setPostOpen] = useRecoilState(postOpenState);
+    const [postWriteOpen, setPostWriteOpen] = useState<boolean>(false);
     const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
 
     useEffect(() => {
@@ -116,6 +118,7 @@ const BoardPage: NextPage = () => {
             <Head>
                 <title>커뮤니티 - BSM</title>
             </Head>
+            <button onClick={() => setPostWriteOpen(true)}>글쓰기</button>
             <div className='scroll-bar'>
                 {
                     typeof boardId === 'string' 
@@ -130,8 +133,15 @@ const BoardPage: NextPage = () => {
                     && <PostView post={post} commentList={commentList} loadComments={loadComments} />
                 }
             </div>
+            <div className={`${postStyles.post} ${postWriteOpen? postStyles.open: ''} scroll-bar`}>
+                {
+                    typeof boardId === 'string'
+                    && postWriteOpen
+                    && <PostWrite boardId={boardId} categoryList={boardList[boardId].categoryList} setPostWriteOpen={setPostWriteOpen} />
+                }
+            </div>
         </div>
     );
 }
 
-export default BoardPage
+export default BoardPage;

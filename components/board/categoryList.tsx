@@ -5,15 +5,17 @@ import { Category } from '../../types/boardType';
 interface CategoryListProps {
     postCategory: string,
     setPostCategory: Dispatch<SetStateAction<string>>,
-    categoryList: Category[]
+    categoryList: Category[],
+    className?: string
 }
 
 export const CategoryList = ({
     postCategory,
     setPostCategory,
-    categoryList
+    categoryList,
+    className
 }: CategoryListProps) => (
-    <ul className={`${styles.category_list} rows gap-05 scroll-bar no-overlay`}>{
+    <ul className={`${styles.category_list} rows gap-05 scroll-bar no-overlay ${className ?? ''}`}>{
         categoryList.map(category => (
             <li
                 key={category.id}
@@ -24,4 +26,4 @@ export const CategoryList = ({
             </li>
         ))
     }</ul>
-)
+);

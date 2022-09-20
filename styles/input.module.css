@@ -2,13 +2,22 @@
     position: relative;
     display: inline-flex;
     align-items: center;
+    width: 37.5rem;
     transition: .25s;
+}
+
+.input_wrap.number {
+    width: 5.5rem;
+}
+
+.input_wrap.full {
+    width: 100%;
 }
 
 .input_wrap .input {
     border: none;
     outline: none;
-    width: 37.5rem;
+    width: 100%;
     padding: 1.5rem;
     font-weight: bold;
     font-size: 1.5rem;
@@ -19,13 +28,8 @@
     transition: .25s;
 }
 
-.input_wrap .input[type=number] {
-    width: 5.5rem;
+.input_wrap.number .input {
     padding: 1rem 0 1rem 1rem;
-}
-
-.input_wrap .input[type=number].year {
-    width: 8rem;
 }
 
 .input_wrap :is(
@@ -45,7 +49,7 @@
     transition: .15s;
 }
 
-.input_wrap .input[type=number] ~ .placeholder {
+.input_wrap.number .input ~ .placeholder {
     padding: 1rem 0 1rem 1rem;
 }
 
@@ -70,7 +74,7 @@
     background-color: var(--background);
 }
 
-.input_wrap .input[type=number]:is(
+.input_wrap.number .input:is(
     :valid,
     :focus,
     .active

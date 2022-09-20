@@ -7,7 +7,8 @@ interface TextInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInput
     initial?: string,
     placeholder?: string,
     immediately?: boolean,
-    inactive?: boolean
+    inactive?: boolean,
+    full?: boolean
 }
 
 export const TextInput = (props: TextInputProps) => {
@@ -18,7 +19,8 @@ export const TextInput = (props: TextInputProps) => {
         type = 'text',
         pattern,
         className = '',
-        immediately
+        immediately,
+        full
     } = props;
     const [tempValue, setTempValue] = useState(initial);
     const { showToast } = useOverlay();
@@ -32,7 +34,7 @@ export const TextInput = (props: TextInputProps) => {
     }
 
     return (
-        <div className={styles.input_wrap}>
+        <div className={`${styles.input_wrap} ${full? styles.full: ''}`}>
             <input
                 {...props}
                 className={`${styles.input} ${className}`}
