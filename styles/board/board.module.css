@@ -1,5 +1,6 @@
 .post_list {
     gap: 2rem;
+    margin-bottom: 8rem;
 }
 
 .post_item_wrap {
@@ -60,7 +61,6 @@
 
 .post_load_bar {
     height: 5rem;
-    background-color: var(--level-1);
 }
 
 .category_list {
@@ -91,15 +91,30 @@
     transition: .25s;
 }
 
-.refresh:hover {
+:is(.refresh, .write):hover {
     background-color: var(--hover);
 }
 
-.refresh img {
+:is(.refresh, .write) img {
     width: 5rem;
     height: 5rem;
     padding: 1rem;
     filter: var(--bright);
+}
+
+.write {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--level-2);
+    border-radius: 50%;
+    transition: .25s;
+}
+
+.write img {
+    width: 5rem;
+    height: 5rem;
+    padding: 1.5rem;
 }
 
 @media screen and (min-width: 0) and (max-width: 1023px) {

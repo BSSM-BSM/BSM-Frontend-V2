@@ -7,6 +7,7 @@ import { PostItem } from './postItem';
 import { useRecoilState } from 'recoil';
 import { postLimitState } from '../../store/board.store';
 import { CategoryList } from './categoryList';
+import Link from 'next/link';
 
 interface BoardViewProps {
     boardId: string,
@@ -18,32 +19,27 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
     const [postLimit] = useRecoilState(postLimitState);
     const [postList, setPostList] = useState<Post[]>([]);
     const [postCategory, setPostCategory] = useState<string>('all');
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [postLoadRef, inView] = useInView();
 
     useEffect(() => {
         if (loading) return;
-        if (postList.length) setPostList([]);
         else loadPosts(-1);
-    }, [postCategory]);
-
-    useEffect(() => {
-        if (postList.length) return;
-        loadPosts(-1);
-    }, [postList]);
+    }, [postCategory, boardId]);
     
     useEffect(() => {
         if (!postList.length || !inView || loading) return;
-        setLoading(true);
         loadPosts(postList[postList.length-1]?.id ?? -1);
     }, [inView]);
 
     const loadPosts = (startPostId: number) => {
+        setLoading(true);
         ajax<PostListRes>({
             method: HttpMethod.GET,
             url: `post/${boardId}?i=${startPostId}&l=${postLimit}&c=${postCategory}`,
             callback(data) {
-                if (data.posts.length) setPostList(prev => [...prev, ...data.posts]);
+                if (startPostId === -1) setPostList(data.posts);
+                else if (data.posts.length) setPostList(prev => [...prev, ...data.posts]);
                 setLoading(false);
             },
             errorCallback() {
@@ -78,6 +74,9 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
                 ))}
                 {postList[postList.length-1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
             </ul>
+            <Link href={`/board/${boardId}/write`}>
+                <a className={styles.write}><img src='/icons/pen.svg' alt='글쓰기' /></a>
+            </Link>
         </div>
     );
 }

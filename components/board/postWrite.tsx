@@ -11,14 +11,12 @@ interface PostWriteProps {
     boardId: string,
     categoryList: {
         [index: string]: Category
-    },
-    setPostWriteOpen: Dispatch<SetStateAction<boolean>>
+    }
 }
 
 export const PostWrite = ({
     boardId,
     categoryList,
-    setPostWriteOpen
 }: PostWriteProps) => {
     const {ajax} = useAjax();
     const router = useRouter();
@@ -37,10 +35,9 @@ export const PostWrite = ({
                 anonymous: false
             },
             callback(postId) {
-                setPostWriteOpen(false);
                 router.push(`/board/${boardId}/${postId}`);
             },
-        })
+        });
     }
 
     return (
@@ -73,7 +70,6 @@ export const PostWrite = ({
                 }}
                 value={content}
                 onEditorChange={((content, editor) => {
-                    console.log(content)
                     setContent(content);
                 })}
             />

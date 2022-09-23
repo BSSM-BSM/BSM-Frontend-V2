@@ -22,12 +22,14 @@ const BoardPage: NextPage = () => {
     const [boardList, setBoardList] = useState<{[index: string]: Board}>({});
     const [post, setPost] = useRecoilState(postState);
     const [postOpen, setPostOpen] = useRecoilState(postOpenState);
-    const [postWriteOpen, setPostWriteOpen] = useState<boolean>(false);
     const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
 
     useEffect(() => {
         if (typeof boardId !== 'string') return setTitle('');
-        if (postId === undefined) {
+        if (
+            typeof postId !== 'string'
+            || post?.id !== Number(postId)
+        ) {
             setTitle(boardList[boardId]?.boardName);
         } else {
             post && setTitle(post.title);
@@ -70,6 +72,7 @@ const BoardPage: NextPage = () => {
     }, [postId]);
 
     useEffect(() => {
+        if (postId === 'write') return;
         if (post?.id === Number(postId)) {
             setPostOpen(true);
         } else {
@@ -118,28 +121,29 @@ const BoardPage: NextPage = () => {
             <Head>
                 <title>커뮤니티 - BSM</title>
             </Head>
-            <button onClick={() => setPostWriteOpen(true)}>글쓰기</button>
-            <div className='scroll-bar'>
-                {
-                    typeof boardId === 'string' 
-                    && boardList[boardId] 
-                    && <BoardView boardId={boardId} board={boardList[boardId]} />
-                }
-            </div>
-            <div className={`${postStyles.post} ${postOpen? postStyles.open: ''} scroll-bar`}>
-                {
-                    typeof postId === 'string'
-                    && post
-                    && <PostView post={post} commentList={commentList} loadComments={loadComments} />
-                }
-            </div>
-            <div className={`${postStyles.post} ${postWriteOpen? postStyles.open: ''} scroll-bar`}>
-                {
-                    typeof boardId === 'string'
-                    && postWriteOpen
-                    && <PostWrite boardId={boardId} categoryList={boardList[boardId].categoryList} setPostWriteOpen={setPostWriteOpen} />
-                }
-            </div>
+            {
+                typeof boardId === 'string'
+                && boardList[boardId]
+                && <>
+                    <div className='scroll-bar'>
+                        <BoardView boardId={boardId} board={boardList[boardId]} />
+                    </div>
+                    <div className={`${postStyles.post} ${postOpen? postStyles.open: ''} scroll-bar`}>
+                        {
+                            typeof postId === 'string'
+                            && postId !== 'write'
+                            && post
+                            && <PostView post={post} commentList={commentList} loadComments={loadComments} />
+                        }
+                    </div>
+                </>
+            }
+            {
+                typeof boardId === 'string'
+                && <div className={`${postStyles.post} ${boardList[boardId] && postId === 'write'? postStyles.open: ''} scroll-bar`}>
+                    <PostWrite boardId={boardId} categoryList={boardList[boardId]?.categoryList ?? {}} />
+                </div>
+            }
         </div>
     );
 }
