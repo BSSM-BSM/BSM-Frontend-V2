@@ -10,7 +10,7 @@ import Modal from '../../components/common/modal';
 import Link from 'next/link';
 import { TextInput } from '../../components/common/inputs/textInput';
 import { NumberInput } from '../../components/common/inputs/numberInput';
-import { titleState } from '../../store/common.store';
+import { headerOptionState } from '../../store/common.store';
 
 interface MeisterInfo {
     scoreHtmlContent: string;
@@ -21,7 +21,7 @@ interface MeisterInfo {
 }
 
 const MeisterPage: NextPage = () => {
-    const [, setTitle] = useRecoilState(titleState);
+    const [, setHeaderOption] = useRecoilState(headerOptionState);
     const { ajax } = useAjax();
     const { openModal } = useModal();
     const [noPw, setNoPw] = useState(true);
@@ -39,7 +39,7 @@ const MeisterPage: NextPage = () => {
     });
 
     useEffect(() => {
-        setTitle('마이스터 점수 및 상벌점 조회');
+        setHeaderOption({title: '마이스터 점수 및 상벌점 조회'});
     }, []);
 
     const loadMeisterInfo = () => {

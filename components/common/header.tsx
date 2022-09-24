@@ -1,23 +1,24 @@
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
 import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
-import { titleState } from '../../store/common.store';
+import { headerOptionState } from '../../store/common.store';
 import styles from '../../styles/header.module.css';
 
 export const Header = () => {
     const [mounted, setMounted] = useState(false);
+    const router = useRouter();
     const { openModal } = useModal();
     const { ajax } = useAjax();
     const { showToast } = useOverlay();
     const [user] = useRecoilState(userState);
     const resetUser = useResetRecoilState(userState);
     const [sideBar, setSideBar] = useState(false);
-    const [title] = useRecoilState(titleState);
+    const [headerOption] = useRecoilState(headerOptionState);
 
     useEffect(() => {
         Router.events.on('routeChangeStart', () => setSideBar(false));
@@ -39,7 +40,7 @@ export const Header = () => {
     const userMenuView = () => (
         mounted && (
             user.isLogin
-            ?<div className={`dropdown-menu ${styles.dropdown}`}>
+            ? <div className={`dropdown-menu ${styles.dropdown}`}>
                 <span className={`${styles.item} ${styles.user_profile_wrap}`}>
                     <span>{user.nickname}</span>
                     <img className='user-profile' src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
@@ -49,9 +50,38 @@ export const Header = () => {
                     <li><span onClick={() => {logout(); setSideBar(false);}} className='option'>로그아웃</span></li>
                 </ul>
             </div>
-            :(<span className={styles.item} onClick={() => {openModal('login'); setSideBar(false);}}>로그인</span>)
+            : <span className={styles.item} onClick={() => {openModal('login'); setSideBar(false);}}>로그인</span>
         )
     );
+
+    const allMenuFunc = (): {
+        className: string,
+        func: () => void
+    } => {
+        switch (headerOption.allMenu) {
+            case 'goBack': return {
+                className: 'go-back',
+                func: () => router.back()
+            };
+        }
+        return {
+            className: '',
+            func: () => setSideBar(true)
+        };
+    }
+
+    const allMenuView = () => {
+        const {className, func} = allMenuFunc();
+        return (
+            <li
+                className={`${styles.item} ${styles.all_menu} menu-button ${className}`}
+                onClick={func}>
+                <span className='line'></span>
+                <span className='line'></span>
+                <span className='line'></span>
+            </li>
+        );
+    };
 
     return (
         <header className={styles.header}>
@@ -61,18 +91,14 @@ export const Header = () => {
                         <li className={styles.home}>
                             <Link href='/'><img src='/logo/logo.png' alt='logo' className={`logo ${styles.item}`} /></Link>
                         </li>
-                        <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(true)}>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                        </li>
+                        {allMenuView()}
                         <h2 className={styles.title}>
-                            {title}
+                            {headerOption.title}
                         </h2>
                         <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>
                     </ul>
                     <h2 className={styles.title}>
-                        {title}
+                        {headerOption.title}
                     </h2>
                     <ul className={styles.right}>
                     <li className={`dropdown-menu ${styles.dropdown}`}>

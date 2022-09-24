@@ -6,17 +6,17 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { MeisterRanking } from '../../types/meisterType';
 import { MeisterRankingItem } from '../../components/meister/rankingItem';
 import { useOverlay } from '../../hooks/useOverlay';
-import { titleState } from '../../store/common.store';
+import { headerOptionState } from '../../store/common.store';
 import { useRecoilState } from 'recoil';
 
 const MeisterPage: NextPage = () => {
-    const [, setTitle] = useRecoilState(titleState);
+    const [, setHeaderOption] = useRecoilState(headerOptionState);
     const { ajax } = useAjax();
     const { showAlert, showToast } = useOverlay();
     const [rankingList, setRankingList] = useState<MeisterRanking[]>([]);
 
     useEffect(() => {
-        setTitle('마이스터 랭킹');
+        setHeaderOption({title: '마이스터 랭킹', allMenu: 'goBack'});
         loadMeisterInfo();
     }, []);
 

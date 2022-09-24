@@ -1,6 +1,6 @@
 .post_list {
     gap: 2rem;
-    margin-bottom: 8rem;
+    margin: 1rem 0 8rem;
 }
 
 .post_item_wrap {
@@ -64,7 +64,8 @@
 }
 
 .category_list {
-    padding: 0 1rem 1rem;
+    padding: 0 1rem;
+    align-items: center;
 }
 
 .category_list li {

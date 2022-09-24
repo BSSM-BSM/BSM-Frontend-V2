@@ -8,7 +8,7 @@ import { HttpMethod, useAjax } from '../hooks/useAjax';
 import { useInterval } from '../hooks/useInterval';
 import { useOverlay } from '../hooks/useOverlay';
 import { numberInBetween } from '../utils/util';
-import { titleState } from '../store/common.store';
+import { headerOptionState } from '../store/common.store';
 
 interface TimetableInfo {
     className: string,
@@ -18,7 +18,7 @@ interface TimetableInfo {
 }
 
 const TimetablePage: NextPage = () => {
-    const [, setTitle] = useRecoilState(titleState);
+    const [, setHeaderOption] = useRecoilState(headerOptionState);
     const { ajax } = useAjax();
     const { showAlert } = useOverlay();
     const [user] = useRecoilState(userState);
@@ -36,7 +36,7 @@ const TimetablePage: NextPage = () => {
     const dayNames = ['일', '월', '화', '수', '목', '금'];
 
     useEffect(() => {
-        setTitle('시간표');
+        setHeaderOption({title: '시간표'});
         setGrade(user.grade || 1);
         setClassNo(user.classNo || 1);
     }, []);

@@ -476,6 +476,22 @@ label, summary{
     transition: .4s ease-in-out;
 }
 
+.go-back .line:not(:nth-child(2)) {
+    width: 2.5rem;
+}
+
+.go-back .line:nth-child(1) {
+    transform: translateY(.295rem) rotate(-25deg);
+}
+
+.go-back .line:nth-child(2) {
+    opacity: 0;
+}
+
+.go-back .line:nth-child(3) {
+    transform: translateY(-.295rem) rotate(25deg);
+}
+
 .dim {
     pointer-events: all;
     position: fixed;

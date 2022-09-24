@@ -8,7 +8,7 @@ import { HttpMethod, useAjax } from '../hooks/useAjax';
 import Modal from '../components/common/modal';
 import Link from 'next/link';
 import { elapsedTime } from '../utils/util';
-import { titleState } from '../store/common.store';
+import { headerOptionState } from '../store/common.store';
 
 interface MeisterInfo {
     isLoading: boolean;
@@ -22,7 +22,7 @@ interface MeisterInfo {
 }
 
 const Home: NextPage = () => {
-    const [, setTitle] = useRecoilState(titleState);
+    const [, setHeaderOption] = useRecoilState(headerOptionState);
     const [mounted, setMounted] = useState(false);
     const [user] = useRecoilState(userState);
     const [meisterInfo, setMeisterInfo] = useState<MeisterInfo>({
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
     const { ajax } = useAjax();
 
     useEffect(() => {
-        setTitle('');
+        setHeaderOption({title: ''});
         setMounted(true);
         loadMeisterInfo();
         return () => setMounted(false);

@@ -1,10 +1,10 @@
 import styles from '../../styles/board/post.module.css';
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
 import { Editor } from '@tinymce/tinymce-react';
 import { TextInput } from "../common/inputs/textInput";
 import { CategoryList } from "./categoryList";
-import { Category, DetailPost, Post } from "../../types/boardType";
+import { Category, DetailPost } from "../../types/boardType";
 import { useRouter } from 'next/router';
 
 interface PostWriteProps {
@@ -74,7 +74,7 @@ export const PostWrite = ({
     }
 
     return (
-        <div className={`container _100 ${styles.post_write_wrap}`}>
+        <div className={`container _110 ${styles.post_write_wrap}`}>
             <TextInput
                 setCallback={setTitle}
                 value={title}
@@ -86,7 +86,7 @@ export const PostWrite = ({
                 tinymceScriptSrc='/lib/tinymce/tinymce.min.js'
                 init={{
                     language: 'ko_KR',
-                    height: 480,
+                    height: '100%',
                     menubar: true,
                     mobile: {
                         menubar: true,

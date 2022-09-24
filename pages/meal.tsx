@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { HttpMethod, useAjax } from "../hooks/useAjax";
-import { screenScaleState, titleState } from "../store/common.store";
+import { screenScaleState, headerOptionState } from "../store/common.store";
 import styles from '../styles/meal.module.css';
 import { dateToShortStr, shrotStrToDate } from "../utils/util";
 
@@ -24,7 +24,7 @@ type MealRes = {
 };
 
 const MealPage: NextPage = () => {
-    const [, setTitle] = useRecoilState(titleState);
+    const [, setHeaderOption] = useRecoilState(headerOptionState);
     const { ajax } = useAjax();
     const [mealList, setMealList] = useState<MealType[]>([]);
     const [renderMealList, setRenderMealList] = useState<MealType[]>([]);
@@ -35,7 +35,7 @@ const MealPage: NextPage = () => {
 
     // init
     useEffect(() => {
-        setTitle('급식');
+        setHeaderOption({title: '급식'});
         (async () => {
             setMealList(await loadMealList(dateToShortStr(new Date)));
         })();

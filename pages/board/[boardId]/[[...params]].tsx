@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
-import { titleState } from '../../../store/common.store';
+import { headerOptionState } from '../../../store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
 import { PostView } from '../../../components/board/postView';
@@ -14,7 +14,7 @@ import { PostWrite } from '../../../components/board/postWrite';
 
 const BoardPage: NextPage = () => {
     const { ajax } = useAjax();
-    const [, setTitle] = useRecoilState(titleState);
+    const [, setHeaderOption] = useRecoilState(headerOptionState);
     const router = useRouter();
     const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
 
@@ -26,15 +26,14 @@ const BoardPage: NextPage = () => {
     const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
 
     useEffect(() => {
-        if (typeof boardId !== 'string') return setTitle('');
-        if (
-            typeof postId !== 'string'
-            || post?.id !== Number(postId)
-        ) {
-            setTitle(boardList[boardId]?.boardName);
-        } else {
-            post && setTitle(post.title);
-        }
+        if (typeof boardId !== 'string') 
+            setHeaderOption({title: ''});
+        else if (typeof postId !== 'string') 
+            setHeaderOption({title: boardList[boardId]?.boardName});
+        else if (post?.id === Number(postId))
+            setHeaderOption({title: post.title, allMenu: 'goBack'});
+        else if (postId === 'write')
+            setHeaderOption({title: boardList[boardId]?.boardName, allMenu: 'goBack'});    
     }, [boardId, postId, boardList, post]);
 
     useEffect(() => {
@@ -141,7 +140,7 @@ const BoardPage: NextPage = () => {
             }
             {
                 typeof boardId === 'string'
-                && <div className={`${postStyles.post} ${boardList[boardId] && postId === 'write'? postStyles.open: ''} scroll-bar`}>
+                && <div className={`${postStyles.post} ${boardList[boardId] && postId === 'write'? postStyles.open: ''} full-screen`}>
                     <PostWrite
                         boardId={boardId}
                         categoryList={boardList[boardId]?.categoryList ?? {}}
