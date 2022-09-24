@@ -1,28 +1,44 @@
 import styles from '../../styles/board/post.module.css';
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
 import { Editor } from '@tinymce/tinymce-react';
 import { TextInput } from "../common/inputs/textInput";
 import { CategoryList } from "./categoryList";
-import { Category } from "../../types/boardType";
+import { Category, DetailPost, Post } from "../../types/boardType";
 import { useRouter } from 'next/router';
 
 interface PostWriteProps {
     boardId: string,
     categoryList: {
         [index: string]: Category
-    }
+    },
+    editPost: DetailPost | null,
+    setPost: Function
 }
 
 export const PostWrite = ({
     boardId,
     categoryList,
+    editPost,
+    setPost
 }: PostWriteProps) => {
     const {ajax} = useAjax();
     const router = useRouter();
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const [category, setCategory] = useState<string>('normal');
+
+    useEffect(() => {
+        if (editPost) {
+            setTitle(editPost.title)
+            setContent(editPost.content);
+            setCategory(editPost.category ?? 'normal');
+        } else {
+            setTitle('');
+            setContent('');
+            setCategory('normal');
+        }
+    }, [editPost]);
 
     const writePost = () => {
         ajax<number>({
@@ -40,10 +56,28 @@ export const PostWrite = ({
         });
     }
 
+    const modifyPost = () => {
+        ajax({
+            url: `post/${boardId}/${editPost?.id}`,
+            method: HttpMethod.PUT,
+            payload: {
+                title,
+                content,
+                category,
+                anonymous: false
+            },
+            callback() {
+                setPost(null);
+                router.push(`/board/${boardId}/${editPost?.id ?? ''}`);
+            },
+        });
+    }
+
     return (
         <div className={`container _100 ${styles.post_write_wrap}`}>
             <TextInput
                 setCallback={setTitle}
+                value={title}
                 placeholder='제목'
                 required
                 full
@@ -85,7 +119,11 @@ export const PostWrite = ({
                         ]
                     }
                 />
-                <button className='button accent' onClick={writePost}>글 작성</button>
+                {
+                    editPost
+                    ? <button className='button accent' onClick={modifyPost}>글 수정</button>
+                    : <button className='button accent' onClick={writePost}>글 작성</button>
+                }
             </div>
         </div>
     );

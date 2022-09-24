@@ -18,7 +18,8 @@ const BoardPage: NextPage = () => {
     const router = useRouter();
     const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
 
-    const [ { boardId }, postId ] = [router.query, router.query.params?.[0]];
+    const {boardId} = router.query;
+    const [postId, editPostId] = router.query.params?.length? router.query.params: [undefined, undefined];
     const [boardList, setBoardList] = useState<{[index: string]: Board}>({});
     const [post, setPost] = useRecoilState(postState);
     const [postOpen, setPostOpen] = useRecoilState(postOpenState);
@@ -133,7 +134,7 @@ const BoardPage: NextPage = () => {
                             typeof postId === 'string'
                             && postId !== 'write'
                             && post
-                            && <PostView post={post} commentList={commentList} loadComments={loadComments} />
+                            && <PostView boardId={boardId} post={post} commentList={commentList} loadComments={loadComments} />
                         }
                     </div>
                 </>
@@ -141,7 +142,12 @@ const BoardPage: NextPage = () => {
             {
                 typeof boardId === 'string'
                 && <div className={`${postStyles.post} ${boardList[boardId] && postId === 'write'? postStyles.open: ''} scroll-bar`}>
-                    <PostWrite boardId={boardId} categoryList={boardList[boardId]?.categoryList ?? {}} />
+                    <PostWrite
+                        boardId={boardId}
+                        categoryList={boardList[boardId]?.categoryList ?? {}}
+                        editPost={Number(editPostId) === post?.id? post: null}
+                        setPost={setPost}
+                    />
                 </div>
             }
         </div>

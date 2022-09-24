@@ -1,5 +1,5 @@
 import styles from '../../../styles/input.module.css';
-import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useState } from "react";
+import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
 
 interface TextInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
@@ -13,6 +13,7 @@ interface TextInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInput
 
 export const TextInput = (props: TextInputProps) => {
     const {
+        value,
         setCallback,
         initial = '',
         placeholder,
@@ -24,6 +25,10 @@ export const TextInput = (props: TextInputProps) => {
     } = props;
     const [tempValue, setTempValue] = useState(initial);
     const { showToast } = useOverlay();
+
+    useEffect(() => {
+        typeof value === 'string' && setTempValue(value);
+    }, [value]);
     
     const applyValue = (value?: string) => {
         if (pattern && !new RegExp(pattern).test(value || tempValue)) {
