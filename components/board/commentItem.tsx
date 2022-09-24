@@ -3,13 +3,16 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { boardAndPostIdState, parentCommentState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
+import { elapsedTime } from '../../utils/util';
 
 export const CommentList = ({
     commentList,
-    loadComments
+    loadComments,
+    boardDetailTime
 }: {
     commentList: (Comment | DeletedComment)[],
-    loadComments: Function
+    loadComments: Function,
+    boardDetailTime: boolean
 }) => {
     const {ajax} = useAjax();
     const [, setParentComment] = useRecoilState(parentCommentState);
@@ -44,7 +47,11 @@ export const CommentList = ({
                                             <div className='rows space-between bold'>
                                                 <span>{comment.user.nickname}</span>
                                             </div>
-                                            <div>{new Date(comment.createdAt).toLocaleString()}</div>
+                                            <div className='gray'>{
+                                                boardDetailTime
+                                                ? new Date(comment.createdAt).toLocaleString()
+                                                : elapsedTime(comment.createdAt)
+                                            }</div>
                                         </div>
                                     </div>
                                     <div dangerouslySetInnerHTML={{__html: comment.content}}></div>
@@ -78,7 +85,7 @@ export const CommentList = ({
                         }
                     </div>
                     <div className={styles.child}>
-                        {comment.child && <CommentList commentList={comment.child} loadComments={loadComments} />}
+                        {comment.child && <CommentList commentList={comment.child} loadComments={loadComments} boardDetailTime={boardDetailTime} />}
                     </div>
                 </li>
             ))

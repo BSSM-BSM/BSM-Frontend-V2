@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { postLimitState } from "../../store/board.store";
+import { boardDetailTimeState, postLimitState } from "../../store/board.store";
 import { screenScaleState, themeState } from "../../store/common.store";
 import { ToggleButton } from "./buttons/toggleButton";
 import { NumberInput } from "./inputs/numberInput";
@@ -10,6 +10,7 @@ export const SettingBox = () => {
     const [theme, setTheme] = useRecoilState(themeState);
     const [screenScale, setScreenScale] = useRecoilState(screenScaleState);
     const [postLimit, setPostLimit] = useRecoilState(postLimitState);
+    const [boardDetailTime, setBoardDetailTime] = useRecoilState(boardDetailTimeState);
 
     useEffect(() => {
         if (theme === 'dark') {
@@ -70,6 +71,14 @@ export const SettingBox = () => {
                                 min={10}
                                 max={100}
                                 msg='개'
+                            />
+                        </li>
+                        <li className="toggle">
+                            <span>게시글 및 댓글 자세한 시간</span>
+                            <ToggleButton
+                                onCallback={() => setBoardDetailTime(true)}
+                                offCallback={() => setBoardDetailTime(false)}
+                                initial={boardDetailTime}
                             />
                         </li>
                     </ul>

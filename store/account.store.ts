@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { localStorageEffect } from "../utils/localStorage";
+import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
 
 export interface User {
     isLogin: boolean,
@@ -28,5 +28,5 @@ export const userState = atom<User>({
         studentNo: 0,
         name: ''
     },
-    effects: [localStorageEffect('user', 'json')]
+    effects: [localStorageEffect('user', LocalStorageType.json)]
 });

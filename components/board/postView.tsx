@@ -4,6 +4,9 @@ import { Comment, DeletedComment, DetailPost } from "../../types/boardType";
 import { CommentView } from './commentView';
 import { CommentWrite } from './commentWrite';
 import Link from 'next/link';
+import { useRecoilState } from 'recoil';
+import { boardDetailTimeState } from '../../store/board.store';
+import { elapsedTime } from '../../utils/util';
 
 export const PostView = ({
     boardId,
@@ -16,6 +19,7 @@ export const PostView = ({
     commentList: (Comment | DeletedComment)[],
     loadComments: Function
 }) => {
+    const [boardDetailTime] = useRecoilState(boardDetailTimeState);
 
     return (
         <div className='container _110'>
@@ -29,17 +33,21 @@ export const PostView = ({
                         <h2 className={styles.title}>{post.title}</h2>
                         <div className='rows space-between'>
                             <span className='bold'>{post.user.nickname}</span>
-                            <div className='rows gap-2'>
+                            <div className='rows gap-2 gray'>
                                 <span>{post.totalComments} 댓글</span>
                                 <span>조회 {post.hit}</span>
-                                <span>{new Date(post.createdAt).toLocaleString()}</span>
+                                <span>{
+                                    boardDetailTime
+                                    ? new Date(post.createdAt).toLocaleString()
+                                    : elapsedTime(post.createdAt)
+                                }</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className={styles.post_content} dangerouslySetInnerHTML={{__html: post.content}} />
             </div>
-            <CommentView commentList={commentList} loadComments={loadComments} />
+            <CommentView commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />
             <div className={`${commentStyles.write_bar} container _110`}>
                 <CommentWrite loadComments={loadComments} />
             </div>

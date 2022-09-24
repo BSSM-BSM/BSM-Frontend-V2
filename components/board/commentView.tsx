@@ -4,12 +4,14 @@ import { CommentList } from './commentItem';
 
 export const CommentView = ({
     commentList,
-    loadComments
+    loadComments,
+    boardDetailTime
 }: {
     commentList: (Comment | DeletedComment)[],
-    loadComments: Function
+    loadComments: Function,
+    boardDetailTime: boolean
 }) => (
     <div className={styles.comment_wrap}>
-        {<CommentList commentList={commentList} loadComments={loadComments} />}
+        {<CommentList commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />}
     </div>
 )
