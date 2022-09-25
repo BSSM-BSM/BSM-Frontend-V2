@@ -124,7 +124,7 @@ const MeisterPage: NextPage = () => {
                         <span>비밀번호 사용 안함</span>
                     </label>
                 </div>
-                {!noPw && <h4>마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
+                {!noPw && <h4>조회하기 위해 마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
                 <br />
                 <div className='rows gap-1 center'>
                     <Link href='/meister/ranking'><a className='button'>랭킹</a></Link>
@@ -143,7 +143,6 @@ const MeisterPage: NextPage = () => {
                     <div className={styles.score} dangerouslySetInnerHTML={{__html: meisterInfo.scoreHtmlContent}}></div>
                 </div>
             }
-
             <Modal type='big' id='meister_point' title='상벌점' callback={meisterPointPostProcessing}>
                 <div className={styles.point} dangerouslySetInnerHTML={{__html: meisterInfo.pointHtmlContent}}></div>
             </Modal>

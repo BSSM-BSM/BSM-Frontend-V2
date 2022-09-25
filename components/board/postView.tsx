@@ -7,6 +7,23 @@ import Link from 'next/link';
 import { useRecoilState } from 'recoil';
 import { boardDetailTimeState } from '../../store/board.store';
 import { elapsedTime } from '../../utils/util';
+import { escapeAttrValue, FilterXSS } from 'xss';
+
+const codeblockRegexp = /^(language\-.*)/;
+const postXssFilter = new FilterXSS({
+    onIgnoreTagAttr: (tag, name, value) => {
+        if (name === 'style') return `${name}="${escapeAttrValue(value)}"`;
+        if (tag === 'img') {
+            if (name === 'e_id') return `${name}="${escapeAttrValue(value)}"`;
+            if (name === 'e_idx') return `${name}="${escapeAttrValue(value)}"`;
+            if (name === 'e_type') return `${name}="${escapeAttrValue(value)}"`;
+        }
+        if (tag === 'pre' && codeblockRegexp.test(value)) return `${name}="${escapeAttrValue(value)}"`;
+    },
+    onIgnoreTag: (tag, html) => {
+        if (tag === 'iframe') return html;
+    }
+});
 
 export const PostView = ({
     boardId,
@@ -45,7 +62,10 @@ export const PostView = ({
                         </div>
                     </div>
                 </div>
-                <div className={styles.post_content} dangerouslySetInnerHTML={{__html: post.content}} />
+                <div
+                    className={styles.post_content}
+                    dangerouslySetInnerHTML={{__html: postXssFilter.process(post.content)}}
+                />
             </div>
             <CommentView commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />
             <div className={`${commentStyles.write_bar} container _110`}>

@@ -4,6 +4,13 @@ import { boardAndPostIdState, parentCommentState } from '../../store/board.store
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
 import { elapsedTime } from '../../utils/util';
+import { FilterXSS } from 'xss';
+
+const commentXssFilter = new FilterXSS({
+    whiteList: {
+        img: ['e_id', 'e_idx', 'e_type']
+    }
+});
 
 export const CommentList = ({
     commentList,
@@ -54,7 +61,7 @@ export const CommentList = ({
                                             }</div>
                                         </div>
                                     </div>
-                                    <div dangerouslySetInnerHTML={{__html: comment.content}}></div>
+                                    <div dangerouslySetInnerHTML={{__html: commentXssFilter.process(comment.content)}}></div>
                                 </>
                             }
                         </div>
