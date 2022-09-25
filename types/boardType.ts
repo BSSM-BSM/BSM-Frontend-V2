@@ -32,7 +32,7 @@ export interface Post {
 export interface DetailPost extends Post {
     content: string,
     permission: boolean,
-    like: boolean
+    like: number
 }
 
 export interface BoardListRes extends Omit<Board, 'categoryList'> {

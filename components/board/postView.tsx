@@ -5,9 +5,10 @@ import { CommentView } from './commentView';
 import { CommentWrite } from './commentWrite';
 import Link from 'next/link';
 import { useRecoilState } from 'recoil';
-import { boardDetailTimeState } from '../../store/board.store';
+import { boardDetailTimeState, postState } from '../../store/board.store';
 import { elapsedTime } from '../../utils/util';
 import { escapeAttrValue, FilterXSS } from 'xss';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -25,6 +26,11 @@ const postXssFilter = new FilterXSS({
     }
 });
 
+interface LikeRes {
+    like: number,
+    totalLikes: number
+}
+
 export const PostView = ({
     boardId,
     post,
@@ -36,7 +42,29 @@ export const PostView = ({
     commentList: (Comment | DeletedComment)[],
     loadComments: Function
 }) => {
+    const {ajax} = useAjax();
+    const [, setPost] = useRecoilState(postState);
     const [boardDetailTime] = useRecoilState(boardDetailTimeState);
+
+    const postLike = (like: number) => {
+        ajax<LikeRes>({
+            url: `like/${boardId}/${post.id}`,
+            method: HttpMethod.POST,
+            payload: {
+                like
+            },
+            callback(data) {
+                setPost(prev => {
+                    if (prev === null) return prev;
+                    return {
+                        ...prev,
+                        like: data.like,
+                        totalLikes: data.totalLikes
+                    }
+                });
+            },
+        })
+    }
 
     return (
         <div className='container _110'>
@@ -66,6 +94,15 @@ export const PostView = ({
                     className={styles.post_content}
                     dangerouslySetInnerHTML={{__html: postXssFilter.process(post.content)}}
                 />
+            </div>
+            <div className={styles.like_wrap}>
+                <button onClick={() => postLike(1)} className={`button-wrap ${styles.like} ${post.like === 1? styles.on: ''}`}>
+                    <img src="/icons/like.svg" alt="like" />
+                </button>
+                <span>{post.totalLikes}</span>
+                <button onClick={() => postLike(-1)} className={`button-wrap ${styles.dislike} ${post.like === -1? styles.on: ''}`}>
+                    <img src="/icons/like.svg" alt="dislike" />
+                </button>
             </div>
             <CommentView commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />
             <div className={`${commentStyles.write_bar} container _110`}>

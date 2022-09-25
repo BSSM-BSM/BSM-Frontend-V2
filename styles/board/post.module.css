@@ -49,6 +49,43 @@
     width: 100%;
 }
 
+.like_wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 5rem 0;
+    font-weight: bold;
+}
+
+.like_wrap button {
+    height: 3.5rem;
+    width: 3.5rem;
+    background-color: transparent;
+    border: none;
+}
+
+.like_wrap button img {
+    filter: var(--bright);
+    transition: transform .25s;
+}
+
+.like_wrap button.on img {
+    filter: brightness(0) saturate(100%);
+}
+
+.like.on {
+    filter: invert(95%) sepia(3%) saturate(6824%) hue-rotate(56deg) brightness(85%) contrast(110%);
+}
+
+.dislike {
+    transform: scaleX(-1) scaleY(-1);
+}
+
+.dislike.on {
+    filter: invert(60%) sepia(16%) saturate(1873%) hue-rotate(316deg) brightness(104%) contrast(96%);
+}
+
 @media screen and (min-width: 0) and (max-width: 750px) {
 
     .post {
