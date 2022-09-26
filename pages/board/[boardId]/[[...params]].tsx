@@ -13,7 +13,7 @@ import { boardAndPostIdState, postOpenState, postState } from '../../../store/bo
 import { PostWrite } from '../../../components/board/postWrite';
 
 const BoardPage: NextPage = () => {
-    const { ajax } = useAjax();
+    const {ajax} = useAjax();
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const router = useRouter();
     const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
@@ -30,10 +30,11 @@ const BoardPage: NextPage = () => {
             setHeaderOption({title: ''});
         else if (typeof postId !== 'string') 
             setHeaderOption({title: boardList[boardId]?.boardName});
-        else if (post?.id === Number(postId))
-            setHeaderOption({title: post.title, allMenu: 'goBack'});
         else if (postId === 'write')
-            setHeaderOption({title: boardList[boardId]?.boardName, allMenu: 'goBack'});    
+            setHeaderOption({
+                title: boardList[boardId]?.boardName,
+                allMenu: 'goBack'
+            });    
     }, [boardId, postId, boardList, post]);
 
     useEffect(() => {
@@ -114,6 +115,12 @@ const BoardPage: NextPage = () => {
                 setCommentList([]);
             },
         });
+    }
+
+    const deletePost = () => {
+        if (confirm('정말 삭제하시겠습니까?')) {
+
+        }
     }
 
     return (

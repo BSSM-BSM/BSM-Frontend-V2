@@ -52,6 +52,10 @@
     padding: 1.4rem 1.1rem;
 }
 
+.all_menu ~ :global(.dropdown-content) {
+    width: 14rem;
+}
+
 .item:hover {
     background-color: var(--hover);
 }

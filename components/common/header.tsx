@@ -83,6 +83,28 @@ export const Header = () => {
         );
     };
 
+    const optionMenuView = () => {
+        if (headerOption.optionMenu) {
+            return (
+                <li className={`dropdown-menu ${styles.dropdown}`}>
+                    <span className={`${styles.item} ${styles.all_menu} menu-button`}>
+                        <span className='line'></span>
+                        <span className='line'></span>
+                        <span className='line'></span>
+                    </span>
+                    <ul className='dropdown-content'>
+                        {
+                            headerOption.optionMenu.dropdownMenu.map(
+                                menu => <li key={menu.text} className='option' onClick={menu.callback}>{menu.text}</li>
+                            )
+                        }
+                    </ul>
+                </li>
+            )
+        }
+        return <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>;
+    }
+
     return (
         <header className={styles.header}>
             <div className={styles.top}>
@@ -95,13 +117,13 @@ export const Header = () => {
                         <h2 className={styles.title}>
                             {headerOption.title}
                         </h2>
-                        <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>
+                        {optionMenuView()}
                     </ul>
                     <h2 className={styles.title}>
                         {headerOption.title}
                     </h2>
                     <ul className={styles.right}>
-                    <li className={`dropdown-menu ${styles.dropdown}`}>
+                        <li className={`dropdown-menu ${styles.dropdown}`}>
                             <span className={styles.item}>학교</span>
                             <ul className='dropdown-content'>
                                 <li><Link href='/meal'><a className='option'>급식</a></Link></li>

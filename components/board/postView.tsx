@@ -3,12 +3,14 @@ import commentStyles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment, DetailPost } from "../../types/boardType";
 import { CommentView } from './commentView';
 import { CommentWrite } from './commentWrite';
-import Link from 'next/link';
 import { useRecoilState } from 'recoil';
 import { boardDetailTimeState, postState } from '../../store/board.store';
 import { elapsedTime } from '../../utils/util';
 import { escapeAttrValue, FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { useEffect } from 'react';
+import { headerOptionState } from '../../store/common.store';
+import { useRouter } from 'next/router';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -42,9 +44,25 @@ export const PostView = ({
     commentList: (Comment | DeletedComment)[],
     loadComments: Function
 }) => {
+    const router = useRouter();
     const {ajax} = useAjax();
+    const [, setHeaderOption] = useRecoilState(headerOptionState);
     const [, setPost] = useRecoilState(postState);
     const [boardDetailTime] = useRecoilState(boardDetailTimeState);
+
+    useEffect(() => {
+        setHeaderOption({
+            title: post.title,
+            allMenu: 'goBack',
+            optionMenu: post.permission
+                ? {
+                    dropdownMenu: [
+                        {text: '글 수정', callback: () => router.push(`/board/${boardId}/write/${post.id}`)}
+                    ]
+                }
+                : undefined
+        });
+    }, [post]);
 
     const postLike = (like: number) => {
         ajax<LikeRes>({
@@ -69,9 +87,6 @@ export const PostView = ({
     return (
         <div className='container _110'>
             <div className={styles.post_wrap}>
-                <Link href={`/board/${boardId}/write/${post.id}`}>
-                    <a className='button'>글 수정</a>
-                </Link>
                 <div className={styles.post_info}>
                     <img className={`user-profile ${styles.user_profile}`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${post.user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
                     <div className='cols space-between flex-main'>

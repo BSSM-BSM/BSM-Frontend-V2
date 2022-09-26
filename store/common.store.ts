@@ -15,13 +15,20 @@ export const screenScaleState = atom<number>({
 
 export interface headerOption {
     title: string,
-    allMenu?: 'goBack'
+    allMenu?: 'goBack',
+    optionMenu?: {
+        dropdownMenu: {
+            text: string,
+            callback: () => void
+        }[]
+    }
 }
 
 export const headerOptionState = atom<headerOption>({
     key: 'title',
     default: {
         title: '',
-        allMenu: undefined
+        allMenu: undefined,
+        optionMenu: undefined
     }
 });
