@@ -1,6 +1,11 @@
 import { atom } from "recoil";
-import { Comment, DetailPost } from "../types/boardType";
+import { Comment, DetailPost, Post } from "../types/boardType";
 import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
+
+export const postListState = atom<Post[]>({
+    key: 'postList',
+    default: []
+});
 
 export const postLimitState = atom<number>({
     key: 'postLimit',

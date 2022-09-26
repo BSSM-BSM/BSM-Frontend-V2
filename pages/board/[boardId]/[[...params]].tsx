@@ -117,12 +117,6 @@ const BoardPage: NextPage = () => {
         });
     }
 
-    const deletePost = () => {
-        if (confirm('정말 삭제하시겠습니까?')) {
-
-        }
-    }
-
     return (
         <div className='container'>
             <Head>

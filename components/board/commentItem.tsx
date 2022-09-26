@@ -27,6 +27,7 @@ export const CommentList = ({
     const { boardId, postId } = boardAndPostId;
 
     const deleteComment = (id: number) => {
+        if (!confirm('정말 삭제하시겠습니까?')) return;
         ajax({
             url: `comment/${boardId}/${postId}/${id}`,
             method: HttpMethod.DELETE,
@@ -76,16 +77,7 @@ export const CommentList = ({
                                 </span>
                                 <ul className='menu-list'>
                                     <li>
-                                        <button
-                                            className='button delete'
-                                            onClick={() => {
-                                                if (confirm('정말 삭제하시겠습니까?')) {
-                                                    deleteComment(comment.id);
-                                                }
-                                            }}
-                                        >
-                                            삭제
-                                        </button>
+                                        <button className='button delete' onClick={() => deleteComment(comment.id)}>삭제</button>
                                     </li>
                                 </ul>
                             </div>

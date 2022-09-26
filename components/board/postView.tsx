@@ -4,7 +4,7 @@ import { Comment, DeletedComment, DetailPost } from "../../types/boardType";
 import { CommentView } from './commentView';
 import { CommentWrite } from './commentWrite';
 import { useRecoilState } from 'recoil';
-import { boardDetailTimeState, postState } from '../../store/board.store';
+import { boardDetailTimeState, postListState, postState } from '../../store/board.store';
 import { elapsedTime } from '../../utils/util';
 import { escapeAttrValue, FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
@@ -44,6 +44,7 @@ export const PostView = ({
     commentList: (Comment | DeletedComment)[],
     loadComments: Function
 }) => {
+    const [, setPostList] = useRecoilState(postListState);
     const router = useRouter();
     const {ajax} = useAjax();
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -57,7 +58,8 @@ export const PostView = ({
             optionMenu: post.permission
                 ? {
                     dropdownMenu: [
-                        {text: '글 수정', callback: () => router.push(`/board/${boardId}/write/${post.id}`)}
+                        {text: '글 수정', callback: () => router.push(`/board/${boardId}/write/${post.id}`)},
+                        {text: '글 삭제', callback: deletePost}
                     ]
                 }
                 : undefined
@@ -82,6 +84,18 @@ export const PostView = ({
                 });
             },
         })
+    }
+
+    const deletePost = () => {
+        if (!confirm('정말 삭제하시겠습니까?')) return;
+        ajax({
+            url: `post/${boardId}/${post.id}`,
+            method: HttpMethod.DELETE,
+            callback() {
+                setPostList(prev => prev.filter(e => e.id !== post.id));
+                router.push(`/board/${boardId}`);
+            }
+        });
     }
 
     return (
