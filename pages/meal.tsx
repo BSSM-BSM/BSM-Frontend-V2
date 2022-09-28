@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { HttpMethod, useAjax } from "../hooks/useAjax";
+import { ErrorResType, HttpMethod, useAjax } from "../hooks/useAjax";
 import { screenScaleState, headerOptionState } from "../store/common.store";
 import styles from '../styles/meal.module.css';
 import { dateToShortStr, shrotStrToDate } from "../utils/util";
@@ -71,7 +71,7 @@ const MealPage: NextPage = () => {
                     resolve(tempMealList);
                 },
                 errorCallback(data) {
-                    if (data && data.statusCode === 404) {
+                    if (data instanceof ErrorResType && data.statusCode === 404) {
                         resolve([{
                             date,
                             content: '급식이 없습니다'

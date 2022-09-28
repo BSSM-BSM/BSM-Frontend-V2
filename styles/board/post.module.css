@@ -35,6 +35,11 @@
 
 .post_content {
     text-align: initial;
+    overflow: auto;
+}
+
+.post_content img {
+    max-width: 100%;
 }
 
 .post_write_wrap {

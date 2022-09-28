@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosPromise } from "axios";
+import axios, { AxiosError, AxiosPromise, AxiosRequestConfig } from "axios";
 import { useResetRecoilState } from "recoil";
 import { userState } from "../store/account.store";
 import { useModal } from "./useModal";
@@ -19,9 +19,16 @@ export enum HttpMethod {
     DELETE
 }
 
-interface ErrorResType {
-    statusCode: number,
-    message: string
+export class ErrorResType {
+    constructor (
+        statusCode: number,
+        message: string
+    ) {
+        this.statusCode = statusCode;
+        this.message = message;
+    }
+    statusCode: number;
+    message: string;
 }
 
 export const useAjax = () => {
@@ -40,9 +47,9 @@ export const useAjax = () => {
         method: HttpMethod,
         url: string,
         payload?: object,
-        config?: object,
+        config?: AxiosRequestConfig,
         callback?: (data: T) => void,
-        errorCallback?: (data: ErrorResType | void) => boolean | void
+        errorCallback?: (data: ErrorResType | AxiosError | void) => boolean | void
     }): Promise<void> => {
         loading(true);
     
@@ -67,7 +74,7 @@ export const useAjax = () => {
             };
             if (!err.response.data) {
                 showAlert(err.message);
-                errorCallback && errorCallback();
+                errorCallback && errorCallback(err);
                 return;
             }
             if (!err.response.data.statusCode) {

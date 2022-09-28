@@ -8,7 +8,6 @@ interface NumberInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInp
     initial?: number,
     min?: number,
     max?: number,
-    msg?: string,
     immediately?: boolean,
     full?: boolean
 }
@@ -21,7 +20,6 @@ export const NumberInput = (props: NumberInputProps) => {
         type = 'number',
         min,
         max,
-        msg,
         className = '',
         immediately,
         full
@@ -53,7 +51,6 @@ export const NumberInput = (props: NumberInputProps) => {
                 onBlur={() => applyValue()}
                 onKeyDown={e => e.key === 'Enter' && applyValue()}
             ></input>
-            <span>{msg}</span>
             <span className={styles.placeholder}>{placeholder}</span>
         </div>
     );

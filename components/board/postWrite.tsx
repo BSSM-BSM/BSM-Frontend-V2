@@ -16,6 +16,11 @@ interface PostWriteProps {
     setPost: Function
 }
 
+interface UploadFileRes {
+    id: string,
+    fileExt: string
+}
+
 export const PostWrite = ({
     boardId,
     categoryList,
@@ -101,11 +106,28 @@ export const PostWrite = ({
                     relative_urls: false,
                     convert_urls: false,
                     extended_valid_elements: 'img[src|class|alt|e_id|e_idx|e_type]',
+                    images_upload_handler: (blobInfo) => {
+                        return new Promise((resolve, reject) => {
+                            let file = new FormData();
+                            file.append('file', blobInfo.blob());
+                            ajax<UploadFileRes>({
+                                method: HttpMethod.POST,
+                                payload: file,
+                                url: '/post/upload',
+                                config:{
+                                    timeout: 0
+                                },
+                                callback:(data) => resolve(`/resource/board/upload/${data.id}.${data.fileExt}`),
+                                errorCallback:(data) => {
+                                    if (!data) return reject({message: '알 수 없는 에러가 발생하였습니다', remove: true});
+                                    reject({message: data.message, remove: true});
+                                }
+                            });
+                        });
+                    }
                 }}
                 value={content}
-                onEditorChange={((content, editor) => {
-                    setContent(content);
-                })}
+                onEditorChange={content => setContent(content)}
             />
             <div className="rows">
                 <CategoryList

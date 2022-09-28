@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useModal } from '../hooks/useModal';
 import { userState } from '../store/account.store';
-import { HttpMethod, useAjax } from '../hooks/useAjax';
+import { ErrorResType, HttpMethod, useAjax } from '../hooks/useAjax';
 import Modal from '../components/common/modal';
 import Link from 'next/link';
 import { elapsedTime } from '../utils/util';
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
                 });
             },
             errorCallback(data) {
-                if (data?.statusCode === 401) {
+                if (data instanceof ErrorResType && data.statusCode === 401) {
                     setMeisterInfo({
                         isLoading: false,
                         lastUpdate: new Date().toString(),

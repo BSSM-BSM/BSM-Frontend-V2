@@ -2,7 +2,7 @@ import styles from '../../styles/meister/ranking.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { ErrorResType, HttpMethod, useAjax } from '../../hooks/useAjax';
 import { MeisterRanking } from '../../types/meisterType';
 import { MeisterRankingItem } from '../../components/meister/rankingItem';
 import { useOverlay } from '../../hooks/useOverlay';
@@ -28,7 +28,7 @@ const MeisterPage: NextPage = () => {
                 setRankingList(data);
             },
             errorCallback(data) {
-                if (data && data.statusCode === 403) {
+                if (data instanceof ErrorResType && data.statusCode === 403) {
                     setRankingList([]);
                     showToast(
                         <p onClick={() => updatePrivateRanking(false)}>
@@ -53,7 +53,7 @@ const MeisterPage: NextPage = () => {
                 loadMeisterInfo();
             },
             errorCallback(data) {
-                if (data && data.statusCode === 403) {
+                if (data instanceof ErrorResType && data.statusCode === 403) {
                     let availableTime = new Date();
                     const initHour = -32400000;
                     availableTime.setTime(initHour + (Number(data.message) * 1000));

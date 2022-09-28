@@ -50,13 +50,15 @@ export const SettingBox = () => {
                         </li>
                         <li className='picker'>
                             <span>배율</span>
-                            <NumberInput
-                                setCallback={setScreenScale}
-                                initial={screenScale}
-                                min={50}
-                                max={500}
-                                msg='%'
-                            />
+                            <div className="rows">
+                                <NumberInput
+                                    setCallback={setScreenScale}
+                                    initial={screenScale}
+                                    min={50}
+                                    max={500}
+                                />
+                                <span>%</span>
+                            </div>
                         </li>
                     </ul>
                 </li>
@@ -65,13 +67,15 @@ export const SettingBox = () => {
                     <ul className='list'>
                         <li className='picker'>
                             <span>한 번에 불러올 게시글 개수</span>
-                            <NumberInput
-                                setCallback={setPostLimit}
-                                initial={postLimit}
-                                min={10}
-                                max={100}
-                                msg='개'
-                            />
+                            <div className="rows">
+                                <NumberInput
+                                    setCallback={setPostLimit}
+                                    initial={postLimit}
+                                    min={10}
+                                    max={100}
+                                />
+                                <span>개</span>
+                            </div>
                         </li>
                         <li className="toggle">
                             <span>게시글 및 댓글 자세한 시간</span>

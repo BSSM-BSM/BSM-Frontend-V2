@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { HttpMethod, useAjax } from '../../../hooks/useAjax';
+import { ErrorResType, HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { headerOptionState } from '../../../store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
@@ -57,7 +57,7 @@ const BoardPage: NextPage = () => {
                 }));
             },
             errorCallback(data) {
-                if (data && data.statusCode === 404) {
+                if (data instanceof ErrorResType && data.statusCode === 404) {
                     if (typeof boardId !== 'string') return;
                     setBoardList(prev => {
                         delete prev[boardId];

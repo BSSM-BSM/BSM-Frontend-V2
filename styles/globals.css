@@ -198,6 +198,16 @@ img{
     filter: brightness(1);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 label, summary{
     cursor: pointer;
 }
@@ -890,10 +900,6 @@ label, summary{
 
 .modal--bottom-menu-box span {
     cursor: pointer;
-}
-
-.modal.modal .button.main {
-    margin-top: 1rem;
 }
 
 .modal.modal :is(
