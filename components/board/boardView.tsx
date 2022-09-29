@@ -74,9 +74,12 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
                 ))}
                 {postList[postList.length-1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
             </ul>
-            <Link href={`/board/${boardId}/write`}>
-                <a className={styles.write}><img src='/icons/pen.svg' alt='글쓰기' /></a>
-            </Link>
+            {
+                board.postPermission &&
+                <Link href={`/board/${boardId}/write`}>
+                    <a className={styles.write}><img src='/icons/pen.svg' alt='글쓰기' /></a>
+                </Link>
+            }
         </div>
     );
 }

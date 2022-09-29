@@ -1,6 +1,6 @@
 import styles from '../../styles/board/post.module.css';
 import commentStyles from '../../styles/board/comment.module.css';
-import { Comment, DeletedComment, DetailPost } from "../../types/boardType";
+import { Board, Comment, DeletedComment, DetailPost } from "../../types/boardType";
 import { CommentView } from './commentView';
 import { CommentWrite } from './commentWrite';
 import { useRecoilState } from 'recoil';
@@ -34,12 +34,12 @@ interface LikeRes {
 }
 
 export const PostView = ({
-    boardId,
+    board,
     post,
     commentList,
     loadComments
 }: {
-    boardId: string,
+    board: Board,
     post: DetailPost,
     commentList: (Comment | DeletedComment)[],
     loadComments: Function
@@ -58,7 +58,7 @@ export const PostView = ({
             optionMenu: post.permission
                 ? {
                     dropdownMenu: [
-                        {text: '글 수정', callback: () => router.push(`/board/${boardId}/write/${post.id}`)},
+                        {text: '글 수정', callback: () => router.push(`/board/${board.boardId}/write/${post.id}`)},
                         {text: '글 삭제', callback: deletePost}
                     ]
                 }
@@ -68,7 +68,7 @@ export const PostView = ({
 
     const postLike = (like: number) => {
         ajax<LikeRes>({
-            url: `like/${boardId}/${post.id}`,
+            url: `like/${board.boardId}/${post.id}`,
             method: HttpMethod.POST,
             payload: {
                 like
@@ -89,11 +89,11 @@ export const PostView = ({
     const deletePost = () => {
         if (!confirm('정말 삭제하시겠습니까?')) return;
         ajax({
-            url: `post/${boardId}/${post.id}`,
+            url: `post/${board.boardId}/${post.id}`,
             method: HttpMethod.DELETE,
             callback() {
                 setPostList(prev => prev.filter(e => e.id !== post.id));
-                router.push(`/board/${boardId}`);
+                router.push(`/board/${board.boardId}`);
             }
         });
     }
@@ -134,9 +134,12 @@ export const PostView = ({
                 </button>
             </div>
             <CommentView commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />
-            <div className={`${commentStyles.write_bar} container _110`}>
-                <CommentWrite loadComments={loadComments} />
-            </div>
+            {
+                board.commentPermission &&
+                <div className={`${commentStyles.write_bar} container _110`}>
+                    <CommentWrite loadComments={loadComments} />
+                </div>
+            }
         </div>
     );
 }

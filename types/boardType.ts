@@ -10,7 +10,9 @@ export interface Board {
     subBoardName: string | null,
     categoryList: {
         [index: string]: Category
-    }
+    },
+    postPermission: boolean,
+    commentPermission: boolean
 }
 
 export interface Category {
@@ -32,7 +34,8 @@ export interface Post {
 export interface DetailPost extends Post {
     content: string,
     permission: boolean,
-    like: number
+    like: number,
+    anonymous: boolean
 }
 
 export interface BoardListRes extends Omit<Board, 'categoryList'> {

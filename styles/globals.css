@@ -726,6 +726,7 @@ label, summary{
 
 .checkbox {
     display: inline-flex;
+    align-items: center;
     gap: .5rem;
     transition: .25s;
 }
