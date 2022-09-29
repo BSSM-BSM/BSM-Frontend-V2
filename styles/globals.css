@@ -314,6 +314,7 @@ label, summary{
     transition: .2s;
     display: flex;
     align-items: center;
+    gap: 1rem;
     transition: none;
     transition: background-color .25s;
 }
@@ -322,27 +323,34 @@ label, summary{
     cursor: pointer;
 }
 
-.list li:is(.detail, .toggle, .picker) {
-    padding: 0 1.5rem;
-    gap: 2rem;
-}
-
-.list li:is(.detail, .toggle, .picker) span {
-    margin: 1.3rem 0;
+.list li.picker {
+    padding: .5rem 1.5rem;
 }
 
 .list li span:nth-child(1) {
     min-width: 7rem;
 }
 
-.list li.detail span:nth-child(2) {
+.modal .list li span:nth-child(1) {
+    min-width: auto;
+}
+
+.list li span:nth-child(2) {
     color: var(--text-level-1);
 }
 
-.list li.detail span:nth-child(3) {
+.list li span:nth-child(3) {
     cursor: pointer;
     margin-left: auto;
     color: var(--text-level-2);
+}
+
+.modal .list li span:is(
+    :nth-child(2),
+    :nth-child(3)
+) {
+    font-size: 1.3rem;
+    font-weight: normal;
 }
 
 .list li.toggle .toggle-button {

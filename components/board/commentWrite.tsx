@@ -2,7 +2,7 @@ import styles from '../../styles/board/comment.module.css';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil"
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
-import { boardAndPostIdState, parentCommentState } from "../../store/board.store"
+import { boardAndPostIdState, boardAnonymousModeState, parentCommentState } from "../../store/board.store"
 import { EditorInput } from "../common/inputs/editorInput";
 
 interface CommentWriteProps {
@@ -13,6 +13,7 @@ export const CommentWrite = ({
     loadComments
 }: CommentWriteProps) => {
     const {ajax} = useAjax();
+    const [boardAnonymousMode] = useRecoilState(boardAnonymousModeState);
     const [boardAndPostId] = useRecoilState(boardAndPostIdState);
     const {boardId, postId} = boardAndPostId;
     const [content, setContent] = useState<string | null>('');
@@ -27,7 +28,7 @@ export const CommentWrite = ({
                 depth: depth + 1,
                 parentId,
                 content,
-                anonymous: false
+                anonymous: boardAnonymousMode
             },
             callback() {
                 setParentComment(null);

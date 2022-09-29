@@ -11,6 +11,7 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useEffect } from 'react';
 import { headerOptionState } from '../../store/common.store';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -100,6 +101,9 @@ export const PostView = ({
 
     return (
         <div className='container _110'>
+            <Head>
+                <title>{post.title} - 커뮤니티 - BSM</title>
+            </Head>
             <div className={styles.post_wrap}>
                 <div className={styles.post_info}>
                     <img className={`user-profile ${styles.user_profile}`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${post.user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />

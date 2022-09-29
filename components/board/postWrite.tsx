@@ -6,6 +6,8 @@ import { TextInput } from "../common/inputs/textInput";
 import { CategoryList } from "./categoryList";
 import { Category, DetailPost } from "../../types/boardType";
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { boardAnonymousModeState } from '../../store/board.store';
 
 interface PostWriteProps {
     boardId: string,
@@ -32,6 +34,7 @@ export const PostWrite = ({
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
     const [category, setCategory] = useState<string>('normal');
+    const [boardAnonymousMode] = useRecoilState(boardAnonymousModeState);
 
     useEffect(() => {
         if (editPost) {
@@ -53,11 +56,11 @@ export const PostWrite = ({
                 title,
                 content,
                 category,
-                anonymous: false
+                anonymous: boardAnonymousMode
             },
             callback(postId) {
                 router.push(`/board/${boardId}/${postId}`);
-            },
+            }
         });
     }
 
@@ -69,7 +72,7 @@ export const PostWrite = ({
                 title,
                 content,
                 category,
-                anonymous: false
+                anonymous: boardAnonymousMode
             },
             callback() {
                 setPost(null);
@@ -129,7 +132,7 @@ export const PostWrite = ({
                 value={content}
                 onEditorChange={content => setContent(content)}
             />
-            <div className="rows">
+            <div className="rows gap-1">
                 <CategoryList
                     className='flex-main'
                     postCategory={category}

@@ -69,6 +69,7 @@
 }
 
 .category_list li {
+    word-break: keep-all;
     padding: 1rem 1.25rem;
     border-radius: 1.5rem;
     background-color: var(--level-1);

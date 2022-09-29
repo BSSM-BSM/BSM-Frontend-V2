@@ -44,3 +44,9 @@ export const boardDetailTimeState = atom<boolean>({
     default: false,
     effects: [localStorageEffect('boardDetailTime', LocalStorageType.boolean)?? false]
 });
+
+export const boardAnonymousModeState = atom<boolean>({
+    key: 'boardAnonymousMode',
+    default: false,
+    effects: [localStorageEffect('boardAnonymousMode', LocalStorageType.boolean)?? false]
+});
