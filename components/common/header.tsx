@@ -8,6 +8,9 @@ import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
 import { headerOptionState } from '../../store/common.store';
 import styles from '../../styles/header.module.css';
+import DefaultProfilePic from '../../public/icons/profile_default.png';
+import Image, { StaticImageData } from 'next/image';
+import { getProfileSrc } from '../../utils/util';
 
 export const Header = () => {
     const [mounted, setMounted] = useState(false);
@@ -19,12 +22,17 @@ export const Header = () => {
     const resetUser = useResetRecoilState(userState);
     const [sideBar, setSideBar] = useState(false);
     const [headerOption] = useRecoilState(headerOptionState);
+    const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
 
     useEffect(() => {
         Router.events.on('routeChangeStart', () => setSideBar(false));
         setMounted(true);
         return () => setMounted(false);
     }, []);
+
+    useEffect(() => {
+        setProfileSrc(getProfileSrc(user.code));
+    }, [user]);
 
     const logout = () => {
         ajax({
@@ -43,7 +51,15 @@ export const Header = () => {
             ? <div className={`dropdown-menu ${styles.dropdown}`}>
                 <span className={`${styles.item} ${styles.user_profile_wrap}`}>
                     <span>{user.nickname}</span>
-                    <img className='user-profile' src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
+                    <div className='user-profile'>
+                        <Image
+                            src={profileSrc}
+                            onError={() => setProfileSrc(DefaultProfilePic)}
+                            width='128px'
+                            height='128px'
+                            alt='user profile'
+                        />
+                    </div>
                 </span>
                 <ul className='dropdown-content'>
                     <li><a href='https://auth.bssm.kro.kr/user' className='option'>유저 정보</a></li>

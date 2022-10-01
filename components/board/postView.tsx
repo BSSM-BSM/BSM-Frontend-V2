@@ -8,10 +8,13 @@ import { boardDetailTimeState, postListState, postState } from '../../store/boar
 import { elapsedTime } from '../../utils/util';
 import { escapeAttrValue, FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { headerOptionState } from '../../store/common.store';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import DefaultProfilePic from '../../public/icons/profile_default.png';
+import Image, { StaticImageData } from 'next/image';
+import { getProfileSrc } from '../../utils/util';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -51,6 +54,7 @@ export const PostView = ({
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const [, setPost] = useRecoilState(postState);
     const [boardDetailTime] = useRecoilState(boardDetailTimeState);
+    const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
 
     useEffect(() => {
         setHeaderOption({
@@ -65,6 +69,7 @@ export const PostView = ({
                 }
                 : undefined
         });
+        setProfileSrc(getProfileSrc(post.user.code));
     }, [post]);
 
     const postLike = (like: number) => {
@@ -106,7 +111,15 @@ export const PostView = ({
             </Head>
             <div className={styles.post_wrap}>
                 <div className={styles.post_info}>
-                    <img className={`user-profile ${styles.user_profile}`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${post.user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
+                    <div className={`user-profile ${styles.user_profile}`}>
+                        <Image
+                            src={profileSrc}
+                            onError={() => setProfileSrc(DefaultProfilePic)}
+                            width='128px'
+                            height='128px'
+                            alt='user profile'
+                        />
+                    </div>
                     <div className='cols space-between flex-main'>
                         <h2 className={styles.title}>{post.title}</h2>
                         <div className='rows space-between'>

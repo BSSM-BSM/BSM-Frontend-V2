@@ -13,7 +13,7 @@
 }
 
 .dropdown li {
-    width: 16rem;
+    width: 16rem !important;
 }
 
 .header .top {
@@ -50,10 +50,6 @@
 
 .item.all_menu {
     padding: 1.4rem 1.1rem;
-}
-
-.all_menu ~ :global(.dropdown-content) {
-    width: 14rem;
 }
 
 .item:hover {
@@ -224,9 +220,14 @@
     margin-left: auto;
 }
 
-.user_profile_wrap img {
-    padding: .75rem;
+.user_profile_wrap :global(.user-profile) {
     margin-right: 2rem;
-    width: 5.2rem;
     height: 5.2rem;
+    width: 5.2rem;
+}
+
+.user_profile_wrap :global(.user-profile) img {
+    padding: .75rem !important;
+    width: 5.2rem !important;
+    height: 5.2rem !important;
 }

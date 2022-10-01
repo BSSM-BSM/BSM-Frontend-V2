@@ -28,9 +28,9 @@
     gap: 2rem;
 }
 
-.user_profile {
-    width: 5.5rem;
-    height: 5.5rem;
+.user_profile img {
+    width: 5.5rem !important;
+    height: 5.5rem !important;
 }
 
 .post_content {
@@ -110,8 +110,8 @@
         font-size: 1.8rem;
     }
 
-    .user_profile {
-        width: 4rem;
-        height: 4rem;
+    .user_profile img {
+        width: 4rem !important;
+        height: 4rem !important;
     }
 }

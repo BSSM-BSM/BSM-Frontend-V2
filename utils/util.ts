@@ -1,3 +1,6 @@
+import { StaticImageData } from 'next/image';
+import DefaultProfilePic from '../public/icons/profile_default.png';
+
 export const decodeBase64 = (str: string): string => {
     // base64를 decoding하는 함수인 atob는 -나 _가 들어있으면 작동안하므로 각각 +, /로 변환해줌
     // atob로 디코드 해도 한글은 제대로 나오지 않으므로 escape로 유니코드로 변환후 decodeURI로 복호화함
@@ -55,3 +58,8 @@ export const dateToShortStr = (date: Date): string => {
     const day = `${date.getDate()}`.padStart(2, '0');
     return `${year}${month}${day}`;
 }
+
+export const getProfileSrc = (userCode: number): string | StaticImageData => 
+    userCode > 0
+    ? `https://auth.bssm.kro.kr/resource/user/profile/${userCode}.png`
+    : DefaultProfilePic;

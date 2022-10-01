@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+        domains: ['auth.bssm.kro.kr']
+    },
     reactStrictMode: true,
     swcMinify: true,
     rewrites() {

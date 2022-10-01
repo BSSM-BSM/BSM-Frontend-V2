@@ -924,9 +924,10 @@ label, summary{
     cursor: pointer;
 }
 
-.user-profile {
+.user-profile img {
     border-radius: 50%;
-    height: 2rem;
+    width: 2rem !important;
+    height: 2rem !important;
 }
 
 .oauth-bsm {

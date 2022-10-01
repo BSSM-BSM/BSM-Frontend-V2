@@ -4,7 +4,10 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { boardAndPostIdState, postOpenState, postState } from '../../store/board.store';
 import styles from '../../styles/board/board.module.css';
 import { Category, DetailPost, Post } from "../../types/boardType";
-import { elapsedTime, MilliSecondTime } from '../../utils/util';
+import { elapsedTime, getProfileSrc, MilliSecondTime } from '../../utils/util';
+import DefaultProfilePic from '../../public/icons/profile_default.png';
+import Image, { StaticImageData } from 'next/image';
+import { useState } from 'react';
 
 interface PostItemProps extends Post {
     boardId: string,
@@ -29,6 +32,7 @@ export const PostItem = ({
     const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
     const [, setPostOpen] = useRecoilState(postOpenState);
     const {ajax} = useAjax();
+    const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(user.code));
 
     const loadPost = () => {
         ajax<DetailPost>({
@@ -58,7 +62,15 @@ export const PostItem = ({
                     </Link>
                     <div className='rows space-between'>
                         <div className={styles.user_info}>
-                            <img className='user-profile' src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
+                            <div className='user-profile'>
+                                <Image
+                                    src={profileSrc}
+                                    onError={() => setProfileSrc(DefaultProfilePic)}
+                                    width='128px'
+                                    height='128px'
+                                    alt='user profile'
+                                />
+                            </div>
                             <span>{user.nickname}</span>
                         </div>
                         <div className={styles.post_info}>
