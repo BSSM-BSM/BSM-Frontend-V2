@@ -35,7 +35,8 @@
 
 .post_content {
     text-align: initial;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .post_content img {

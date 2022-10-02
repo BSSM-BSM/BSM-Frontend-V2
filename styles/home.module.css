@@ -42,12 +42,14 @@
     filter: var(--bright);
 }
 
-.icon.user_icon {
-    filter: none;
+.user_icon {
+    height: 5rem;
 }
 
-.user_icon {
-    padding: .5rem;
+.user_icon img {
+    width: 5rem !important;
+    height: 5rem !important;
+    padding: .5rem !important;
 }
 
 .sub_content {
@@ -172,7 +174,13 @@
     }
 
     .user_icon {
-        padding: 0;
+        height: 4rem;
+    }
+    
+    .user_icon img {
+        width: 4rem !important;
+        height: 4rem !important;
+        padding: 0 !important;
     }
 
     .sub_content {

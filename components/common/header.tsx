@@ -111,7 +111,7 @@ export const Header = () => {
                     <ul className='dropdown-content'>
                         {
                             headerOption.optionMenu.dropdownMenu.map(
-                                menu => <li key={menu.text} className='option' onClick={menu.callback}>{menu.text}</li>
+                                menu => <li key={menu.text} onClick={menu.callback}><span className='option'>{menu.text}</span></li>
                             )
                         }
                     </ul>

@@ -7,8 +7,10 @@ import { userState } from '../store/account.store';
 import { ErrorResType, HttpMethod, useAjax } from '../hooks/useAjax';
 import Modal from '../components/common/modal';
 import Link from 'next/link';
-import { elapsedTime } from '../utils/util';
+import { elapsedTime, getProfileSrc } from '../utils/util';
 import { headerOptionState } from '../store/common.store';
+import Image, { StaticImageData } from 'next/image';
+import DefaultProfilePic from '../public/icons/profile_default.png';
 
 interface MeisterInfo {
     isLoading: boolean;
@@ -32,6 +34,7 @@ const Home: NextPage = () => {
     });
     const { openModal } = useModal();
     const { ajax } = useAjax();
+    const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
 
     useEffect(() => {
         setHeaderOption({title: ''});
@@ -39,6 +42,10 @@ const Home: NextPage = () => {
         loadMeisterInfo();
         return () => setMounted(false);
     }, []);
+
+    useEffect(() => {
+        setProfileSrc(getProfileSrc(user.code));
+    }, [user]);
 
     const loadMeisterInfo = (type?: string) => {
         setMeisterInfo({
@@ -79,7 +86,15 @@ const Home: NextPage = () => {
         mounted && (
             user.isLogin
             ?<a className={styles.menu} href='https://auth.bssm.kro.kr/user'>
-                <img className={`${styles.icon} ${styles.user_icon} user-profile`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
+                <div className={`${styles.user_icon} user-profile`}>
+                    <Image
+                        src={profileSrc}
+                        onError={() => setProfileSrc(DefaultProfilePic)}
+                        width='128px'
+                        height='128px'
+                        alt='user profile'
+                    />
+                </div>
                 <div>
                     <div className={styles.sub_content}>{user.grade}학년 {user.classNo}반 {user.studentNo}번 {user.name}</div>
                     <div className={styles.main_content}>{user.nickname}</div>

@@ -32,8 +32,12 @@
 }
 
 .user_profile {
-    width: 3rem;
     height: 3rem;
+}
+
+.user_profile img {
+    width: 3rem !important;
+    height: 3rem !important;
 }
 
 .write_bar {

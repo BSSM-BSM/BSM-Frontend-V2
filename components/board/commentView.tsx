@@ -1,6 +1,16 @@
+import { useRecoilState } from 'recoil';
+import { FilterXSS } from 'xss';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { boardAndPostIdState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
 import { CommentList } from './commentItem';
+
+const commentXssFilter = new FilterXSS({
+    whiteList: {
+        img: ['e_id', 'e_idx', 'e_type']
+    }
+});
 
 export const CommentView = ({
     commentList,
@@ -10,8 +20,35 @@ export const CommentView = ({
     commentList: (Comment | DeletedComment)[],
     loadComments: Function,
     boardDetailTime: boolean
-}) => (
-    <div className={styles.comment_wrap}>
-        {<CommentList commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />}
-    </div>
-)
+}) => {
+    const {ajax} = useAjax();
+    const [boardAndPostId] = useRecoilState(boardAndPostIdState);
+    const { boardId, postId } = boardAndPostId;
+
+    const deleteComment = (id: number) => {
+        if (!confirm('정말 삭제하시겠습니까?')) return;
+        ajax({
+            url: `comment/${boardId}/${postId}/${id}`,
+            method: HttpMethod.DELETE,
+            callback() {
+                loadComments();
+            }
+        })
+    }
+
+    return (
+        <div className={styles.comment_wrap}>
+            {
+                commentList.map(comment => (
+                    <CommentList
+                        comment={comment}
+                        loadComments={loadComments}
+                        deleteComment={deleteComment}
+                        boardDetailTime={boardDetailTime}
+                        commentXssFilter={commentXssFilter}
+                    />
+                ))
+            }
+        </div>
+    );
+};

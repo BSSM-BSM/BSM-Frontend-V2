@@ -1,93 +1,98 @@
 import { useRecoilState } from 'recoil';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { boardAndPostIdState, parentCommentState } from '../../store/board.store';
+import { parentCommentState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
 import { elapsedTime } from '../../utils/util';
+import DefaultProfilePic from '../../public/icons/profile_default.png';
+import Image, { StaticImageData } from 'next/image';
+import { getProfileSrc } from '../../utils/util';
+import { useState } from 'react';
 import { FilterXSS } from 'xss';
 
-const commentXssFilter = new FilterXSS({
-    whiteList: {
-        img: ['e_id', 'e_idx', 'e_type']
-    }
-});
-
 export const CommentList = ({
-    commentList,
+    comment,
     loadComments,
-    boardDetailTime
+    deleteComment,
+    boardDetailTime,
+    commentXssFilter
 }: {
-    commentList: (Comment | DeletedComment)[],
+    comment: Comment | DeletedComment,
     loadComments: Function,
-    boardDetailTime: boolean
+    deleteComment: Function,
+    boardDetailTime: boolean,
+    commentXssFilter: FilterXSS
 }) => {
-    const {ajax} = useAjax();
     const [, setParentComment] = useRecoilState(parentCommentState);
-    const [boardAndPostId] = useRecoilState(boardAndPostIdState);
-    const { boardId, postId } = boardAndPostId;
-
-    const deleteComment = (id: number) => {
-        if (!confirm('정말 삭제하시겠습니까?')) return;
-        ajax({
-            url: `comment/${boardId}/${postId}/${id}`,
-            method: HttpMethod.DELETE,
-            callback() {
-                loadComments();
-            }
-        })
-    }
+    const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(!comment.delete? comment.user.code: -1));
     
     return (
-        <ul className='left'>{
-            commentList.map(comment => (
-                <li key={comment.id}>
-                    <div className={styles.item_wrap}>
-                        <div className={styles.item} onClick={() => !comment.delete && setParentComment(comment)}>
-                            {
-                                comment.delete
-                                ? <span className={styles.deleted}>삭제된 댓글 입니다</span>
-                                : <>
-                                    <div className='rows gap-1'>
-                                        <div className='cols center'>
-                                            <img className={`user-profile ${styles.user_profile}`} src={`https://auth.bssm.kro.kr/resource/user/profile/profile_${comment.user.code}.png`} onError={e => e.currentTarget.src = '/icons/profile_default.png'} alt='user profile' />
-                                        </div>
-                                        <div className='cols flex-main'>
-                                            <div className='rows space-between bold'>
-                                                <span>{comment.user.nickname}</span>
-                                            </div>
-                                            <div className='gray'>{
-                                                boardDetailTime
-                                                ? new Date(comment.createdAt).toLocaleString()
-                                                : elapsedTime(comment.createdAt)
-                                            }</div>
-                                        </div>
-                                    </div>
-                                    <div dangerouslySetInnerHTML={{__html: commentXssFilter.process(comment.content)}}></div>
-                                </>
-                            }
-                        </div>
+        <ul className='left'>
+            <li key={comment.id}>
+                <div className={styles.item_wrap}>
+                    <div className={styles.item} onClick={() => !comment.delete && setParentComment(comment)}>
                         {
-                            !comment.delete && 
-                            comment.permission && 
-                            <div className='left-slide-menu'>
-                                <span className='menu-button'>
-                                    <span className='line'></span>
-                                    <span className='line'></span>
-                                    <span className='line'></span>
-                                </span>
-                                <ul className='menu-list'>
-                                    <li>
-                                        <button className='button delete' onClick={() => deleteComment(comment.id)}>삭제</button>
-                                    </li>
-                                </ul>
-                            </div>
+                            comment.delete
+                            ? <span className={styles.deleted}>삭제된 댓글 입니다</span>
+                            : <>
+                                <div className='rows gap-1'>
+                                    <div className='cols center'>
+                                    <div className={`user-profile ${styles.user_profile}`}>
+                                        <Image
+                                            src={profileSrc}
+                                            onError={() => setProfileSrc(DefaultProfilePic)}
+                                            width='128px'
+                                            height='128px'
+                                            alt='user profile'
+                                        />
+                                    </div>
+                                    </div>
+                                    <div className='cols flex-main'>
+                                        <div className='rows space-between bold'>
+                                            <span>{comment.user.nickname}</span>
+                                        </div>
+                                        <div className='gray'>{
+                                            boardDetailTime
+                                            ? new Date(comment.createdAt).toLocaleString()
+                                            : elapsedTime(comment.createdAt)
+                                        }</div>
+                                    </div>
+                                </div>
+                                <div dangerouslySetInnerHTML={{__html: commentXssFilter.process(comment.content)}}></div>
+                            </>
                         }
                     </div>
-                    <div className={styles.child}>
-                        {comment.child && <CommentList commentList={comment.child} loadComments={loadComments} boardDetailTime={boardDetailTime} />}
-                    </div>
-                </li>
-            ))
-        }</ul>
+                    {
+                        !comment.delete && 
+                        comment.permission && 
+                        <div className='left-slide-menu'>
+                            <span className='menu-button'>
+                                <span className='line'></span>
+                                <span className='line'></span>
+                                <span className='line'></span>
+                            </span>
+                            <ul className='menu-list'>
+                                <li>
+                                    <button className='button delete' onClick={() => deleteComment(comment.id)}>삭제</button>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <div className={styles.child}>
+                    {
+                        comment.child &&
+                        comment.child.map(child => (
+                            <CommentList
+                                comment={child}
+                                loadComments={loadComments}
+                                deleteComment={deleteComment}
+                                boardDetailTime={boardDetailTime}
+                                commentXssFilter={commentXssFilter}
+                            />
+                        ))
+                    }
+                </div>
+            </li>
+        </ul>
     )
 }
