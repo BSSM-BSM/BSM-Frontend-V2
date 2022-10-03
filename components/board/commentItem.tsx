@@ -83,6 +83,7 @@ export const CommentList = ({
                         comment.child &&
                         comment.child.map(child => (
                             <CommentList
+                                key={child.id}
                                 comment={child}
                                 loadComments={loadComments}
                                 deleteComment={deleteComment}

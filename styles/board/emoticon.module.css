@@ -1,0 +1,26 @@
+.emoticon_list {
+    width: 40rem;
+    height: 6rem;
+    display: flex;
+}
+
+.emoticon_list :is(li, img) {
+    min-width: 10rem !important;
+    max-width: 10rem !important;
+    min-height: 5rem !important;
+    max-height: 5rem !important;
+}
+
+.emoticon_item_list {
+    width: 40rem;
+    max-height: 40rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.emoticon_item_list :is(li, img) {
+    min-width: 10rem !important;
+    max-width: 10rem !important;
+    min-height: 10rem !important;
+    max-height: 10rem !important;
+}

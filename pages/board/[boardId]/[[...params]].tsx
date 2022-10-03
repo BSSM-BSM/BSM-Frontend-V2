@@ -11,6 +11,7 @@ import { BoardView } from '../../../components/board/boardView';
 import { PostView } from '../../../components/board/postView';
 import { boardAndPostIdState, postOpenState, postState } from '../../../store/board.store';
 import { PostWrite } from '../../../components/board/postWrite';
+import { EmoticonBox } from '../../../components/board/emoticonBox';
 
 const BoardPage: NextPage = () => {
     const {ajax} = useAjax();
@@ -150,6 +151,7 @@ const BoardPage: NextPage = () => {
                     />
                 </div>
             }
+            <EmoticonBox />
         </div>
     );
 }

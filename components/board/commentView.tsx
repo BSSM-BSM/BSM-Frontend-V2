@@ -41,6 +41,7 @@ export const CommentView = ({
             {
                 commentList.map(comment => (
                     <CommentList
+                        key={comment.id}
                         comment={comment}
                         loadComments={loadComments}
                         deleteComment={deleteComment}

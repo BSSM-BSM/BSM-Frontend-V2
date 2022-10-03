@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['auth.bssm.kro.kr']
+        domains: ['test.bssm.kro.kr', 'auth.bssm.kro.kr']
     },
     reactStrictMode: true,
     swcMinify: true,

@@ -130,6 +130,10 @@ body, .scroll_bar, .modal--content {
     width: 2rem;
 }
 
+.scroll-bar.horizontal::-webkit-scrollbar {
+    height: 1rem;
+}
+
 .modal--content::-webkit-scrollbar {
     width: .4rem;
 }
@@ -143,6 +147,10 @@ body, .scroll_bar, .modal--content {
     border-radius: 1rem;
     border: .8rem solid transparent;
     background-clip: padding-box;
+}
+
+.scroll-bar.horizontal::-webkit-scrollbar-thumb {
+    border: .3rem solid transparent;
 }
 
 .modal--content::-webkit-scrollbar-thumb {

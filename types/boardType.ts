@@ -69,3 +69,17 @@ export interface DeletedComment {
     delete: true
     child?: (Comment | DeletedComment)[]
 }
+
+export interface Emoticon {
+    id: number,
+    name: string,
+    description: string,
+    createdAt: string,
+    items: EmoticonItem[]
+}
+
+export interface EmoticonItem {
+    id: number,
+    idx: number,
+    type: string
+}
