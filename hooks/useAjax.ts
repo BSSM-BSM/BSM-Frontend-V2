@@ -19,14 +19,7 @@ export enum HttpMethod {
     DELETE
 }
 
-export class ErrorResType {
-    constructor (
-        statusCode: number,
-        message: string
-    ) {
-        this.statusCode = statusCode;
-        this.message = message;
-    }
+export interface ErrorResType {
     statusCode: number;
     message: string;
 }

@@ -58,7 +58,7 @@ const BoardPage: NextPage = () => {
                 }));
             },
             errorCallback(data) {
-                if (data instanceof ErrorResType && data.statusCode === 404) {
+                if (data && 'statusCode' in data && data.statusCode === 404) {
                     if (typeof boardId !== 'string') return;
                     setBoardList(prev => {
                         delete prev[boardId];

@@ -59,6 +59,12 @@ export const dateToShortStr = (date: Date): string => {
     return `${year}${month}${day}`;
 }
 
+const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+
+export const dateToKoreanDateStr = (date: Date): string => {
+    return `${date.getMonth() + 1}월 ${date.getDate()}일 ${dayNames[date.getDay()]}`;
+}
+
 export const getProfileSrc = (userCode: number): string | StaticImageData => 
     userCode > 0
     ? `https://auth.bssm.kro.kr/resource/user/profile/${userCode}.png`

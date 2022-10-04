@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { ErrorResType, HttpMethod, useAjax } from "../hooks/useAjax";
 import { screenScaleState, headerOptionState } from "../store/common.store";
 import styles from '../styles/meal.module.css';
-import { dateToShortStr, shrotStrToDate } from "../utils/util";
+import { dateToShortStr, shrotStrToDate, dateToKoreanDateStr } from "../utils/util";
 
 enum MealTime {
     MORNING = '아침',
@@ -71,7 +71,7 @@ const MealPage: NextPage = () => {
                     resolve(tempMealList);
                 },
                 errorCallback(data) {
-                    if (data instanceof ErrorResType && data.statusCode === 404) {
+                    if (data && 'statusCode' in data && data.statusCode === 404) {
                         resolve([{
                             date,
                             content: '급식이 없습니다'
@@ -217,7 +217,7 @@ const MealPage: NextPage = () => {
                                                 (isSameDay && middleIdx === i) || (!isSameDay && checkShowMealDate(meal, i))
                                             ) && (
                                                 <h3 className={styles.date}>
-                                                    {meal.date}
+                                                    {dateToKoreanDateStr(shrotStrToDate(meal.date))}
                                                 </h3>
                                             )}
                                             <h3>{meal.time}</h3>

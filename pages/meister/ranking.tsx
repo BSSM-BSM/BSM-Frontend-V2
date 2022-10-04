@@ -28,7 +28,7 @@ const MeisterPage: NextPage = () => {
                 setRankingList(data);
             },
             errorCallback(data) {
-                if (data instanceof ErrorResType && data.statusCode === 403) {
+                if (data && 'statusCode' in data && data.statusCode === 403) {
                     setRankingList([]);
                     showToast(
                         <p onClick={() => updatePrivateRanking(false)}>
@@ -53,7 +53,7 @@ const MeisterPage: NextPage = () => {
                 loadMeisterInfo();
             },
             errorCallback(data) {
-                if (data instanceof ErrorResType && data.statusCode === 403) {
+                if (data && 'statusCode' in data && data.statusCode === 403) {
                     let availableTime = new Date();
                     const initHour = -32400000;
                     availableTime.setTime(initHour + (Number(data.message) * 1000));
