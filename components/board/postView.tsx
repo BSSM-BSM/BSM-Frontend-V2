@@ -68,7 +68,8 @@ export const PostView = ({
                     dropdownMenu: [
                         {text: '글 수정', callback: () => router.push(`/board/${board.boardId}/write/${post.id}`)},
                         {text: '글 삭제', callback: deletePost},
-                        {text: '이모티콘(테스트)', callback: () => openModal('emoticon')}
+                        {text: '이모티콘(테스트)', callback: () => openModal('emoticon')},
+                        {text: '이모티콘 관리(관리자 전용)', callback: () => openModal('emoticon_manage_box')}
                     ]
                 }
                 : undefined

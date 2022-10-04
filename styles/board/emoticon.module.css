@@ -1,5 +1,6 @@
 .emoticon_list {
-    width: 40rem;
+    max-width: 40rem;
+    width: 100%;
     height: 6rem;
     display: flex;
 }

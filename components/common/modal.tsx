@@ -13,7 +13,8 @@ interface ModalProps {
         name: string,
         element: ReactNode
     }[],
-    callback?: Function
+    callback?: Function,
+    selectMenuCallback?: (i: number) => void
 }
 
 const Modal = ({
@@ -22,7 +23,8 @@ const Modal = ({
     type,
     title,
     menuList,
-    callback
+    callback,
+    selectMenuCallback
 }: ModalProps) => {
     const { closeModal } = useModal();
     const [mounted, setMounted] = useState(false);
@@ -49,7 +51,16 @@ const Modal = ({
                 <div className="modal--content">
                     <ul className="modal--menu">{
                         menuList?.map((menu, i) => (
-                            <li key={menu.name} className={i === menuIdx? 'active': ''} onClick={() => setMenuIdx(i)}>{menu.name}</li>
+                            <li
+                                key={menu.name}
+                                className={i === menuIdx? 'active': ''}
+                                onClick={() => {
+                                    setMenuIdx(i);
+                                    selectMenuCallback && selectMenuCallback(i);
+                                }}
+                            >
+                                {menu.name}
+                            </li>
                         ))
                     }</ul>
                     {menuList && menuList[menuIdx]?.element}
