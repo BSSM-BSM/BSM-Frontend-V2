@@ -1,6 +1,7 @@
+import { v1 as uuidV1 } from 'uuid';
 import { ReactNode } from "react";
 import { useRecoilState } from "recoil";
-import { alertState, alertTimerState, loadingState, toastCountState, toastState } from "../store/overlay.store";
+import { alertState, alertTimerState, loadingState, toastState } from "../store/overlay.store";
 
 interface UseOverlay {
     loading: (flag: boolean) => void;
@@ -11,7 +12,6 @@ interface UseOverlay {
 export const useOverlay = (): UseOverlay => {
     const [, setLoading] = useRecoilState(loadingState);
     const [, setToastList] = useRecoilState(toastState);
-    const [toastCount, setToastCount] = useRecoilState(toastCountState);
     const [, setAlert] = useRecoilState(alertState);
     const [alertTimer, setAlertTimer] = useRecoilState(alertTimerState);
 
@@ -20,12 +20,11 @@ export const useOverlay = (): UseOverlay => {
     }
 
     const showToast = async (content: string | ReactNode, time: number = 5000) => {
-        let index = toastCount;
-        setToastCount(prev => ++prev);
+        let id = uuidV1();
 
         setToastList(prev => {
-            return {...prev, [index]: {
-                id: index,
+            return {...prev, [id]: {
+                id,
                 status: 'active',
                 content
             }}
@@ -34,15 +33,15 @@ export const useOverlay = (): UseOverlay => {
         setToastList(prev => {
             return {
                 ...prev,
-                [index]: {
-                    ...prev[index],
+                [id]: {
+                    ...prev[id],
                     status: 'hide'
                 }
             };
         });
         await new Promise((resolve) => setTimeout(() => {resolve(true)}, 200));
         setToastList(prev => {
-            const {[index]: exclude, ...list} = prev;
+            const {[id]: exclude, ...list} = prev;
             return list;
         });
     }

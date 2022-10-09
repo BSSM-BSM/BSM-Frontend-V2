@@ -25,7 +25,7 @@ export interface ErrorResType {
 }
 
 export const useAjax = () => {
-    const { loading, showAlert } = useOverlay();
+    const { loading, showAlert, showToast } = useOverlay();
     const { openModal } = useModal();
     const resetUser = useResetRecoilState(userState);
 
@@ -88,6 +88,13 @@ export const useAjax = () => {
                     resetUser();
                     openModal('login');
                     break;
+                case 400: {
+                    const fields = err.response.data.fields as {[filed: string]: string};
+                    Object.entries(fields).forEach(field => {
+                        showToast(`${field[0]}: ${field[1]}`);
+                    });
+                    break;
+                }
                 default:
                     showAlert(`에러코드: ${err.response.data.statusCode} ${err.response.data.message}`);
             }

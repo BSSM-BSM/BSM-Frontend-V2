@@ -565,7 +565,7 @@ label, summary{
 
 .toast{
     min-width: 20rem;
-    padding: 2rem 1rem;
+    padding: 1.5rem;
     background-color: var(--level-1);
     transition: .25s;
     text-align: center;
@@ -795,13 +795,6 @@ label, summary{
 .close_button {
     height: 4rem;
     background-image: url('/icons/x.svg');
-}
-
-.edit_button {
-    width: 3rem;
-    height: 3rem;
-    background-size: 2rem;
-    background-image: url('/icons/edit.svg');
 }
 
 #modal-wrap {
