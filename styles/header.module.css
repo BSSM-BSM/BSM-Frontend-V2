@@ -40,12 +40,18 @@
     transform: scale(.8);
 }
 
-.top li:not(.home) .item {
+.top li .item {
     height: 100%;
+    padding: 0 2.2rem;
+}
+
+.home {
+    font-size: 2.2rem;
+    letter-spacing: -.1rem;
 }
 
 .home .item {
-    padding: 1.4rem 1.5rem;
+    padding: 0 1.5rem;
 }
 
 .item.all_menu {
@@ -181,16 +187,11 @@
     display: flex;
     justify-content: center;
     margin: 1rem 0 2rem 0;
+    font-size: 2.6rem;
 }
 
 .side .home:hover {
     background: none;
-}
-
-.side .home img {
-    cursor: pointer;
-    padding: .85rem;
-    filter: none !important;
 }
 
 .side :is(.item, .item > *) {
@@ -200,7 +201,7 @@
 .setting {
     width: 5.2rem;
     height: 5.2rem;
-    padding: 1rem !important;
+    padding: 1.25rem !important;
 }
 
 .setting img {

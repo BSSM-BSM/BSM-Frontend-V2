@@ -671,12 +671,6 @@ label, summary{
     to {-webkit-transform: rotate(360deg);}
 }
 
-.logo {
-    height: 5.2rem;
-    padding: 1.2rem;
-    filter: var(--bright);
-}
-
 .button{
     width: auto;
     color: var(--text);

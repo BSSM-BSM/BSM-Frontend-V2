@@ -66,7 +66,7 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
             <ul className={styles.post_list}>
                 {postList.map(post => (
                     <PostItem
-                        key={`${boardId}${post.id}`}
+                        key={`${boardId}/${post.id}/${post.user.code}`}
                         {...post}
                         boardId={String(boardId)}
                         categoryList={board.categoryList}

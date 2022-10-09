@@ -41,6 +41,21 @@ const BoardPage: NextPage = () => {
     useEffect(() => {
         if (typeof boardId !== 'string') return;
         setPost(null);
+        if (boardList[boardId]) return;
+        
+        setBoardList(prev => ({
+            ...prev,
+            [boardId]: {
+                boardId,
+                boardName: '',
+                subBoardId: null,
+                subBoardName: null,
+                categoryList: {},
+                postPermission: false,
+                commentPermission: false
+            }
+        }));
+
         ajax<BoardListRes>({
             method: HttpMethod.GET,
             url: `board/${boardId}`,
@@ -51,7 +66,7 @@ const BoardPage: NextPage = () => {
                 });
                 setBoardList(prev => ({
                     ...prev,
-                    [data.boardId]: {
+                    [boardId]: {
                         ...data,
                         categoryList
                     }
@@ -65,7 +80,7 @@ const BoardPage: NextPage = () => {
                         return prev;
                     });
                 }
-            },
+            }
         });
     }, [boardId]);
 

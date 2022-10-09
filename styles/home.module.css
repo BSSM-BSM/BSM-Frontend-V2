@@ -2,19 +2,19 @@
     width: 100%;
     height: calc(1vh * 100);
     display: flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: .5rem;
 }
 
 .quick_menu_list {
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    row-gap:3rem;
-    column-gap:5rem;
-    max-width:100rem;
-    width:100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 3rem;
+    column-gap: 5rem;
+    max-width: 100rem;
+    width: 100%;
 }
 
 .menu {
@@ -27,7 +27,7 @@
     border-radius: 1rem;
     transition: .25s;
     cursor: pointer;
-    font-size: 2.4rem;
+    font-size: 2rem;
     font-weight: bold;
 }
 
@@ -36,44 +36,44 @@
 }
 
 .icon {
-    width: 5rem;
-    height: 5rem;
-    padding: .75rem;
+    width: 4rem;
+    height: 4rem;
+    padding: .5rem;
     filter: var(--bright);
 }
 
 .user_icon {
-    height: 5rem;
+    height: 4rem;
 }
 
 .user_icon img {
-    width: 5rem !important;
-    height: 5rem !important;
-    padding: .5rem !important;
+    width: 4rem !important;
+    height: 4rem !important;
+    padding: .25rem !important;
 }
 
 .sub_content {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
+    font-weight: normal;
 }
 
 .main_content {
-    font-size: 2.2rem;
+    font-size: 2rem;
 }
 
 .meister .sub_content {
     display: flex;
     align-items: center;
     gap: 1rem;
-    font-size: 1.5rem;
 }
 
 .meister .main_content {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
 }
 
 .meister .main_content span:nth-child(2) {
     margin-left: .5rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--text-level-1);
 }
 
@@ -103,21 +103,21 @@
     .menu {
         gap: 1.5rem;
         padding: 1.5rem;
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
 
     .icon {
-        width: 4rem;
-        height: 4rem;
-        padding: .5rem;
+        width: 3rem;
+        height: 3rem;
+        padding: .4rem;
     }
 
     .sub_content {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .main_content {
-        font-size: 1.8rem !important;
+        font-size: 1.6rem !important;
     }
 }
 
@@ -133,15 +133,7 @@
     }
     
     .menu {
-        gap: 1.5rem;
         padding: 1rem;
-        font-size: 1.8rem;
-    }
-
-    .icon {
-        width: 3.5rem;
-        height: 3.5rem;
-        padding: .5rem;
     }
 }
 
@@ -164,30 +156,31 @@
 
     .menu {
         padding: 1.75rem 2.5rem;
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
 
     .icon {
-        width: 3rem;
-        height: 3rem;
+        width: 2.75rem;
+        height: 2.75rem;
         padding: .25rem;
     }
 
     .user_icon {
-        height: 4rem;
+        width: 3rem;
+        height: 3rem;
     }
     
     .user_icon img {
-        width: 4rem !important;
-        height: 4rem !important;
+        width: 3rem !important;
+        height: 3rem !important;
         padding: 0 !important;
     }
 
     .sub_content {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .main_content {
-        font-size: 1.8rem !important;
+        font-size: 1.6rem !important;
     }
 }

@@ -127,7 +127,7 @@ export const Header = () => {
                 <nav className={styles.top_menu_bar}>
                     <ul className={styles.left}>
                         <li className={styles.home}>
-                            <Link href='/'><img src='/logo/logo.png' alt='logo' className={`logo ${styles.item}`} /></Link>
+                            <Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link>
                         </li>
                         {allMenuView()}
                         <h2 className={styles.title}>
@@ -164,7 +164,7 @@ export const Header = () => {
                 <div className={`close_button ${styles.close_button}`} onClick={() => setSideBar(false)}></div>
                 <div className={`dim ${styles.dim}`} onClick={() => setSideBar(false)}></div>
                 <ul className={styles.menus}>
-                    <li className={`${styles.item} ${styles.home}`}><Link href='/'><img src='/logo/logo.png' alt='logo' className='logo'/></Link></li>
+                    <li><Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link></li>
                     <li>{userMenuView()}</li>
                     <li><Link href='/timetable'><a className={styles.item}>시간표</a></Link></li>
                     <li><Link href='/meal'><a className={styles.item}>급식</a></Link></li>
