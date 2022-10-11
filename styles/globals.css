@@ -950,3 +950,8 @@ label, summary{
     font-size: 1.4rem;
     font-weight: bold;
 }
+
+.emoticon {
+    width: 10rem !important;
+    height: 10rem !important;
+}

@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { ErrorResType, HttpMethod, useAjax } from '../../../hooks/useAjax';
+import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { headerOptionState } from '../../../store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
@@ -34,7 +34,9 @@ const BoardPage: NextPage = () => {
         else if (postId === 'write')
             setHeaderOption({
                 title: boardList[boardId]?.boardName,
-                allMenu: 'goBack'
+                allMenu: {
+                    goBack: true
+                }
             });    
     }, [boardId, postId, boardList, post]);
 

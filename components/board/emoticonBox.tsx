@@ -1,9 +1,11 @@
 import styles from '../../styles/board/emoticon.module.css';
 import { useEffect, useState } from "react"
 import { HttpMethod, useAjax } from "../../hooks/useAjax"
-import { Emoticon } from "../../types/boardType"
+import { Emoticon, EmoticonItem } from "../../types/boardType"
 import Modal from "../common/modal"
 import Image from 'next/image';
+import { useRecoilState } from 'recoil';
+import { boardActiveEditorState } from '../../store/board.store';
 
 export const EmoticonBoxWrap = () => (
     <>
@@ -16,6 +18,7 @@ export const EmoticonBox = () => {
     const {ajax} = useAjax();
     const [emoticonList, setEmoticonList] = useState<Emoticon[]>([]);
     const [selectId, setSelectId] = useState<number>(0);
+    const [activeEditor] = useRecoilState(boardActiveEditorState);
 
     const loadEmoticons = () => {
         ajax<Emoticon[]>({
@@ -25,6 +28,22 @@ export const EmoticonBox = () => {
                 setEmoticonList(data);
             }
         });
+    }
+
+    const insertEmoticon = (item: EmoticonItem) => {
+        if (!activeEditor?.current) return;
+
+        activeEditor.current.focus();
+        const selection = window.getSelection();
+        const range = selection?.getRangeAt(0);
+        const emoticon = document.createElement('img');
+        emoticon.src = `/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`;
+        emoticon.setAttribute('e_id', `${item.id}`);
+        emoticon.setAttribute('e_idx', `${item.idx}`);
+        emoticon.setAttribute('e_type', `${item.type}`);
+        emoticon.classList.add('emoticon');
+        range?.insertNode(emoticon);
+        range?.setStartAfter(emoticon);
     }
 
     return (
@@ -45,7 +64,7 @@ export const EmoticonBox = () => {
                 emoticonList
                 .filter(emoticon => emoticon.id === selectId)
                 ?.[0]?.items.map(item => (
-                    <li key={`${item.id}/${item.idx}`}>
+                    <li key={`${item.id}/${item.idx}`} onClick={() => insertEmoticon(item)}>
                         <img
                             src={`https://test.bssm.kro.kr/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`}
                             alt={String(item.idx)}

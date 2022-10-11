@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import { atom } from "recoil";
 import { Comment, DetailPost, Post } from "../types/boardType";
 import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
@@ -49,4 +50,9 @@ export const boardAnonymousModeState = atom<boolean>({
     key: 'boardAnonymousMode',
     default: false,
     effects: [localStorageEffect('boardAnonymousMode', LocalStorageType.boolean)?? false]
+});
+
+export const boardActiveEditorState = atom<RefObject<HTMLDivElement> | null>({
+    key: 'boardActiveEditor',
+    default: null
 });

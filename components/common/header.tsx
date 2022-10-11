@@ -6,7 +6,7 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
 import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
-import { headerOptionState } from '../../store/common.store';
+import { DropdownMenuOption, headerOptionState } from '../../store/common.store';
 import styles from '../../styles/header.module.css';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
@@ -42,7 +42,7 @@ export const Header = () => {
                 resetUser();
                 showToast('로그아웃 되었습니다');
             }
-        })
+        });
     }
 
     const userMenuView = () => (
@@ -74,8 +74,9 @@ export const Header = () => {
         className: string,
         func: () => void
     } => {
-        switch (headerOption.allMenu) {
-            case 'goBack': return {
+        const {allMenu} = headerOption;
+        if (allMenu?.goBack) {
+            return {
                 className: 'go-back',
                 func: () => router.back()
             };
@@ -87,11 +88,16 @@ export const Header = () => {
     }
 
     const allMenuView = () => {
+        if (headerOption.allMenu?.dropdownMenu) {
+            return dropdownMenuView(headerOption.allMenu.dropdownMenu);
+        }
+
         const {className, func} = allMenuFunc();
         return (
             <li
                 className={`${styles.item} ${styles.all_menu} menu-button ${className}`}
-                onClick={func}>
+                onClick={func}
+            >
                 <span className='line'></span>
                 <span className='line'></span>
                 <span className='line'></span>
@@ -100,26 +106,26 @@ export const Header = () => {
     };
 
     const optionMenuView = () => {
-        if (headerOption.optionMenu) {
-            return (
-                <li className={`dropdown-menu ${styles.dropdown}`}>
-                    <span className={`${styles.item} ${styles.all_menu} menu-button`}>
-                        <span className='line'></span>
-                        <span className='line'></span>
-                        <span className='line'></span>
-                    </span>
-                    <ul className='dropdown-content'>
-                        {
-                            headerOption.optionMenu.dropdownMenu.map(
-                                menu => <li key={menu.text} onClick={menu.callback}><span className='option'>{menu.text}</span></li>
-                            )
-                        }
-                    </ul>
-                </li>
-            )
+        if (headerOption.optionMenu?.dropdownMenu) {
+            return dropdownMenuView(headerOption.optionMenu.dropdownMenu);
         }
         return <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>;
     }
+
+    const dropdownMenuView = (dropdownMenu: DropdownMenuOption[]) => (
+        <li className={`dropdown-menu ${styles.dropdown}`}>
+            <span className={`${styles.item} ${styles.all_menu} menu-button`}>
+                <span className='line'></span>
+                <span className='line'></span>
+                <span className='line'></span>
+            </span>
+            <ul className='dropdown-content'>
+                {dropdownMenu.map(
+                    menu => <li key={menu.text} onClick={menu.callback}><span className='option'>{menu.text}</span></li>
+                )}
+            </ul>
+        </li>
+    );
 
     return (
         <header className={styles.header}>

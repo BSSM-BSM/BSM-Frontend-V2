@@ -16,7 +16,7 @@ const MeisterPage: NextPage = () => {
     const [rankingList, setRankingList] = useState<MeisterRanking[]>([]);
 
     useEffect(() => {
-        setHeaderOption({title: '마이스터 랭킹', allMenu: 'goBack'});
+        setHeaderOption({title: '마이스터 랭킹', allMenu: {goBack: true}});
         loadMeisterInfo();
     }, []);
 

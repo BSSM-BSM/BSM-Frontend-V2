@@ -2,7 +2,7 @@ import styles from '../../styles/board/comment.module.css';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil"
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
-import { boardAndPostIdState, boardAnonymousModeState, parentCommentState } from "../../store/board.store"
+import { boardActiveEditorState, boardAndPostIdState, boardAnonymousModeState, parentCommentState } from "../../store/board.store"
 import { EditorInput } from "../common/inputs/editorInput";
 
 interface CommentWriteProps {
@@ -19,6 +19,7 @@ export const CommentWrite = ({
     const [content, setContent] = useState<string | null>('');
     const [parentComment, setParentComment] = useRecoilState(parentCommentState);
     const { depth, id: parentId, user: {nickname} } = parentComment ?? { depth: -1, id: 0, user: {}};
+    const [, setActiveEditor] = useRecoilState(boardActiveEditorState);
 
     const writeComment = () => {
         ajax({
@@ -54,6 +55,7 @@ export const CommentWrite = ({
                     setCallback={setContent}
                     placeholder={parentComment? `${nickname}에게 답글`: '댓글 내용'}
                     className='comment-input'
+                    refCallback={setActiveEditor}
                 />
             }
             {parentComment && <button className="button delete" onClick={() => setParentComment(null)}>취소</button>}

@@ -22,6 +22,10 @@
     padding: 1rem;
 }
 
+.item div:nth-child(2) {
+    white-space: pre-wrap;
+}
+
 .deleted {
     color: var(--text-level-2);
 }

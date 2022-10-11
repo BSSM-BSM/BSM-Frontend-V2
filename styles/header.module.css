@@ -12,7 +12,12 @@
     user-select: none;
 }
 
-.dropdown li {
+.top_menu_bar .dropdown:first-child :global(.dropdown-content) {
+    right: auto;
+    left: 0;
+}
+
+.top_menu_bar .dropdown li {
     width: 16rem;
 }
 
@@ -40,7 +45,7 @@
     transform: scale(.8);
 }
 
-.top li .item {
+.top li .item:not(.all_menu, .setting) {
     height: 100%;
     padding: 0 2.2rem;
 }

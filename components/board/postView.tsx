@@ -62,7 +62,9 @@ export const PostView = ({
     useEffect(() => {
         setHeaderOption({
             title: post.title,
-            allMenu: 'goBack',
+            allMenu: {
+                goBack: true
+            },
             optionMenu: post.permission
                 ? {
                     dropdownMenu: [
