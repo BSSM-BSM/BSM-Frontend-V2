@@ -1,0 +1,56 @@
+{
+  "name": "BSM",
+  "short_name": "BSM",
+  "icons": [
+    {
+     "src": "/icons/app/icon-48x48.png",
+     "sizes": "48x48",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-72x72.png",
+     "sizes": "72x72",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-96x96.png",
+     "sizes": "96x96",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-128x128.png",
+     "sizes": "128x128",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-144x144.png",
+     "sizes": "144x144",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-152x152.png",
+     "sizes": "152x152",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-192x192.png",
+     "sizes": "192x192",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-384x384.png",
+     "sizes": "384x384",
+     "type": "image/png"
+     },
+     {
+     "src": "/icons/app/icon-512x512.png",
+     "sizes": "512x512",
+     "type": "image/png"
+     }
+ ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#202124",
+  "theme_color": "#202124",
+  "gcm_sender_id": "664279118691"
+}
