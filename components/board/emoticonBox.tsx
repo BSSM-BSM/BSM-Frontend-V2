@@ -1,21 +1,26 @@
 import styles from '../../styles/board/emoticon.module.css';
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { HttpMethod, useAjax } from "../../hooks/useAjax"
 import { Emoticon, EmoticonItem } from "../../types/boardType"
 import Modal from "../common/modal"
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
 import { boardActiveEditorState } from '../../store/board.store';
+import { TextInput } from '../common/inputs/textInput';
+import { useModal } from '../../hooks/useModal';
+import { useOverlay } from '../../hooks/useOverlay';
 
 export const EmoticonBoxWrap = () => (
     <>
         <EmoticonBox />
         <EmoticonManageBox />
+        <EmoticonUploadBox />
     </>
 );
 
-export const EmoticonBox = () => {
+const EmoticonBox = () => {
     const {ajax} = useAjax();
+    const {openModal, closeModal} = useModal();
     const [emoticonList, setEmoticonList] = useState<Emoticon[]>([]);
     const [selectId, setSelectId] = useState<number>(0);
     const [activeEditor] = useRecoilState(boardActiveEditorState);
@@ -72,11 +77,17 @@ export const EmoticonBox = () => {
                     </li>
                 ))
             }</ul>
+            <p onClick={() => {
+                openModal('emoticon_upload');
+                closeModal('emoticon');
+            }}>
+                이모티콘을 업로드 하고싶나요? 여기를 누르세요
+            </p>
         </Modal>
     );
 }
 
-export const EmoticonManageBox = () => {
+const EmoticonManageBox = () => {
     const {ajax} = useAjax();
     const [emoticonList, setEmoticonList] = useState<Emoticon[]>([]);
     const [selectId, setSelectId] = useState<number>(0);
@@ -191,6 +202,155 @@ export const EmoticonManageBox = () => {
                     </div>
                 )}
             </div>
+        </Modal>
+    );
+}
+
+const EmoticonUploadBox = () => {
+    const {ajax} = useAjax();
+    const {closeModal} = useModal();
+    const {showToast} = useOverlay();
+    const [name, setName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [thumbnail, setThumbnail] = useState<File | null>(null);
+    const [emoticonList, setEmoticonList] = useState<(File | null)[]>(Array.from({length: 4}, _ => null));
+    const [deleteMode, setDeleteMode] = useState<boolean>(false);
+
+    const thumbnailInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files?.[0]) return;
+        setThumbnail(e.target.files?.[0]);
+    }
+
+    const fileInputHandler = (e: ChangeEvent<HTMLInputElement>, i: number) => {
+        const file = e.target.files?.[0]
+        if (!file) return;
+        setEmoticonList(prev => [
+            ...prev.slice(0, i),
+            file,
+            ...prev.slice(i + 1)
+        ]);
+    }
+
+    const emoticonDeleteHandler = (i: number) => {
+        setEmoticonList(prev => [
+            ...prev.slice(0, i),
+            ...prev.slice(i + 1)
+        ]);
+    }
+
+    const uploadEmoticon = () => {
+        if (!thumbnail) return showToast('이모티콘 썸네일이 없습니다');
+
+        const payload = new FormData();
+        payload.append('name', name);
+        payload.append('description', description);
+        payload.append('thumbnail', thumbnail);
+        
+        emoticonList.forEach(emoticon => {
+            if (!emoticon) throw showToast('이모티콘을 모두 업로드 해주세요');
+            payload.append('emoticonList', emoticon);
+        })
+        ajax({
+            url: 'emoticon',
+            method: HttpMethod.POST,
+            payload,
+            callback() {
+                showToast('이모티콘 업로드에 성공하였습니다\n관리자의 승인후 사용가능합니다', 10000);
+                closeModal('emoticon_upload');
+                setName('');
+                setDescription('');
+                setThumbnail(null);
+                setEmoticonList(Array.from({length: 4}, _ => null));
+            }
+        });
+    }
+
+    return (
+        <Modal id='emoticon_upload' title='이모티콘 업로드'>
+            <form
+                className='cols gap-1'
+                autoComplete='off'
+                onSubmit={e => {
+                    e.preventDefault();
+                    uploadEmoticon();
+                }}
+            >
+                <div className={styles.upload_thumbnail}>
+                    <label htmlFor='emoticon_upload_thumbnail'>{
+                        thumbnail
+                        ? <img
+                            src={URL.createObjectURL(thumbnail)}
+                            alt='thumbnail'
+                        />
+                        : '썸네일'
+                    }</label>
+                    <input
+                        type='file'
+                        id='emoticon_upload_thumbnail'
+                        onChange={thumbnailInputHandler}
+                        style={{display: 'none'}}
+                    />
+                    <TextInput
+                        setCallback={setName}
+                        placeholder='이모티콘 이름'
+                        className='flex-main'
+                        minLength={2}
+                        maxLength={12}
+                        required
+                        full
+                    />
+                </div>
+                <TextInput
+                    setCallback={setDescription}
+                    placeholder='이모티콘 설명'
+                    minLength={2}
+                    maxLength={100}
+                    required
+                    full
+                />
+                <ul className={`${styles.emoticon_item_list} ${styles.upload_list} scroll-bar`}>
+                    {emoticonList.map((item, i) => (
+                        deleteMode
+                        ? <li
+                            key={`upload/${i}`}
+                            className='button delete'
+                            onClick={() => {
+                                if (emoticonList.length <= 4) return showToast('이모티콘 최소 개수는 4개입니다');
+                                emoticonDeleteHandler(i);
+                            }}>
+                            <label>{i+1}번 삭제</label>
+                        </li>
+                        : <li key={`upload/${i}`} className='button'>
+                            <label htmlFor={`emoticon_upload_${i}`}>{
+                                item
+                                ? <img
+                                    src={URL.createObjectURL(item)}
+                                    alt={String(i)}
+                                />
+                                : `${i+1}번 업로드`
+                            }</label>
+                            <input
+                                type='file'
+                                id={`emoticon_upload_${i}`}
+                                onChange={(e) => {
+                                    fileInputHandler(e, i);
+                                }}
+                                style={{display: 'none'}}
+                            />
+                        </li>
+                    ))}
+                    <li key='add' className='button' onClick={() => {
+                        if (emoticonList.length >= 100) return showToast('이모티콘 최대 개수는 100개입니다');
+                        setEmoticonList(prev => [...prev, null]);
+                    }}>
+                        <label>추가</label>
+                    </li>
+                    <li key='mode' className='button' onClick={() => setDeleteMode(prev => !prev)}>
+                        <label>{deleteMode? 'Upload': 'Delete'} Mode</label>
+                    </li>
+                </ul>
+                <button className='button main accent'>업로드</button>
+            </form>
         </Modal>
     );
 }

@@ -16,7 +16,6 @@ import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { getProfileSrc } from '../../utils/util';
 import { useModal } from '../../hooks/useModal';
-import { EmoticonBox } from './emoticonBox';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
