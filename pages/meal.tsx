@@ -3,9 +3,11 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { ErrorResType, HttpMethod, useAjax } from "../hooks/useAjax";
+import { useOverlay } from "../hooks/useOverlay";
 import { screenScaleState, headerOptionState } from "../store/common.store";
 import styles from '../styles/meal.module.css';
 import { dateToShortStr, shrotStrToDate, dateToKoreanDateStr } from "../utils/util";
+import { subscribe } from "../utils/webPush";
 
 enum MealTime {
     MORNING = '아침',
@@ -25,7 +27,8 @@ type MealRes = {
 
 const MealPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
-    const { ajax } = useAjax();
+    const {ajax} = useAjax();
+    const {showToast} = useOverlay();
     const [mealList, setMealList] = useState<MealType[]>([]);
     const [renderMealList, setRenderMealList] = useState<MealType[]>([]);
     const [mealIdx, setMealIdx] = useState<number>(0);
@@ -191,46 +194,44 @@ const MealPage: NextPage = () => {
 
     return (
         <div>
+
             <div className="container">
                 <Head>
                     <title>급식 - BSM</title>
                 </Head>
+                <button className={`${styles.notification_button} button`} onClick={() => subscribe(ajax, showToast)}>급식 알림 받기</button>
                 <div className={styles.meals_wrap}>
                     <ul className={styles.meals}>
-                        {
-                            renderMealList.map((meal, i) => {
-                                const middleIdx = Math.floor((renderMealList.length) / 2);
-                                return (
-                                    <li 
-                                        key={`${meal.date}${meal.time}`}
-                                        onClick={() => {
-                                            if (middleIdx > i) {
-                                                setMealIdx(prev => prev - ((middleIdx) - i));
-                                            } else if (middleIdx < i) {
-                                                setMealIdx(prev => prev - ((middleIdx) - i));
-                                            }
-                                        }}
-                                        className={`${middleIdx === i? styles.center: ''} ${styles[`date_color_${dateColor(meal.date)}`]}`}
-                                    >
-                                        <div>
-                                            {(
-                                                (isSameDay && middleIdx === i) || (!isSameDay && checkShowMealDate(meal, i))
-                                            ) && (
-                                                <h3 className={styles.date}>
-                                                    {dateToKoreanDateStr(shrotStrToDate(meal.date))}
-                                                </h3>
-                                            )}
-                                            <h3>{meal.time}</h3>
-                                            <div className={styles.content}>
-                                                {
-                                                    meal.content.split('  ').map(content => <p key={content}>{content}</p>)
-                                                }
-                                            </div>
+                        {renderMealList.map((meal, i) => {
+                            const middleIdx = Math.floor((renderMealList.length) / 2);
+                            return (
+                                <li 
+                                    key={`${meal.date}${meal.time}`}
+                                    onClick={() => {
+                                        if (middleIdx > i) {
+                                            setMealIdx(prev => prev - ((middleIdx) - i));
+                                        } else if (middleIdx < i) {
+                                            setMealIdx(prev => prev - ((middleIdx) - i));
+                                        }
+                                    }}
+                                    className={`${middleIdx === i? styles.center: ''} ${styles[`date_color_${dateColor(meal.date)}`]}`}
+                                >
+                                    <div>
+                                        {(
+                                            (isSameDay && middleIdx === i) || (!isSameDay && checkShowMealDate(meal, i))
+                                        ) && (
+                                            <h3 className={styles.date}>
+                                                {dateToKoreanDateStr(shrotStrToDate(meal.date))}
+                                            </h3>
+                                        )}
+                                        <h3>{meal.time}</h3>
+                                        <div className={styles.content}>
+                                            {meal.content.split('  ').map(content => <p key={content}>{content}</p>)}
                                         </div>
-                                    </li>
-                                )
-                            })
-                        }
+                                    </div>
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
             </div>

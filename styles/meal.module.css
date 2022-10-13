@@ -111,6 +111,26 @@ body:global(.dark)
     transform: translateX(-50%);
 }
 
+.notification_button {
+    position: fixed;
+    z-index: 1;
+    right: 3rem;
+    bottom: 3rem;
+    padding: 1.5rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    background-color: var(--level-2);
+    cursor: pointer;
+    transition: .25s;
+    box-shadow: var(--shadow);
+}
+
+.notification_button:hover {
+    background-color: var(--hover);
+}
+
 @media screen and (min-width: 0) and (max-width: 750px) {
     .meals {
         width: 150%;
