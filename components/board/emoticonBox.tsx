@@ -36,6 +36,10 @@ const EmoticonBox = () => {
     }
 
     const insertEmoticon = (item: EmoticonItem) => {
+        if (activeEditor && 'insertContent' in activeEditor) {
+            activeEditor.insertContent(`<img src="/resource/board/emoticon/${item.id}/${item.idx}.${item.type}" e_id="${item.id}" e_idx="${item.idx}" e_type="${item.type}" class="emoticon">`);
+            return;
+        }
         if (!activeEditor?.current) return;
 
         activeEditor.current.focus();
@@ -289,6 +293,7 @@ const EmoticonUploadBox = () => {
                         id='emoticon_upload_thumbnail'
                         onChange={thumbnailInputHandler}
                         style={{display: 'none'}}
+                        accept='.png'
                     />
                     <TextInput
                         setCallback={setName}
@@ -336,6 +341,7 @@ const EmoticonUploadBox = () => {
                                     fileInputHandler(e, i);
                                 }}
                                 style={{display: 'none'}}
+                                accept='.png, .jpg, .jpeg, .gif, .webp'
                             />
                         </li>
                     ))}
@@ -346,9 +352,11 @@ const EmoticonUploadBox = () => {
                         <label>추가</label>
                     </li>
                     <li key='mode' className='button' onClick={() => setDeleteMode(prev => !prev)}>
-                        <label>{deleteMode? 'Upload': 'Delete'} Mode</label>
+                        <label>{deleteMode? 'Delete': 'Upload'} Mode</label>
                     </li>
                 </ul>
+                <p>썸네일: 2:1비율의 png파일</p>
+                <p>이모티콘: 1:1비율의 png, jpg, gif, webp파일</p>
                 <button className='button main accent'>업로드</button>
             </form>
         </Modal>

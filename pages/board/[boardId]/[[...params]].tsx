@@ -162,6 +162,7 @@ const BoardPage: NextPage = () => {
                 && <div className={`${postStyles.post} ${boardList[boardId] && postId === 'write'? postStyles.open: ''} full-screen`}>
                     <PostWrite
                         boardId={boardId}
+                        postId={postId}
                         categoryList={boardList[boardId]?.categoryList ?? {}}
                         editPost={Number(editPostId) === post?.id? post: null}
                         setPost={setPost}
