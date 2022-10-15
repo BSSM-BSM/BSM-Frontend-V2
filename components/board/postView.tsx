@@ -15,7 +15,6 @@ import Head from 'next/head';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { getProfileSrc } from '../../utils/util';
-import { useModal } from '../../hooks/useModal';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -52,7 +51,6 @@ export const PostView = ({
     const [, setPostList] = useRecoilState(postListState);
     const router = useRouter();
     const {ajax} = useAjax();
-    const {openModal} = useModal();
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const [, setPost] = useRecoilState(postState);
     const [boardDetailTime] = useRecoilState(boardDetailTimeState);
@@ -68,9 +66,7 @@ export const PostView = ({
                 ? {
                     dropdownMenu: [
                         {text: '글 수정', callback: () => router.push(`/board/${board.boardId}/write/${post.id}`)},
-                        {text: '글 삭제', callback: deletePost},
-                        {text: '이모티콘(테스트)', callback: () => openModal('emoticon')},
-                        {text: '이모티콘 관리(관리자 전용)', callback: () => openModal('emoticon_manage_box')}
+                        {text: '글 삭제', callback: deletePost}
                     ]
                 }
                 : undefined

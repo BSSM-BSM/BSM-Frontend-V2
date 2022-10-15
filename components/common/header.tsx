@@ -157,9 +157,9 @@ export const Header = () => {
                         <li className={`dropdown-menu ${styles.dropdown}`}>
                             <span className={styles.item}>커뮤니티</span>
                             <ul className='dropdown-content'>
-                                <li><Link href='/board/board'><a className='option'>자유게시판</a></Link></li>
+                                <li><Link href='/board/board'><a className='option'>자유 게시판</a></Link></li>
+                                <li><Link href='/board/student'><a className='option'>학생 게시판</a></Link></li>
                                 <li><Link href='/board/software'><a className='option'>소프트웨어</a></Link></li>
-                                <li><Link href='/board/embedded'><a className='option'>임베디드</a></Link></li>
                                 <li><Link href='/board/notice'><a className='option'>공지사항</a></Link></li>
                             </ul>
                         </li>
@@ -178,9 +178,9 @@ export const Header = () => {
                     <li className={`dropdown-menu ${styles.dropdown}`}>
                         <span className={styles.item}>커뮤니티</span>
                         <ul className='dropdown-content'>
-                            <li><Link href='/board/board'><a className='option'>자유게시판</a></Link></li>
+                            <li><Link href='/board/board'><a className='option'>자유 게시판</a></Link></li>
+                            <li><Link href='/board/student'><a className='option'>학생 게시판</a></Link></li>
                             <li><Link href='/board/software'><a className='option'>소프트웨어</a></Link></li>
-                            <li><Link href='/board/embedded'><a className='option'>임베디드</a></Link></li>
                             <li><Link href='/board/notice'><a className='option'>공지사항</a></Link></li>
                         </ul>
                     </li>

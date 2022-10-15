@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil"
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
 import { boardActiveEditorState, boardAndPostIdState, boardAnonymousModeState, parentCommentState } from "../../store/board.store"
 import { EditorInput } from "../common/inputs/editorInput";
+import { useModal } from '../../hooks/useModal';
 
 interface CommentWriteProps {
     loadComments: Function
@@ -13,6 +14,7 @@ export const CommentWrite = ({
     loadComments
 }: CommentWriteProps) => {
     const {ajax} = useAjax();
+    const {openModal} = useModal();
     const [boardAnonymousMode] = useRecoilState(boardAnonymousModeState);
     const [boardAndPostId] = useRecoilState(boardAndPostIdState);
     const {boardId, postId} = boardAndPostId;
@@ -58,8 +60,11 @@ export const CommentWrite = ({
                     refCallback={setActiveEditor}
                 />
             }
-            {parentComment && <button className="button delete" onClick={() => setParentComment(null)}>취소</button>}
-            <button className="button" onClick={writeComment}>쓰기</button>
+            <div className={styles.write_bar_menu}>
+                {parentComment && <button className='button delete' onClick={() => setParentComment(null)}>취소</button>}
+                <button className={`button ${styles.emoticon_button}`} onClick={() => openModal('emoticon')}><img src='/icons/emoticon.svg' alt='emoticon' /></button>
+                <button className='button' onClick={writeComment}>쓰기</button>
+            </div>
         </div>
     );
 }

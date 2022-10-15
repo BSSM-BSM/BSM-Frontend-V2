@@ -174,15 +174,15 @@ const Home: NextPage = () => {
                         <Link href='/board/board'>
                             <a className={styles.menu}>
                                 <img className={styles.icon} src='/icons/people.svg' alt='free board'></img>
-                                자유게시판
+                                자유 게시판
                             </a>
                         </Link>
                     </li>
                     <li>
-                        <Link href='/board/notice'>
+                        <Link href='/board/student'>
                             <a className={styles.menu}>
-                                <img className={styles.icon} src='/icons/people.svg' alt='notice'></img>
-                                공지사항
+                                <img className={styles.icon} src='/icons/people.svg' alt='student board'></img>
+                                학생 게시판
                             </a>
                         </Link>
                     </li>
@@ -195,10 +195,10 @@ const Home: NextPage = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link href='/board/embedded'>
+                        <Link href='/board/notice'>
                             <a className={styles.menu}>
-                                <img className={styles.icon} src='/icons/people.svg' alt='embedded board'></img>
-                                임베디드 게시판
+                                <img className={styles.icon} src='/icons/people.svg' alt='notice'></img>
+                                공지사항
                             </a>
                         </Link>
                     </li>

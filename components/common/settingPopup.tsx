@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { useModal } from "../../hooks/useModal";
+import { userState } from "../../store/account.store";
 import { boardAnonymousModeState, boardDetailTimeState, postLimitState } from "../../store/board.store";
 import { screenScaleState, themeState } from "../../store/common.store";
 import { ToggleButton } from "./buttons/toggleButton";
@@ -7,6 +9,8 @@ import { NumberInput } from "./inputs/numberInput";
 import Modal from "./modal";
 
 export const SettingBox = () => {
+    const [user] = useRecoilState(userState);
+    const {openModal} = useModal();
     const [theme, setTheme] = useRecoilState(themeState);
     const [screenScale, setScreenScale] = useRecoilState(screenScaleState);
     const [postLimit, setPostLimit] = useRecoilState(postLimitState);
@@ -25,9 +29,23 @@ export const SettingBox = () => {
         document.documentElement.style.setProperty('--scale', `${screenScale * 0.625}%`);
     }, [screenScale]);
 
+    const adminMenu = () => {
+        if (user.level < 1) return (<></>);
+        return (<li>
+            <h3>관리자 메뉴</h3>
+            <ul className='list'>
+                <li className='pointer' onClick={() => openModal('emoticon_manage_box')}>
+                    <span>이모티콘 관리</span>
+                    <span>커뮤니티 페이지</span>
+                </li>
+            </ul>
+        </li>);
+    }
+
     return (
         <Modal type="main" id="setting" title="설정">
             <ul className='list-wrap left'>
+                {adminMenu()}
                 <li>
                     <h3>모양</h3>
                     <ul className='list'>
