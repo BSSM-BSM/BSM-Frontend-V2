@@ -64,7 +64,7 @@ const Home: NextPage = () => {
                 });
             },
             errorCallback(data) {
-                if (data && 'statusCode' in data && data.statusCode === 401) {
+                if (typeof data === 'object' && 'statusCode' in data && data.statusCode === 401) {
                     setMeisterInfo({
                         isLoading: false,
                         lastUpdate: new Date().toString(),

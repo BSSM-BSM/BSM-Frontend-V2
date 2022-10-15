@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { ErrorResType, HttpMethod, useAjax } from "../hooks/useAjax";
 import { useOverlay } from "../hooks/useOverlay";
-import { screenScaleState, headerOptionState } from "../store/common.store";
+import { screenScaleState, headerOptionState, pushPermissionState } from "../store/common.store";
 import styles from '../styles/meal.module.css';
 import { dateToShortStr, shrotStrToDate, dateToKoreanDateStr } from "../utils/util";
-import { subscribe } from "../utils/webPush";
+import { PushPermission, subscribe } from "../utils/webPush";
 
 enum MealTime {
     MORNING = '아침',
@@ -35,6 +35,7 @@ const MealPage: NextPage = () => {
     const [viewRange, setViewRange] = useState<number>(5);
     const [isSameDay, setIsSameDay] = useState<boolean>(false);
     const [screenScale] = useRecoilState(screenScaleState);
+    const [pushPermission, setPushPermission] = useRecoilState(pushPermissionState);
 
     // init
     useEffect(() => {
@@ -199,7 +200,10 @@ const MealPage: NextPage = () => {
                 <Head>
                     <title>급식 - BSM</title>
                 </Head>
-                <button className={`${styles.notification_button} button`} onClick={() => subscribe(ajax, showToast)}>급식 알림 받기</button>
+                {
+                    pushPermission !== PushPermission.GRANTED &&
+                    <button className={`${styles.notification_button} button`} onClick={() => subscribe(ajax, setPushPermission, showToast)}>급식 알림 받기</button>
+                }
                 <div className={styles.meals_wrap}>
                     <ul className={styles.meals}>
                         {renderMealList.map((meal, i) => {

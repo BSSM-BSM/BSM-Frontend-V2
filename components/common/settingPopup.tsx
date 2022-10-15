@@ -1,16 +1,22 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { useAjax } from "../../hooks/useAjax";
 import { useModal } from "../../hooks/useModal";
+import { useOverlay } from "../../hooks/useOverlay";
 import { userState } from "../../store/account.store";
 import { boardAnonymousModeState, boardDetailTimeState, postLimitState } from "../../store/board.store";
-import { screenScaleState, themeState } from "../../store/common.store";
+import { pushPermissionState, screenScaleState, themeState } from "../../store/common.store";
+import { PushPermission, subscribe } from "../../utils/webPush";
 import { ToggleButton } from "./buttons/toggleButton";
 import { NumberInput } from "./inputs/numberInput";
 import Modal from "./modal";
 
 export const SettingBox = () => {
+    const {ajax} = useAjax();
+    const {showToast} = useOverlay();
     const [user] = useRecoilState(userState);
     const {openModal} = useModal();
+    const [pushPermission, setPushPermission] = useRecoilState(pushPermissionState);
     const [theme, setTheme] = useRecoilState(themeState);
     const [screenScale, setScreenScale] = useRecoilState(screenScaleState);
     const [postLimit, setPostLimit] = useRecoilState(postLimitState);
@@ -49,7 +55,7 @@ export const SettingBox = () => {
                 <li>
                     <h3>모양</h3>
                     <ul className='list'>
-                        <li className="toggle">
+                        <li className='toggle'>
                             <span>다크 모드</span>
                             <ToggleButton
                                 onCallback={
@@ -64,7 +70,7 @@ export const SettingBox = () => {
                                         localStorage.setItem('theme', 'white');
                                     }
                                 }
-                                initial={theme === 'dark'}
+                                value={theme === 'dark'}
                             />
                         </li>
                         <li className='picker'>
@@ -80,15 +86,29 @@ export const SettingBox = () => {
                     </ul>
                 </li>
                 <li>
+                    <h3>기타</h3>
+                    <ul className='list'>
+                        <li className='toggle'>
+                            <span>알림</span>
+                            <span>급식 알림 등을 받을 수 있습니다</span>
+                            <ToggleButton
+                                offCallback={() => showToast('아직 알림 취소는 지원하지 않는 기능입니다')}
+                                onCallback={() => subscribe(ajax, setPushPermission, showToast)}
+                                value={pushPermission === PushPermission.GRANTED}
+                            />
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <h3>커뮤니티</h3>
                     <ul className='list'>
-                        <li className="toggle">
+                        <li className='toggle'>
                             <span>익명 모드</span>
                             <span>댓글 및 글쓰기시 익명으로 작성</span>
                             <ToggleButton
                                 onCallback={() => setBoardAnonymousMode(true)}
                                 offCallback={() => setBoardAnonymousMode(false)}
-                                initial={boardAnonymousMode}
+                                value={boardAnonymousMode}
                             />
                         </li>
                         <li className='picker'>
@@ -101,12 +121,12 @@ export const SettingBox = () => {
                                 msg='개'
                             />
                         </li>
-                        <li className="toggle">
+                        <li className='toggle'>
                             <span>게시글 및 댓글 자세한 시간</span>
                             <ToggleButton
                                 onCallback={() => setBoardDetailTime(true)}
                                 offCallback={() => setBoardDetailTime(false)}
-                                initial={boardDetailTime}
+                                value={boardDetailTime}
                             />
                         </li>
                     </ul>

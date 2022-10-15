@@ -24,26 +24,30 @@ export interface ErrorResType {
     message: string;
 }
 
+export type Ajax = <T>({ method, url, payload, config, callback, errorCallback, }: AjaxType<T>) => Promise<void>;
+
+interface AjaxType<T> {
+    method: HttpMethod,
+    url: string,
+    payload?: object,
+    config?: AxiosRequestConfig,
+    callback?: (data: T) => void,
+    errorCallback?: (data: ErrorResType | AxiosError | void) => boolean | void
+}
+
 export const useAjax = () => {
     const { loading, showAlert, showToast } = useOverlay();
     const { openModal } = useModal();
     const resetUser = useResetRecoilState(userState);
 
-    const ajax = async <T>({
+    const ajax: Ajax = async <T>({
         method,
         url,
         payload,
         config,
         callback,
         errorCallback,
-    }: {
-        method: HttpMethod,
-        url: string,
-        payload?: object,
-        config?: AxiosRequestConfig,
-        callback?: (data: T) => void,
-        errorCallback?: (data: ErrorResType | AxiosError | void) => boolean | void
-    }): Promise<void> => {
+    }: AjaxType<T>): Promise<void> => {
         loading(true);
     
         let res;

@@ -35,7 +35,7 @@
     height: 100%;
     padding: 2rem;
     box-shadow: var(--shadow-level-1);
-    filter: grayscale(.3);
+    filter: grayscale(.6);
     border-radius: 2rem;
     opacity: .65;
     transition: .2s;
@@ -104,6 +104,7 @@ body:global(.dark)
 }
 
 .date {
+    width: 100%;
     position: absolute;
     font-size: 1.6rem;
     top: -4rem;

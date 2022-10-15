@@ -4,10 +4,14 @@ import { useRecoilState } from "recoil";
 import { alertState, alertTimerState, loadingState, toastState } from "../store/overlay.store";
 
 interface UseOverlay {
-    loading: (flag: boolean) => void;
-    showToast: (msg: string | ReactNode, time?: number) => Promise<void>;
-    showAlert: (msg: string) => void;
+    loading: Loading;
+    showToast: ShowToast;
+    showAlert: ShowAlert;
 }
+
+export type Loading = (flag: boolean) => void;
+export type ShowToast = (content: string | ReactNode, time?: number) => Promise<void>;
+export type ShowAlert = (msg: string) => void;
 
 export const useOverlay = (): UseOverlay => {
     const [, setLoading] = useRecoilState(loadingState);
