@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { parentCommentState } from '../../store/board.store';
+import { boardOpenAllChildCommentsState, parentCommentState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
 import { Comment, DeletedComment } from "../../types/boardType"
 import { elapsedTime } from '../../utils/util';
@@ -24,6 +24,8 @@ export const CommentList = ({
 }) => {
     const [, setParentComment] = useRecoilState(parentCommentState);
     const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(!comment.delete? comment.user.code: -1));
+    const [boardOpenAllChildComments] = useRecoilState(boardOpenAllChildCommentsState);
+    const [viewChild, setViewChild] = useState<boolean>(boardOpenAllChildComments || comment.depth < 4);
     
     return (
         <ul className='left'>
@@ -78,21 +80,25 @@ export const CommentList = ({
                         </div>
                     }
                 </div>
-                <div className={styles.child}>
-                    {
-                        comment.child &&
-                        comment.child.map(child => (
-                            <CommentList
-                                key={child.id}
-                                comment={child}
-                                loadComments={loadComments}
-                                deleteComment={deleteComment}
-                                boardDetailTime={boardDetailTime}
-                                commentXssFilter={commentXssFilter}
-                            />
-                        ))
-                    }
-                </div>
+                {
+                    comment.child &&
+                    <div className={styles.child}>
+                        {
+                            viewChild
+                            ? comment.child.map(child => (
+                                <CommentList
+                                    key={child.id}
+                                    comment={child}
+                                    loadComments={loadComments}
+                                    deleteComment={deleteComment}
+                                    boardDetailTime={boardDetailTime}
+                                    commentXssFilter={commentXssFilter}
+                                />
+                            ))
+                            : <div onClick={() => setViewChild(true)} className={styles.view_child}>대댓글 더보기</div>
+                        }
+                    </div>
+                }
             </li>
         </ul>
     )

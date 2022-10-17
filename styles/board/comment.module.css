@@ -30,6 +30,19 @@
     color: var(--text-level-2);
 }
 
+.view_child {
+    padding: 1rem;
+    border-radius: 1rem;
+    color: var(--text-level-2);
+    background-color: var(--level-2);
+    cursor: pointer;
+    transition: .25s;
+}
+
+.view_child:hover {
+    background-color: var(--hover);
+}
+
 .child {
     margin-left: 5rem;
     border-left: .1rem solid gray;

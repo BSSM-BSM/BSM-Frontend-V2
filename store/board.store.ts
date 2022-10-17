@@ -53,6 +53,12 @@ export const boardAnonymousModeState = atom<boolean>({
     effects: [localStorageEffect('boardAnonymousMode', LocalStorageType.boolean)?? false]
 });
 
+export const boardOpenAllChildCommentsState = atom<boolean>({
+    key: 'boardOpenAllChildComments',
+    default: false,
+    effects: [localStorageEffect('boardOpenAllChildComments', LocalStorageType.boolean)?? false]
+});
+
 export const boardActiveEditorState = atom<RefObject<HTMLElement> | Editor | null>({
     key: 'boardActiveEditor',
     default: null

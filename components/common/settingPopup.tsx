@@ -4,7 +4,7 @@ import { useAjax } from "../../hooks/useAjax";
 import { useModal } from "../../hooks/useModal";
 import { useOverlay } from "../../hooks/useOverlay";
 import { userState } from "../../store/account.store";
-import { boardAnonymousModeState, boardDetailTimeState, postLimitState } from "../../store/board.store";
+import { boardAnonymousModeState, boardDetailTimeState, boardOpenAllChildCommentsState, postLimitState } from "../../store/board.store";
 import { pushPermissionState, screenScaleState, themeState } from "../../store/common.store";
 import { PushPermission, subscribe } from "../../utils/webPush";
 import { ToggleButton } from "./buttons/toggleButton";
@@ -22,6 +22,7 @@ export const SettingBox = () => {
     const [postLimit, setPostLimit] = useRecoilState(postLimitState);
     const [boardDetailTime, setBoardDetailTime] = useRecoilState(boardDetailTimeState);
     const [boardAnonymousMode, setBoardAnonymousMode] = useRecoilState(boardAnonymousModeState);
+    const [boardOpenAllChildComments, setBoardOpenAllChildComments] = useRecoilState(boardOpenAllChildCommentsState);
 
     useEffect(() => {
         if (theme === 'dark') {
@@ -127,6 +128,15 @@ export const SettingBox = () => {
                                 onCallback={() => setBoardDetailTime(true)}
                                 offCallback={() => setBoardDetailTime(false)}
                                 value={boardDetailTime}
+                            />
+                        </li>
+                        <li className='toggle'>
+                            <span>모든 대댓글 표시</span>
+                            <span>대댓글이 너무 깊을 수 있습니다</span>
+                            <ToggleButton
+                                onCallback={() => setBoardOpenAllChildComments(true)}
+                                offCallback={() => setBoardOpenAllChildComments(false)}
+                                value={boardOpenAllChildComments}
                             />
                         </li>
                     </ul>
