@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { TextInput } from '../../components/common/inputs/textInput';
 import { NumberInput } from '../../components/common/inputs/numberInput';
 import { headerOptionState } from '../../store/common.store';
+import { UserRole } from '../../types/userType';
 
 interface MeisterInfo {
     scoreHtmlContent: string;
@@ -26,9 +27,21 @@ const MeisterPage: NextPage = () => {
     const { openModal } = useModal();
     const [noPw, setNoPw] = useState(true);
     const [user] = useRecoilState(userState);
-    const [grade, setGrade] = useState(user.grade);
-    const [classNo, setClassNo] = useState(user.classNo);
-    const [studentNo, setStudentNo] = useState(user.studentNo);
+    const [grade, setGrade] = useState<number>(
+        (!user.isLogin || user.role !== UserRole.STUDENT)
+        ? 0
+        : user.student.grade
+    );
+    const [classNo, setClassNo] = useState<number>(
+        (!user.isLogin || user.role !== UserRole.STUDENT)
+        ? 0
+        : user.student.classNo
+    );
+    const [studentNo, setStudentNo] = useState<number>(
+        (!user.isLogin || user.role !== UserRole.STUDENT)
+        ? 0
+        : user.student.studentNo
+    );
     const [pw, setPw] = useState('');
     const [meisterInfo, setMeisterInfo] = useState<MeisterInfo>({
         scoreHtmlContent: '',

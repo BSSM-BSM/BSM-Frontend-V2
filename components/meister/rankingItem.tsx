@@ -2,6 +2,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
 import styles from '../../styles/meister/ranking.module.css';
 import { MeisterRanking, MeisterResultType } from '../../types/meisterType';
+import { UserRole } from '../../types/userType';
 import { elapsedTime } from '../../utils/util';
 
 interface MeisterRankingItemProps {
@@ -49,9 +50,10 @@ export const MeisterRankingItem = ({ranking, i, updatePrivateRanking}: MeisterRa
                     </span>
                     <span>{ranking.student.name}</span>
                     {
-                        grade === user.grade &&
-                        classNo === user.classNo &&
-                        studentNo === user.studentNo &&
+                        user.isLogin && user.role === UserRole.STUDENT &&
+                        grade === user.student.grade &&
+                        classNo === user.student.classNo &&
+                        studentNo === user.student.studentNo &&
                         ranking.result !== MeisterResultType.LOGIN_ERROR &&
                         <span onClick={() => updatePrivateRanking(true)}>비공개로 변경</span>
                     }

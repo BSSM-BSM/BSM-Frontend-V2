@@ -9,6 +9,7 @@ import { useInterval } from '../hooks/useInterval';
 import { useOverlay } from '../hooks/useOverlay';
 import { numberInBetween } from '../utils/util';
 import { headerOptionState } from '../store/common.store';
+import { UserRole } from '../types/userType';
 
 interface TimetableInfo {
     className: string,
@@ -37,8 +38,13 @@ const TimetablePage: NextPage = () => {
 
     useEffect(() => {
         setHeaderOption({title: '시간표'});
-        setGrade(user.grade || 1);
-        setClassNo(user.classNo || 1);
+        if (!user.isLogin || user.role !== UserRole.STUDENT) {
+            setGrade(1);
+            setClassNo(1);
+            return;
+        }
+        setGrade(user.student.grade);
+        setClassNo(user.student.classNo);
     }, []);
 
     useEffect(() => {

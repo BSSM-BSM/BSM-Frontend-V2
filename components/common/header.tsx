@@ -31,7 +31,7 @@ export const Header = () => {
     }, []);
 
     useEffect(() => {
-        setProfileSrc(getProfileSrc(user.code));
+        setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
     }, [user]);
 
     const logout = () => {

@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useModal } from '../hooks/useModal';
 import { userState } from '../store/account.store';
-import { ErrorResType, HttpMethod, useAjax } from '../hooks/useAjax';
+import { HttpMethod, useAjax } from '../hooks/useAjax';
 import Modal from '../components/common/modal';
 import Link from 'next/link';
 import { elapsedTime, getProfileSrc } from '../utils/util';
 import { headerOptionState } from '../store/common.store';
 import Image, { StaticImageData } from 'next/image';
 import DefaultProfilePic from '../public/icons/profile_default.png';
+import { UserRole } from '../types/userType';
 
 interface MeisterInfo {
     isLoading: boolean;
@@ -44,7 +45,7 @@ const Home: NextPage = () => {
     }, []);
 
     useEffect(() => {
-        setProfileSrc(getProfileSrc(user.code));
+        setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
     }, [user]);
 
     const loadMeisterInfo = (type?: string) => {
@@ -53,6 +54,14 @@ const Home: NextPage = () => {
             lastUpdate: '',
             error: false
         });
+
+        if (user.isLogin && user.role !== UserRole.STUDENT) {
+            return setMeisterInfo({
+                isLoading: false,
+                lastUpdate: new Date().toString(),
+                error: 'notStudent'
+            });
+        }
         ajax<MeisterInfo>({
             url: `meister${type === 'update'? '/update': ''}`,
             method: HttpMethod.GET,
@@ -83,28 +92,32 @@ const Home: NextPage = () => {
     }
 
     const userMenuView = () => (
-        mounted && (
-            user.isLogin
-            ?<a className={styles.menu} href='https://auth.bssm.kro.kr/user'>
-                <div className={`${styles.user_icon} user-profile`}>
-                    <Image
-                        src={profileSrc}
-                        onError={() => setProfileSrc(DefaultProfilePic)}
-                        width='128px'
-                        height='128px'
-                        alt='user profile'
-                    />
-                </div>
-                <div>
-                    <div className={styles.sub_content}>{user.grade}학년 {user.classNo}반 {user.studentNo}번 {user.name}</div>
-                    <div className={styles.main_content}>{user.nickname}</div>
-                </div>
-            </a>
-            :<div className={styles.menu} onClick={() => openModal('login')}>
-                <img className={styles.icon} src='/icons/person.svg' alt='login' />
-                <span>로그인</span>
+        mounted && user.isLogin
+        ? <a className={styles.menu} href='https://auth.bssm.kro.kr/user'>
+            <div className={`${styles.user_icon} user-profile`}>
+                <Image
+                    src={profileSrc}
+                    onError={() => setProfileSrc(DefaultProfilePic)}
+                    width='128px'
+                    height='128px'
+                    alt='user profile'
+                />
             </div>
-        )
+            <div>
+                <div className={styles.sub_content}>
+                    {
+                        user.role === UserRole.STUDENT
+                        ? `${user.student.grade}학년 ${user.student.classNo}반 ${user.student.studentNo}번 ${user.student?.name}`
+                        : `${user.teacher?.name} 선생님`
+                    }
+                </div>
+                <div className={styles.main_content}>{user.nickname}</div>
+            </div>
+        </a>
+        : <div className={styles.menu} onClick={() => openModal('login')}>
+            <img className={styles.icon} src='/icons/person.svg' alt='login' />
+            <span>로그인</span>
+        </div>
     )
 
     const meisterInfoView = () => {
@@ -112,6 +125,7 @@ const Home: NextPage = () => {
 
         if (isLoading) return '로딩중';
         if (error === 'auth') return '로그인후 이용 가능합니다';
+        if (error === 'notStudent') return '학생만 이용 가능합니다';
         if (error === 'login') return (
             <>
                 <span>정보를 자동으로 불러올 수 없습니다</span>

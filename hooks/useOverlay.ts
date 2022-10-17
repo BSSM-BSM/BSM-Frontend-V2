@@ -24,7 +24,7 @@ export const useOverlay = (): UseOverlay => {
     }
 
     const showToast = async (content: string | ReactNode, time: number = 5000) => {
-        let id = uuidV1();
+        const id = uuidV1();
 
         setToastList(prev => {
             return {...prev, [id]: {

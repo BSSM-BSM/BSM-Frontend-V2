@@ -36,7 +36,7 @@ export const SettingBox = () => {
     }, [screenScale]);
 
     const adminMenu = () => {
-        if (user.level < 1) return (<></>);
+        if (!user.isLogin || user.level < 1) return (<></>);
         return (<li>
             <h3>관리자 메뉴</h3>
             <ul className='list'>

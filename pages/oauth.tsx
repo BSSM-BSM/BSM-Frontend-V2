@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../hooks/useAjax';
 import { useModal } from '../hooks/useModal';
-import { User, userState } from '../store/account.store';
-import { decodeBase64 } from '../utils/util';
+import { userState } from '../store/account.store';
+import { Student, Teacher } from '../types/userType';
 
 const OauthPage: NextPage = () => {
     const { ajax } = useAjax();
@@ -23,20 +23,27 @@ const OauthPage: NextPage = () => {
         authCode && ajax<LoginRes>({
             method: HttpMethod.POST,
             url: `user/oauth/bsm?code=${authCode}`,
-            callback: data => {
-                const userInfo = {
-                    ...JSON.parse(decodeBase64(data.accessToken.split('.')[1])),
-                    isLogin: true
-                } as User;
-                localStorage.setItem('user', JSON.stringify(userInfo));
-                setUser(userInfo);
+            callback() {
+                getUserInfo();
+            }
+        })
+    }, [authCode]);
+
+    const getUserInfo = () => {
+        ajax<Student | Teacher>({
+            method: HttpMethod.GET,
+            url: 'user',
+            callback(data) {
+                data = {...data, isLogin: true};
+                localStorage.setItem('user', JSON.stringify(data));
+                setUser(data);
                 closeModal('login');
                 router.push('/');
             }
         })
-    }, [authCode]);
+    }
     
-    return (<></>)
+    return (<></>);
 }
 
-export default OauthPage
+export default OauthPage;
