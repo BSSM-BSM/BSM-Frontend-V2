@@ -23,8 +23,8 @@ export const CommentWrite = ({
     const { depth, id: parentId, user: {nickname} } = parentComment ?? { depth: -1, id: 0, user: {}};
     const [, setActiveEditor] = useRecoilState(boardActiveEditorState);
 
-    const writeComment = () => {
-        ajax({
+    const writeComment = async () => {
+        const [, error] = await ajax({
             method: HttpMethod.POST,
             url: `comment/${boardId}/${postId}`,
             payload: {
@@ -32,13 +32,13 @@ export const CommentWrite = ({
                 parentId,
                 content,
                 anonymous: boardAnonymousMode
-            },
-            callback() {
-                setParentComment(null);
-                setContent(null);
-                loadComments();
             }
         });
+        if (error) return;
+
+        setParentComment(null);
+        setContent(null);
+        loadComments();
     }
 
     useEffect(() => {

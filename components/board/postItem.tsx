@@ -34,22 +34,22 @@ export const PostItem = ({
     const {ajax} = useAjax();
     const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(user.code));
 
-    const loadPost = () => {
-        ajax<DetailPost>({
+    const loadPost = async () => {
+        const [data, error] = await ajax<DetailPost>({
             method: HttpMethod.GET,
             url: `post/${boardId}/${id}`,
-            callback(data) {
-                setBoardAndPostId({
-                    boardId,
-                    postId: id
-                });
-                setPostOpen(true);
-                setPost(data);
-            },
             errorCallback() {
                 setPost(null)
             },
         });
+        if (error) return;
+        
+        setBoardAndPostId({
+            boardId,
+            postId: id
+        });
+        setPostOpen(true);
+        setPost(data);
     }
 
     return (

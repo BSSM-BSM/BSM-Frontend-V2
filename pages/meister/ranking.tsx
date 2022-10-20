@@ -2,7 +2,7 @@ import styles from '../../styles/meister/ranking.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { ErrorResType, HttpMethod, useAjax } from '../../hooks/useAjax';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { MeisterRanking } from '../../types/meisterType';
 import { MeisterRankingItem } from '../../components/meister/rankingItem';
 import { useOverlay } from '../../hooks/useOverlay';
@@ -20,13 +20,10 @@ const MeisterPage: NextPage = () => {
         loadMeisterInfo();
     }, []);
 
-    const loadMeisterInfo = () => {
-        ajax<MeisterRanking[]>({
+    const loadMeisterInfo = async () => {
+        const [data, error] = await ajax<MeisterRanking[]>({
             url: 'meister/ranking',
             method: HttpMethod.GET,
-            callback(data) {
-                setRankingList(data);
-            },
             errorCallback(data) {
                 if (data && 'statusCode' in data && data.statusCode === 403) {
                     setRankingList([]);
@@ -39,18 +36,18 @@ const MeisterPage: NextPage = () => {
                 }
             },
         });
+        if (error) return;
+
+        setRankingList(data);
     }
 
-    const updatePrivateRanking = (flag: boolean) => {
+    const updatePrivateRanking = async (flag: boolean) => {
         if (!confirm('설정을 변경하면 하루동안 다시 변경 할 수 없습니다!\n 정말 변경하시겠습니까?')) return;
-        ajax({
+        const [, error] = await ajax({
             method: HttpMethod.PUT,
             url: 'meister/privateRanking',
             payload: {
                 privateRanking: flag
-            },
-            callback() {
-                loadMeisterInfo();
             },
             errorCallback(data) {
                 if (data && 'statusCode' in data && data.statusCode === 403) {
@@ -62,6 +59,9 @@ const MeisterPage: NextPage = () => {
                 }
             },
         });
+        if (error) return;
+
+        loadMeisterInfo();
     }
 
     return (

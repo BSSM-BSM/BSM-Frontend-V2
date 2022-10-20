@@ -48,7 +48,7 @@ const Home: NextPage = () => {
         setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
     }, [user]);
 
-    const loadMeisterInfo = (type?: string) => {
+    const loadMeisterInfo = async (type?: string) => {
         setMeisterInfo({
             isLoading: true,
             lastUpdate: '',
@@ -62,16 +62,10 @@ const Home: NextPage = () => {
                 error: 'notStudent'
             });
         }
-        ajax<MeisterInfo>({
+        
+        const [data, error] = await ajax<MeisterInfo>({
             url: `meister${type === 'update'? '/update': ''}`,
             method: HttpMethod.GET,
-            callback(data) {
-                setMeisterInfo({
-                    ...data,
-                    isLoading: false,
-                    error: data.loginError? 'login': false
-                });
-            },
             errorCallback(data) {
                 if (typeof data === 'object' && 'statusCode' in data && data.statusCode === 401) {
                     setMeisterInfo({
@@ -88,7 +82,14 @@ const Home: NextPage = () => {
                 });
                 return false;
             },
-        })
+        });
+        if (error) return;
+
+        setMeisterInfo({
+            ...data,
+            isLoading: false,
+            error: data.loginError? 'login': false
+        });
     }
 
     const userMenuView = () => (

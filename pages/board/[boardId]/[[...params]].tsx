@@ -57,33 +57,7 @@ const BoardPage: NextPage = () => {
                 commentPermission: false
             }
         }));
-
-        ajax<BoardListRes>({
-            method: HttpMethod.GET,
-            url: `board/${boardId}`,
-            callback(data) {
-                const categoryList: {[index: string]: Category} = {};
-                data.categoryList.forEach(category => {
-                    categoryList[category.id] = category;
-                });
-                setBoardList(prev => ({
-                    ...prev,
-                    [boardId]: {
-                        ...data,
-                        categoryList
-                    }
-                }));
-            },
-            errorCallback(data) {
-                if (data && 'statusCode' in data && data.statusCode === 404) {
-                    if (typeof boardId !== 'string') return;
-                    setBoardList(prev => {
-                        delete prev[boardId];
-                        return prev;
-                    });
-                }
-            }
-        });
+        getBoardInfo(boardId);
     }, [boardId]);
 
     useEffect(() => {
@@ -99,40 +73,66 @@ const BoardPage: NextPage = () => {
         }
     }, [postId, boardId]);
 
-    const loadPostAndComments = () => {
-        if (
-            typeof boardId !== 'string'
-            || typeof postId !== 'string'
-        ) return;
-        ajax<DetailPost>({
+    const getBoardInfo = async (boardId: string) => {
+        const [data, error] = await ajax<BoardListRes>({
+            method: HttpMethod.GET,
+            url: `board/${boardId}`,
+            errorCallback(data) {
+                if (data && 'statusCode' in data && data.statusCode === 404) {
+                    if (typeof boardId !== 'string') return;
+                    setBoardList(prev => {
+                        delete prev[boardId];
+                        return prev;
+                    });
+                }
+            }
+        });
+        if (error) return;
+
+        const categoryList: {[index: string]: Category} = {};
+        data.categoryList.forEach(category => {
+            categoryList[category.id] = category;
+        });
+        setBoardList(prev => ({
+            ...prev,
+            [boardId]: {
+                ...data,
+                categoryList
+            }
+        }));
+    }
+
+    const loadPostAndComments = async () => {
+        if (typeof boardId !== 'string' || typeof postId !== 'string') return;
+        const [data, error] = await ajax<DetailPost>({
             method: HttpMethod.GET,
             url: `post/${boardId}/${postId}`,
-            callback(data) {
-                setBoardAndPostId({
-                    boardId,
-                    postId: Number(postId)
-                });
-                setPostOpen(true);
-                setPost(data);
-            },
             errorCallback() {
                 setPost(null)
             },
         });
+        if (error) return;
+        
+        setBoardAndPostId({
+            boardId,
+            postId: Number(postId)
+        });
+        setPostOpen(true);
+        setPost(data);
         loadComments();
     }
 
-    const loadComments = () => {
-        ajax<(Comment | DeletedComment)[]>({
+    const loadComments = async () => {
+        const [data, error] = await ajax<(Comment | DeletedComment)[]>({
             method: HttpMethod.GET,
             url: `comment/${boardId}/${postId}`,
-            callback(data) {
-                setCommentList(data);
-            },
             errorCallback() {
                 setCommentList([]);
             },
         });
+        if (error) return;
+
+        setCommentList(data);
     }
 
     return (

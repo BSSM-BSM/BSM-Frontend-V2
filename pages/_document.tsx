@@ -4,7 +4,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 export default class MyDocument extends Document {
     render() {
         return (
-            <Html>
+            <Html lang="kr">
                 <Head>
                     <link rel="manifest" href="/manifest.json" />
                     <meta name="msapplication-TileColor" content="#202124"></meta>

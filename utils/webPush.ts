@@ -44,7 +44,7 @@ const subscribeRequest = async (ajax: Ajax, showToast: ShowToast) => {
 
     const {endpoint, keys} = subscription;
 
-    ajax({
+    const [, error] = await ajax({
         url: 'webpush',
         method: HttpMethod.POST,
         payload: {
@@ -52,8 +52,8 @@ const subscribeRequest = async (ajax: Ajax, showToast: ShowToast) => {
             auth: keys?.auth,
             p256dh: keys?.p256dh
         },
-        callback() {
-            showToast('알림 등록이 완료되었습니다');
-        }
     });
+    if (error) return;
+
+    showToast('알림 등록이 완료되었습니다');
 }

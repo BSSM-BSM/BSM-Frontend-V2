@@ -27,15 +27,15 @@ export const CommentView = ({
     const [boardAndPostId] = useRecoilState(boardAndPostIdState);
     const { boardId, postId } = boardAndPostId;
 
-    const deleteComment = (id: number) => {
+    const deleteComment = async (id: number) => {
         if (!confirm('정말 삭제하시겠습니까?')) return;
-        ajax({
+        const [, error] = await ajax({
             url: `comment/${boardId}/${postId}/${id}`,
             method: HttpMethod.DELETE,
-            callback() {
-                loadComments();
-            }
         });
+        if (error) return;
+
+        loadComments();
     }
 
     useEffect(() => {

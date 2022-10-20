@@ -56,24 +56,10 @@ const MealPage: NextPage = () => {
     }, [mealList, mealIdx, viewRange]);
 
     const loadMealList = (date: string): Promise<MealType[]> => {
-        return new Promise((resolve, reject) => {
-            ajax<MealRes>({
+        return new Promise(async (resolve, reject) => {
+            const [data, error] = await ajax<MealRes>({
                 url: `meal/${date}`,
                 method: HttpMethod.GET,
-                callback(data) {
-                    const tempMealList: MealType[] = [];
-                    Object.entries(data).forEach(value => {
-                        if (!value[1]) return;
-                        tempMealList.push({
-                            date,
-                            time: Object.values(MealTime)[
-                                Object.keys(MealTime).indexOf(value[0].toUpperCase())
-                            ],
-                            content: value[1]
-                        });
-                    });
-                    resolve(tempMealList);
-                },
                 errorCallback(data) {
                     if (data && 'statusCode' in data && data.statusCode === 404) {
                         resolve([{
@@ -82,9 +68,22 @@ const MealPage: NextPage = () => {
                         }]);
                         return true;
                     }
-                    reject();
                 },
             });
+            if (error) return reject();
+
+            const tempMealList: MealType[] = [];
+            Object.entries(data).forEach(value => {
+                if (!value[1]) return;
+                tempMealList.push({
+                    date,
+                    time: Object.values(MealTime)[
+                        Object.keys(MealTime).indexOf(value[0].toUpperCase())
+                    ],
+                    content: value[1]
+                });
+            });
+            resolve(tempMealList);
         })
     }
 

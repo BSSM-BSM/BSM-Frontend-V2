@@ -25,14 +25,13 @@ const EmoticonBox = () => {
     const [selectId, setSelectId] = useState<number>(0);
     const [activeEditor] = useRecoilState(boardActiveEditorState);
 
-    const loadEmoticons = () => {
-        ajax<Emoticon[]>({
+    const loadEmoticons = async () => {
+        const [data, error] = await ajax<Emoticon[]>({
             url: 'emoticon',
-            method: HttpMethod.GET,
-            callback(data) {
-                setEmoticonList(data);
-            }
+            method: HttpMethod.GET
         });
+        if (error) return;
+        setEmoticonList(data);
     }
 
     const insertEmoticon = (item: EmoticonItem) => {
@@ -108,7 +107,7 @@ const EmoticonManageBox = () => {
         }
     ]
 
-    const loadEmoticons = () => {
+    const loadEmoticons = async () => {
         const url = (() => {
             switch (selectMenuIdx) {
                 case 0: return 'emoticon';
@@ -116,13 +115,13 @@ const EmoticonManageBox = () => {
                 default: return '';
             }
         })();
-        ajax<Emoticon[]>({
+        const [data, error] = await ajax<Emoticon[]>({
             url,
-            method: HttpMethod.GET,
-            callback(data) {
-                setEmoticonList(data);
-            }
+            method: HttpMethod.GET
         });
+        if (error) return;
+        
+        setEmoticonList(data);
     }
 
     useEffect(() => {
@@ -130,31 +129,30 @@ const EmoticonManageBox = () => {
         loadEmoticons();
     }, [selectMenuIdx]);
 
-    const activeEmoticon = () => {
+    const activeEmoticon = async () => {
         if (!confirm('정말 이모티콘을 활성화하시겠습니까?')) return;
-        ajax({
+        const [, error] = await ajax({
             url: `admin/emoticon/${selectId}`,
             method: HttpMethod.PUT,
-            callback(data) {
-                loadEmoticons();
-                setSelectId(0);
-            }
         });
+        if (error) return;
+        loadEmoticons();
+        setSelectId(0);
     }
 
-    const deleteEmoticon = () => {
+    const deleteEmoticon = async () => {
         if (!confirm('정말 이모티콘을 삭제하시겠습니까?')) return;
-        ajax({
+        const [, error] = await ajax({
             url: `admin/emoticon/${selectId}/delete`,
             method: HttpMethod.PUT,
             payload: {
                 msg: prompt('사유 입력')
-            },
-            callback(data) {
-                loadEmoticons();
-                setSelectId(0);
             }
         });
+        if (error) return;
+
+        loadEmoticons();
+        setSelectId(0);
     }
 
     return (
@@ -242,7 +240,7 @@ const EmoticonUploadBox = () => {
         ]);
     }
 
-    const uploadEmoticon = () => {
+    const uploadEmoticon = async () => {
         if (!thumbnail) return showToast('이모티콘 썸네일이 없습니다');
 
         const payload = new FormData();
@@ -254,19 +252,19 @@ const EmoticonUploadBox = () => {
             if (!emoticon) throw showToast('이모티콘을 모두 업로드 해주세요');
             payload.append('emoticonList', emoticon);
         })
-        ajax({
+        const [data, error] = await ajax({
             url: 'emoticon',
             method: HttpMethod.POST,
             payload,
-            callback() {
-                showToast('이모티콘 업로드에 성공하였습니다\n관리자의 승인후 사용가능합니다', 10000);
-                closeModal('emoticon_upload');
-                setName('');
-                setDescription('');
-                setThumbnail(null);
-                setEmoticonList(Array.from({length: 4}, _ => null));
-            }
         });
+        if (error) return;
+        
+        showToast('이모티콘 업로드에 성공하였습니다\n관리자의 승인후 사용가능합니다', 10000);
+        closeModal('emoticon_upload');
+        setName('');
+        setDescription('');
+        setThumbnail(null);
+        setEmoticonList(Array.from({length: 4}, _ => null));
     }
 
     return (

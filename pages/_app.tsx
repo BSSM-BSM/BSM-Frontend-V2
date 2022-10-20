@@ -20,20 +20,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, []);
 
     return (
-        <>
-            <RecoilRoot>
-                <Component {...pageProps} />
-                <>
-                    <Header />
-                    <LoginBox />
-                    <SettingBox />
-                    <Toast />
-                    <Alert />
-                    <LoadingDim />
-                    <ModalDim />
-                </>
-            </RecoilRoot>
-        </>
+        <RecoilRoot>
+            <Component {...pageProps} />
+            <>
+                <Header />
+                <LoginBox />
+                <SettingBox />
+                <Toast />
+                <Alert />
+                <LoadingDim />
+                <ModalDim />
+            </>
+        </RecoilRoot>
     )
 }
 

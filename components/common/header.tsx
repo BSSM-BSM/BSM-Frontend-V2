@@ -11,6 +11,7 @@ import styles from '../../styles/header.module.css';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { getProfileSrc } from '../../utils/util';
+import { getUserInfo } from '../../utils/userUtil';
 
 export const Header = () => {
     const [mounted, setMounted] = useState(false);
@@ -18,7 +19,7 @@ export const Header = () => {
     const { openModal } = useModal();
     const { ajax } = useAjax();
     const { showToast } = useOverlay();
-    const [user] = useRecoilState(userState);
+    const [user, setUser] = useRecoilState(userState);
     const resetUser = useResetRecoilState(userState);
     const [sideBar, setSideBar] = useState(false);
     const [headerOption] = useRecoilState(headerOptionState);
@@ -27,6 +28,7 @@ export const Header = () => {
     useEffect(() => {
         Router.events.on('routeChangeStart', () => setSideBar(false));
         setMounted(true);
+        getUserInfo(ajax, setUser);
         return () => setMounted(false);
     }, []);
 
@@ -34,15 +36,15 @@ export const Header = () => {
         setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
     }, [user]);
 
-    const logout = () => {
-        ajax({
+    const logout = async () => {
+        const [, error] = await ajax({
             method: HttpMethod.DELETE,
             url: 'user/logout',
-            callback() {
-                resetUser();
-                showToast('로그아웃 되었습니다');
-            }
         });
+        if (error) return;
+
+        resetUser();
+        showToast('로그아웃 되었습니다');
     }
 
     const userMenuView = () => (

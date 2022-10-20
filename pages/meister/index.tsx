@@ -55,8 +55,8 @@ const MeisterPage: NextPage = () => {
         setHeaderOption({title: '마이스터 점수 및 상벌점 조회'});
     }, []);
 
-    const loadMeisterInfo = () => {
-        ajax<MeisterInfo>({
+    const loadMeisterInfo = async () => {
+        const [data, error] = await ajax<MeisterInfo>({
             url: 'meister/detail',
             method: HttpMethod.POST,
             payload: {
@@ -64,10 +64,6 @@ const MeisterPage: NextPage = () => {
                 classNo,
                 studentNo,
                 pw: noPw? '': pw
-            },
-            callback(data) {
-                setMeisterInfo(data);
-                setPw('');
             },
             errorCallback() {
                 setMeisterInfo({
@@ -79,6 +75,10 @@ const MeisterPage: NextPage = () => {
                 });
             }
         });
+        if (error) return;
+
+        setMeisterInfo(data);
+        setPw('');
     }
 
     const meisterPointPostProcessing = () => {

@@ -32,20 +32,20 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
         loadPosts(postList[postList.length-1]?.id ?? -1);
     }, [inView]);
 
-    const loadPosts = (startPostId: number) => {
+    const loadPosts = async (startPostId: number) => {
         setLoading(true);
-        ajax<PostListRes>({
+        const [data, error] = await ajax<PostListRes>({
             method: HttpMethod.GET,
             url: `post/${boardId}?i=${startPostId}&l=${postLimit}&c=${postCategory}`,
-            callback(data) {
-                if (startPostId === -1) setPostList(data.posts);
-                else if (data.posts.length) setPostList(prev => [...prev, ...data.posts]);
-                setLoading(false);
-            },
             errorCallback() {
                 setLoading(false);
             }
         });
+        if (error) return;
+        
+        if (startPostId === -1) setPostList(data.posts);
+        else if (data.posts.length) setPostList(prev => [...prev, ...data.posts]);
+        setLoading(false);
     }
     
     return (

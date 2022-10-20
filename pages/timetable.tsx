@@ -129,32 +129,32 @@ const TimetablePage: NextPage = () => {
         return (Number(temp[0]) * 60 * 60) + (Number(temp[1]) * 60) + Number(temp[2]);
     }
 
-    const loadTimetableInfo = () => {
-        ajax<TimetableInfo[]>({
+    const loadTimetableInfo = async () => {
+        const [data, error] = await ajax<TimetableInfo[]>({
             url: `timetable/${grade}/${classNo}/${day}`,
             method: HttpMethod.GET,
-            callback(data) {
-                const newTimetableList: TimetableInfo[] = [];
-                data.forEach((timetable, i, arr) => {
-                    newTimetableList.push(timetable);
-                    if (timetable.type === 'class' && arr[i + 1]?.type === 'class') {
-                        newTimetableList.push({
-                            className: '쉬는시간',
-                            type: 'break',
-                            startTime: timetable.endTime,
-                            endTime: data[i + 1].startTime
-                        });
-                    }
-                });
-                setTimetableList(newTimetableList);
-                if (!newTimetableList.length) {
-                    showAlert('시간표 데이터가 없습니다');
-                }
-            },
             errorCallback() {
                 setTimetableList([]);
             }
         });
+        if (error) return;
+        
+        const newTimetableList: TimetableInfo[] = [];
+        data.forEach((timetable, i, arr) => {
+            newTimetableList.push(timetable);
+            if (timetable.type === 'class' && arr[i + 1]?.type === 'class') {
+                newTimetableList.push({
+                    className: '쉬는시간',
+                    type: 'break',
+                    startTime: timetable.endTime,
+                    endTime: data[i + 1].startTime
+                });
+            }
+        });
+        setTimetableList(newTimetableList);
+        if (!newTimetableList.length) {
+            showAlert('시간표 데이터가 없습니다');
+        }
     }
 
     const selectMenuView = () => (

@@ -74,36 +74,36 @@ export const PostView = ({
         setProfileSrc(getProfileSrc(post.user.code));
     }, [post]);
 
-    const postLike = (like: number) => {
-        ajax<LikeRes>({
+    const postLike = async (like: number) => {
+        const [data, error] = await ajax<LikeRes>({
             url: `like/${board.boardId}/${post.id}`,
             method: HttpMethod.POST,
             payload: {
                 like
             },
-            callback(data) {
-                setPost(prev => {
-                    if (prev === null) return prev;
-                    return {
-                        ...prev,
-                        like: data.like,
-                        totalLikes: data.totalLikes
-                    }
-                });
-            },
-        })
-    }
+        });
+        if (error) return;
 
-    const deletePost = () => {
-        if (!confirm('정말 삭제하시겠습니까?')) return;
-        ajax({
-            url: `post/${board.boardId}/${post.id}`,
-            method: HttpMethod.DELETE,
-            callback() {
-                setPostList(prev => prev.filter(e => e.id !== post.id));
-                router.push(`/board/${board.boardId}`);
+        setPost(prev => {
+            if (prev === null) return prev;
+            return {
+                ...prev,
+                like: data.like,
+                totalLikes: data.totalLikes
             }
         });
+    }
+
+    const deletePost = async () => {
+        if (!confirm('정말 삭제하시겠습니까?')) return;
+        const [, error] = await ajax({
+            url: `post/${board.boardId}/${post.id}`,
+            method: HttpMethod.DELETE,
+        });
+        if (error) return;
+
+        setPostList(prev => prev.filter(e => e.id !== post.id));
+        router.push(`/board/${board.boardId}`);
     }
 
     return (

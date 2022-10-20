@@ -60,8 +60,8 @@ export const PostWrite = ({
         setActiveEditor(editor);
     });
 
-    const writePost = () => {
-        ajax<number>({
+    const writePost = async () => {
+        const [, error] = await ajax<number>({
             url: `post/${boardId}`,
             method: HttpMethod.POST,
             payload: {
@@ -69,15 +69,15 @@ export const PostWrite = ({
                 content,
                 category,
                 anonymous: boardAnonymousMode
-            },
-            callback(postId) {
-                router.push(`/board/${boardId}/${postId}`);
             }
         });
+        if (error) return;
+
+        router.push(`/board/${boardId}/${postId}`);
     }
 
-    const modifyPost = () => {
-        ajax({
+    const modifyPost = async () => {
+        const [data, error] = await ajax({
             url: `post/${boardId}/${editPost?.id}`,
             method: HttpMethod.PUT,
             payload: {
@@ -85,11 +85,34 @@ export const PostWrite = ({
                 content,
                 category,
                 anonymous: boardAnonymousMode
-            },
-            callback() {
-                setPost(null);
-                router.push(`/board/${boardId}/${editPost?.id ?? ''}`);
-            },
+            }
+        });
+        if (error) return;
+
+        setPost(null);
+        router.push(`/board/${boardId}/${editPost?.id ?? ''}`);
+    }
+
+    const imagesUploadHandler = async (blobInfo: any): Promise<string> => {
+        return new Promise(async (resolve, reject) => {
+            let file = new FormData();
+            file.append('file', blobInfo.blob());
+            
+            const [data, error] = await ajax<UploadFileRes>({
+                method: HttpMethod.POST,
+                payload: file,
+                url: '/post/upload',
+                config:{
+                    timeout: 0
+                },
+                errorCallback:(data) => {
+                    if (!data) return reject({message: '알 수 없는 에러가 발생하였습니다', remove: true});
+                    reject({message: data.message, remove: true});
+                }
+            });
+            if (error) return;
+
+            resolve(`/resource/board/upload/${data.id}.${data.fileExt}`);
         });
     }
 
@@ -130,25 +153,7 @@ export const PostWrite = ({
                     relative_urls: false,
                     convert_urls: false,
                     extended_valid_elements: 'img[src|class|alt|e_id|e_idx|e_type]',
-                    images_upload_handler: (blobInfo) => {
-                        return new Promise((resolve, reject) => {
-                            let file = new FormData();
-                            file.append('file', blobInfo.blob());
-                            ajax<UploadFileRes>({
-                                method: HttpMethod.POST,
-                                payload: file,
-                                url: '/post/upload',
-                                config:{
-                                    timeout: 0
-                                },
-                                callback:(data) => resolve(`/resource/board/upload/${data.id}.${data.fileExt}`),
-                                errorCallback:(data) => {
-                                    if (!data) return reject({message: '알 수 없는 에러가 발생하였습니다', remove: true});
-                                    reject({message: data.message, remove: true});
-                                }
-                            });
-                        });
-                    },
+                    images_upload_handler: imagesUploadHandler,
                     init_instance_callback: (editor) => {
                         const css = document.createElement('style');
                         css.innerHTML = "html{font-size:16px}ul,ol,li{list-style:none}a{text-decoration:none}.emoticon{width:100px!important;height:100px!important}body{padding:15px!important;line-height: 1.2;font-family: NotoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;}a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, button, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, input, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, tr, tt, u, ul, var, video{margin: 0;padding: 0;box-sizing: border-box;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;border-collapse: collapse;line-height: inherit;vertical-align: middle;}";
