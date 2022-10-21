@@ -1,0 +1,19 @@
+.code-toolbar .toolbar {
+    opacity: 1 !important;
+}
+
+.code-toolbar .toolbar-item button {
+    color: var(--text-level-1) !important;
+    background: var(--level-2) !important;
+    font-size: 1.4rem !important;
+    font-weight: bold !important;
+    box-shadow: var(--shadow) !important;
+    border-radius: 1rem !important;
+    padding: 1rem 1.5rem !important;
+    cursor: pointer !important;
+    transition: .25s !important;
+}
+
+.code-toolbar .toolbar-item button:hover {
+    background: var(--hover) !important;
+}

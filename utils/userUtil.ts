@@ -7,6 +7,11 @@ export const getUserInfo = async (ajax: Ajax, setUser: SetterOrUpdater<NoLoginUs
     const [data, error] = await ajax<Student | Teacher>({
         method: HttpMethod.GET,
         url: 'user',
+        errorCallback(data) {
+            if (data && 'statusCode' in data && data.statusCode === 401) {
+                return true;
+            }
+        },
     });
     if (error) return;
 

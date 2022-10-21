@@ -16,6 +16,12 @@ import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { getProfileSrc } from '../../utils/util';
 
+import Prism from 'prismjs';
+import "prismjs/plugins/toolbar/prism-toolbar.min";
+import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/plugins/toolbar/prism-toolbar.min.css";
+
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
     onIgnoreTagAttr: (tag, name, value) => {
@@ -72,6 +78,7 @@ export const PostView = ({
                 : undefined
         });
         setProfileSrc(getProfileSrc(post.user.code));
+        Prism.highlightAll();
     }, [post]);
 
     const postLike = async (like: number) => {
