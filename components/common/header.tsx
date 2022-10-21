@@ -192,6 +192,7 @@ export const Header = () => {
                             <li><a href='https://auth.bssm.kro.kr' className='option'>BSM Auth</a></li>
                             <li><a href='https://drive.bssm.kro.kr' className='option'>BSM Cloud</a></li>
                             <li><a href='https://tetris.bssm.kro.kr' className='option'>BSM Tetris</a></li>
+                            <li><a href='https://bgit.bssm.kro.kr' className='option'>BGIT</a></li>
                         </ul>
                     </li>
                     <li><a className={styles.item} href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
