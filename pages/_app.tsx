@@ -9,6 +9,7 @@ import { LoginBox } from '../components/common/accountPopup'
 import { Header } from '../components/common/header'
 import { SettingBox } from '../components/common/settingPopup'
 import { useEffect } from 'react'
+import Script from 'next/script'
 
 function MyApp({ Component, pageProps }: AppProps) {
     useEffect(() => {
@@ -20,18 +21,38 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, []);
 
     return (
-        <RecoilRoot>
-            <Component {...pageProps} />
-            <>
-                <Header />
-                <LoginBox />
-                <SettingBox />
-                <Toast />
-                <Alert />
-                <LoadingDim />
-                <ModalDim />
-            </>
-        </RecoilRoot>
+        <>
+            <Script
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
+            />
+            <Script
+                id="gtag-init"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
+                    page_path: window.location.pathname,
+                    });
+                `,
+                }}
+            />
+            <RecoilRoot>
+                <Component {...pageProps} />
+                <>
+                    <Header />
+                    <LoginBox />
+                    <SettingBox />
+                    <Toast />
+                    <Alert />
+                    <LoadingDim />
+                    <ModalDim />
+                </>
+            </RecoilRoot>
+        </>
     )
 }
 
