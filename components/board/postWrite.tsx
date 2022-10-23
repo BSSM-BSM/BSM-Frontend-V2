@@ -61,7 +61,7 @@ export const PostWrite = ({
     });
 
     const writePost = async () => {
-        const [, error] = await ajax<number>({
+        const [newPostId, error] = await ajax<number>({
             url: `post/${boardId}`,
             method: HttpMethod.POST,
             payload: {
@@ -72,12 +72,11 @@ export const PostWrite = ({
             }
         });
         if (error) return;
-
-        router.push(`/board/${boardId}/${postId}`);
+        router.push(`/board/${boardId}/${newPostId}`);
     }
 
     const modifyPost = async () => {
-        const [data, error] = await ajax({
+        const [, error] = await ajax({
             url: `post/${boardId}/${editPost?.id}`,
             method: HttpMethod.PUT,
             payload: {

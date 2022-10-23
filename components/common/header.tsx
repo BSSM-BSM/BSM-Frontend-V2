@@ -153,7 +153,7 @@ export const Header = () => {
                                 <li><Link href='/meal'><a className='option'>급식</a></Link></li>
                                 <li><Link href='/timetable'><a className='option'>시간표</a></Link></li>
                                 <li><Link href='/meister'><a className='option'>점수 / 상벌점</a></Link></li>
-                                <li><a href='https://school.busanedu.net/bssm-h/main.do' className='option'>학교 홈페이지</a></li>
+                                <li><a target='_blank' rel='noopener noreferrer' href='https://school.busanedu.net/bssm-h/main.do' className='option'>학교 홈페이지</a></li>
                             </ul>
                         </li>
                         <li className={`dropdown-menu ${styles.dropdown}`}>
@@ -195,7 +195,7 @@ export const Header = () => {
                             <li><a href='https://bgit.bssm.kro.kr' className='option'>BGIT</a></li>
                         </ul>
                     </li>
-                    <li><a className={styles.item} href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
+                    <li><a className={styles.item} target='_blank' rel='noopener noreferrer' href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
                     <li><a className={styles.item} href='https://github.com/BSSM-BSM'>깃허브</a></li>
                 </ul>
             </div>

@@ -60,7 +60,7 @@ const EmoticonBox = () => {
                 emoticonList.map(emoticon => (
                     <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
                         <Image
-                            src={`https://test.bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
+                            src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
                             width='100px'
                             height='50px'
                             alt={emoticon.name}
@@ -74,7 +74,7 @@ const EmoticonBox = () => {
                 ?.[0]?.items.map(item => (
                     <li key={`${item.id}/${item.idx}`} onClick={() => insertEmoticon(item)}>
                         <img
-                            src={`https://test.bssm.kro.kr/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`}
+                            src={`https://bssm.kro.kr/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`}
                             alt={String(item.idx)}
                         />
                     </li>
@@ -174,7 +174,7 @@ const EmoticonManageBox = () => {
                 emoticonList.map(emoticon => (
                     <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
                         <Image
-                            src={`https://test.bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
+                            src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
                             width='100px'
                             height='50px'
                             alt={emoticon.name}
@@ -189,7 +189,7 @@ const EmoticonManageBox = () => {
                     ?.[0]?.items.map(item => (
                         <li key={`${item.id}/${item.idx}`}>
                             <img
-                                src={`https://test.bssm.kro.kr/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`}
+                                src={`https://bssm.kro.kr/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`}
                                 alt={String(item.idx)}
                             />
                         </li>
