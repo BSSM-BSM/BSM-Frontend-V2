@@ -47,12 +47,13 @@ export const CommentView = ({
             {
                 commentList.map(comment => (
                     <CommentList
-                        key={comment.id}
+                        key={`${boardId}/${postId}/${comment.id}`}
                         comment={comment}
                         loadComments={loadComments}
                         deleteComment={deleteComment}
                         boardDetailTime={boardDetailTime}
                         commentXssFilter={commentXssFilter}
+                        boardAndPostId={boardAndPostId}
                     />
                 ))
             }

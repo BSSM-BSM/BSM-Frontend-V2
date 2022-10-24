@@ -81,20 +81,30 @@
     display: flex;
 }
 
+.top_menu_bar .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 0 1rem;
+    overflow: hidden;
+}
+
+.top_menu_bar .title h2 {
+    font-size: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .top_menu_bar > .title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     font-size: 2.2rem;
-    display: none;
-    display: block;
+    display: flex;
 }
 
 .top_menu_bar .left .title {
     font-size: 2rem;
     display: none;
-    align-items: center;
 }
 
 @media screen and (min-width: 0px) and (max-width: 720px) {
@@ -110,6 +120,7 @@
     .top_menu_bar .left {
         width: 100%;
         justify-content: space-between;
+        align-items: center;
     }
 
     .top_menu_bar > .title {

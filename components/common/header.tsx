@@ -138,14 +138,14 @@ export const Header = () => {
                             <Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link>
                         </li>
                         {allMenuView()}
-                        <h2 className={styles.title}>
-                            {headerOption.title}
-                        </h2>
+                        <div className={styles.title}>
+                            <h2>{headerOption.title}</h2>
+                        </div>
                         {optionMenuView()}
                     </ul>
-                    <h2 className={styles.title}>
-                        {headerOption.title}
-                    </h2>
+                    <div className={styles.title}>
+                        <h2>{headerOption.title}</h2>
+                    </div>
                     <ul className={styles.right}>
                         <li className={`dropdown-menu ${styles.dropdown}`}>
                             <span className={styles.item}>학교</span>

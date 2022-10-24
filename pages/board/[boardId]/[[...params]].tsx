@@ -152,7 +152,12 @@ const BoardPage: NextPage = () => {
                             typeof postId === 'string'
                             && postId !== 'write'
                             && post
-                            && <PostView board={boardList[boardId]} post={post} commentList={commentList} loadComments={loadComments} />
+                            && <PostView
+                                board={boardList[boardId]}
+                                post={post}
+                                commentList={commentList}
+                                loadComments={loadComments}
+                            />
                         }
                     </div>
                 </>

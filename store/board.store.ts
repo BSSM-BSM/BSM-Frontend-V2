@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import { atom } from "recoil";
 import { Editor } from "tinymce";
-import { Comment, DetailPost, Post } from "../types/boardType";
+import { BoardAndPostId, Comment, DetailPost, Post } from "../types/boardType";
 import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
 
 export const postListState = atom<Post[]>({
@@ -15,10 +15,7 @@ export const postLimitState = atom<number>({
     effects: [localStorageEffect('postLimit', LocalStorageType.number)?? 15]
 });
 
-export const boardAndPostIdState = atom<{
-    boardId: string,
-    postId: number
-}>({
+export const boardAndPostIdState = atom<BoardAndPostId>({
     key: 'boardAndPostId',
     default: {
         boardId: '',

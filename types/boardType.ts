@@ -3,6 +3,11 @@ export interface UserInfo {
     nickname: string
 }
 
+export interface BoardAndPostId {
+    boardId: string,
+    postId: number
+}
+
 export interface Board {
     boardId: string,
     boardName: string,
