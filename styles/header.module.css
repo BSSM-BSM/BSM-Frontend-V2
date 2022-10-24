@@ -226,19 +226,28 @@
 }
 
 .user_profile_wrap {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
     padding: 0;
     height: 100%;
 }
 
+.user_profile_wrap > div {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    max-width: 18rem;
+    padding: 0 1rem;
+}
+
 .user_profile_wrap span {
-    margin-left: auto;
+    flex: 1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-left: 1rem;
+    font-size: 1.6rem;
 }
 
 .user_profile_wrap :global(.user-profile) {
-    margin-right: 2rem;
     height: 5.2rem;
     width: 5.2rem;
 }

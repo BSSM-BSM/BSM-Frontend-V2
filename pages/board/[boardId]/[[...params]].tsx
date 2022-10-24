@@ -9,7 +9,7 @@ import { headerOptionState } from '../../../store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
 import { PostView } from '../../../components/board/postView';
-import { boardAndPostIdState, postOpenState, postState } from '../../../store/board.store';
+import { boardAndPostIdState, boardAnonymousModeState, postOpenState, postState } from '../../../store/board.store';
 import { PostWrite } from '../../../components/board/postWrite';
 import { EmoticonBoxWrap } from '../../../components/board/emoticonBox';
 
@@ -18,6 +18,7 @@ const BoardPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const router = useRouter();
     const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
+    const [boardAnonymousMode] = useRecoilState(boardAnonymousModeState);
 
     const {boardId} = router.query;
     const [postId, editPostId] = router.query.params?.length? router.query.params: [undefined, undefined];
@@ -33,7 +34,7 @@ const BoardPage: NextPage = () => {
             setHeaderOption({title: boardList[boardId]?.boardName});
         else if (postId === 'write')
             setHeaderOption({
-                title: boardList[boardId]?.boardName,
+                title: `글쓰기 ${boardAnonymousMode? '(익명 On)': '(익명 Off)'}`,
                 allMenu: {
                     goBack: true
                 }

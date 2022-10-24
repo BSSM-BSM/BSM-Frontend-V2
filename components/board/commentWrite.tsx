@@ -55,7 +55,7 @@ export const CommentWrite = ({
                 content !== null && 
                 <EditorInput
                     setCallback={setContent}
-                    placeholder={parentComment? `${nickname}에게 답글`: '댓글 내용'}
+                    placeholder={(parentComment? `${nickname}에게 답글`: '댓글') + (boardAnonymousMode? ' (익명 On)': ' (익명 Off)')}
                     className='comment-input'
                     refCallback={setActiveEditor}
                 />

@@ -52,15 +52,17 @@ export const Header = () => {
             user.isLogin
             ? <div className={`dropdown-menu ${styles.dropdown}`}>
                 <span className={`${styles.item} ${styles.user_profile_wrap}`}>
-                    <span>{user.nickname}</span>
-                    <div className='user-profile'>
-                        <Image
-                            src={profileSrc}
-                            onError={() => setProfileSrc(DefaultProfilePic)}
-                            width='128px'
-                            height='128px'
-                            alt='user profile'
-                        />
+                    <div>
+                        <span>{user.nickname}</span>
+                        <div className='user-profile'>
+                            <Image
+                                src={profileSrc}
+                                onError={() => setProfileSrc(DefaultProfilePic)}
+                                width='128px'
+                                height='128px'
+                                alt='user profile'
+                            />
+                        </div>
                     </div>
                 </span>
                 <ul className='dropdown-content'>
