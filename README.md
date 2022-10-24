@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BSM Frontend V2
 
-## Getting Started
+해당 프로젝트의 백엔드는 [BSM-Backend-V2](https://github.com/BSSM-BSM/BSM-Backend-V2)를 확인해주세요.
 
-First, run the development server:
+## 프로젝트 소개
+BSM(부산소마고 지원 서비스)는 학교 홈페이지, 마이스터 인증제 사이트 등 그동안 여러 곳에 흩어져있던 학교 생활에 도움이되는 기능들을 하나의 플랫폼에서 제공하기 위해 만들어진 학교 통합 지원서비스입니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+서버는 [저(이현준)](https://github.com/leehj050211)의 집에서 라즈베리파이를 이용하여 직접 호스팅하고 있습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+구글 애널리틱스 기준으로 하루 평균 90명 정도가 이 서비스를 사용하며  
+가입자수는 2022년 10월 24일 기준으로 111명이 가입 중입니다.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 기능 소개
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- 급식 정보 보기 및 급식 1시간 전에 오는 푸시 알림
+- 마이스터 역량인증제 점수 및 상벌점 랭킹과 간편하게 보기 
+- 현재 진행중인 수업이 하이라이팅되어 표시되는 시간표
+- 자체적인 커뮤니티
+    - 대댓글
+    - 익명 작성 기능
+    - 좋아요, 싫어요
+    - 게시글 카테고리
+    - 이모티콘
+- BSM OAuth를 통한 간편 로그인
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 결과 화면
+![메인 화면](./README_RESOURCES/1.png)
+![시간표 화면](./README_RESOURCES/2.png)
+![급식 화면](./README_RESOURCES/3.png)
+![급식 알림 화면](./README_RESOURCES/4.png)
+![마이스터 점수 및 상벌점 화면](./README_RESOURCES/5.png)
+![마이스터 점수 랭킹 화면](./README_RESOURCES/6.png)
+![커뮤니티 화면](./README_RESOURCES/7.png)
+![게시글 화면](./README_RESOURCES/8.png)
+![글 작성 화면](./README_RESOURCES/9.png)
