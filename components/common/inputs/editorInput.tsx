@@ -1,5 +1,5 @@
 import styles from '../../../styles/input.module.css';
-import { KeyboardEvent, Dispatch, RefObject, SetStateAction, useEffect, useRef } from "react";
+import { KeyboardEvent, ClipboardEvent, Dispatch, RefObject, SetStateAction, useEffect, useRef } from "react";
 import ContentEditable from 'react-contenteditable';
 
 interface EditorInputProps {
@@ -50,8 +50,10 @@ export const EditorInput = (props: EditorInputProps) => {
             event.preventDefault();
             const selection = window.getSelection();
             if (!selection) return;
+            selection.deleteFromDocument();
             const range = selection.getRangeAt(0);
             const newline = document.createTextNode('\n');
+
             range.insertNode(newline);
             range.setStartAfter(newline);
             range.setEndAfter(newline);
@@ -59,6 +61,22 @@ export const EditorInput = (props: EditorInputProps) => {
             selection.addRange(range);
         }
         applyValue();
+    }
+
+    const pasteHandler = (event: ClipboardEvent) => {
+        event.preventDefault();
+        const data = (event.nativeEvent ?? event).clipboardData?.getData('text/plain');
+        const selection = window.getSelection();
+        if (!data || !selection?.rangeCount) return;
+        selection.deleteFromDocument();
+        const range = selection.getRangeAt(0);
+        const text = document.createTextNode(data);
+
+        range.insertNode(text);
+        range.setStartAfter(text);
+        range.setEndAfter(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
     }
 
     return (
@@ -71,6 +89,7 @@ export const EditorInput = (props: EditorInputProps) => {
                 onChange={() => {}}
                 onBlur={() => applyValue()}
                 onKeyDown={editorHandler}
+                onPaste={pasteHandler}
             />
             <span className={styles.placeholder}>{placeholder}</span>
         </div>

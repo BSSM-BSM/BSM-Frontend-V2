@@ -43,6 +43,8 @@ const EmoticonBox = () => {
 
         activeEditor.current.focus();
         const selection = window.getSelection();
+        selection?.deleteFromDocument();
+        
         const range = selection?.getRangeAt(0);
         const emoticon = document.createElement('img');
         emoticon.src = `/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`;
