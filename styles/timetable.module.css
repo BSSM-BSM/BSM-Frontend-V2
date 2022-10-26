@@ -149,6 +149,20 @@
     gap: 1rem;
 }
 
+.timetable_list {
+    display: flex;
+    background-color: var(--menu-background);
+    border-radius: 1rem;
+}
+
+.timetable_list li {
+    padding: 1rem;
+}
+
+.timetable_list li.active {
+    background-color: var(--accent);
+}
+
 @media screen and (min-width: 0) and (max-width: 750px) {
     .select_day {
         top: auto;

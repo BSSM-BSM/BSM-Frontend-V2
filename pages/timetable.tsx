@@ -10,13 +10,9 @@ import { useOverlay } from '../hooks/useOverlay';
 import { numberInBetween } from '../utils/util';
 import { headerOptionState } from '../store/common.store';
 import { UserRole } from '../types/userType';
-
-interface TimetableInfo {
-    className: string,
-    type: string,
-    startTime: string,
-    endTime: string
-}
+import { TimetableClassMenu } from '../components/timetable/timetableClassMenu';
+import { TimetableInfo } from '../types/timetableType';
+import { TimetableList } from '../components/timetable/timetableList';
 
 const TimetablePage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -38,6 +34,9 @@ const TimetablePage: NextPage = () => {
 
     useEffect(() => {
         setHeaderOption({title: '시간표'});
+    }, []);
+
+    useEffect(() => {
         if (!user.isLogin || user.role !== UserRole.STUDENT) {
             setGrade(1);
             setClassNo(1);
@@ -45,7 +44,7 @@ const TimetablePage: NextPage = () => {
         }
         setGrade(user.student.grade);
         setClassNo(user.student.classNo);
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (!grade || !classNo) return;
@@ -124,7 +123,7 @@ const TimetablePage: NextPage = () => {
         }
     }
 
-    const convertTime = (dateString: string) => {
+    const convertTime = (dateString: string): number => {
         const temp = dateString.split(':');
         return (Number(temp[0]) * 60 * 60) + (Number(temp[1]) * 60) + Number(temp[2]);
     }
@@ -142,7 +141,7 @@ const TimetablePage: NextPage = () => {
         const newTimetableList: TimetableInfo[] = [];
         data.forEach((timetable, i, arr) => {
             newTimetableList.push(timetable);
-            if (timetable.type === 'class' && arr[i + 1]?.type === 'class') {
+            if (timetable.type === 'class' && ['class', 'after'].includes(arr[i + 1]?.type)) {
                 newTimetableList.push({
                     className: '쉬는시간',
                     type: 'break',
@@ -157,78 +156,47 @@ const TimetablePage: NextPage = () => {
         }
     }
 
-    const selectMenuView = () => (
-        <>
-            <span className='dropdown-menu'>
-                <span className='select button'>{grade}학년</span>
-                <ul className='dropdown-content'>{
-                    [1, 2, 3].map(i => (
-                        <li
-                            className='option'
-                            key={i}
-                            onClick={() => setGrade(i)}
-                        >
-                            {i}학년
-                        </li>
-                    ))
-                }</ul>
-            </span>
-            <span className='dropdown-menu'>
-                <span className='select button'>{classNo}반</span>
-                <ul className='dropdown-content'>{
-                    [1, 2, 3, 4].map(i => (
-                        <li
-                            className='option'
-                            key={i}
-                            onClick={() => setClassNo(i)}
-                        >
-                            {i}반
-                        </li>
-                    ))
-                }</ul>
-            </span>
-        </>
-    )
-
     return (
-        <div>
-            <div className='container _100'>
-                <Head>
-                    <title>시간표 - BSM</title>
-                </Head>
+        <>
+            <Head>
+                <title>시간표 - BSM</title>
+            </Head>
+            <div className='container _120 rows'>
+                <TimetableList timetableList={timetableList} />
             </div>
+            <ul className={`${styles.select_day} button-wrap`}>{
+                dayNames.map((name, i) => (
+                    <li
+                        key={name}
+                        className={i === day? styles.active: ''}
+                        onClick={() => setDay(i)}
+                    >
+                        {name}
+                    </li>
+                ))
+            }</ul>
+            {
+                !focus && 
+                <button className={`${styles.sync_button} button`} onClick={() => {
+                    timetableListRef.current?.scrollTo({
+                        left: scrollX
+                    });
+                    setDay(new Date().getDay());
+                    setFocus(true);
+                }}>
+                    현재 시간과 동기화
+                </button>
+            }
+            <div className={styles.select_box}>
+                <TimetableClassMenu grade={grade} classNo={classNo} setGrade={setGrade} setClassNo={setClassNo} />
+            </div>
+            
             <div className={styles.timetable_wrap}>
                 <div className={styles.time_wrap}>
                     <h2 className={!focus? 'gray': ''}>{time}</h2>
                     <h2>{date}</h2>
                 </div>
                 {timetableList.length > 0 && <div className={styles.time_line}></div>}
-                <ul className={`${styles.select_day} button-wrap`}>
-                    {
-                        dayNames.map((name, i) => (
-                            <li
-                                key={name}
-                                className={i === day? styles.active: ''}
-                                onClick={() => setDay(i)}
-                            >
-                                {name}
-                            </li>
-                        ))
-                    }
-                </ul>
-                {
-                    !focus && 
-                    <button className={`${styles.sync_button} button`} onClick={() => {
-                        timetableListRef.current?.scrollTo({
-                            left: scrollX
-                        });
-                        setDay(new Date().getDay());
-                        setFocus(true);
-                    }}>
-                        현재 시간과 동기화
-                    </button>
-                }
-                <div className={styles.select_box}>{selectMenuView()}</div>
                 <ul
                     className={styles.timetable}
                     ref={timetableListRef}
@@ -251,7 +219,7 @@ const TimetablePage: NextPage = () => {
                     ))
                 }</ul>
             </div>
-        </div>
+        </>
     );
 }
 

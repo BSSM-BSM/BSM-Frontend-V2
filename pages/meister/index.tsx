@@ -27,21 +27,9 @@ const MeisterPage: NextPage = () => {
     const { openModal } = useModal();
     const [noPw, setNoPw] = useState(true);
     const [user] = useRecoilState(userState);
-    const [grade, setGrade] = useState<number>(
-        (!user.isLogin || user.role !== UserRole.STUDENT)
-        ? 0
-        : user.student.grade
-    );
-    const [classNo, setClassNo] = useState<number>(
-        (!user.isLogin || user.role !== UserRole.STUDENT)
-        ? 0
-        : user.student.classNo
-    );
-    const [studentNo, setStudentNo] = useState<number>(
-        (!user.isLogin || user.role !== UserRole.STUDENT)
-        ? 0
-        : user.student.studentNo
-    );
+    const [grade, setGrade] = useState<number>(0);
+    const [classNo, setClassNo] = useState<number>(0);
+    const [studentNo, setStudentNo] = useState<number>(0);
     const [pw, setPw] = useState('');
     const [meisterInfo, setMeisterInfo] = useState<MeisterInfo>({
         scoreHtmlContent: '',
@@ -50,6 +38,13 @@ const MeisterPage: NextPage = () => {
         positivePoint: 0,
         negativePoint: 0,
     });
+
+    useEffect(() => {
+        if (!user.isLogin || user.role !== UserRole.STUDENT) return;
+        setGrade(user.student.grade);
+        setClassNo(user.student.classNo);
+        setStudentNo(user.student.studentNo);
+    }, [user]);
 
     useEffect(() => {
         setHeaderOption({title: '마이스터 점수 및 상벌점 조회'});
@@ -101,7 +96,8 @@ const MeisterPage: NextPage = () => {
                 <div className='rows gap-05 center'>
                     <NumberInput
                         setCallback={setGrade}
-                        initial={grade || undefined}
+                        initial={undefined}
+                        value={grade}
                         min={1}
                         max={3}
                         required
@@ -109,7 +105,8 @@ const MeisterPage: NextPage = () => {
                     />
                     <NumberInput
                         setCallback={setClassNo}
-                        initial={classNo || undefined}
+                        initial={undefined}
+                        value={classNo}
                         min={1}
                         max={4}
                         required
@@ -117,7 +114,8 @@ const MeisterPage: NextPage = () => {
                     />
                     <NumberInput
                         setCallback={setStudentNo}
-                        initial={studentNo || undefined}
+                        initial={undefined}
+                        value={studentNo}
                         min={1}
                         max={16}
                         required

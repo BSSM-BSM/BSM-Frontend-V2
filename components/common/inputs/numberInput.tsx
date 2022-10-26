@@ -1,10 +1,11 @@
 import styles from '../../../styles/input.module.css';
-import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useState } from "react";
+import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
 import { numberInBetween } from "../../../utils/util";
 
 interface NumberInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     setCallback: Dispatch<SetStateAction<number>>,
+    value?: number,
     initial?: number,
     min?: number,
     max?: number,
@@ -16,6 +17,7 @@ interface NumberInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInp
 export const NumberInput = (props: NumberInputProps) => {
     const {
         setCallback,
+        value,
         initial = '',
         placeholder,
         type = 'number',
@@ -28,6 +30,8 @@ export const NumberInput = (props: NumberInputProps) => {
     } = props;
     const [tempValue, setTempValue] = useState<string>(String(initial));
     const { showToast } = useOverlay();
+
+    useEffect(() => setTempValue(String(value)), [value]);
     
     const applyValue = (value?: string) => {
         if (!tempValue.length) return;
