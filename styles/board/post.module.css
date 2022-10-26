@@ -47,7 +47,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1rem;
+    gap: .5rem;
     height: 100%;
 }
 
@@ -95,7 +95,7 @@
 @media screen and (min-width: 0) and (max-width: 750px) {
 
     .post {
-        padding: 7rem .5rem 1rem;
+        padding: 6.5rem .5rem 1rem;
     }
 
     .post_wrap {

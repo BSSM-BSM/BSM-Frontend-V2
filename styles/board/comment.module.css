@@ -117,4 +117,5 @@
 
 .write_wrap :global(.comment-input) {
     background: none !important;
+    max-height: 10rem;
 }

@@ -106,23 +106,19 @@ body {
     color: var(--text);
     font-size: 1.5rem;
     transition: background-color .5s;
-    padding: 7rem 0;
+    padding: 6.5rem 0;
     vertical-align: middle;
     line-height: 1.2;
     font-family: NotoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-body, .scroll_bar, .modal--content {
-    overflow: overlay !important;
+body, .scroll-bar, .modal--content {
+    overflow: overlay;
 }
 
 .no-overlay {
-    overflow: auto;
-}
-
-.scroll-bar {
-    overflow: overlay;
+    overflow: auto !important;
 }
 
 :is(

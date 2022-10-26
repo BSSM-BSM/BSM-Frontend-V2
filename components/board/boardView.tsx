@@ -49,37 +49,39 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
     }
     
     return (
-        <div className='container'>
-            <div>
-                <CategoryList
-                    postCategory={postCategory}
-                    setPostCategory={setPostCategory}
-                    categoryList={
-                        [
-                            {id: 'all', name: '전체'},
-                            {id: 'normal', name: '일반'},
-                            ...Object.values(board.categoryList)
-                        ]
-                    }
-                />
-            </div>
-            <ul className={styles.post_list}>
-                {postList.map(post => (
-                    <PostItem
-                        key={`${boardId}/${post.id}/${post.user.code}`}
-                        {...post}
-                        boardId={String(boardId)}
-                        categoryList={board.categoryList}
+        <div className={`${styles.board} scroll-bar`}>
+            <div className='container'>
+                <div className={styles.category_list_wrap}>
+                    <CategoryList
+                        postCategory={postCategory}
+                        setPostCategory={setPostCategory}
+                        categoryList={
+                            [
+                                {id: 'all', name: '전체'},
+                                {id: 'normal', name: '일반'},
+                                ...Object.values(board.categoryList)
+                            ]
+                        }
                     />
-                ))}
-                {postList[postList.length-1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
-            </ul>
-            {
-                board.postPermission &&
-                <Link href={`/board/${boardId}/write`}>
-                    <a className={styles.write}><img src='/icons/pen.svg' alt='글쓰기' /></a>
-                </Link>
-            }
+                </div>
+                <ul className={styles.post_list}>
+                    {postList.map(post => (
+                        <PostItem
+                            key={`${boardId}/${post.id}/${post.user.code}`}
+                            {...post}
+                            boardId={String(boardId)}
+                            categoryList={board.categoryList}
+                        />
+                    ))}
+                    {postList[postList.length-1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
+                </ul>
+                {
+                    board.postPermission &&
+                    <Link href={`/board/${boardId}/write`}>
+                        <a className={styles.write}><img src='/icons/pen.svg' alt='글쓰기' /></a>
+                    </Link>
+                }
+            </div>
         </div>
     );
 }
