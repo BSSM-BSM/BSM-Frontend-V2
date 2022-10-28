@@ -670,6 +670,7 @@ label, summary{
 }
 
 .button{
+    user-select: none;
     width: auto;
     color: var(--text);
     border: none;

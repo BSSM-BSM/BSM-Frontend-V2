@@ -31,7 +31,10 @@ export const NumberInput = (props: NumberInputProps) => {
     const [tempValue, setTempValue] = useState<string>(String(initial));
     const { showToast } = useOverlay();
 
-    useEffect(() => setTempValue(String(value)), [value]);
+    useEffect(() => {
+        if (value === undefined) return;
+        setTempValue(String(value));
+    }, [value]);
     
     const applyValue = (value?: string) => {
         if (!tempValue.length) return;

@@ -1,28 +1,21 @@
+import styles from '../styles/meal.module.css';
 import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { ErrorResType, HttpMethod, useAjax } from "../hooks/useAjax";
+import { HttpMethod, useAjax } from "../hooks/useAjax";
 import { useOverlay } from "../hooks/useOverlay";
 import { screenScaleState, headerOptionState, pushPermissionState } from "../store/common.store";
-import styles from '../styles/meal.module.css';
-import { dateToShortStr, shrotStrToDate, dateToKoreanDateStr } from "../utils/util";
+import { MealTime, MealType } from "../types/mealTypes";
+import { dateToShortStr, shrotStrToDate } from "../utils/util";
 import { PushPermission, subscribe } from "../utils/webPush";
-
-enum MealTime {
-    MORNING = '아침',
-    LUNCH = '점심',
-    DINNER = '저녁'
-}
-
-interface MealType {
-    date: string,
-    time?: MealTime,
-    content: string
-}
+import { MealItem } from '../components/meal/mealItem';
 
 type MealRes = {
-    [index in MealTime]: string | null;
+    [index in MealTime]: {
+        content: string,
+        cal: number
+    } | null;
 };
 
 const MealPage: NextPage = () => {
@@ -80,7 +73,7 @@ const MealPage: NextPage = () => {
                     time: Object.values(MealTime)[
                         Object.keys(MealTime).indexOf(value[0].toUpperCase())
                     ],
-                    content: value[1]
+                    ...value[1]
                 });
             });
             resolve(tempMealList);
@@ -184,59 +177,29 @@ const MealPage: NextPage = () => {
         return true;
     }
 
-    const dateColor = (date: string): number => {
-        const year = Number(date.substring(0, 2));
-        const month = Number(date.substring(2, 4));
-        const day = Number(date.substring(4, 6));
-
-        return (((year * 100) + (month * 10) + day) % 4);
-    }
-
     return (
         <div>
-
-            <div className="container">
-                <Head>
-                    <title>급식 - BSM</title>
-                </Head>
-                {
-                    pushPermission !== PushPermission.GRANTED &&
-                    <button className={`${styles.notification_button} button`} onClick={() => subscribe(ajax, setPushPermission, showToast)}>급식 알림 받기</button>
-                }
-                <div className={styles.meals_wrap}>
-                    <ul className={styles.meals}>
-                        {renderMealList.map((meal, i) => {
-                            const middleIdx = Math.floor((renderMealList.length) / 2);
-                            return (
-                                <li 
-                                    key={`${meal.date}${meal.time}`}
-                                    onClick={() => {
-                                        if (middleIdx > i) {
-                                            setMealIdx(prev => prev - ((middleIdx) - i));
-                                        } else if (middleIdx < i) {
-                                            setMealIdx(prev => prev - ((middleIdx) - i));
-                                        }
-                                    }}
-                                    className={`${middleIdx === i? styles.center: ''} ${styles[`date_color_${dateColor(meal.date)}`]}`}
-                                >
-                                    <div>
-                                        {(
-                                            (isSameDay && middleIdx === i) || (!isSameDay && checkShowMealDate(meal, i))
-                                        ) && (
-                                            <h3 className={styles.date}>
-                                                {dateToKoreanDateStr(shrotStrToDate(meal.date))}
-                                            </h3>
-                                        )}
-                                        <h3>{meal.time}</h3>
-                                        <div className={styles.content}>
-                                            {meal.content.split('  ').map(content => <p key={content}>{content}</p>)}
-                                        </div>
-                                    </div>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
+            <Head>
+                <title>급식 - BSM</title>
+            </Head>
+            {
+                pushPermission !== PushPermission.GRANTED &&
+                <button className={`${styles.notification_button} button`} onClick={() => subscribe(ajax, setPushPermission, showToast)}>급식 알림 받기</button>
+            }
+            <div className={styles.meals_wrap}>
+                <ul className={styles.meals}>
+                    {renderMealList.map((meal, i) => (
+                        <MealItem
+                            key={`${meal.date}/${meal.time}`}
+                            meal={meal}
+                            i={i}
+                            middleIdx={Math.floor((renderMealList.length) / 2)}
+                            setMealIdx={setMealIdx}
+                            isSameDay={isSameDay}
+                            checkShowMealDate={checkShowMealDate}
+                        />
+                    ))}
+                </ul>
             </div>
         </div>
     );
