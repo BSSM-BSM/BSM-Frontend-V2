@@ -64,7 +64,7 @@
 }
 
 .timetable li.active span:last-child {
-    color: var(--background);
+    color: var(--level-0);
 }
 
 .break {
@@ -137,7 +137,7 @@
 
 .select_day li.active {
     background-color: var(--accent);
-    color: var(--background);
+    color: var(--level-0);
 }
 
 .select_box {
@@ -151,7 +151,7 @@
 
 .timetable_list {
     display: flex;
-    background-color: var(--menu-background);
+    background-color: var(--level-2-opacity);
     border-radius: 1rem;
 }
 

@@ -1,3 +1,5 @@
+import styles from '../../../styles/common/button.module.css';
+
 interface ToggleButtonProps {
     onCallback: Function;
     offCallback: Function;
@@ -10,14 +12,8 @@ export const ToggleButton = ({
     value
 }: ToggleButtonProps) => {
     return (
-        <label className={`toggle-button ${value? 'active': ''}`} onClick={() => {
-            if (!value) {
-                onCallback();
-            } else {
-                offCallback();
-            }
-        }}>
-            <div className="slider"></div>
+        <label className={`${styles.toggle} ${value? styles.active: ''}`} onClick={() => !value? onCallback(): offCallback()}>
+            <div className={styles.slider}></div>
         </label>
     );
 }

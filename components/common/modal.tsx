@@ -48,7 +48,7 @@ const Modal = ({
                     {title}
                 </p>
                 {modalList[id].closeable && <div className="close_button" onClick={() => closeModal(id)}></div>}
-                <div className="modal--content">
+                <div className="modal--content scroll-bar">
                     <ul className="modal--menu">{
                         menuList?.map((menu, i) => (
                             <li

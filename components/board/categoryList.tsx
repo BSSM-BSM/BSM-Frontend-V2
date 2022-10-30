@@ -15,7 +15,7 @@ export const CategoryList = ({
     categoryList,
     className
 }: CategoryListProps) => (
-    <ul className={`${styles.category_list} rows gap-05 scroll-bar no-overlay horizontal ${className ?? ''}`}>{
+    <ul className={`${styles.category_list} button-wrap rows gap-05 scroll-bar no-overlay horizontal ${className ?? ''}`}>{
         categoryList.map(category => (
             <li
                 key={category.id}

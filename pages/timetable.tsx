@@ -13,6 +13,7 @@ import { UserRole } from '../types/userType';
 import { TimetableClassMenu } from '../components/timetable/timetableClassMenu';
 import { TimetableInfo } from '../types/timetableType';
 import { TimetableList } from '../components/timetable/timetableList';
+import { Button } from '../components/common/buttons/button';
 
 const TimetablePage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -177,7 +178,7 @@ const TimetablePage: NextPage = () => {
             }</ul>
             {
                 !focus && 
-                <button className={`${styles.sync_button} button`} onClick={() => {
+                <Button className={styles.sync_button} onClick={() => {
                     timetableListRef.current?.scrollTo({
                         left: scrollX
                     });
@@ -185,7 +186,7 @@ const TimetablePage: NextPage = () => {
                     setFocus(true);
                 }}>
                     현재 시간과 동기화
-                </button>
+                </Button>
             }
             <div className={styles.select_box}>
                 <TimetableClassMenu grade={grade} classNo={classNo} setGrade={setGrade} setClassNo={setClassNo} />
@@ -198,7 +199,7 @@ const TimetablePage: NextPage = () => {
                 </div>
                 {timetableList.length > 0 && <div className={styles.time_line}></div>}
                 <ul
-                    className={styles.timetable}
+                    className={`${styles.timetable} scroll-bar horizontal`}
                     ref={timetableListRef}
                     onScroll={e => {
                         if (!numberInBetween(scrollX-2, scrollX+2, e.currentTarget.scrollLeft)) {

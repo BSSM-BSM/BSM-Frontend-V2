@@ -5,7 +5,7 @@
     top: 0;
     left: 100%;
     padding: 15rem .5rem 1rem;
-    background-color: var(--background);
+    background-color: var(--level-0);
     transition: .25s;
 }
 

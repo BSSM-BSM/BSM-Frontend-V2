@@ -1,0 +1,63 @@
+.button{
+    user-select: none;
+    width: auto;
+    color: var(--text);
+    border: none;
+    padding: 1.5rem 2.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: .75rem;
+    background-color: var(--level-2);
+    box-shadow: var(--shadow);
+    transition: .25s;
+}
+
+.button:hover {
+    box-shadow: var(--shadow);
+    background-color: var(--hover) !important;
+}
+
+.button:active {
+    transform: scale(.8);
+}
+
+.button.full {
+    width: 100% !important;
+}
+
+.button:global(.delete) {
+    background-color: var(--red);
+}
+
+
+.toggle {
+    position: relative;
+    background-color: grey;
+    width: 4rem;
+    height: 2.2rem;
+    border-radius: 1.6rem;
+}
+
+.toggle.active {
+    background-color: var(--accent);
+}
+
+.toggle .slider {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: .3rem;
+    height: 1.6rem;
+    width: 1.6rem;
+    background-color: white;
+    border-radius: 50%;
+    transition: .25s;
+}
+
+.toggle.active .slider {
+    left: calc(100% - .3rem - 1.6rem);
+}

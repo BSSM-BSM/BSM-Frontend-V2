@@ -1,0 +1,68 @@
+.list-wrap > li > h3 {
+    padding: 2rem 1.5rem 1rem;
+    font-size: 1.6rem;
+    color: var(--text-level-1);
+}
+
+.list {
+    background-color: var(--level-2);
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+.list li {
+    border-bottom: 2px solid var(--level-1);
+    padding: 1.3rem 1.5rem;
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: none;
+    transition: background-color .25s;
+}
+
+.list li.pointer {
+    cursor: pointer;
+}
+
+.list li.picker {
+    padding: .5rem 1.5rem;
+}
+
+.list li span:nth-child(1) {
+    min-width: 7rem;
+}
+
+.list li span:nth-child(2) {
+    color: var(--text-level-1);
+}
+
+.list li span:nth-child(3) {
+    cursor: pointer;
+    margin-left: auto;
+    color: var(--text-level-2);
+}
+
+.list li.toggle label {
+    margin-left: auto;
+}
+
+.list li.picker div {
+    margin: 0 0 0 auto !important;
+}
+
+.list li.picker input {
+    background: none;
+}
+
+.list li.picker input:valid:not(:focus) {
+    box-shadow: none !important;
+}
+
+.list li:last-child {
+    border: none;
+}
+
+.list li:hover {
+    background-color: var(--hover);
+}

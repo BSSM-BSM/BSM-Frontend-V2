@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { boardActiveEditorState, boardAnonymousModeState } from '../../store/board.store';
 import { useModal } from '../../hooks/useModal';
+import { Button } from '../common/buttons/button';
 
 interface PostWriteProps {
     boardId: string,
@@ -176,8 +177,8 @@ export const PostWrite = ({
                 />
                 {
                     editPost
-                    ? <button className='button accent' onClick={modifyPost}>글 수정</button>
-                    : <button className='button accent' onClick={writePost}>글 작성</button>
+                    ? <Button className='accent' onClick={modifyPost}>글 수정</Button>
+                    : <Button className='accent' onClick={writePost}>글 작성</Button>
                 }
             </div>
         </div>

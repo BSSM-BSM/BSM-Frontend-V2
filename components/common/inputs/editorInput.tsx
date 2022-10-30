@@ -1,4 +1,4 @@
-import styles from '../../../styles/input.module.css';
+import styles from '../../../styles/common/input.module.css';
 import { KeyboardEvent, ClipboardEvent, Dispatch, RefObject, SetStateAction, useEffect, useRef } from "react";
 import ContentEditable from 'react-contenteditable';
 

@@ -1,4 +1,5 @@
 import { Dispatch } from "react"
+import { Button } from "../common/buttons/button"
 
 interface Props {
     grade: number,
@@ -14,7 +15,7 @@ export const TimetableClassMenu = ({
     setClassNo
 }: Props) => <>
     <span className='dropdown-menu'>
-        <span className='select button'>{grade}학년</span>
+        <Button className='select'>{grade}학년</Button>
         <ul className='dropdown-content'>{
             [1, 2, 3].map(i => (
                 <li
@@ -28,7 +29,7 @@ export const TimetableClassMenu = ({
         }</ul>
     </span>
     <span className='dropdown-menu'>
-        <span className='select button'>{classNo}반</span>
+        <Button className='select'>{classNo}반</Button>
         <ul className='dropdown-content'>{
             [1, 2, 3, 4].map(i => (
                 <li

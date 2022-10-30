@@ -8,6 +8,7 @@ import Image, { StaticImageData } from 'next/image';
 import { getProfileSrc } from '../../utils/util';
 import { useEffect, useState } from 'react';
 import { FilterXSS } from 'xss';
+import { Button } from '../common/buttons/button';
 
 export const CommentList = ({
     comment,
@@ -80,7 +81,7 @@ export const CommentList = ({
                         </span>
                         <ul className='menu-list'>
                             <li>
-                                <button className='button delete' onClick={() => deleteComment(comment.id)}>삭제</button>
+                                <Button className='delete' onClick={() => deleteComment(comment.id)}>삭제</Button>
                             </li>
                         </ul>
                     </div>

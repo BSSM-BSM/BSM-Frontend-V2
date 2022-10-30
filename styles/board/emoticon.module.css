@@ -36,6 +36,15 @@
     max-height: 10rem !important;
 }
 
+.upload_list li {
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+
+.upload_list li.delete {
+    background-color: var(--red);
+}
+
 .upload_list li label {
     width: 100%;
     height: 100%;
@@ -43,11 +52,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.upload_list li {
-    border-radius: 0 !important;
-    padding: 0 !important;
 }
 
 .upload_thumbnail {

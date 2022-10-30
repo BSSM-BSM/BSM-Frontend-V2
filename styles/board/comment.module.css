@@ -1,5 +1,6 @@
 .comment_wrap {
     margin: 5rem 0;
+    background-color: var(--level-1);
 }
 
 .item_wrap {
@@ -105,12 +106,14 @@
 
 .write_wrap {
     display: flex;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
 }
 
 .write_wrap > div:first-child {
     flex: 1;
     border-radius: 1rem;
-    background-color: var(--menu-background);
+    background-color: var(--level-2-opacity);
     backdrop-filter: blur(.3rem);
     width: calc(100% - 19.1rem);
 }
@@ -118,4 +121,8 @@
 .write_wrap :global(.comment-input) {
     background: none !important;
     max-height: 10rem;
+}
+
+.write_wrap button {
+    box-shadow: none;
 }

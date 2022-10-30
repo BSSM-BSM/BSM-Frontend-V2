@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    background-color: var(--menu-background);
+    background-color: var(--level-2-opacity);
     box-shadow: var(--shadow);
     padding: 2rem;
     border-radius: 1rem;

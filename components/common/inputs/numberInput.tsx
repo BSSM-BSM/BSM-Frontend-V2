@@ -1,4 +1,4 @@
-import styles from '../../../styles/input.module.css';
+import styles from '../../../styles/common/input.module.css';
 import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
 import { numberInBetween } from "../../../utils/util";

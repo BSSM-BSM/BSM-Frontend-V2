@@ -1,0 +1,26 @@
+.oauth-bsm {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    color: rgb(96, 96, 96);
+    background-color: white;
+    border-radius: 1rem;
+}
+
+.oauth-bsm:hover {
+    background-color: white !important;
+}
+
+.oauth-bsm img {
+    height: 3.5rem;
+    padding: .75rem 0;
+}
+
+.oauth-bsm span {
+    font-size: 1.4rem;
+    font-weight: bold;
+}

@@ -9,6 +9,7 @@ import { boardActiveEditorState } from '../../store/board.store';
 import { TextInput } from '../common/inputs/textInput';
 import { useModal } from '../../hooks/useModal';
 import { useOverlay } from '../../hooks/useOverlay';
+import { Button } from '../common/buttons/button';
 
 export const EmoticonBoxWrap = () => (
     <>
@@ -199,10 +200,10 @@ const EmoticonManageBox = () => {
                 }</ul>
                 {selectId !== 0 &&(
                     selectMenuIdx === 0
-                    ? <button className='button delete main' onClick={deleteEmoticon}>삭제</button>
+                    ? <Button full className='delete' onClick={deleteEmoticon}>삭제</Button>
                     : <div className='rows gap-05'>
-                        <button className='button delete flex-main' onClick={deleteEmoticon}>반려</button>
-                        <button className='button accent flex-main' onClick={activeEmoticon}>승인</button>
+                        <Button className='delete flex-main' onClick={deleteEmoticon}>반려</Button>
+                        <Button className='accent flex-main' onClick={activeEmoticon}>승인</Button>
                     </div>
                 )}
             </div>
@@ -313,19 +314,19 @@ const EmoticonUploadBox = () => {
                     required
                     full
                 />
-                <ul className={`${styles.emoticon_item_list} ${styles.upload_list} scroll-bar`}>
+                <ul className={`${styles.emoticon_item_list} ${styles.upload_list} scroll-bar button-wrap`}>
                     {emoticonList.map((item, i) => (
                         deleteMode
                         ? <li
                             key={`upload/${i}`}
-                            className='button delete'
+                            className={styles.delete}
                             onClick={() => {
                                 if (emoticonList.length <= 4) return showToast('이모티콘 최소 개수는 4개입니다');
                                 emoticonDeleteHandler(i);
                             }}>
                             <label>{i+1}번 삭제</label>
                         </li>
-                        : <li key={`upload/${i}`} className='button'>
+                        : <li key={`upload/${i}`}>
                             <label htmlFor={`emoticon_upload_${i}`}>{
                                 item
                                 ? <img
@@ -345,19 +346,19 @@ const EmoticonUploadBox = () => {
                             />
                         </li>
                     ))}
-                    <li key='add' className='button' onClick={() => {
+                    <li key='add' onClick={() => {
                         if (emoticonList.length >= 100) return showToast('이모티콘 최대 개수는 100개입니다');
                         setEmoticonList(prev => [...prev, null]);
                     }}>
                         <label>추가</label>
                     </li>
-                    <li key='mode' className='button' onClick={() => setDeleteMode(prev => !prev)}>
+                    <li key='mode' onClick={() => setDeleteMode(prev => !prev)}>
                         <label>{deleteMode? 'Delete': 'Upload'} Mode</label>
                     </li>
                 </ul>
                 <p>썸네일: 2:1비율의 png파일</p>
                 <p>이모티콘: 1:1비율의 png, jpg, gif, webp파일</p>
-                <button className='button main accent'>업로드</button>
+                <Button className='main accent'>업로드</Button>
             </form>
         </Modal>
     );

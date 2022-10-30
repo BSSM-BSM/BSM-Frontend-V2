@@ -71,7 +71,7 @@
     padding: 0 .5rem;
     font-size: 1.3rem;
     color: var(--accent);
-    background-color: var(--background);
+    background-color: var(--level-0);
 }
 
 .input_wrap.number .input:is(

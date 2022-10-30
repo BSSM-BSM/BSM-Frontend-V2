@@ -12,6 +12,7 @@ import { TextInput } from '../../components/common/inputs/textInput';
 import { NumberInput } from '../../components/common/inputs/numberInput';
 import { headerOptionState } from '../../store/common.store';
 import { UserRole } from '../../types/userType';
+import { Button } from '../../components/common/buttons/button';
 
 interface MeisterInfo {
     scoreHtmlContent: string;
@@ -138,8 +139,8 @@ const MeisterPage: NextPage = () => {
                 {!noPw && <h4>조회하기 위해 마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
                 <br />
                 <div className='rows gap-1 center'>
-                    <Link href='/meister/ranking'><a className='button'>랭킹</a></Link>
-                    <button type='submit' className='button accent'>조회</button>
+                    <Link href='/meister/ranking'><a><Button>랭킹</Button></a></Link>
+                    <Button type='submit' className='accent'>조회</Button>
                 </div>
             </form>
             {

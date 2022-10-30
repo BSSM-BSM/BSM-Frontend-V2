@@ -10,6 +10,7 @@ import { MealTime, MealType } from "../types/mealTypes";
 import { dateToShortStr, shrotStrToDate } from "../utils/util";
 import { PushPermission, subscribe } from "../utils/webPush";
 import { MealItem } from '../components/meal/mealItem';
+import { Button } from '../components/common/buttons/button';
 
 type MealRes = {
     [index in MealTime]: {
@@ -184,7 +185,7 @@ const MealPage: NextPage = () => {
             </Head>
             {
                 pushPermission !== PushPermission.GRANTED &&
-                <button className={`${styles.notification_button} button`} onClick={() => subscribe(ajax, setPushPermission, showToast)}>급식 알림 받기</button>
+                <Button className={styles.notification_button} onClick={() => subscribe(ajax, setPushPermission, showToast)}>급식 알림 받기</Button>
             }
             <div className={styles.meals_wrap}>
                 <ul className={styles.meals}>
