@@ -12,6 +12,7 @@ import { headerOptionState } from '../store/common.store';
 import Image, { StaticImageData } from 'next/image';
 import DefaultProfilePic from '../public/icons/profile_default.png';
 import { UserRole } from '../types/userType';
+import Head from 'next/head';
 
 interface MeisterInfo {
     isLoading: boolean;
@@ -142,6 +143,9 @@ const Home: NextPage = () => {
 
     return (
         <div className='full-screen'>
+            <Head>
+                <title>BSM - 부산소마고 지원서비스</title>
+            </Head>
             <section className={styles.quick_menu_section}>
                 <ul className={`${styles.quick_menu_list} button-wrap`}>
                     <li>

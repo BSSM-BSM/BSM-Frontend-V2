@@ -9,6 +9,7 @@ import { getProfileSrc } from '../../utils/util';
 import { useEffect, useState } from 'react';
 import { FilterXSS } from 'xss';
 import { Button } from '../common/buttons/button';
+import { UserInfoLink } from './userInfoLink';
 
 export const CommentList = ({
     comment,
@@ -57,7 +58,7 @@ export const CommentList = ({
                                 </div>
                                 <div className='cols flex-main'>
                                     <div className='rows space-between bold'>
-                                        <span>{comment.user.nickname}</span>
+                                        <UserInfoLink userCode={comment.user.code} nickname={comment.user.nickname} />
                                     </div>
                                     <div className='gray'>{
                                         boardDetailTime

@@ -7,7 +7,8 @@ export default class MyDocument extends Document {
             <Html lang="kr">
                 <Head>
                     <link rel="manifest" href="/manifest.json" />
-                    <meta name="msapplication-TileColor" content="#202124"></meta>
+                    <meta name="theme-color" content="#1a1a1a"/>
+                    <meta name="msapplication-TileColor" content="#1a1a1a"></meta>
                     <link rel="apple-touch-icon" href="/icons/app/icon-192x192.png"></link>
                     <link href="/icons/app/splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
                     <link href="/icons/app/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />

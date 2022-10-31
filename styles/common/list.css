@@ -5,7 +5,7 @@
 }
 
 .list {
-    background-color: var(--level-2);
+    background-color: var(--level-3);
     border-radius: 2rem;
     overflow: hidden;
 }

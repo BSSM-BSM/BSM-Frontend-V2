@@ -20,7 +20,7 @@
 }
 
 .post_item_wrap:hover {
-    background-color: var(--level-2);
+    background-color: var(--level-3);
     box-shadow: var(--shadow);
 }
 

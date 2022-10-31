@@ -21,6 +21,7 @@ import "prismjs/plugins/toolbar/prism-toolbar.min";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/plugins/toolbar/prism-toolbar.min.css";
+import { UserInfoLink } from './userInfoLink';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -132,7 +133,9 @@ export const PostView = ({
                     <div className='cols space-between flex-main'>
                         <h2 className={styles.title}>{post.title}</h2>
                         <div className='rows space-between'>
-                            <span className='bold'>{post.user.nickname}</span>
+                            <span className='bold'>
+                                <UserInfoLink userCode={post.user.code} nickname={post.user.nickname} />
+                            </span>
                             <div className='rows gap-2 gray'>
                                 <span>{post.totalComments} 댓글</span>
                                 <span>조회 {post.hit}</span>

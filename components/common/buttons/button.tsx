@@ -9,6 +9,7 @@ interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonE
 
 export const Button = (props: ButtonProps) => {
     const {
+        type = 'button',
         children,
         onClick,
         className = '',
@@ -18,6 +19,7 @@ export const Button = (props: ButtonProps) => {
     return (
         <button
             {...props}
+            type={type}
             className={`${styles.button} ${className} ${full? styles.full: ''}`}
             onClick={onClick}
         >

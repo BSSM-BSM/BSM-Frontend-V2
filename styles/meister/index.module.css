@@ -66,7 +66,7 @@
 }
 
 .score table {
-    background-color: var(--level-1) !important;
+    background-color: var(--level-2) !important;
     box-shadow: var(--shadow) !important;
     border-radius: 2rem !important;
 }

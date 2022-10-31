@@ -8,6 +8,7 @@ import { elapsedTime, getProfileSrc, MilliSecondTime } from '../../utils/util';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { useState } from 'react';
+import { UserInfoLink } from './userInfoLink';
 
 interface PostItemProps extends Post {
     boardId: string,
@@ -71,7 +72,7 @@ export const PostItem = ({
                                     alt='user profile'
                                 />
                             </div>
-                            <span>{user.nickname}</span>
+                            <UserInfoLink userCode={user.code} nickname={user.nickname} />
                         </div>
                         <div className={styles.post_info}>
                             {totalLikes !== 0 && <span className={styles.total_likes}>{totalLikes}</span>}

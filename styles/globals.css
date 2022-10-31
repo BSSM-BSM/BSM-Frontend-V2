@@ -5,6 +5,7 @@
 
 @import url(etc/code-highlight.css);
 @import url(etc/oauth.css);
+@import url(board/emoticon.css);
 
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, button, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, input, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, tr, tt, u, ul, var, video
 {
@@ -44,7 +45,7 @@ body {
     
     --level-0: #fafafa;
     --level-1: #fafafa;
-    --level-2: #ededed;
+    --level-2: #fafafa;
     --level-3: #ededed;
     --level-4: #ededed;
     --level-5: #ededed;
