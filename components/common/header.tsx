@@ -10,8 +10,7 @@ import { DropdownMenuOption, headerOptionState } from '../../store/common.store'
 import styles from '../../styles/header.module.css';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
-import { getProfileSrc } from '../../utils/util';
-import { getUserInfo } from '../../utils/userUtil';
+import { getUserInfo, getProfileSrc } from '../../utils/userUtil';
 
 export const Header = () => {
     const [mounted, setMounted] = useState(false);

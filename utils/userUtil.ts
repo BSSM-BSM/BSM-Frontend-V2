@@ -1,6 +1,9 @@
 import { SetterOrUpdater } from "recoil";
 import { Ajax, HttpMethod } from "../hooks/useAjax";
 import { NoLoginUser, Student, Teacher } from "../types/userType";
+import { StaticImageData } from 'next/image';
+import DefaultProfilePic from '../public/icons/profile_default.png';
+
 
 export const getUserInfo = async (ajax: Ajax, setUser: SetterOrUpdater<NoLoginUser| Student| Teacher>) => {
     localStorage.removeItem('user');
@@ -19,3 +22,8 @@ export const getUserInfo = async (ajax: Ajax, setUser: SetterOrUpdater<NoLoginUs
     setUser(userInfo);
     return userInfo;
 }
+
+export const getProfileSrc = (userCode: number): string | StaticImageData => 
+    userCode > 0
+    ? `https://auth.bssm.kro.kr/resource/user/profile/${userCode}.png`
+    : DefaultProfilePic;

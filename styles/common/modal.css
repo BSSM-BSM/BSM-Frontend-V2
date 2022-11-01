@@ -19,7 +19,7 @@
     position: absolute;
     font-weight: bold;
     word-break: keep-all;
-    padding: 1.5rem;
+    padding: 1.5rem 1rem 1rem;
     border-radius: 2rem;
     box-shadow: var(--shadow);
     background-color: var(--level-1);

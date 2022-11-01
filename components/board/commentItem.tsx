@@ -2,14 +2,14 @@ import { useRecoilState } from 'recoil';
 import { boardOpenAllChildCommentsState, parentCommentState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
 import { BoardAndPostId, Comment, DeletedComment } from "../../types/boardType"
-import { elapsedTime } from '../../utils/util';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
-import { getProfileSrc } from '../../utils/util';
 import { useEffect, useState } from 'react';
 import { FilterXSS } from 'xss';
 import { Button } from '../common/buttons/button';
 import { UserInfoLink } from './userInfoLink';
+import { getProfileSrc } from '../../utils/userUtil';
+import { elapsedTime } from '../../utils/date';
 
 export const CommentList = ({
     comment,

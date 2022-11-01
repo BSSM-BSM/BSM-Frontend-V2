@@ -1,3 +1,22 @@
+export interface MeisterInfo {
+    scoreHtmlContent: string;
+    pointHtmlContent: string;
+    score: number;
+    positivePoint: number;
+    negativePoint: number;
+}
+
+export interface HomeMenuMeisterInfo {
+    isLoading: boolean;
+    score?: number;
+    positivePoint?: number;
+    negativePoint?: number;
+    lastUpdate: string;
+    uniqNo?: string;
+    loginError?: boolean;
+    error: string | false;
+}
+
 export enum MeisterResultType {
     SUCCESS = 'SUCCESS',
     PRIVATE = 'PRIVATE',

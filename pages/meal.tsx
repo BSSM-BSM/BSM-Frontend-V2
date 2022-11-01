@@ -7,10 +7,10 @@ import { HttpMethod, useAjax } from "../hooks/useAjax";
 import { useOverlay } from "../hooks/useOverlay";
 import { screenScaleState, headerOptionState, pushPermissionState } from "../store/common.store";
 import { MealTime, MealType } from "../types/mealTypes";
-import { dateToShortStr, shrotStrToDate } from "../utils/util";
 import { PushPermission, subscribe } from "../utils/webPush";
 import { MealItem } from '../components/meal/mealItem';
 import { Button } from '../components/common/buttons/button';
+import { dateToShortDateStr, shrotDateStrToDate } from '../utils/date';
 
 type MealRes = {
     [index in MealTime]: {
@@ -35,7 +35,7 @@ const MealPage: NextPage = () => {
     useEffect(() => {
         setHeaderOption({title: '급식'});
         (async () => {
-            setMealList(await loadMealList(dateToShortStr(new Date)));
+            setMealList(await loadMealList(dateToShortDateStr(new Date)));
         })();
         window.addEventListener('resize', calcViewRange);
         return () => {
@@ -115,23 +115,19 @@ const MealPage: NextPage = () => {
                     const nextDate = mealList[mealIdx - offset + i + 1]?.date;
                     if (!nextDate) return;
 
-                    const prevDate = shrotStrToDate(nextDate);
-                    prevDate.setDate(
-                        shrotStrToDate(nextDate).getDate() - 1
-                    );
+                    const prevDate = shrotDateStrToDate(nextDate);
+                    prevDate.setDate(prevDate.getDate() - 1);
                     
-                    loadPromises.prev = loadMealList(dateToShortStr(prevDate));
+                    loadPromises.prev = loadMealList(dateToShortDateStr(prevDate));
                 } else {
                     if (loadPromises.next) return;
                     const prevDate = mealList[mealIdx - offset + i - 1]?.date;
                     if (!prevDate) return;
 
-                    const nextDate = shrotStrToDate(prevDate);
-                    nextDate.setDate(
-                        shrotStrToDate(prevDate).getDate() + 1
-                    );
+                    const nextDate = shrotDateStrToDate(prevDate);
+                    nextDate.setDate(nextDate.getDate() + 1);
 
-                    loadPromises.next = loadMealList(dateToShortStr(nextDate));
+                    loadPromises.next = loadMealList(dateToShortDateStr(nextDate));
                 }
             }
         });

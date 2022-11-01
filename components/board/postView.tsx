@@ -5,7 +5,6 @@ import { CommentView } from './commentView';
 import { CommentWrite } from './commentWrite';
 import { useRecoilState } from 'recoil';
 import { boardDetailTimeState, postListState, postState } from '../../store/board.store';
-import { elapsedTime } from '../../utils/util';
 import { escapeAttrValue, FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useEffect, useState } from 'react';
@@ -14,7 +13,6 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
-import { getProfileSrc } from '../../utils/util';
 
 import Prism from 'prismjs';
 import "prismjs/plugins/toolbar/prism-toolbar.min";
@@ -22,6 +20,8 @@ import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/plugins/toolbar/prism-toolbar.min.css";
 import { UserInfoLink } from './userInfoLink';
+import { getProfileSrc } from '../../utils/userUtil';
+import { elapsedTime } from '../../utils/date';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({

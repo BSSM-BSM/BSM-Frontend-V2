@@ -1,7 +1,7 @@
 import styles from '../../styles/meal.module.css';
 import { Dispatch, SetStateAction } from "react";
 import { MealType } from "../../types/mealTypes";
-import { dateToKoreanDateStr, shrotStrToDate } from '../../utils/util';
+import { dateToKoreanDateStr, shrotDateStrToDate } from '../../utils/date';
 
 interface MealItemProps {
     meal: MealType,
@@ -49,7 +49,7 @@ export const MealItem = ({
                 (isSameDay && middleIdx === i) || (!isSameDay && checkShowMealDate(meal, i))
             ) && (
                 <h3 className={styles.date}>
-                    {dateToKoreanDateStr(shrotStrToDate(meal.date))}
+                    {dateToKoreanDateStr(shrotDateStrToDate(meal.date))}
                 </h3>
             )}
             {meal.time && <h4 className={`${styles.meal_info} ${calColor(meal.cal ?? 0)}`}>{meal.time} ({meal.cal} Kcal)</h4>}

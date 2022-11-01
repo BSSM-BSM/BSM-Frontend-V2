@@ -3,7 +3,7 @@ import { userState } from '../../store/account.store';
 import styles from '../../styles/meister/ranking.module.css';
 import { MeisterRanking, MeisterResultType } from '../../types/meisterType';
 import { UserRole } from '../../types/userType';
-import { elapsedTime } from '../../utils/util';
+import { elapsedTime } from '../../utils/date';
 
 interface MeisterRankingItemProps {
     ranking: MeisterRanking,

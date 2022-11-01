@@ -14,6 +14,7 @@ import { TimetableClassMenu } from '../components/timetable/timetableClassMenu';
 import { TimetableInfo } from '../types/timetableType';
 import { TimetableList } from '../components/timetable/timetableList';
 import { Button } from '../components/common/buttons/button';
+import { dateToShortTimeStr, dayNames, shortTimeStrToTotalSecond } from '../utils/date';
 
 const TimetablePage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -31,7 +32,6 @@ const TimetablePage: NextPage = () => {
     const [focus, setFocus] = useState(true);
     const [scrollX, setScrollX] = useState(0);
     const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
-    const dayNames = ['일', '월', '화', '수', '목', '금'];
 
     useEffect(() => {
         setHeaderOption({title: '시간표'});
@@ -94,9 +94,9 @@ const TimetablePage: NextPage = () => {
         let currentTotalTime = 0;
         let currentTimeIndex = 0;
         timetableList.some((timetable, i) => {
-            startTotalTime = convertTime(timetable.startTime);
-            endTotalTime = convertTime(timetable.endTime);
-            currentTotalTime = convertTime(`${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`);
+            startTotalTime = shortTimeStrToTotalSecond(timetable.startTime);
+            endTotalTime = shortTimeStrToTotalSecond(timetable.endTime);
+            currentTotalTime = shortTimeStrToTotalSecond(dateToShortTimeStr(newDate));
             if (startTotalTime <= currentTotalTime && currentTotalTime <= endTotalTime) {
                 currentTimeIndex = i;
                 setCurrentTimeIndex(i);
@@ -122,11 +122,6 @@ const TimetablePage: NextPage = () => {
             });
             setScrollX(Math.floor(totalOffset));
         }
-    }
-
-    const convertTime = (dateString: string): number => {
-        const temp = dateString.split(':');
-        return (Number(temp[0]) * 60 * 60) + (Number(temp[1]) * 60) + Number(temp[2]);
     }
 
     const loadTimetableInfo = async () => {
@@ -191,7 +186,6 @@ const TimetablePage: NextPage = () => {
             <div className={styles.select_box}>
                 <TimetableClassMenu grade={grade} classNo={classNo} setGrade={setGrade} setClassNo={setClassNo} />
             </div>
-            
             <div className={styles.timetable_wrap}>
                 <div className={styles.time_wrap}>
                     <h2 className={!focus? 'gray': ''}>{time}</h2>

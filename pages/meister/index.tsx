@@ -13,14 +13,7 @@ import { NumberInput } from '../../components/common/inputs/numberInput';
 import { headerOptionState } from '../../store/common.store';
 import { UserRole } from '../../types/userType';
 import { Button } from '../../components/common/buttons/button';
-
-interface MeisterInfo {
-    scoreHtmlContent: string;
-    pointHtmlContent: string;
-    score: number;
-    positivePoint: number;
-    negativePoint: number;
-}
+import { MeisterInfo } from '../../types/meisterType';
 
 const MeisterPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);

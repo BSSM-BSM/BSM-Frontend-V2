@@ -21,6 +21,7 @@
 }
 
 .title {
+    font-size: 2rem;
     text-align: left;
 }
 
@@ -29,6 +30,7 @@
     gap: 2rem;
 }
 
+.user_profile,
 .user_profile img {
     width: 5.5rem !important;
     height: 5.5rem !important;
@@ -105,7 +107,7 @@
     }
 
     .title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .user_profile img {
