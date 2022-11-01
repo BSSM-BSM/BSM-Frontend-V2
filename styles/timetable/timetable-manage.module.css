@@ -1,0 +1,99 @@
+.add_item,
+.edit_item,
+.delete_item {
+    position: absolute;
+    z-index: 1;
+    width: 3.75rem;
+    height: 3.75rem;
+    border: none;
+    border-radius: 50%;
+    transition: .25s;
+    background-color: var(--level-7);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+
+:is(
+    .add_item,
+    .edit_item,
+    .delete_item
+) span {
+    font-size: 3rem !important;
+}
+
+:is(
+    .add_item,
+    .edit_item,
+    .delete_item
+):hover {
+    background-color: var(--hover);
+}
+
+.add_item {
+    top: 50%;
+}
+
+.add_item.left {
+    left: 0%;
+    transform: translate(-50%, -50%);
+}
+
+.add_item.right {
+    right: 0%;
+    transform: translate(50%, -50%);
+}
+
+.edit_item {
+    top: calc(0% - 5rem);
+    letter-spacing: -.75rem;
+    background-color: var(--level-5);
+}
+
+.edit_item span {
+    position: absolute;
+    top: 0;
+    left: .15rem;
+}
+
+.delete_item {
+    bottom: calc(0% - 5rem);
+    letter-spacing: -1rem;
+    background-color: var(--level-5);
+}
+
+.delete_item span {
+    position: absolute;
+    top: -.25rem;
+    left: 1.35rem;
+}
+
+.time_input_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+}
+
+.time_input_wrap > div {
+    display: flex;
+    gap: 1rem;
+}
+
+.time_input_wrap > div > div {
+    flex: 1;
+}
+
+.no_timetable {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+}
+
+.no_timetable button {
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+}

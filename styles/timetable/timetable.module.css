@@ -52,11 +52,11 @@
 }
 
 .timetable li:nth-child(2n + 1) {
-    background-color: var(--level-1);
+    background-color: var(--level-2);
 }
 
 .timetable li:nth-child(2n) {
-    background-color: var(--level-2);
+    background-color: var(--level-5);
 }
 
 .timetable li.active {
@@ -71,8 +71,8 @@
     min-width: 15rem !important;
 }
 
-.break span:last-child {
-    font-size: 1.6rem !important;
+.break .class_name:last-child {
+    font-size: 1.6rem;
 }
 
 .timetable li:first-child {
@@ -100,7 +100,7 @@
     border-radius: 1rem;
     font-size: 1.6rem;
     font-weight: bold;
-    background-color: var(--level-2);
+    background-color: var(--level-3);
     cursor: pointer;
     transition: .25s;
     box-shadow: var(--shadow);
@@ -116,7 +116,7 @@
     top: 50%;
     left: 1rem;
     transform: translateY(-50%);
-    background-color: var(--level-2);
+    background-color: var(--level-3);
     cursor: pointer;
     font-size: 2rem;
     font-weight: bold;

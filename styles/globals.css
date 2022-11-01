@@ -49,6 +49,8 @@ body {
     --level-3: #ededed;
     --level-4: #ededed;
     --level-5: #ededed;
+    --level-6: #ededed;
+    --level-7: #ededed;
     
     --level-0-opacity: #fafafa88;
     --level-1-opacity: #fafafa88;
@@ -93,6 +95,8 @@ body.dark {
     --level-3: #303030;
     --level-4: #3a3a3a;
     --level-5: #404040;
+    --level-6: #4a4a4a;
+    --level-7: #505050;
 
     --level-0-opacity: #1a1a1a88;
     --level-1-opacity: #20202088;

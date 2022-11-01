@@ -4,3 +4,9 @@ export interface TimetableInfo {
     startTime: string,
     endTime: string
 }
+
+export enum TimetableManageMode {
+    ADD,
+    EDIT,
+    DELETE
+}

@@ -1,4 +1,4 @@
-import styles from '../../styles/timetable.module.css';
+import styles from '../../styles/timetable/timetable.module.css';
 import { TimetableInfo } from "../../types/timetableType"
 
 interface Props {

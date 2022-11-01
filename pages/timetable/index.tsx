@@ -1,20 +1,20 @@
-import styles from '../styles/timetable.module.css';
+import styles from '../../styles/timetable/timetable.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { userState } from '../store/account.store';
-import { HttpMethod, useAjax } from '../hooks/useAjax';
-import { useInterval } from '../hooks/useInterval';
-import { useOverlay } from '../hooks/useOverlay';
-import { numberInBetween } from '../utils/util';
-import { headerOptionState } from '../store/common.store';
-import { UserRole } from '../types/userType';
-import { TimetableClassMenu } from '../components/timetable/timetableClassMenu';
-import { TimetableInfo } from '../types/timetableType';
-import { TimetableList } from '../components/timetable/timetableList';
-import { Button } from '../components/common/buttons/button';
-import { dateToShortTimeStr, dayNames, shortTimeStrToTotalSecond } from '../utils/date';
+import { userState } from '../../store/account.store';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { useInterval } from '../../hooks/useInterval';
+import { useOverlay } from '../../hooks/useOverlay';
+import { numberInBetween } from '../../utils/util';
+import { headerOptionState } from '../../store/common.store';
+import { UserRole } from '../../types/userType';
+import { TimetableClassMenu } from '../../components/timetable/timetableClassMenu';
+import { TimetableInfo } from '../../types/timetableType';
+import { TimetableList } from '../../components/timetable/timetableList';
+import { Button } from '../../components/common/buttons/button';
+import { dateToShortTimeStr, dayNames, shortTimeStrToTotalSecond } from '../../utils/date';
 
 const TimetablePage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
