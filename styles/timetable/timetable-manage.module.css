@@ -132,6 +132,7 @@
     padding: .5rem 1rem;
     border-radius: 1rem;
     transition: .25s;
+    cursor: pointer;
 }
 
 .list li:hover {

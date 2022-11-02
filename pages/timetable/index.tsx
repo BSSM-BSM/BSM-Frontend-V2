@@ -55,7 +55,7 @@ const TimetablePage: NextPage = () => {
     }, [grade, classNo]);
 
     useEffect(() => {
-        if (!allTimetableList) return setTimetableList([]);;
+        if (!allTimetableList.length) return setTimetableList([]);;
         
         if (!allTimetableList[day]?.length) {
             showAlert('시간표 데이터가 없습니다');

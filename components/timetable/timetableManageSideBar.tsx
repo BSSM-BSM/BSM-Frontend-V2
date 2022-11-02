@@ -85,6 +85,39 @@ export const TimetableManageSideBar = ({
         showToast('저장 완료');
     }
 
+    const importTimetableList = () => {
+        const value = prompt('JSON 설정 값 입력');
+        if (!value) return;
+        setAllTimetableList(JSON.parse(value));
+        showToast('설정을 불러왔습니다');
+    }
+
+    const exportTimetableList = () => {
+        navigator.clipboard.writeText(JSON.stringify(allTimetableList));
+        showToast('JSON 값이 클립보드에 복사되었습니다');
+    }
+
+    const deleteTimetableList = async () => {
+        const [, error] = await ajax<TimetableInfo[][]>({
+            url: `admin/timetable/${selectId}`,
+            method: HttpMethod.DELETE
+        });
+        if (error) return;
+
+        loadManageList();
+        setSelectId(0);
+    }
+
+    const applyTimetableList = async () => {
+        const [, error] = await ajax<TimetableInfo[][]>({
+            url: `admin/timetable/${selectId}/apply`,
+            method: HttpMethod.PUT
+        });
+        if (error) return;
+
+        showToast('시간표가 적용되었습니다');
+    }
+
     useEffect(() => {
         if (!selectId) return;
         loadAllTimetableList();
@@ -93,6 +126,7 @@ export const TimetableManageSideBar = ({
     useEffect(() => {
         if (!grade || !classNo) return;
         loadManageList();
+        setSelectId(0);
     }, [grade, classNo]);
     
     useEffect(() => {
@@ -102,7 +136,7 @@ export const TimetableManageSideBar = ({
     return (
         <div className={styles.side_bar}>
             <TimetableManageMenu loadManageList={loadManageList} grade={grade} classNo={classNo} />
-            <ul className={`${styles.list} button-wrap`}>
+            <ul className={styles.list}>
                 <div className='rows'>
                     <TimetableClassMenu grade={grade} classNo={classNo} setGrade={setGrade} setClassNo={setClassNo} />
                 </div>
@@ -113,10 +147,19 @@ export const TimetableManageSideBar = ({
             </ul>
             {
                 selectId !== 0 &&
-                <div className='rows gap-05'>
-                    <Button className='delete flex-main'>삭제</Button>
-                    <Button className='accent flex-main' onClick={saveTimetableList}>저장</Button>
-                </div>
+                <ul className='cols gap-05'>
+                    <li className='rows gap-05'>
+                        <Button className='flex-main' onClick={importTimetableList} >불러오기</Button>
+                        <Button className='flex-main' onClick={exportTimetableList}>내보내기</Button>
+                    </li>
+                    <li className='rows gap-05'>
+                        <Button className='delete flex-main' onClick={deleteTimetableList}>삭제</Button>
+                        <Button className='accent flex-main' onClick={saveTimetableList}>저장</Button>
+                    </li>
+                    <li>
+                        <Button className='accent' full onClick={applyTimetableList}>적용</Button>
+                    </li>
+                </ul>
             }
         </div>
     );

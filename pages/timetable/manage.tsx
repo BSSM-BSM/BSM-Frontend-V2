@@ -26,7 +26,7 @@ const TimetableManagePage: NextPage = () => {
     const [manageItem, setManageItem] = useState<TimetableManageInfo | null>(null);
     const [allTimetableList, setAllTimetableList] = useState<TimetableInfo[][]>([]);
     const [timetableList, setTimetableList] = useState<TimetableInfo[]>([]);
-    const [selectIdx, setSelectIdx] = useState(0);``
+    const [selectIdx, setSelectIdx] = useState(0);
     const [mode, setMode] = useState<TimetableManageMode>(TimetableManageMode.ADD);
 
     useEffect(() => {
@@ -137,6 +137,7 @@ const TimetableManagePage: NextPage = () => {
                     {timetableList.map((timetable, i) => timetableItem(timetable, i))}
                 </ul>
                 {
+                    selectIdx &&
                     manageItem &&
                     !timetableList.length &&
                     <div className={manageStyles.no_timetable}>
