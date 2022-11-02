@@ -6,96 +6,57 @@ import { NumberInput } from "../common/inputs/numberInput";
 import { TextInput } from "../common/inputs/textInput";
 import Modal from "../common/modal";
 import { useModal } from '../../hooks/useModal';
+import { HttpMethod, useAjax } from '../../hooks/useAjax';
 
 interface TimetableManageMenuProps {
-    timetableList: TimetableInfo[],
-    setTimetableList: Dispatch<SetStateAction<TimetableInfo[]>>,
-    selectIdx: number,
-    mode: TimetableManageMode
+    loadManageList: () => void,
+    grade: number,
+    classNo: number
 }
 
 export const TimetableManageMenu = (props: TimetableManageMenuProps) => (
     <>
-        <AddTimetable {...props} />
+        <CreateTimetable {...props} />
     </>
 );
 
-const AddTimetable = ({
-    timetableList,
-    setTimetableList,
-    selectIdx,
-    mode
+const CreateTimetable = ({
+    loadManageList,
+    grade,
+    classNo
 }: TimetableManageMenuProps) => {
+    const {ajax} = useAjax();
     const {closeModal} = useModal();
-    const [className, setClassName] = useState('');
-    const [startHour, setStartHour] = useState(0);
-    const [startMinute, setStartMinute] = useState(0);
-    const [endHour, setEndHour] = useState(0);
-    const [endMinute, setEndMinute] = useState(0);
-    const [classType, setClassType] = useState('normal');
+    const [name, setName] = useState('');
+    const [type, setType] = useState('NORMAL');
 
     const init = () => {
-        console.log(selectIdx)
-        if (mode === TimetableManageMode.ADD) {
-            setClassName('');
-            setStartHour(0);
-            setStartMinute(0);
-            setEndHour(0);
-            setEndMinute(0);
-            setClassType('normal');
-
-        } else if (mode === TimetableManageMode.EDIT) {
-            const currentTimetable = timetableList[selectIdx];
-            const tempStartTime = currentTimetable.startTime.split(':');
-            const tempEndTime = currentTimetable.endTime.split(':');
-
-            setClassName(currentTimetable.className);
-            setStartHour(Number(tempStartTime[0]));
-            setStartMinute(Number(tempStartTime[1]));
-            setEndHour(Number(tempEndTime[0]));
-            setEndMinute(Number(tempEndTime[1]));
-            setClassType(currentTimetable.type);
-        }
+        setName('');
+        setType('NORMAL');
     }
 
-    const addTimetable = () => {
-        const startTime = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}:00`;
-        const endTime = `${endHour}:${String(endMinute).padStart(2, '0')}:00`;
-        setTimetableList(prev => [
-            ...prev.slice(0, selectIdx + 1),
-            {
-                className,
-                startTime,
-                endTime,
-                type: classType
-            },
-            ...prev.slice(selectIdx + 1)
-        ]);
-        closeModal('manageTimetable');
-    }
-
-    const editTimetable = () => {
-        const startTime = `${startHour}:${String(startMinute).padStart(2, '0')}:00`;
-        const endTime = `${endHour}:${String(endMinute).padStart(2, '0')}:00`;
-        setTimetableList(prev => {
-            prev[selectIdx] = {
-                className,
-                startTime,
-                endTime,
-                type: classType
-            };
-            return prev;
+    const createTimetable = async () => {
+        const [, error] = await ajax<TimetableInfo[][]>({
+            url: `admin/timetable`,
+            method: HttpMethod.POST,
+            payload: {
+                name,
+                type,
+                grade,
+                classNo
+            }
         });
-        closeModal('manageTimetable');
-    }
+        if (error) return;
 
-    useEffect(init, [mode, selectIdx]);
+        closeModal('createTimetable');
+        loadManageList();
+    }
 
     return (
         <Modal
             type="main"
-            id="manageTimetable"
-            title={mode === TimetableManageMode.ADD? '시간표 추가': mode === TimetableManageMode.EDIT? '시간표 수정': ''}
+            id="createTimetable"
+            title='시간표 만들기'
             callback={init}
         >
             <form
@@ -103,95 +64,42 @@ const AddTimetable = ({
                 autoComplete="off"
                 onSubmit={e => {
                     e.preventDefault();
-                    if (mode === TimetableManageMode.ADD) addTimetable();
-                    else if (mode === TimetableManageMode.EDIT) editTimetable();
+                    createTimetable()
                 }}
             >
                 <TextInput
-                    setCallback={setClassName}
+                    setCallback={setName}
                     placeholder="이름"
                     maxLength={12}
-                    value={className}
+                    value={name}
                     full
                     required
                 />
-                <div className="rows gap-1">
-                    <div className={styles.time_input_wrap}>
-                        <p>시작 시간</p>
-                        <div>
-                            <NumberInput
-                                setCallback={setStartHour}
-                                placeholder="시"
-                                min={0}
-                                max={24}
-                                value={mode === TimetableManageMode.EDIT? startHour: undefined}
-                                full
-                                required
-                            />
-                            <NumberInput
-                                setCallback={setStartMinute}
-                                placeholder="분"
-                                min={0}
-                                max={59}
-                                value={mode === TimetableManageMode.EDIT? startMinute: undefined}
-                                full
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className={styles.time_input_wrap}>
-                        <p>종료 시간</p>
-                        <div>
-                            <NumberInput
-                                setCallback={setEndHour}
-                                placeholder="시"
-                                min={0}
-                                max={24}
-                                value={mode === TimetableManageMode.EDIT? endHour: undefined}
-                                full
-                                required
-                            />
-                            <NumberInput
-                                setCallback={setEndMinute}
-                                placeholder="분"
-                                min={0}
-                                max={59}
-                                value={mode === TimetableManageMode.EDIT? endMinute: undefined}
-                                full
-                                required
-                            />
-                        </div>
-                    </div>
-                </div>
                 <div className='rows gap-1'>{
                     [{
                         name: '일반',
-                        value: 'normal'
+                        value: 'NORMAL'
                     },
                     {
-                        name: '쉬는시간',
-                        value: 'break'
+                        name: '단축수업',
+                        value: 'SHORT'
                     },
                     {
-                        name: '수업',
-                        value: 'class'
-                    },
-                    {
-                        name: '방과후',
-                        value: 'after'
-                    }].map(type => (
-                        <label key={type.value} className='checkbox'>
-                            {type.name}
+                        name: '시간표 변경',
+                        value: 'CHANGE'
+                    }].map(timetableType => (
+                        <label key={timetableType.value} className='checkbox'>
+                            {timetableType.name}
                             <input
                                 type="radio"
-                                value={type.value}
-                                checked={classType === type.value}
-                                onChange={(event) => setClassType(event.target.value)}
+                                value={timetableType.value}
+                                checked={type === timetableType.value}
+                                onChange={(event) => setType(event.target.value)}
                             />
                         </label>
                     ))
                 }</div>
-                <Button type="submit" className="accent">{mode === TimetableManageMode.ADD? '추가': mode === TimetableManageMode.EDIT? '수정': ''}</Button>
+                <Button type="submit" className="accent">만들기</Button>
             </form>
         </Modal>
     );

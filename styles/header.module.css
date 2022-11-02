@@ -10,6 +10,7 @@
     font-size: 1.6rem;
     font-weight: bold;
     user-select: none;
+    pointer-events: none;
 }
 
 .top_menu_bar .dropdown:first-child :global(.dropdown-content) {
@@ -28,6 +29,7 @@
     background-color: var(--level-3-opacity);
     backdrop-filter: blur(3px);
     box-shadow: var(--shadow);
+    pointer-events: all;
 }
 
 .item {

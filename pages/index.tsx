@@ -18,7 +18,7 @@ const Home: NextPage = () => {
     return (
         <div className='full-screen'>
             <Head>
-                <title>BSM - 부산소마고 지원서비스</title>
+                <title>BSM - 부산소마고 지원 서비스</title>
             </Head>
             <section className={styles.quick_menu_section}>
                 <ul className={`${styles.quick_menu_list} button-wrap`}>

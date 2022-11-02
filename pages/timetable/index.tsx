@@ -24,6 +24,7 @@ const TimetablePage: NextPage = () => {
     const [grade, setGrade] = useState(0);
     const [classNo, setClassNo] = useState(0);
     const [day, setDay] = useState(new Date().getDay());
+    const [allTimetableList, setAllTimetableList] = useState<TimetableInfo[][]>([]);
     const [timetableList, setTimetableList] = useState<TimetableInfo[]>([]);
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
@@ -51,11 +52,20 @@ const TimetablePage: NextPage = () => {
         if (!grade || !classNo) return;
         
         loadTimetableInfo();
+    }, [grade, classNo]);
+
+    useEffect(() => {
+        if (!allTimetableList) return setTimetableList([]);;
+        
+        if (!allTimetableList[day]?.length) {
+            showAlert('시간표 데이터가 없습니다');
+        }
+        setTimetableList(allTimetableList[day] ?? []);
         if (day !== new Date().getDay()) {
             setFocus(false);
             setCurrentTimeIndex(-1);
         }
-    }, [day, grade, classNo]);
+    }, [day, allTimetableList]);
 
     const timeTableRender = () => {
         if (!timetableList.length) return;
@@ -125,31 +135,16 @@ const TimetablePage: NextPage = () => {
     }
 
     const loadTimetableInfo = async () => {
-        const [data, error] = await ajax<TimetableInfo[]>({
-            url: `timetable/${grade}/${classNo}/${day}`,
+        const [data, error] = await ajax<TimetableInfo[][]>({
+            url: `timetable/${grade}/${classNo}`,
             method: HttpMethod.GET,
             errorCallback() {
-                setTimetableList([]);
+                setAllTimetableList([]);
             }
         });
         if (error) return;
         
-        const newTimetableList: TimetableInfo[] = [];
-        data.forEach((timetable, i, arr) => {
-            newTimetableList.push(timetable);
-            if (timetable.type === 'class' && ['class', 'after'].includes(arr[i + 1]?.type)) {
-                newTimetableList.push({
-                    className: '쉬는시간',
-                    type: 'break',
-                    startTime: timetable.endTime,
-                    endTime: data[i + 1].startTime
-                });
-            }
-        });
-        setTimetableList(newTimetableList);
-        if (!newTimetableList.length) {
-            showAlert('시간표 데이터가 없습니다');
-        }
+        setAllTimetableList(data);
     }
 
     return (

@@ -4,25 +4,29 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { useAjax } from '../../hooks/useAjax';
 import { headerOptionState } from '../../store/common.store';
-import { TimetableClassMenu } from '../../components/timetable/timetableClassMenu';
-import { TimetableInfo, TimetableManageMode } from '../../types/timetableType';
+import { TimetableInfo, TimetableManageInfo, TimetableManageMode } from '../../types/timetableType';
 import { TimetableList } from '../../components/timetable/timetableList';
 import { dayNames } from '../../utils/date';
-import Modal from '../../components/common/modal';
-import { TimetableManageMenu } from '../../components/timetable/timetableManageMenu';
+import { TimetableItemManageMenu } from '../../components/timetable/timetableItemManageMenu';
 import { useModal } from '../../hooks/useModal';
+import { useRouter } from 'next/router';
+import { TimetableManageSideBar } from '../../components/timetable/timetableManageSideBar';
 
 const TimetableManagePage: NextPage = () => {
+    const router = useRouter();
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const {ajax} = useAjax();
     const {openModal} = useModal();
-    const [grade, setGrade] = useState(1);
-    const [classNo, setClassNo] = useState(1);
+    const [grade, setGrade] = useState(0);
+    const [classNo, setClassNo] = useState(0);
     const [day, setDay] = useState(new Date().getDay());
+
+    const [manageItem, setManageItem] = useState<TimetableManageInfo | null>(null);
+    const [allTimetableList, setAllTimetableList] = useState<TimetableInfo[][]>([]);
     const [timetableList, setTimetableList] = useState<TimetableInfo[]>([]);
-    const [selectIdx, setSelectIdx] = useState(0);
+    const [selectIdx, setSelectIdx] = useState(0);``
     const [mode, setMode] = useState<TimetableManageMode>(TimetableManageMode.ADD);
 
     useEffect(() => {
@@ -30,45 +34,34 @@ const TimetableManagePage: NextPage = () => {
     }, []);
 
     useEffect(() => {
-        if (!grade || !classNo) return;
-        
-        loadTimetableInfo();
-    }, [day, grade, classNo]);
+        const {query} = router;
+        if (query.grade) setGrade(Number(query.grade));
+        if (query.classNo) setClassNo(Number(query.classNo));
+        if (query.day) setDay(Number(query.day));
+    }, [router.query]);
 
-    const loadTimetableInfo = async () => {
-        const data: TimetableInfo[] = []
-        // const [data, error] = await ajax<TimetableInfo[]>({
-        //     url: `timetable/${grade}/${classNo}/${day}`,
-        //     method: HttpMethod.GET,
-        //     errorCallback() {
-        //         setTimetableList([]);
-        //     }
-        // });
-        // if (error) return;
+    useEffect(() => {
+        if (!allTimetableList) return setTimetableList([]);
         
-        const newTimetableList: TimetableInfo[] = [];
-        data.forEach((timetable, i, arr) => {
-            newTimetableList.push(timetable);
-            if (timetable.type === 'class' && ['class', 'after'].includes(arr[i + 1]?.type)) {
-                newTimetableList.push({
-                    className: '쉬는시간',
-                    type: 'break',
-                    startTime: timetable.endTime,
-                    endTime: data[i + 1].startTime
-                });
-            }
+        setTimetableList(allTimetableList[day] ?? []);
+    }, [day, allTimetableList]);
+
+    useEffect(() => {
+        if (!allTimetableList) return;
+        setAllTimetableList(prev => {
+            prev[day] = timetableList;
+            return prev;
         });
-        setTimetableList(newTimetableList);
-    }
+    }, [timetableList])
 
     const addHandler = () => {
         setMode(TimetableManageMode.ADD);
-        openModal('manageTimetable');
+        openModal('manageTimetableItem');
     }
 
     const editHandler = () => {
         setMode(TimetableManageMode.EDIT);
-        openModal('manageTimetable');
+        openModal('manageTimetableItem');
     }
 
     const deleteHandler = (i: number) => {
@@ -115,7 +108,7 @@ const TimetableManagePage: NextPage = () => {
             <Head>
                 <title>시간표 관리 - BSM</title>
             </Head>
-            <TimetableManageMenu timetableList={timetableList} setTimetableList={setTimetableList} selectIdx={selectIdx} mode={mode} />
+            <TimetableItemManageMenu timetableList={timetableList} setTimetableList={setTimetableList} selectIdx={selectIdx} mode={mode} />
             <div className='container _120 rows'>
                 <TimetableList timetableList={timetableList} />
             </div>
@@ -130,15 +123,21 @@ const TimetableManagePage: NextPage = () => {
                     </li>
                 ))
             }</ul>
-            <div className={styles.select_box}>
-                <TimetableClassMenu grade={grade} classNo={classNo} setGrade={setGrade} setClassNo={setClassNo} />
-            </div>
+            <TimetableManageSideBar
+                setManageItem={setManageItem}
+                allTimetableList={allTimetableList}
+                setAllTimetableList={setAllTimetableList}
+                grade={grade}
+                classNo={classNo}
+                setGrade={setGrade}
+                setClassNo={setClassNo}
+            />
             <div className={styles.timetable_wrap}>
-                {timetableList.length > 0 && <div className={styles.time_line}></div>}
                 <ul className={`${styles.timetable} scroll-bar horizontal`}>
                     {timetableList.map((timetable, i) => timetableItem(timetable, i))}
                 </ul>
                 {
+                    manageItem &&
                     !timetableList.length &&
                     <div className={manageStyles.no_timetable}>
                         <p>아래 버튼을 눌러 시간표를 추가하세요</p>
