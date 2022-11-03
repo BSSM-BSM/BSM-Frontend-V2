@@ -10,7 +10,8 @@ import { MealTime, MealType } from "../types/mealTypes";
 import { PushPermission, subscribe } from "../utils/webPush";
 import { MealItem } from '../components/meal/mealItem';
 import { Button } from '../components/common/buttons/button';
-import { dateToShortDateStr, shrotDateStrToDate } from '../utils/date';
+import { dateToShortDateStr, shrotDateStrToDate, timeToTotalSecond } from '../utils/date';
+import { numberInBetween } from '../utils/util';
 
 type MealRes = {
     [index in MealTime]: {
@@ -18,6 +19,29 @@ type MealRes = {
         cal: number
     } | null;
 };
+
+const MealTimeRange = [
+    {
+        startSecond: 0, // 0:00
+        endSecond: 27600, // 7:40
+        timeName: MealTime.MORNING
+    },
+    {
+        startSecond: 27600, // 7:40
+        endSecond: 45600, // 12:40
+        timeName: MealTime.LUNCH
+    },
+    {
+        startSecond: 45600, // 12:40
+        endSecond: 66000, // 18:20
+        timeName: MealTime.DINNER
+    },
+    {
+        startSecond: 66000, // 18:20
+        endSecond: 86400, // 24:00
+        timeName: MealTime.MORNING
+    }
+]
 
 const MealPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -35,7 +59,9 @@ const MealPage: NextPage = () => {
     useEffect(() => {
         setHeaderOption({title: '급식'});
         (async () => {
-            setMealList(await loadMealList(dateToShortDateStr(new Date)));
+            const initialMeal = await loadMealList(dateToShortDateStr(new Date));
+            calcNextTimeMeal(initialMeal);
+            setMealList(initialMeal);
         })();
         window.addEventListener('resize', calcViewRange);
         return () => {
@@ -48,6 +74,22 @@ const MealPage: NextPage = () => {
     useEffect(() => {
         renderMeal();
     }, [mealList, mealIdx, viewRange]);
+
+    const calcNextTimeMeal = (mealList: MealType[]) => {
+        const nowTotalSecond = timeToTotalSecond(new Date());
+        mealList.some((meal) => {
+            if (meal.time === undefined) return true;
+            return MealTimeRange.some((time, i) => {
+                if (!numberInBetween(time.startSecond, time.endSecond, nowTotalSecond)) return false;
+                if (i > mealList.length) {
+                    setMealIdx(prev => prev + mealList.length+1)
+                    return true;
+                };
+                setMealIdx(prev => prev + i)
+                return true;
+            });
+        });
+    }
 
     const loadMealList = (date: string): Promise<MealType[]> => {
         return new Promise(async (resolve, reject) => {
@@ -106,8 +148,7 @@ const MealPage: NextPage = () => {
         [...Array(viewRange).keys()].forEach(i => {
             if (mealList[mealIdx - offset + i]) {
                 tempMealList.push(mealList[mealIdx - offset + i]);
-            }
-            else {
+            } else {
                 loadFlag = true;
                 // 이전, 다음 급식 불러오기
                 if (offset > i) {

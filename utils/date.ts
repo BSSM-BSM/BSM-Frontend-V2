@@ -53,3 +53,7 @@ export const shortTimeStrToTotalSecond = (
     const temp = str.split(':');
     return (Number(temp[0]) * 60 * 60) + (Number(temp[1]) * 60) + Number(temp[2]);
 }
+
+export const timeToTotalSecond = (time: Date): number => {
+    return (time.getHours() * 60 * 60) + (time.getMinutes() * 60) + time.getSeconds();
+}

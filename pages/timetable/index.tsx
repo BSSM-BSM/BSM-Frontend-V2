@@ -107,7 +107,7 @@ const TimetablePage: NextPage = () => {
             startTotalTime = shortTimeStrToTotalSecond(timetable.startTime);
             endTotalTime = shortTimeStrToTotalSecond(timetable.endTime);
             currentTotalTime = shortTimeStrToTotalSecond(dateToShortTimeStr(newDate));
-            if (startTotalTime <= currentTotalTime && currentTotalTime <= endTotalTime) {
+            if (numberInBetween(startTotalTime, endTotalTime, currentTotalTime)) {
                 currentTimeIndex = i;
                 setCurrentTimeIndex(i);
                 return true;
@@ -204,7 +204,7 @@ const TimetablePage: NextPage = () => {
                                     {timetable.startTime.split(':').filter((str, j) => j != 2).join(':')}
                                 </span>
                             }
-                            <span>{timetable.className}</span>
+                            <span className={styles.class_name}>{timetable.className}</span>
                         </li>
                     ))
                 }</ul>
