@@ -78,14 +78,17 @@ const MealPage: NextPage = () => {
     const calcNextTimeMeal = (mealList: MealType[]) => {
         const nowTotalSecond = timeToTotalSecond(new Date());
         mealList.some((meal) => {
-            if (meal.time === undefined) return true;
             return MealTimeRange.some((time, i) => {
+                if (meal.time === undefined) {
+                    setMealIdx(prev => ++prev);
+                    return true;
+                }
                 if (!numberInBetween(time.startSecond, time.endSecond, nowTotalSecond)) return false;
                 if (i > mealList.length) {
-                    setMealIdx(prev => prev + mealList.length+1)
+                    setMealIdx(prev => prev + mealList.length);
                     return true;
                 };
-                setMealIdx(prev => prev + i)
+                setMealIdx(prev => prev + i);
                 return true;
             });
         });

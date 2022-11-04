@@ -137,7 +137,6 @@ const TimetableManagePage: NextPage = () => {
                     {timetableList.map((timetable, i) => timetableItem(timetable, i))}
                 </ul>
                 {
-                    selectIdx &&
                     manageItem &&
                     !timetableList.length &&
                     <div className={manageStyles.no_timetable}>

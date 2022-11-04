@@ -8,6 +8,6 @@ export const UserInfoLink = ({
     userCode
 }: UserInfoLinkProps) => (
     userCode > 0
-    ? <a href={`https://auth.bssm.kro.kr/user/${userCode}`}>{nickname}</a>
+    ? <a target='_blank' rel='noopener noreferrer' href={`https://auth.bssm.kro.kr/user/${userCode}`}>{nickname}</a>
     : <span className="gray">{nickname}</span>
 );

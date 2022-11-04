@@ -35,7 +35,8 @@ const AddTimetable = ({
     const [classType, setClassType] = useState('normal');
 
     const init = () => {
-        console.log(selectIdx)
+        if (!timetableList[selectIdx]) return;
+
         if (mode === TimetableManageMode.ADD) {
             setClassName('');
             setStartHour(0);
@@ -110,7 +111,7 @@ const AddTimetable = ({
                 <TextInput
                     setCallback={setClassName}
                     placeholder="이름"
-                    maxLength={12}
+                    maxLength={30}
                     value={className}
                     full
                     required

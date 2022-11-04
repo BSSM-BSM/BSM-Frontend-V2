@@ -3,7 +3,7 @@ const nextConfig = {
     images: {
         domains: ['bssm.kro.kr', 'auth.bssm.kro.kr']
     },
-    reactStrictMode: true,
+    reactStrictMode: false,
     swcMinify: true,
     rewrites() {
         return [
