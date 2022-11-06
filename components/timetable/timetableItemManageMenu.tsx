@@ -6,6 +6,8 @@ import { NumberInput } from "../common/inputs/numberInput";
 import { TextInput } from "../common/inputs/textInput";
 import Modal from "../common/modal";
 import { useModal } from '../../hooks/useModal';
+import { shortTimeStrToTotalSecond } from '../../utils/date';
+import { useOverlay } from '../../hooks/useOverlay';
 
 interface TimetableItemManageMenuProps {
     timetableList: TimetableInfo[],
@@ -27,6 +29,7 @@ const AddTimetable = ({
     mode
 }: TimetableItemManageMenuProps) => {
     const {closeModal} = useModal();
+    const {showToast} = useOverlay();
     const [className, setClassName] = useState('');
     const [startHour, setStartHour] = useState(0);
     const [startMinute, setStartMinute] = useState(0);
@@ -59,9 +62,7 @@ const AddTimetable = ({
         }
     }
 
-    const addTimetable = () => {
-        const startTime = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}:00`;
-        const endTime = `${endHour}:${String(endMinute).padStart(2, '0')}:00`;
+    const addTimetable = (startTime: string, endTime: string) => {
         setTimetableList(prev => [
             ...prev.slice(0, selectIdx + 1),
             {
@@ -75,9 +76,7 @@ const AddTimetable = ({
         closeModal('manageTimetableItem');
     }
 
-    const editTimetable = () => {
-        const startTime = `${startHour}:${String(startMinute).padStart(2, '0')}:00`;
-        const endTime = `${endHour}:${String(endMinute).padStart(2, '0')}:00`;
+    const editTimetable = (startTime: string, endTime: string) => {
         setTimetableList(prev => {
             prev[selectIdx] = {
                 className,
@@ -88,6 +87,19 @@ const AddTimetable = ({
             return prev;
         });
         closeModal('manageTimetableItem');
+    }
+
+    const timetableHandler = () => {
+        if (shortTimeStrToTotalSecond(`${startHour}:${startMinute}:0`) > shortTimeStrToTotalSecond(`${endHour}:${endMinute}:0`)) {
+            showToast('종료 시간을 시작 시간보다 이후로 설정해주세요');
+            return;
+        }
+        const startTime = `${startHour}:${String(startMinute).padStart(2, '0')}:00`;
+        let endTime = `${endHour}:${String(endMinute).padStart(2, '0')}:00`;
+        if (endHour >= 24 || (endHour === 23 && endMinute === 59)) endTime = '23:59:59';
+        
+        if (mode === TimetableManageMode.ADD) addTimetable(startTime, endTime);
+        else if (mode === TimetableManageMode.EDIT) editTimetable(startTime, endTime);
     }
 
     useEffect(init, [mode, selectIdx]);
@@ -104,8 +116,7 @@ const AddTimetable = ({
                 autoComplete="off"
                 onSubmit={e => {
                     e.preventDefault();
-                    if (mode === TimetableManageMode.ADD) addTimetable();
-                    else if (mode === TimetableManageMode.EDIT) editTimetable();
+                    timetableHandler();
                 }}
             >
                 <TextInput

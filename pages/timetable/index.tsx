@@ -84,9 +84,7 @@ const TimetablePage: NextPage = () => {
             syncTimetable(newDate);
         }
 
-        const currentDate = newDate.toLocaleDateString();
-        if (date == currentDate) return;
-        setDate(currentDate);
+        setDate(newDate.toLocaleDateString());
     }
 
     useInterval(timeTableRender, 500);
