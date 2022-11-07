@@ -83,8 +83,7 @@ const TimetableManagePage: NextPage = () => {
                             setSelectIdx(-1);
                             addHandler();
                         }}
-                        className={`${manageStyles.add_item}
-                        ${manageStyles.left}`}
+                        className={`${manageStyles.add_item} ${manageStyles.left}`}
                     >
                         <span>+</span>
                     </button>

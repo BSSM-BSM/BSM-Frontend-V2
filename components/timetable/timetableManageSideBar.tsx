@@ -134,7 +134,10 @@ export const TimetableManageSideBar = ({
     }, [selectId])
 
     return (
-        <div className={styles.side_bar}>
+        <div className={`${styles.side_bar} ${isOpen? styles.open: ''}`}>
+            <div onClick={() => setIsOpen(prev => !prev)} className={styles.on_off}>
+                {isOpen? '>': '<'}
+            </div>
             <TimetableManageMenu loadManageList={loadManageList} grade={grade} classNo={classNo} />
             <ul className={styles.list}>
                 <div className='rows'>
