@@ -11,13 +11,21 @@ export const pushSubscriptionState = atom<PushSubscription | null>({
 export const themeState = atom<string>({
     key: 'theme',
     default: 'dark',
-    effects: [localStorageEffect('theme', LocalStorageType.string)?? 'dark']
+    effects: [localStorageEffect({
+        key: 'theme',
+        type: LocalStorageType.string,
+        defaultValue: 'dark'
+    })]
 });
 
 export const screenScaleState = atom<number>({
     key: 'screenScale',
     default: 100,
-    effects: [localStorageEffect('screenScale', LocalStorageType.number)?? 100]
+    effects: [localStorageEffect({
+        key: 'screenScale',
+        type: LocalStorageType.number,
+        defaultValue: 100
+    })]
 });
 
 export interface headerOption {

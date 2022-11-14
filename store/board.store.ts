@@ -12,7 +12,11 @@ export const postListState = atom<Post[]>({
 export const postLimitState = atom<number>({
     key: 'postLimit',
     default: 15,
-    effects: [localStorageEffect('postLimit', LocalStorageType.number)?? 15]
+    effects: [localStorageEffect({
+        key: 'postLimit',
+        type: LocalStorageType.number,
+        defaultValue: 15
+    })]
 });
 
 export const boardAndPostIdState = atom<BoardAndPostId>({
@@ -41,19 +45,31 @@ export const parentCommentState = atom<Comment | null>({
 export const boardDetailTimeState = atom<boolean>({
     key: 'boardDetailTime',
     default: false,
-    effects: [localStorageEffect('boardDetailTime', LocalStorageType.boolean)?? false]
+    effects: [localStorageEffect({
+        key: 'boardDetailTime',
+        type: LocalStorageType.boolean,
+        defaultValue: false
+    })]
 });
 
 export const boardAnonymousModeState = atom<boolean>({
     key: 'boardAnonymousMode',
     default: false,
-    effects: [localStorageEffect('boardAnonymousMode', LocalStorageType.boolean)?? false]
+    effects: [localStorageEffect({
+        key: 'boardAnonymousMode',
+        type: LocalStorageType.boolean,
+        defaultValue: false
+    })]
 });
 
 export const boardOpenAllChildCommentsState = atom<boolean>({
     key: 'boardOpenAllChildComments',
     default: false,
-    effects: [localStorageEffect('boardOpenAllChildComments', LocalStorageType.boolean)?? false]
+    effects: [localStorageEffect({
+        key: 'boardOpenAllChildComments',
+        type: LocalStorageType.boolean,
+        defaultValue: false
+    })]
 });
 
 export const boardActiveEditorState = atom<RefObject<HTMLElement> | Editor | null>({
