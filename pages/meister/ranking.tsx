@@ -8,21 +8,38 @@ import { MeisterRankingItem } from '../../components/meister/rankingItem';
 import { useOverlay } from '../../hooks/useOverlay';
 import { headerOptionState } from '../../store/common.store';
 import { useRecoilState } from 'recoil';
+import { CheckList } from '../../components/common/buttons/checkList';
+import { userState } from '../../store/account.store';
+import { UserRole } from '../../types/userType';
 
 const MeisterPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const { ajax } = useAjax();
     const { showAlert, showToast } = useOverlay();
     const [rankingList, setRankingList] = useState<MeisterRanking[]>([]);
+    const [user] = useRecoilState(userState);
+    const [grade, setGrade] = useState<number>(0);
 
     useEffect(() => {
         setHeaderOption({title: '마이스터 랭킹', allMenu: {goBack: true}});
-        loadMeisterInfo();
     }, []);
+
+    useEffect(() => {
+        if (!user.isLogin || user.role !== UserRole.STUDENT) {
+            setGrade(1);
+            return;
+        }
+        setGrade(user.student.grade);
+    }, [user]);
+
+    useEffect(() => {
+        if (!grade) return;
+        loadMeisterInfo();
+    }, [grade]);
 
     const loadMeisterInfo = async () => {
         const [data, error] = await ajax<MeisterRanking[]>({
-            url: 'meister/ranking',
+            url: `meister/ranking/${grade}`,
             method: HttpMethod.GET,
             errorCallback(data) {
                 if (data && 'statusCode' in data && data.statusCode === 403) {
@@ -69,6 +86,17 @@ const MeisterPage: NextPage = () => {
             <Head>
                 <title>마이스터 랭킹 - BSM</title>
             </Head>
+            <CheckList
+                currentItem={grade}
+                itemList={
+                    [
+                        {id: 1, name: '1학년'},
+                        {id: 2, name: '2학년'},
+                        {id: 3, name: '3학년'},
+                    ]
+                }
+                callback={item => setGrade(item.id)}
+            />
             <ul className={styles.ranking_list}>{
                 rankingList.map((ranking, i) => <MeisterRankingItem key={i} ranking={ranking} i={i} updatePrivateRanking={updatePrivateRanking} />)
             }</ul>

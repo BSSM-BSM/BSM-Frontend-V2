@@ -166,9 +166,9 @@ export const PostWrite = ({
             <div className="rows gap-1">
                 <CheckList
                     className='flex-main'
-                    currentMenu={category}
-                    callback={menu => setCategory(menu.id)}
-                    menuList={
+                    currentItem={category}
+                    callback={item => setCategory(item.id)}
+                    itemList={
                         [
                             {id: 'normal', name: '일반'},
                             ...Object.values(categoryList)

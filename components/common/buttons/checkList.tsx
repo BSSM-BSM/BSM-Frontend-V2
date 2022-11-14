@@ -1,9 +1,9 @@
 import styles from '../../../styles/common/check-list.module.css';
 
 interface CheckListProps<ID, T extends Menu<ID>> {
-    currentMenu: ID,
-    menuList: T[],
-    callback: (menu: T) => void,
+    currentItem: ID,
+    itemList: T[],
+    callback: (item: T) => void,
     className?: string
 }
 
@@ -13,19 +13,19 @@ interface Menu<ID> {
 }
 
 export const CheckList = <ID, T extends Menu<ID>>({
-    currentMenu,
-    menuList,
+    currentItem,
+    itemList,
     callback,
     className
 }: CheckListProps<ID, T>) => (
     <ul className={`${styles.check_list} button-wrap scroll-bar no-overlay horizontal ${className ?? ''}`}>{
-        menuList.map(menu => (
+        itemList.map(item => (
             <li
-                key={`${menu.id}-${menu.name}`}
-                onClick={() => callback(menu)}
-                className={menu.id === currentMenu? styles.active: ''}
+                key={`${item.id}-${item.name}`}
+                onClick={() => callback(item)}
+                className={item.id === currentItem? styles.active: ''}
             >
-                {menu.name}
+                {item.name}
             </li>
         ))
     }</ul>

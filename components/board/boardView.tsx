@@ -53,9 +53,9 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
             <div className='container'>
                 <div className={styles.category_list_wrap}>
                     <CheckList
-                        currentMenu={postCategory}
-                        callback={menu => setPostCategory(menu.id)}
-                        menuList={
+                        currentItem={postCategory}
+                        callback={item => setPostCategory(item.id)}
+                        itemList={
                             [
                                 {id: 'all', name: '전체'},
                                 {id: 'normal', name: '일반'},
