@@ -1,0 +1,23 @@
+.check_list {
+    display: flex;
+    gap: .5rem;
+    padding: .5rem 1rem;
+    align-items: center;
+}
+
+.check_list li {
+    word-break: keep-all;
+    padding: 1rem 1.25rem;
+    border-radius: 1.5rem;
+    background-color: var(--level-3);
+    transition: .25s;
+    box-shadow: var(--shadow);
+}
+
+.check_list li:hover {
+    background-color: var(--hover);
+}
+
+.check_list .active {
+    background-color: var(--level-1);
+}

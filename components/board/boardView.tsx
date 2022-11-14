@@ -6,8 +6,8 @@ import { Board, PostListRes } from '../../types/boardType';
 import { PostItem } from './postItem';
 import { useRecoilState } from 'recoil';
 import { postLimitState, postListState } from '../../store/board.store';
-import { CategoryList } from './categoryList';
 import Link from 'next/link';
+import { CheckList } from '../common/buttons/checkList';
 
 interface BoardViewProps {
     boardId: string,
@@ -52,10 +52,10 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
         <div className={`${styles.board} scroll-bar`}>
             <div className='container'>
                 <div className={styles.category_list_wrap}>
-                    <CategoryList
-                        postCategory={postCategory}
-                        setPostCategory={setPostCategory}
-                        categoryList={
+                    <CheckList
+                        currentMenu={postCategory}
+                        callback={menu => setPostCategory(menu.id)}
+                        menuList={
                             [
                                 {id: 'all', name: '전체'},
                                 {id: 'normal', name: '일반'},

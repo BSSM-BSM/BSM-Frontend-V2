@@ -4,13 +4,13 @@ import { HttpMethod, useAjax } from "../../hooks/useAjax";
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinymceEditor } from "tinymce";
 import { TextInput } from "../common/inputs/textInput";
-import { CategoryList } from "./categoryList";
 import { Category, DetailPost } from "../../types/boardType";
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { boardActiveEditorState, boardAnonymousModeState } from '../../store/board.store';
 import { useModal } from '../../hooks/useModal';
 import { Button } from '../common/buttons/button';
+import { CheckList } from '../common/buttons/checkList';
 
 interface PostWriteProps {
     boardId: string,
@@ -164,11 +164,11 @@ export const PostWrite = ({
                 onEditorChange={content => setContent(content)}
             />
             <div className="rows gap-1">
-                <CategoryList
+                <CheckList
                     className='flex-main'
-                    postCategory={category}
-                    setPostCategory={setCategory}
-                    categoryList={
+                    currentMenu={category}
+                    callback={menu => setCategory(menu.id)}
+                    menuList={
                         [
                             {id: 'normal', name: '일반'},
                             ...Object.values(categoryList)

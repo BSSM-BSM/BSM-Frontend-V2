@@ -82,28 +82,6 @@
     border-radius: 1rem;
 }
 
-.category_list {
-    padding: .5rem 1rem;
-    align-items: center;
-}
-
-.category_list li {
-    word-break: keep-all;
-    padding: 1rem 1.25rem;
-    border-radius: 1.5rem;
-    background-color: var(--level-3);
-    transition: .25s;
-    box-shadow: var(--shadow);
-}
-
-.category_list li:hover {
-    background-color: var(--hover);
-}
-
-.category_list .active {
-    background-color: var(--level-1);
-}
-
 .refresh {
     display: flex;
     justify-content: center;
