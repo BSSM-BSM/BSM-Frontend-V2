@@ -5,8 +5,8 @@ import { useModal } from "../../hooks/useModal";
 import { useOverlay } from "../../hooks/useOverlay";
 import { userState } from "../../store/account.store";
 import { boardAnonymousModeState, boardDetailTimeState, boardOpenAllChildCommentsState, postLimitState } from "../../store/board.store";
-import { pushPermissionState, screenScaleState, themeState } from "../../store/common.store";
-import { PushPermission, subscribe } from "../../utils/webPush";
+import { pushSubscriptionState, screenScaleState, themeState } from "../../store/common.store";
+import { PushPermission, subscribe, unsubscribe } from "../../utils/webPush";
 import { ToggleButton } from "./buttons/toggleButton";
 import { NumberInput } from "./inputs/numberInput";
 import Modal from "./modal";
@@ -16,7 +16,7 @@ export const SettingBox = () => {
     const {showToast} = useOverlay();
     const [user] = useRecoilState(userState);
     const {openModal} = useModal();
-    const [pushPermission, setPushPermission] = useRecoilState(pushPermissionState);
+    const [pushSubscription, setPushSubscription] = useRecoilState(pushSubscriptionState);
     const [theme, setTheme] = useRecoilState(themeState);
     const [screenScale, setScreenScale] = useRecoilState(screenScaleState);
     const [postLimit, setPostLimit] = useRecoilState(postLimitState);
@@ -93,9 +93,9 @@ export const SettingBox = () => {
                             <span>알림</span>
                             <span>급식 알림 등을 받을 수 있습니다</span>
                             <ToggleButton
-                                offCallback={() => showToast('아직 알림 취소는 지원하지 않는 기능입니다')}
-                                onCallback={() => subscribe(ajax, setPushPermission, showToast)}
-                                value={pushPermission === PushPermission.GRANTED}
+                                offCallback={() => unsubscribe(ajax, setPushSubscription, showToast)}
+                                onCallback={() => subscribe(ajax, setPushSubscription, showToast)}
+                                value={pushSubscription !== null}
                             />
                         </li>
                     </ul>

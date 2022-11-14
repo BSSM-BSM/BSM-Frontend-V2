@@ -1,11 +1,11 @@
 import { atom } from "recoil";
 import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
-import { PushPermission, webPushEffect } from "../utils/webPush";
+import { webPushEffect } from "../utils/webPush";
 
-export const pushPermissionState = atom<PushPermission>({
-    key: 'pushPermission',
-    default: PushPermission.PROMPT,
-    effects: [webPushEffect()?? PushPermission.PROMPT]
+export const pushSubscriptionState = atom<PushSubscription | null>({
+    key: 'pushSubscription',
+    default: null,
+    effects: [webPushEffect()?? null]
 })
 
 export const themeState = atom<string>({

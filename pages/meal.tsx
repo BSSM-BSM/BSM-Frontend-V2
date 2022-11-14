@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { HttpMethod, useAjax } from "../hooks/useAjax";
 import { useOverlay } from "../hooks/useOverlay";
-import { screenScaleState, headerOptionState, pushPermissionState } from "../store/common.store";
+import { screenScaleState, headerOptionState, pushSubscriptionState } from "../store/common.store";
 import { MealTime, MealType } from "../types/mealTypes";
 import { PushPermission, subscribe } from "../utils/webPush";
 import { MealItem } from '../components/meal/mealItem';
@@ -53,7 +53,7 @@ const MealPage: NextPage = () => {
     const [viewRange, setViewRange] = useState<number>(5);
     const [isSameDay, setIsSameDay] = useState<boolean>(false);
     const [screenScale] = useRecoilState(screenScaleState);
-    const [pushPermission, setPushPermission] = useRecoilState(pushPermissionState);
+    const [pushSubscription, setPushSubscription] = useRecoilState(pushSubscriptionState);
 
     // init
     useEffect(() => {
@@ -224,8 +224,8 @@ const MealPage: NextPage = () => {
                 <title>급식 - BSM</title>
             </Head>
             {
-                pushPermission !== PushPermission.GRANTED &&
-                <Button className={styles.notification_button} onClick={() => subscribe(ajax, setPushPermission, showToast)}>급식 알림 받기</Button>
+                pushSubscription === null &&
+                <Button className={styles.notification_button} onClick={() => subscribe(ajax, setPushSubscription, showToast)}>급식 알림 받기</Button>
             }
             <div className={styles.meals_wrap}>
                 <ul className={styles.meals}>

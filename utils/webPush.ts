@@ -4,7 +4,7 @@ import { ShowToast } from '../hooks/useOverlay';
 
 export const webPushEffect = () => ({ setSelf }: any) => {
     (async () => {
-        setSelf(await getPushPermission())
+        setSelf(await getPushSubscription())
     })();
 };
 
@@ -23,7 +23,20 @@ export const getPushPermission = async (): Promise<PushPermission> => {
     }) as Promise<PushPermission>;
 }
 
-export const subscribe = async (ajax: Ajax, setPushPermission: SetterOrUpdater<PushPermission>, showToast: ShowToast) => {
+export const getPushSubscription = async (): Promise<PushSubscription | null> => {
+    const navigator = typeof window !== 'undefined'? window.navigator: null;
+    if (!navigator) return null;
+    const registration = await navigator.serviceWorker.ready;
+    return registration.pushManager.getSubscription();
+}
+
+export const subscribe = async (ajax: Ajax, setPushPermission: SetterOrUpdater<PushSubscription | null>, showToast: ShowToast) => {
+    const [, loginError] = await ajax({
+        url: 'user',
+        method: HttpMethod.GET,
+    });
+    if (loginError) return;
+
     try {
         await subscribeRequest(ajax, showToast);
     } catch (error) {}
@@ -31,8 +44,27 @@ export const subscribe = async (ajax: Ajax, setPushPermission: SetterOrUpdater<P
     switch (state) {
         case PushPermission.PROMPT: return showToast('알림을 활성화하는데 문제가 발생하였습니다');
         case PushPermission.DENIED: return showToast('알림이 차단되어있습니다\n브라우저 설정에서 수동으로 해제해주세요', 10000);
-        case PushPermission.GRANTED: return setPushPermission(state);
     }
+    setPushPermission(await getPushSubscription());
+}
+
+export const unsubscribe = async (ajax: Ajax, setPushPermission: SetterOrUpdater<PushSubscription | null>, showToast: ShowToast) => {
+    const subscription = await getPushSubscription();
+    if (!subscription?.endpoint) return showToast("알림 취소에 문제가 발생하였습니다");
+    if (!subscription.unsubscribe()) return showToast("알림 취소에 문제가 발생하였습니다");
+    
+    const [, error] = await ajax({
+        url: `webpush`,
+        method: HttpMethod.DELETE,
+        config: {
+            headers: {
+                endpoint: subscription.endpoint
+            }
+        }
+    });
+    if (error) showToast("알림 취소에 문제가 발생하였습니다");;
+
+    setPushPermission(await getPushSubscription());
 }
 
 const subscribeRequest = async (ajax: Ajax, showToast: ShowToast) => {

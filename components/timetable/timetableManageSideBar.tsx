@@ -152,7 +152,7 @@ export const TimetableManageSideBar = ({
                 selectId !== 0 &&
                 <ul className='cols gap-05'>
                     <li className='rows gap-05'>
-                        <Button className='flex-main' onClick={importTimetableList} >불러오기</Button>
+                        <Button className='flex-main' onClick={importTimetableList}>불러오기</Button>
                         <Button className='flex-main' onClick={exportTimetableList}>내보내기</Button>
                     </li>
                     <li className='rows gap-05'>
