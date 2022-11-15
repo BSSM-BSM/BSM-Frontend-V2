@@ -14,11 +14,13 @@ import { headerOptionState } from '../../store/common.store';
 import { UserRole } from '../../types/userType';
 import { Button } from '../../components/common/buttons/button';
 import { MeisterInfo } from '../../types/meisterType';
+import { useRouter } from 'next/router';
 
 const MeisterPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const { ajax } = useAjax();
     const { openModal } = useModal();
+    const router = useRouter();
     const [noPw, setNoPw] = useState(true);
     const [user] = useRecoilState(userState);
     const [grade, setGrade] = useState<number>(0);
@@ -34,15 +36,24 @@ const MeisterPage: NextPage = () => {
     });
 
     useEffect(() => {
+        const {grade, classNo, studentNo} = router.query;
+        if (grade && classNo && studentNo) return viewOtherStudent(Number(grade), Number(classNo), Number(studentNo));
+
         if (!user.isLogin || user.role !== UserRole.STUDENT) return;
         setGrade(user.student.grade);
         setClassNo(user.student.classNo);
         setStudentNo(user.student.studentNo);
     }, [user]);
-
+    
     useEffect(() => {
-        setHeaderOption({title: '마이스터 점수 및 상벌점 조회'});
+        setHeaderOption({title: '마이스터 점수 및 상벌점 조회', allMenu: {goBack: true}});
     }, []);
+    
+    const viewOtherStudent = (grade: number, classNo: number, studentNo: number) => {
+        setGrade(grade);
+        setClassNo(classNo);
+        setStudentNo(studentNo);
+    }
 
     const loadMeisterInfo = async () => {
         const [data, error] = await ajax<MeisterInfo>({

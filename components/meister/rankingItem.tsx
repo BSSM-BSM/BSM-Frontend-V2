@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
 import styles from '../../styles/meister/ranking.module.css';
@@ -13,7 +15,8 @@ interface MeisterRankingItemProps {
 
 export const MeisterRankingItem = ({ranking, i, updatePrivateRanking}: MeisterRankingItemProps) => {
     const [user] = useRecoilState(userState);
-    const { grade, classNo, studentNo } = ranking.student;
+    const { grade, classNo, studentNo, name } = ranking.student;
+    const router = useRouter();
 
     const scoreInfoView = () => {
         switch (ranking.result) {
@@ -41,14 +44,14 @@ export const MeisterRankingItem = ({ranking, i, updatePrivateRanking}: MeisterRa
     }
 
     return (
-        <li>
+        <li onClick={() => router.push(`/meister?grade=${grade}&classNo=${classNo}&studentNo=${studentNo}`)}>
             <div className={styles.rank}>{i + 1}</div>
             <div className={styles.info_wrap}>
                 <div className={styles.student_info}>
                     <span>
-                        {`${ranking.student.grade}${ranking.student.classNo}${String(ranking.student.studentNo).padStart(2, '0')}`}
+                        {`${grade}${classNo}${String(studentNo).padStart(2, '0')}`}
                     </span>
-                    <span>{ranking.student.name}</span>
+                    <span>{name}</span>
                     {
                         user.isLogin && user.role === UserRole.STUDENT &&
                         grade === user.student.grade &&
