@@ -146,7 +146,7 @@
 
 @media screen and (min-width: 0px) and (max-width: 750px) and (min-height: 600px) {
     .quick_menu_section {
-        padding-top: 5rem;
+        padding-top: 10rem;
     }
     
     .quick_menu_list {

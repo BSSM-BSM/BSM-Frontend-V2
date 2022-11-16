@@ -1,0 +1,87 @@
+.banner {
+    position: fixed;
+    z-index: 5;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.banner::after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: .25rem .5rem;
+    content: '광고';
+    color: white;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.banner:is(.horizontal, .vertical) {
+    object-fit: fill;
+}
+
+.banner.horizontal,
+.banner.horizontal img {
+    max-width: 70rem;
+    width: calc(100% - 1rem);
+    height: 7rem;
+}
+
+.banner.horizontal img {
+    width: 100%;
+}
+
+.banner.vertical,
+.banner.vertical img {
+    width: 9rem;
+    max-height: 60rem;
+    height: 100%;
+}
+
+.banner:is(.top, .bottom) {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.banner:is(.left, .right) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.banner.top {
+    position: absolute;
+    top: 7rem;
+}
+
+.banner.bottom {
+    bottom: 1rem;
+}
+
+.banner.left {
+    left: 1rem;
+}
+
+.banner.right {
+    right: 1rem;
+}
+
+@media screen and (min-width: 0) and (max-width: 1500px) {
+    .banner.vertical,
+    .banner.vertical img {
+        width: 7rem;
+        max-height: 50rem;
+        height: 100%;
+        object-fit: fill;
+    }
+}
+
+@media screen and (min-width: 0) and (max-width: 1160px) {
+    .banner.vertical {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 0) and (max-width: 720px) {
+    .banner.top {
+        top: 6rem;
+    }
+}

@@ -11,6 +11,8 @@ import { useRecoilState } from 'recoil';
 import { CheckList } from '../../components/common/buttons/checkList';
 import { userState } from '../../store/account.store';
 import { UserRole } from '../../types/userType';
+import { Banner, BannerPos } from '../../components/common/banner';
+import { BannerType } from '../../types/bannerType';
 
 const MeisterPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -86,6 +88,10 @@ const MeisterPage: NextPage = () => {
             <Head>
                 <title>마이스터 랭킹 - BSM</title>
             </Head>
+            <>
+                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
+                <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
+            </>
             <CheckList
                 currentItem={grade}
                 itemList={

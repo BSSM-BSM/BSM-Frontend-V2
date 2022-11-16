@@ -12,6 +12,8 @@ import { PostView } from '../../../components/board/postView';
 import { boardAndPostIdState, boardAnonymousModeState, postOpenState, postState } from '../../../store/board.store';
 import { PostWrite } from '../../../components/board/postWrite';
 import { EmoticonBoxWrap } from '../../../components/board/emoticonBox';
+import { Banner, BannerPos } from '../../../components/common/banner';
+import { BannerType } from '../../../types/bannerType';
 
 const BoardPage: NextPage = () => {
     const {ajax} = useAjax();
@@ -141,6 +143,10 @@ const BoardPage: NextPage = () => {
             <Head>
                 <title>커뮤니티 - BSM</title>
             </Head>
+            <>
+                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
+                <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
+            </>
             {
                 typeof boardId === 'string'
                 && boardList[boardId]

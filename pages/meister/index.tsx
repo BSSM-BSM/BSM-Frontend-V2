@@ -15,6 +15,8 @@ import { UserRole } from '../../types/userType';
 import { Button } from '../../components/common/buttons/button';
 import { MeisterInfo } from '../../types/meisterType';
 import { useRouter } from 'next/router';
+import { Banner, BannerPos } from '../../components/common/banner';
+import { BannerType } from '../../types/bannerType';
 
 const MeisterPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -94,6 +96,11 @@ const MeisterPage: NextPage = () => {
             <Head>
                 <title>마이스터 역량인증제 - BSM</title>
             </Head>
+            <>
+                <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
+                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
+                <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
+            </>
             <form className={`${styles.form} cols gap-1`} autoComplete='off' onSubmit={e => {
                 e.preventDefault();
                 loadMeisterInfo();

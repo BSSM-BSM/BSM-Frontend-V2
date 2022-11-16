@@ -7,6 +7,8 @@ import { headerOptionState } from '../store/common.store';
 import Head from 'next/head';
 import { MeisterHomeMenu } from '../components/home/meisterMenu';
 import { UserHomeMenu } from '../components/home/userMenu';
+import { Banner, BannerPos } from '../components/common/banner';
+import { BannerType } from '../types/bannerType';
 
 const Home: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -20,6 +22,11 @@ const Home: NextPage = () => {
             <Head>
                 <title>BSM - 부산소마고 지원 서비스</title>
             </Head>
+            <>
+                <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
+                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
+                <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
+            </>
             <section className={styles.quick_menu_section}>
                 <ul className={`${styles.quick_menu_list} button-wrap`}>
                     <li>

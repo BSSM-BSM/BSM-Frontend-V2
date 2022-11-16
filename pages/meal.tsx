@@ -12,6 +12,8 @@ import { MealItem } from '../components/meal/mealItem';
 import { Button } from '../components/common/buttons/button';
 import { dateToShortDateStr, shrotDateStrToDate, timeToTotalSecond } from '../utils/date';
 import { numberInBetween } from '../utils/util';
+import { BannerType } from '../types/bannerType';
+import { Banner, BannerPos } from '../components/common/banner';
 
 type MealRes = {
     [index in MealTime]: {
@@ -223,9 +225,13 @@ const MealPage: NextPage = () => {
             <Head>
                 <title>급식 - BSM</title>
             </Head>
+            <>
+                <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
+                <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
+            </>
             {
                 pushSubscription === null &&
-                <Button className={styles.notification_button} onClick={() => subscribe(ajax, setPushSubscription, showToast)}>급식 알림 받기</Button>
+                <Button className={`${styles.notification_button} accent`} onClick={() => subscribe(ajax, setPushSubscription, showToast)}>급식 알림 받기</Button>
             }
             <div className={styles.meals_wrap}>
                 <ul className={styles.meals}>
