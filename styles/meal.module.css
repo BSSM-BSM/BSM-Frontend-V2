@@ -131,12 +131,3 @@ body:global(.dark)
         margin: 0 3%;
     }
 }
-
-@media screen and (min-height: 0) and (max-height: 650px) {
-    .meals {
-        transform: translate(-50%, 0);
-        top: unset;
-        bottom: 10%;
-        width: 150%;
-    }
-}

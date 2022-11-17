@@ -1,8 +1,9 @@
 import styles from '../../styles/common/banner.module.css';
-import { useRecoilState } from "recoil"
+import { useRecoilValueLoadable } from "recoil"
 import { bannerState } from "../../store/banner.store"
 import { BannerType } from "../../types/bannerType"
 import Image from 'next/future/image';
+import { useEffect, useState } from 'react';
 
 export enum BannerPos {
     TOP = 'top',
@@ -17,20 +18,37 @@ interface BannerProps {
 }
 
 export const Banner = ({position, type}: BannerProps) => {
-    const [bannerList] = useRecoilState(bannerState);
-    const banner = bannerList[Math.floor(Math.random() * bannerList.length)];
+    const bannerList = useRecoilValueLoadable(bannerState);
+    const [bannerIdx, setBannerIdx] = useState<number>(0);
+    const banner = bannerList.contents?.[bannerIdx];
+    const className = `${styles.banner} ${styles[position]} ${styles[type]}`;
+
+    useEffect(() => {
+        setBannerIdx(Math.floor(Math.random() * bannerList.contents?.length));
+    }, [bannerList]);
 
     return (
-        banner &&
-        // <img className={`${styles.banner} ${styles[position]} ${styles[type]}`} src={`${banner.img}-${type}.${banner.ext}`}>
-        //     {/* <Image src={`${banner.img}-${type}.${banner.ext}`} width={1024} height={1024} /> */}
-        // </img>
-        <div className={`${styles.banner} ${styles[position]} ${styles[type]}`}>
-            <Image
-                src={`${banner.img}-${type}.${banner.ext}`}
-                width={1024}
-                height={1024}
-            />
-        </div>
+        banner && (
+            banner.link
+            ? <a
+                className={className}
+                target='_blank'
+                rel='noopener noreferrer'
+                href={banner.link}
+            >
+                <Image
+                    src={`${process.env.NEXT_PUBLIC_BANNER_BASE_PATH}/${banner.id}-${type}.${banner.ext}`}
+                    width={1024}
+                    height={1024}
+                />
+            </a>
+            : <div className={className}>
+                <Image
+                    src={`${process.env.NEXT_PUBLIC_BANNER_BASE_PATH}/${banner.id}-${type}.${banner.ext}`}
+                    width={1024}
+                    height={1024}
+                />
+            </div>
+        )
     );
 }

@@ -23,9 +23,7 @@ const Home: NextPage = () => {
                 <title>BSM - 부산소마고 지원 서비스</title>
             </Head>
             <>
-                <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
-                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
-                <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
+                <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
             </>
             <section className={styles.quick_menu_section}>
                 <ul className={`${styles.quick_menu_list} button-wrap`}>

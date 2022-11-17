@@ -97,9 +97,7 @@ const MeisterPage: NextPage = () => {
                 <title>마이스터 역량인증제 - BSM</title>
             </Head>
             <>
-                <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
-                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
-                <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
+                <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
             </>
             <form className={`${styles.form} cols gap-1`} autoComplete='off' onSubmit={e => {
                 e.preventDefault();

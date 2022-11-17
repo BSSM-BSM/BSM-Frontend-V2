@@ -226,7 +226,6 @@ const MealPage: NextPage = () => {
                 <title>급식 - BSM</title>
             </Head>
             <>
-                <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
                 <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
             </>
             {

@@ -1,9 +1,10 @@
-import { atom } from "recoil";
+import axios from "axios";
+import { selector } from "recoil";
 import { Banner } from "../types/bannerType";
-import { bannerEffect } from "../utils/bannerUtil";
 
-export const bannerState = atom<Banner[]>({
+export const bannerState = selector<Banner[]>({
     key: 'banner',
-    default: [],
-    effects: [bannerEffect()]
+    get: async () => {
+        return (await axios.get<Banner[]>('/api/banner')).data
+    }
 });

@@ -4,6 +4,7 @@ export enum BannerType {
 }
 
 export interface Banner {
-    img: string,
-    ext: string
+    id: string,
+    ext: string,
+    link?: string
 }
