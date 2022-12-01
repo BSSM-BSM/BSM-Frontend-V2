@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { useModal } from '../../hooks/useModal';
-import Modal from '../../components/common/modal';
 import Link from 'next/link';
 import { TextInput } from '../../components/common/inputs/textInput';
 import { NumberInput } from '../../components/common/inputs/numberInput';
@@ -21,7 +19,6 @@ import { BannerType } from '../../types/bannerType';
 const MeisterPage: NextPage = () => {
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const { ajax } = useAjax();
-    const { openModal } = useModal();
     const router = useRouter();
     const [noPw, setNoPw] = useState(true);
     const [user] = useRecoilState(userState);
@@ -50,6 +47,14 @@ const MeisterPage: NextPage = () => {
     useEffect(() => {
         setHeaderOption({title: '마이스터 점수 및 상벌점 조회', allMenu: {goBack: true}});
     }, []);
+
+    const meisterPointPostProcessing = () => {
+        document.querySelectorAll('.fas.fa-sad-cry').forEach((item) => {
+            item?.parentElement?.parentElement?.parentElement?.parentElement?.classList.add(styles.bad);
+        });
+    }
+
+    useEffect(meisterPointPostProcessing, [meisterInfo]);
     
     const viewOtherStudent = (grade: number, classNo: number, studentNo: number) => {
         setGrade(grade);
@@ -81,14 +86,6 @@ const MeisterPage: NextPage = () => {
 
         setMeisterInfo(data);
         setPw('');
-    }
-
-    const meisterPointPostProcessing = () => {
-        setTimeout(() => {
-            document.querySelectorAll('.fas.fa-sad-cry').forEach((item) => {
-                item?.parentElement?.parentElement?.parentElement?.parentElement?.classList.add(styles.bad);
-            });
-        }, 10);
     }
 
     return (
@@ -156,17 +153,12 @@ const MeisterPage: NextPage = () => {
                 meisterInfo.scoreHtmlContent && 
                 <div className={styles.result}>
                     <h3 className='right'>
-                        <span>
-                            {`상점: ${meisterInfo.positivePoint} 벌점: ${meisterInfo.negativePoint}`}
-                        </span>
-                        <span className='detail' onClick={() => openModal('meister_point')}> 자세히 보기</span>
+                        {`상점: ${meisterInfo.positivePoint} 벌점: ${meisterInfo.negativePoint}`}
                     </h3>
                     <div className={styles.score} dangerouslySetInnerHTML={{__html: meisterInfo.scoreHtmlContent}}></div>
+                    <div className={styles.point} dangerouslySetInnerHTML={{__html: meisterInfo.pointHtmlContent}}></div>
                 </div>
             }
-            <Modal type='big' id='meister_point' title='상벌점' callback={meisterPointPostProcessing}>
-                <div className={styles.point} dangerouslySetInnerHTML={{__html: meisterInfo.pointHtmlContent}}></div>
-            </Modal>
         </div>
     );
 }

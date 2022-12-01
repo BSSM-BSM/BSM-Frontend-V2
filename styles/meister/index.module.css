@@ -14,6 +14,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 1rem;
 }
 
 .point * {
@@ -23,14 +24,16 @@
 .point > div {
     flex: 100% !important;
     font-size: 2.2rem !important;
+    font-weight: bold !important;
 }
 
 .point > li {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
-    width: 50% !important;
+    width: calc(50% - .5rem) !important;
     height: 12.5rem !important;
+    background-color: var(--level-2) !important;
     border-radius: 1rem !important;
     transition: .25s !important;
 }

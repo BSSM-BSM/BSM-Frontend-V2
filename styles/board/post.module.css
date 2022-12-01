@@ -110,6 +110,7 @@
         font-size: 1.6rem;
     }
 
+    .user_profile,
     .user_profile img {
         width: 4rem !important;
         height: 4rem !important;
