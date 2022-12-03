@@ -39,8 +39,11 @@
     box-shadow: var(--shadow) inset;
 }
 
-.input_wrap .placeholder {
+.placeholder {
     position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     left: 0;
     padding: 1.5rem;
     font-weight: bold;
@@ -49,11 +52,19 @@
     transition: .15s;
 }
 
+.placeholder > * {
+    pointer-events: all;
+}
+
+.placeholder:has(*) {
+    width: 100%;
+}
+
 .input_wrap.number .input ~ .placeholder {
     padding: 1rem 0 1rem 1rem;
 }
 
-.input_wrap .input:is(
+.input:is(
     :valid,
     :focus,
     .active
@@ -61,16 +72,28 @@
     background: none !important;
 }
 
-.input_wrap .input:is(
+.input:is(
     :valid,
     :focus,
     .active
 ) ~ .placeholder {
     left: 0;
-    transform: translate(1.5rem, -2.25rem);
-    padding: 0 .5rem;
+    transform: translate(1.5rem, -2.1rem);
     font-size: 1.3rem;
     color: var(--accent);
+}
+
+.input:is(
+    :valid,
+    :focus,
+    .active
+) ~ .placeholder > *,
+.input:is(
+    :valid,
+    :focus,
+    .active
+) ~ .placeholder:not(:has(*)) {
+    padding: 0 .5rem;
     background-color: var(--level-0);
 }
 
@@ -136,4 +159,8 @@
     top: 1.5rem;
     left: 1.5rem;
     padding: 0;
+}
+
+.editor .placeholder:has(*) {
+    width: calc(100% - 3rem);
 }

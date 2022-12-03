@@ -1,12 +1,13 @@
 import styles from '../../../styles/common/input.module.css';
-import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from "react";
+import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
 import { numberInBetween } from "../../../utils/util";
 
-interface NumberInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+interface NumberInputProps extends Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'placeholder'> {
     setCallback: Dispatch<SetStateAction<number>>,
     value?: number,
     initial?: number,
+    placeholder?: string | ReactNode,
     min?: number,
     max?: number,
     msg?: string,
@@ -61,7 +62,7 @@ export const NumberInput = (props: NumberInputProps) => {
                     onBlur={() => applyValue()}
                     onKeyDown={e => e.key === 'Enter' && applyValue()}
                 ></input>
-                <span className={styles.placeholder}>{placeholder}</span>
+                {placeholder && <span className={styles.placeholder}>{placeholder}</span>}
             </div>
             <div className='cols center'>{msg}</div>
         </div>

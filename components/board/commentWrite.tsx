@@ -16,7 +16,7 @@ export const CommentWrite = ({
 }: CommentWriteProps) => {
     const {ajax} = useAjax();
     const {openModal} = useModal();
-    const [boardAnonymousMode] = useRecoilState(boardAnonymousModeState);
+    const [boardAnonymousMode, setBoardAnonymousMode] = useRecoilState(boardAnonymousModeState);
     const [boardAndPostId] = useRecoilState(boardAndPostIdState);
     const {boardId, postId} = boardAndPostId;
     const [content, setContent] = useState<string | null>('');
@@ -56,7 +56,13 @@ export const CommentWrite = ({
                 content !== null && 
                 <EditorInput
                     setCallback={setContent}
-                    placeholder={(parentComment? `${nickname}에게 답글`: '댓글') + (boardAnonymousMode? ' (익명 On)': ' (익명 Off)')}
+                    placeholder={<>
+                        <span>{parentComment? `${nickname}에게 답글`: '댓글'}</span>
+                        <label className='rows gap-05'>
+                            <span>익명</span>
+                            <input type="checkbox" checked={boardAnonymousMode} onChange={e => setBoardAnonymousMode(e.target.checked)} />
+                        </label>
+                    </>}
                     className='comment-input scroll-bar'
                     refCallback={setActiveEditor}
                 />

@@ -1,11 +1,11 @@
 import styles from '../../../styles/common/input.module.css';
-import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, SetStateAction, useEffect, useState } from "react";
+import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, ReactNode, SetStateAction, useEffect, useState } from "react";
 import { useOverlay } from "../../../hooks/useOverlay";
 
-interface TextInputProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+interface TextInputProps extends Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'placeholder'> {
     setCallback: Dispatch<SetStateAction<string>>,
     initial?: string,
-    placeholder?: string,
+    placeholder?: string | ReactNode,
     immediately?: boolean,
     inactive?: boolean,
     full?: boolean
@@ -53,7 +53,7 @@ export const TextInput = (props: TextInputProps) => {
                 onBlur={() => applyValue()}
                 onKeyDown={e => e.key === 'Enter' && applyValue()}
             ></input>
-            <span className={styles.placeholder}>{placeholder}</span>
+            {placeholder && <span className={styles.placeholder}>{placeholder}</span>}
         </div>
     );
 }

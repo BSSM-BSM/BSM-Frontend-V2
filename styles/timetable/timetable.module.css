@@ -83,6 +83,10 @@
     border-radius: 0 1.5rem 1.5rem 0;
 }
 
+.timetable li:first-child:last-child {
+    border-radius: 1.5rem;
+}
+
 .start_time {
     position: absolute;
     top: calc(100% + 2rem);

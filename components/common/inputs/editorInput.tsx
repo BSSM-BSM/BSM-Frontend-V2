@@ -1,12 +1,12 @@
 import styles from '../../../styles/common/input.module.css';
-import { KeyboardEvent, ClipboardEvent, Dispatch, RefObject, SetStateAction, useEffect, useRef } from "react";
+import { KeyboardEvent, ClipboardEvent, Dispatch, RefObject, SetStateAction, useEffect, useRef, ReactNode } from "react";
 import ContentEditable from 'react-contenteditable';
 
 interface EditorInputProps {
     setCallback: Dispatch<SetStateAction<string | null>>,
     className?: string,
     initial?: string,
-    placeholder?: string,
+    placeholder?: string | ReactNode,
     immediately?: boolean,
     inactive?: boolean,
     full?: boolean,
@@ -91,7 +91,7 @@ export const EditorInput = (props: EditorInputProps) => {
                 onKeyDown={editorHandler}
                 onPaste={pasteHandler}
             />
-            <span className={styles.placeholder}>{placeholder}</span>
+            {placeholder && <span className={styles.placeholder}>{placeholder}</span>}
         </div>
     );
 }
