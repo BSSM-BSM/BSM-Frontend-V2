@@ -145,7 +145,6 @@ const BoardPage: NextPage = () => {
             </Head>
             <>
                 <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
-                <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
             </>
             {
                 typeof boardId === 'string'

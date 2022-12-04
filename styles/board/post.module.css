@@ -106,6 +106,10 @@
         font-size: 1.3rem;
     }
 
+    .post_info :global(.post-dropdown-menu) {
+        display: none;
+    }
+
     .title {
         font-size: 1.6rem;
     }

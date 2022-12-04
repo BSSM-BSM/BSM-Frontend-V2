@@ -1,0 +1,79 @@
+@keyframes blocking_click {
+    0% {
+        pointer-events: none;
+    }
+    99%{}
+    100% {
+        pointer-events: visible;
+    }
+}
+
+.dropdown_menu {
+    position: relative;
+    display: inline-block;
+    color: var(--text);
+}
+
+.title {
+    position: relative;
+    z-index: 1;
+    padding-right: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.title.mark::after {
+    content: ' ▼';
+}
+
+.dropdown_content {
+    transform: translateY(-1.5rem);
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    position:  absolute;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    word-break: keep-all;
+    border-radius: .5rem;
+    box-shadow: var(--shadow);
+    background-color: var(--level-3);
+    transition: all .25s;
+}
+
+.dropdown_menu:hover .dropdown_content {
+    transform: translateY(0) !important;
+    opacity: 1;
+    animation: blocking_click 250ms ease;
+    animation-fill-mode: forwards;
+}
+
+.option {
+    display: inline-block;
+    padding: 1.2rem 1.6rem;
+    width: 100%;
+    cursor: pointer;
+    transition: .25s;
+    border-radius: .5rem;
+}
+
+.option:hover {
+    background-color: var(--hover);
+}
+
+.option:active {
+    transform: scale(.8);
+}
+
+.meatballs_menu .title {
+    font-size: 1.7rem;
+    letter-spacing: -.3rem;
+    padding: 0 1rem 0 .75rem;
+    border-radius: .5rem;
+    background-color: var(--level-3);
+}
+
+.meatballs_menu .dropdown_content .option {
+    width: 16rem;
+}

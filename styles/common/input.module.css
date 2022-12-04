@@ -49,6 +49,7 @@
     font-weight: bold;
     pointer-events: none;
     color: var(--text);
+    white-space: nowrap;
     transition: .15s;
 }
 
@@ -61,7 +62,7 @@
 }
 
 .input_wrap.number .input ~ .placeholder {
-    padding: 1rem 0 1rem 1rem;
+    padding: 0 .5rem;
 }
 
 .input:is(

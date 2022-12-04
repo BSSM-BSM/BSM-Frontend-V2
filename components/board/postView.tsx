@@ -22,6 +22,7 @@ import "prismjs/plugins/toolbar/prism-toolbar.min.css";
 import { UserInfoLink } from './userInfoLink';
 import { getProfileSrc } from '../../utils/userUtil';
 import { elapsedTime } from '../../utils/date';
+import { DropdownMenu } from '../common/dropdownMenu';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -62,6 +63,10 @@ export const PostView = ({
     const [, setPost] = useRecoilState(postState);
     const [boardDetailTime] = useRecoilState(boardDetailTimeState);
     const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
+    const dropdownMenu = [
+        {text: '글 수정', callback: () => router.push(`/board/${board.boardId}/write/${post.id}`)},
+        {text: '글 삭제', callback: () => deletePost()}
+    ];
 
     useEffect(() => {
         setHeaderOption({
@@ -70,12 +75,7 @@ export const PostView = ({
                 goBack: true
             },
             optionMenu: post.permission
-                ? {
-                    dropdownMenu: [
-                        {text: '글 수정', callback: () => router.push(`/board/${board.boardId}/write/${post.id}`)},
-                        {text: '글 삭제', callback: deletePost}
-                    ]
-                }
+                ? {dropdownMenu}
                 : undefined
         });
         setProfileSrc(getProfileSrc(post.user.code));
@@ -144,6 +144,12 @@ export const PostView = ({
                                     ? new Date(post.createdAt).toLocaleString()
                                     : elapsedTime(post.createdAt)
                                 }</span>
+                                {post.permission &&
+                                <DropdownMenu
+                                    meatballsMenu={true}
+                                    menus={dropdownMenu}
+                                    className='post-dropdown-menu'
+                                />}
                             </div>
                         </div>
                     </div>
