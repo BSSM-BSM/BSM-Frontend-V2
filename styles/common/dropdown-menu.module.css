@@ -9,6 +9,7 @@
 }
 
 .dropdown_menu {
+    z-index: 10;
     position: relative;
     display: inline-block;
     color: var(--text);
@@ -16,7 +17,6 @@
 
 .title {
     position: relative;
-    z-index: 1;
     padding-right: 2rem;
     font-weight: bold;
     cursor: pointer;

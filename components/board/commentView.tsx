@@ -43,7 +43,7 @@ export const CommentView = ({
     }, [commentList]);
 
     return (
-        <div className={styles.comment_wrap}>
+        <div className={`${styles.comment_wrap} scroll-bar horizontal`}>
             {
                 commentList.map(comment => (
                     <CommentList

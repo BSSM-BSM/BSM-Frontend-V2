@@ -1,4 +1,5 @@
 .comment_wrap {
+    overflow: auto;
     margin: 5rem 0;
     background-color: var(--level-1);
     border-radius: 2rem;
@@ -6,7 +7,6 @@
 
 .item_wrap {
     display: flex;
-    overflow: hidden;
     border-radius: 1rem;
     cursor: pointer;
     transition: .25s;
@@ -46,6 +46,7 @@
 }
 
 .child {
+    width: 100%;
     margin-left: 5rem;
     border-left: .1rem solid gray;
 }
