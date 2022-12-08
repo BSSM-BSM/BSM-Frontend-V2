@@ -46,9 +46,9 @@
 }
 
 .child {
-    width: 100%;
+    min-width: 50rem;
     margin-left: 5rem;
-    border-left: .1rem solid gray;
+    border-left: .1rem solid var(--gray);
 }
 
 .user_profile {
@@ -92,6 +92,7 @@
 
 @media screen and (min-width: 0) and (max-width: 600px) {
     .child {
+        min-width: 30rem;
         margin-left: 3rem;
     }
 

@@ -10,6 +10,7 @@ import { Button } from '../common/buttons/button';
 import { UserInfoLink } from './userInfoLink';
 import { getProfileSrc } from '../../utils/userUtil';
 import { elapsedTime } from '../../utils/date';
+import { DropdownMenu } from '../common/dropdownMenu';
 
 export const CommentList = ({
     comment,
@@ -59,6 +60,16 @@ export const CommentList = ({
                                 <div className='cols flex-main'>
                                     <div className='rows space-between bold'>
                                         <UserInfoLink userCode={comment.user.code} nickname={comment.user.nickname} />
+                                        {
+                                            !comment.delete && 
+                                            comment.permission && 
+                                            <DropdownMenu
+                                                meatballsMenu={true}
+                                                menus={[
+                                                    {text: '삭제', callback: () => deleteComment(comment.id)}
+                                                ]}
+                                            />
+                                        }
                                     </div>
                                     <div className='gray'>{
                                         boardDetailTime
@@ -71,22 +82,6 @@ export const CommentList = ({
                         </>
                     }
                 </div>
-                {
-                    !comment.delete && 
-                    comment.permission && 
-                    <div className='left-slide-menu'>
-                        <span className='menu-button'>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                            <span className='line'></span>
-                        </span>
-                        <ul className='menu-list'>
-                            <li>
-                                <Button className='delete' onClick={() => deleteComment(comment.id)}>삭제</Button>
-                            </li>
-                        </ul>
-                    </div>
-                }
             </div>
             {
                 comment.child &&
