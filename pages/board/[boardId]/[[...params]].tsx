@@ -1,4 +1,4 @@
-import postStyles from '../../../styles/board/post.module.css';
+import postStyles from '../../../styles/board/post/post.module.css';
 import type { NextPage } from 'next'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -8,9 +8,9 @@ import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { headerOptionState } from '../../../store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
 import { BoardView } from '../../../components/board/boardView';
-import { PostView } from '../../../components/board/postView';
+import { PostView } from '../../../components/board/post/postView';
 import { boardAndPostIdState, boardAnonymousModeState, postOpenState, postState } from '../../../store/board.store';
-import { PostWrite } from '../../../components/board/postWrite';
+import { PostWrite } from '../../../components/board/post/postWrite';
 import { EmoticonBoxWrap } from '../../../components/board/emoticonBox';
 import { Banner, BannerPos } from '../../../components/common/banner';
 import { BannerType } from '../../../types/bannerType';
@@ -30,9 +30,9 @@ const BoardPage: NextPage = () => {
     const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
 
     useEffect(() => {
-        if (typeof boardId !== 'string') 
+        if (typeof boardId !== 'string')
             setHeaderOption({title: ''});
-        else if (typeof postId !== 'string') 
+        else if (typeof postId !== 'string')
             setHeaderOption({title: boardList[boardId]?.boardName});
         else if (postId === 'write')
             setHeaderOption({
@@ -40,7 +40,7 @@ const BoardPage: NextPage = () => {
                 allMenu: {
                     goBack: true
                 }
-            });    
+            });
     }, [boardId, postId, boardList, post]);
 
     useEffect(() => {
@@ -111,7 +111,7 @@ const BoardPage: NextPage = () => {
             method: HttpMethod.GET,
             url: `post/${boardId}/${postId}`,
             errorCallback() {
-                setPost(null)
+                setPost(null);
             },
         });
         if (error) return;
@@ -143,9 +143,6 @@ const BoardPage: NextPage = () => {
             <Head>
                 <title>커뮤니티 - BSM</title>
             </Head>
-            <>
-                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
-            </>
             {
                 typeof boardId === 'string'
                 && boardList[boardId]
@@ -153,9 +150,7 @@ const BoardPage: NextPage = () => {
                     <BoardView boardId={boardId} board={boardList[boardId]} />
                     <div className={`${postStyles.post} ${postOpen? postStyles.open: ''} scroll-bar`}>
                         {
-                            typeof postId === 'string'
-                            && postId !== 'write'
-                            && post
+                            post?.id === Number(postId)
                             && <PostView
                                 board={boardList[boardId]}
                                 post={post}

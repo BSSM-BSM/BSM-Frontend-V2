@@ -1,0 +1,109 @@
+.nav_wrap a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 101;
+    width: 7rem;
+    height: 100%;
+    transition: .25s;
+    background-color: var(--level-3);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    transition: .25s;
+    background-color: var(--dim);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nav_wrap a:hover ~ .dim {
+    opacity: 1;
+}
+
+.prev {
+    left: -6.5rem;
+}
+
+.next {
+    right: -6.5rem;
+}
+
+.prev:hover {
+    left: 0;
+}
+
+.next:hover {
+    right: 0;
+}
+
+.prev:hover span:last-child {
+    left: 0;
+    opacity: 0;
+}
+
+.next:hover span:last-child {
+    right: 0;
+    opacity: 0;
+}
+
+.nav_wrap span:first-child {
+    position: absolute;
+    font-size: 1.6rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nav_wrap a:hover span:first-child {
+    opacity: 1;
+}
+
+.prev span:first-child {
+    left: 8rem;
+}
+
+.next span:first-child {
+    right: 8rem;
+}
+
+.nav_wrap span:last-child {
+    position: absolute;
+    font-size: 2rem;
+    color: var(--text-level-1);
+    transition: .25s;
+}
+
+.prev span:last-child {
+    left: 8.5rem;
+}
+
+.next span:last-child {
+    right: 8.5rem;
+}
+
+.nav_wrap span:last-child::after {
+    position: fixed;
+    top: 0;
+    width: 5.5rem;
+    height: 100%;
+    content: '';
+    transition: .25s;
+}
+
+.prev span:last-child::after {
+    left: .5rem;
+}
+
+.next span:last-child::after {
+    right: .5rem;
+}

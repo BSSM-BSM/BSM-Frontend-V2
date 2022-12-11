@@ -1,17 +1,17 @@
-import styles from '../../styles/board/post.module.css';
-import commentStyles from '../../styles/board/comment.module.css';
-import { Board, Comment, DeletedComment, DetailPost } from "../../types/boardType";
-import { CommentView } from './commentView';
-import { CommentWrite } from './commentWrite';
+import styles from '../../../styles/board/post/post.module.css';
+import commentStyles from '../../../styles/board/comment.module.css';
+import { Board, Comment, DeletedComment, DetailPost } from "../../../types/boardType";
+import { CommentView } from '../commentView';
+import { CommentWrite } from '../commentWrite';
 import { useRecoilState } from 'recoil';
-import { boardDetailTimeState, postListState, postState } from '../../store/board.store';
+import { boardDetailTimeState, postListState, postState } from '../../../store/board.store';
 import { escapeAttrValue, FilterXSS } from 'xss';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { useEffect, useState } from 'react';
-import { headerOptionState } from '../../store/common.store';
+import { HttpMethod, useAjax } from '../../../hooks/useAjax';
+import { useEffect, useMemo, useState } from 'react';
+import { headerOptionState } from '../../../store/common.store';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import DefaultProfilePic from '../../public/icons/profile_default.png';
+import DefaultProfilePic from '../../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 
 import Prism from 'prismjs';
@@ -19,10 +19,11 @@ import "prismjs/plugins/toolbar/prism-toolbar.min";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/plugins/toolbar/prism-toolbar.min.css";
-import { UserInfoLink } from './userInfoLink';
-import { getProfileSrc } from '../../utils/userUtil';
-import { elapsedTime } from '../../utils/date';
-import { DropdownMenu } from '../common/dropdownMenu';
+import { UserInfoLink } from '../userInfoLink';
+import { getProfileSrc } from '../../../utils/userUtil';
+import { elapsedTime } from '../../../utils/date';
+import { DropdownMenu } from '../../common/dropdownMenu';
+import { PostNavBar } from './postNavBar';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -56,17 +57,25 @@ export const PostView = ({
     commentList: (Comment | DeletedComment)[],
     loadComments: Function
 }) => {
-    const [, setPostList] = useRecoilState(postListState);
     const router = useRouter();
     const {ajax} = useAjax();
     const [, setHeaderOption] = useRecoilState(headerOptionState);
     const [, setPost] = useRecoilState(postState);
+    const [postList, setPostList] = useRecoilState(postListState);
     const [boardDetailTime] = useRecoilState(boardDetailTimeState);
     const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
     const dropdownMenu = [
         {text: '글 수정', callback: () => router.push(`/board/${board.boardId}/write/${post.id}`)},
         {text: '글 삭제', callback: () => deletePost()}
     ];
+    
+    const prevAndNextPost = useMemo(() => {
+        const postIdx = postList.findIndex(e => e.id === post.id);
+        return {
+            prevPost: postList[postIdx + 1],
+            nextPost: postList[postIdx - 1]
+        }
+    }, [post.id, board.boardId, postList]);
 
     useEffect(() => {
         setHeaderOption({
@@ -159,6 +168,10 @@ export const PostView = ({
                     dangerouslySetInnerHTML={{__html: postXssFilter.process(post.content)}}
                 />
             </div>
+            <PostNavBar
+                {...prevAndNextPost}
+                boardId={board.boardId}
+            />
             <div className={styles.like_wrap}>
                 <button onClick={() => postLike(1)} className={`button-wrap ${styles.like} ${post.like === 1? styles.on: ''}`}>
                     <img src="/icons/like.svg" alt="like" />

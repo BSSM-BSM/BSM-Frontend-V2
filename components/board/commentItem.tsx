@@ -104,5 +104,5 @@ export const CommentList = ({
                 </div>
             }
         </div>
-    )
+    );
 }
