@@ -24,6 +24,7 @@ import { getProfileSrc } from '../../../utils/userUtil';
 import { elapsedTime } from '../../../utils/date';
 import { DropdownMenu } from '../../common/dropdownMenu';
 import { PostNavBar } from './postNavBar';
+import { PostNavSidebar } from './postNavSidebar';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({
@@ -168,10 +169,6 @@ export const PostView = ({
                     dangerouslySetInnerHTML={{__html: postXssFilter.process(post.content)}}
                 />
             </div>
-            <PostNavBar
-                {...prevAndNextPost}
-                boardId={board.boardId}
-            />
             <div className={styles.like_wrap}>
                 <button onClick={() => postLike(1)} className={`button-wrap ${styles.like} ${post.like === 1? styles.on: ''}`}>
                     <img src="/icons/like.svg" alt="like" />
@@ -181,6 +178,8 @@ export const PostView = ({
                     <img src="/icons/like.svg" alt="dislike" />
                 </button>
             </div>
+            <PostNavBar {...prevAndNextPost} boardId={board.boardId} />
+            <PostNavSidebar {...prevAndNextPost} boardId={board.boardId} />
             <CommentView commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />
             {
                 board.commentPermission &&

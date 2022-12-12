@@ -61,6 +61,7 @@ body {
 
     --input: rgba(192, 192, 192, .3);
   
+    --dim: rgba(0, 0, 0, .2);
     --shadow: .1rem .1rem 1rem rgba(0, 0, 0, .2);
     --shadow-level-1: .2rem .2rem 5rem rgba(0, 0, 0, .2);
     --hover: rgba(0, 0, 0, .2);;
@@ -105,7 +106,7 @@ body.dark {
     --level-4-opacity: #3a3a3a88;
     --level-5-opacity: #40404088;
   
-    --dim: rgba(0, 0, 0, .3);
+    --dim: rgba(0, 0, 0, .2);
     --shadow: 0 0 0 #000;
     --shadow-level-1: .2rem .2rem 5rem rgba(0, 0, 0, .2);
     --hover: #a8aaad66;

@@ -1,4 +1,4 @@
-import styles from '../../../styles/board/post/post-nav.module.css';
+import styles from '../../../styles/board/post/post-nav-bar.module.css';
 import Link from "next/link";
 import { Post } from "../../../types/boardType";
 
@@ -17,23 +17,20 @@ export const PostNavBar = ({
         {
             prevPost && 
             <Link href={`/board/${boardId}/${prevPost.id}`}>
-                <a className={styles.prev}>
-                    <span>{prevPost.title}</span>
-                    <span>◀ 이전글</span>
-                    <span>◀</span>
-                </a>
+            <a>
+                <span>이전글</span>
+                {prevPost.title}
+            </a>
             </Link>
         }
         {
             nextPost && 
             <Link href={`/board/${boardId}/${nextPost.id}`}>
-                <a className={styles.next}>
-                    <span>{nextPost.title}</span>
-                    <span>다음글 ▶</span>
-                    <span>▶</span>
-                </a>
+            <a>
+                <span>다음글</span>
+                {nextPost.title}
+            </a>
             </Link>
         }
-        <div className={styles.dim}></div>
     </div>
 );

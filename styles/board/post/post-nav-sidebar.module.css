@@ -1,3 +1,9 @@
+@media screen and (min-width: 0) and (max-width: 1220px) {
+    .nav_wrap {
+        display: none;
+    }
+}
+
 .nav_wrap a {
     display: flex;
     justify-content: center;
@@ -61,6 +67,7 @@
     font-size: 1.6rem;
     white-space: nowrap;
     opacity: 0;
+    transition: .25s;
     pointer-events: none;
 }
 
