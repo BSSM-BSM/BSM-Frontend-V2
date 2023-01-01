@@ -66,7 +66,8 @@ export const CommentList = ({
                                             <DropdownMenu
                                                 meatballsMenu={true}
                                                 menus={[
-                                                    {text: '삭제', callback: () => deleteComment(comment.id)}
+                                                    {text: '삭제', callback: () => deleteComment(comment.id)},
+                                                    {text: '답글', callback: () => setParentComment(comment)}
                                                 ]}
                                             />
                                         }

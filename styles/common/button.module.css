@@ -1,4 +1,4 @@
-.button{
+.button {
     user-select: none;
     width: auto;
     color: var(--text);
@@ -10,7 +10,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    border-radius: .75rem;
+    border-radius: .5rem;
     background-color: var(--level-2);
     box-shadow: var(--shadow);
     transition: .25s;
@@ -19,10 +19,6 @@
 .button:hover {
     box-shadow: var(--shadow);
     background-color: var(--hover) !important;
-}
-
-.button:active {
-    transform: scale(.8);
 }
 
 .button.full {

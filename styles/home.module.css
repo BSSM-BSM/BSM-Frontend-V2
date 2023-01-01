@@ -21,13 +21,13 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    background-color: var(--level-2-opacity);
+    background-color: var(--level-3-opacity);
     box-shadow: var(--shadow);
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: .75rem;
     transition: .25s;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
 }
 

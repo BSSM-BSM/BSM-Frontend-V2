@@ -11,195 +11,202 @@ import styles from '../../styles/header.module.css';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { getUserInfo, getProfileSrc } from '../../utils/userUtil';
+import { DropdownMenu } from './dropdownMenu';
 
 export const Header = () => {
-    const [mounted, setMounted] = useState(false);
-    const router = useRouter();
-    const { openModal } = useModal();
-    const { ajax } = useAjax();
-    const { showToast } = useOverlay();
-    const [user, setUser] = useRecoilState(userState);
-    const resetUser = useResetRecoilState(userState);
-    const [sideBar, setSideBar] = useState(false);
-    const [headerOption] = useRecoilState(headerOptionState);
-    const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
+  const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+  const { openModal } = useModal();
+  const { ajax } = useAjax();
+  const { showToast } = useOverlay();
+  const [user, setUser] = useRecoilState(userState);
+  const resetUser = useResetRecoilState(userState);
+  const [sideBar, setSideBar] = useState(false);
+  const [headerOption] = useRecoilState(headerOptionState);
+  const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
 
-    useEffect(() => {
-        Router.events.on('routeChangeStart', () => setSideBar(false));
-        setMounted(true);
-        getUserInfo(ajax, setUser);
-        return () => setMounted(false);
-    }, []);
+  useEffect(() => {
+    Router.events.on('routeChangeStart', () => setSideBar(false));
+    setMounted(true);
+    getUserInfo(ajax, setUser);
+    return () => setMounted(false);
+  }, []);
 
-    useEffect(() => {
-        setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
-    }, [user]);
+  useEffect(() => {
+    setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
+  }, [user]);
 
-    const logout = async () => {
-        const [, error] = await ajax({
-            method: HttpMethod.DELETE,
-            url: 'user/logout',
-        });
-        if (error) return;
+  const logout = async () => {
+    const [, error] = await ajax({
+      method: HttpMethod.DELETE,
+      url: 'user/logout',
+    });
+    if (error) return;
 
-        resetUser();
-        showToast('로그아웃 되었습니다');
-    }
+    resetUser();
+    showToast('로그아웃 되었습니다');
+  }
 
-    const userMenuView = () => (
-        mounted && (
-            user.isLogin
-            ? <div className={`dropdown-menu ${styles.dropdown}`}>
-                <span className={`${styles.item} ${styles.user_profile_wrap}`}>
-                    <div>
-                        <span>{user.nickname}</span>
-                        <div className='user-profile'>
-                            <Image
-                                src={profileSrc}
-                                onError={() => setProfileSrc(DefaultProfilePic)}
-                                width='128px'
-                                height='128px'
-                                alt='user profile'
-                            />
-                        </div>
-                    </div>
-                </span>
-                <ul className='dropdown-content'>
-                    <li><a href='https://auth.bssm.kro.kr/user' className='option'>유저 정보</a></li>
-                    <li><span onClick={() => {logout(); setSideBar(false);}} className='option'>로그아웃</span></li>
-                </ul>
+  const userMenuView = () => mounted && (
+    user.isLogin
+    ? <DropdownMenu
+        menus={[
+          {text: '유저정보', callback: () => router.push('https://auth.bssm.kro.kr/user')},
+          {text: '로그아웃', callback: () => {logout(); setSideBar(false)}}
+        ]}
+        title={
+          <div>
+            <span>{user.nickname}</span>
+            <div className='user-profile'>
+              <Image
+                src={profileSrc}
+                onError={() => setProfileSrc(DefaultProfilePic)}
+                width='128'
+                height='128'
+                alt='user profile'
+              />
             </div>
-            : <span className={styles.item} onClick={() => {openModal('login'); setSideBar(false);}}>로그인</span>
-        )
-    );
-
-    const allMenuFunc = (): {
-        className: string,
-        func: () => void
-    } => {
-        const {allMenu} = headerOption;
-        if (allMenu?.goBack) {
-            return {
-                className: 'go-back',
-                func: () => router.back()
-            };
+          </div>
         }
-        return {
-            className: '',
-            func: () => setSideBar(true)
-        };
+        className={styles.user_profile_wrap}
+        titleClassName={`${styles.item} ${styles.user_profile}`}
+      />
+    : <span className={styles.item} onClick={() => {openModal('login'); setSideBar(false)}}>로그인</span>
+  );
+
+  const allMenuFunc = (): {
+    className: string,
+    func: () => void
+  } => {
+    const {allMenu} = headerOption;
+    if (allMenu?.goBack) {
+      return {
+        className: 'go-back',
+        func: () => router.back()
+      };
     }
-
-    const allMenuView = () => {
-        if (headerOption.allMenu?.dropdownMenu) {
-            return dropdownMenuView(headerOption.allMenu.dropdownMenu);
-        }
-
-        const {className, func} = allMenuFunc();
-        return (
-            <li
-                className={`${styles.item} ${styles.all_menu} menu-button ${className}`}
-                onClick={func}
-            >
-                <span className='line'></span>
-                <span className='line'></span>
-                <span className='line'></span>
-            </li>
-        );
+    return {
+      className: '',
+      func: () => setSideBar(true)
     };
+  }
 
-    const optionMenuView = () => {
-        if (headerOption.optionMenu?.dropdownMenu) {
-            return dropdownMenuView(headerOption.optionMenu.dropdownMenu);
-        }
-        return <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>;
+  const allMenuView = () => {
+    if (headerOption.allMenu?.dropdownMenu) {
+      return dropdownMenuView(headerOption.allMenu.dropdownMenu);
     }
 
-    const dropdownMenuView = (dropdownMenu: DropdownMenuOption[]) => (
-        <li className={`dropdown-menu ${styles.dropdown}`}>
-            <span className={`${styles.item} ${styles.all_menu} menu-button`}>
-                <span className='line'></span>
-                <span className='line'></span>
-                <span className='line'></span>
-            </span>
-            <ul className='dropdown-content'>
-                {dropdownMenu.map(
-                    menu => <li key={menu.text} onClick={menu.callback}><span className='option'>{menu.text}</span></li>
-                )}
-            </ul>
-        </li>
-    );
-
+    const {className, func} = allMenuFunc();
     return (
-        <header className={styles.header}>
-            <div className={styles.top}>
-                <nav className={styles.top_menu_bar}>
-                    <ul className={styles.left}>
-                        <li className={styles.home}>
-                            <Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link>
-                        </li>
-                        {allMenuView()}
-                        <div className={styles.title}>
-                            <h2>{headerOption.title}</h2>
-                        </div>
-                        {optionMenuView()}
-                    </ul>
-                    <div className={styles.title}>
-                        <h2>{headerOption.title}</h2>
-                    </div>
-                    <ul className={styles.right}>
-                        <li className={`dropdown-menu ${styles.dropdown}`}>
-                            <span className={styles.item}>학교</span>
-                            <ul className='dropdown-content'>
-                                <li><Link href='/meal'><a className='option'>급식</a></Link></li>
-                                <li><Link href='/timetable'><a className='option'>시간표</a></Link></li>
-                                <li><Link href='/meister'><a className='option'>점수 / 상벌점</a></Link></li>
-                                <li><a target='_blank' rel='noopener noreferrer' href='https://school.busanedu.net/bssm-h/main.do' className='option'>학교 홈페이지</a></li>
-                            </ul>
-                        </li>
-                        <li className={`dropdown-menu ${styles.dropdown}`}>
-                            <span className={styles.item}>커뮤니티</span>
-                            <ul className='dropdown-content'>
-                                <li><Link href='/board/board'><a className='option'>자유 게시판</a></Link></li>
-                                <li><Link href='/board/student'><a className='option'>학생 게시판</a></Link></li>
-                                <li><Link href='/board/software'><a className='option'>소프트웨어</a></Link></li>
-                                <li><Link href='/board/notice'><a className='option'>공지사항</a></Link></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+      <li
+        className={`${styles.item} ${styles.all_menu} menu-button ${className}`}
+        onClick={func}
+      >
+        <span className='line'></span>
+        <span className='line'></span>
+        <span className='line'></span>
+      </li>
+    );
+  };
+
+  const optionMenuView = () => {
+    if (headerOption.optionMenu?.dropdownMenu) {
+      return dropdownMenuView(headerOption.optionMenu.dropdownMenu);
+    }
+    return <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>;
+  }
+
+  const dropdownMenuView = (dropdownMenu: DropdownMenuOption[]) => (
+    <DropdownMenu
+      title={<>
+        <span className='line'></span>
+        <span className='line'></span>
+        <span className='line'></span>
+      </>}
+      titleClassName={`${styles.item} ${styles.all_menu} menu-button`}
+      menus={dropdownMenu}
+      className={styles.dropdown}
+    />
+  );
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.top}>
+        <nav className={styles.top_menu_bar}>
+          <ul className={styles.left}>
+            <li className={styles.home}>
+              <Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link>
+            </li>
+            {allMenuView()}
+            <div className={styles.title}>
+              <h2>{headerOption.title}</h2>
             </div>
-            <div className={`${styles.side} ${sideBar? styles.on: ''}`}>
-                <div className={`close_button ${styles.close_button}`} onClick={() => setSideBar(false)}></div>
-                <div className={`dim ${styles.dim}`} onClick={() => setSideBar(false)}></div>
-                <ul className={styles.menus}>
-                    <li><Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link></li>
-                    <li>{userMenuView()}</li>
-                    <li><Link href='/timetable'><a className={styles.item}>시간표</a></Link></li>
-                    <li><Link href='/meal'><a className={styles.item}>급식</a></Link></li>
-                    <li><Link href='/meister'><a className={styles.item}>점수 / 상벌점</a></Link></li>
-                    <li className={`dropdown-menu ${styles.dropdown}`}>
-                        <span className={styles.item}>커뮤니티</span>
-                        <ul className='dropdown-content'>
-                            <li><Link href='/board/board'><a className='option'>자유 게시판</a></Link></li>
-                            <li><Link href='/board/student'><a className='option'>학생 게시판</a></Link></li>
-                            <li><Link href='/board/software'><a className='option'>소프트웨어</a></Link></li>
-                            <li><Link href='/board/notice'><a className='option'>공지사항</a></Link></li>
-                        </ul>
-                    </li>
-                    <li className={`dropdown-menu ${styles.dropdown}`}>
-                        <span className={styles.item}>다른 서비스</span>
-                        <ul className='dropdown-content'>
-                            <li><a href='https://auth.bssm.kro.kr' className='option'>BSM Auth</a></li>
-                            <li><a href='https://drive.bssm.kro.kr' className='option'>BSM Cloud</a></li>
-                            <li><a href='https://tetris.bssm.kro.kr' className='option'>BSM Tetris</a></li>
-                            <li><a href='https://bgit.bssm.kro.kr' className='option'>BGIT</a></li>
-                        </ul>
-                    </li>
-                    <li><a className={styles.item} target='_blank' rel='noopener noreferrer' href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
-                    <li><a className={styles.item} href='https://github.com/BSSM-BSM'>깃허브</a></li>
-                </ul>
-            </div>
-        </header>
-    )
+            {optionMenuView()}
+          </ul>
+          <div className={styles.title}>
+            <h2>{headerOption.title}</h2>
+          </div>
+          <ul className={styles.right}>
+            <DropdownMenu
+              className={styles.dropdown}
+              title='학교'
+              titleClassName={styles.item}
+              menus={[
+                {text: '급식', callback: () => router.push('/meal')},
+                {text: '시간표', callback: () => router.push('/timetable')},
+                {text: '점수 / 상벌점', callback: () => router.push('/meister')},
+                {text: '학교 홈페이지', callback: () => window.open('https://school.busanedu.net/bssm-h/main.do', '_blank', 'noopener noreferrer')}
+              ]}
+            />
+            <DropdownMenu
+              className={styles.dropdown}
+              title='커뮤니티'
+              titleClassName={styles.item}
+              menus={[
+                {text: '자유 게시판', callback: () => router.push('/board/board')},
+                {text: '학생 게시판', callback: () => router.push('/board/student')},
+                {text: '소프트웨어', callback: () => router.push('/board/software')},
+                {text: '공지사항', callback: () => router.push('/board/notice')}
+              ]}
+            />
+          </ul>
+        </nav>
+      </div>
+      <div className={`${styles.side} ${sideBar? styles.on: ''}`}>
+        <div className={`close_button ${styles.close_button}`} onClick={() => setSideBar(false)}></div>
+        <div className={`dim ${styles.dim}`} onClick={() => setSideBar(false)}></div>
+        <ul className={styles.menus}>
+          <li><Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link></li>
+          <li>{userMenuView()}</li>
+          <li><Link href='/timetable'><a className={styles.item}>시간표</a></Link></li>
+          <li><Link href='/meal'><a className={styles.item}>급식</a></Link></li>
+          <li><Link href='/meister'><a className={styles.item}>점수 / 상벌점</a></Link></li>
+          <DropdownMenu
+            className={styles.dropdown}
+            title='커뮤니티'
+            titleClassName={styles.item}
+            menus={[
+              {text: '자유 게시판', callback: () => router.push('/board/board')},
+              {text: '학생 게시판', callback: () => router.push('/board/student')},
+              {text: '소프트웨어', callback: () => router.push('/board/software')},
+              {text: '공지사항', callback: () => router.push('/board/notice')}
+            ]}
+          />
+          <DropdownMenu
+            className={styles.dropdown}
+            title='다른 서비스'
+            titleClassName={styles.item}
+            menus={[
+              {text: 'BSM Auth', callback: () => window.open('https://auth.bssm.kro.kr', '_blank')},
+              {text: 'BSM Cloud', callback: () => window.open('https://drive.bssm.kro.kr', '_blank')},
+              {text: 'BSM Tetris', callback: () => window.open('https://tetris.bssm.kro.kr', '_blank')},
+              {text: 'BGIT', callback: () => window.open('https://bgit.bssm.kro.kr', '_blank')}
+            ]}
+          />
+          <li><a className={styles.item} target='_blank' rel='noopener noreferrer' href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
+          <li><a className={styles.item} href='https://github.com/BSSM-BSM'>깃허브</a></li>
+        </ul>
+      </div>
+    </header>
+  );
 }

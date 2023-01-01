@@ -32,13 +32,15 @@
     opacity: 0;
     pointer-events: none;
     position:  absolute;
+    min-width: 100%;
+    padding: .5rem;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: bold;
     word-break: keep-all;
     border-radius: .5rem;
     box-shadow: var(--shadow);
-    background-color: var(--level-3);
+    background-color: var(--level-2);
     transition: all .25s;
 }
 
@@ -51,7 +53,7 @@
 
 .option {
     display: inline-block;
-    padding: 1.2rem 1.6rem;
+    padding: 1rem 1.4rem;
     width: 100%;
     cursor: pointer;
     transition: .25s;
@@ -75,5 +77,5 @@
 }
 
 .meatballs_menu .dropdown_content .option {
-    width: 16rem;
+    width: 12rem;
 }

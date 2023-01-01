@@ -108,7 +108,7 @@ body:global(.dark)
     bottom: 3rem;
     padding: 1.5rem 2rem;
     border: none;
-    border-radius: 1rem;
+    border-radius: .75rem;
     font-size: 1.6rem;
     font-weight: bold;
     background-color: var(--level-2);
