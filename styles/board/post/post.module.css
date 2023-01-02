@@ -1,11 +1,12 @@
 .post {
-    position: fixed;
+    position: absolute;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     top: 0;
     left: 100%;
     padding: 15rem .5rem 1rem;
-    background-color: var(--level-0);
+    background-color: var(--level-1);
     transition: .25s;
 }
 

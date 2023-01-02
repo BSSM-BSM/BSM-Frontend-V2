@@ -1,5 +1,5 @@
 .board {
-    position: fixed;
+    position: absolute;
     left: 0;
     width: 100%;
     height: 100%;
@@ -103,7 +103,7 @@
 }
 
 .write {
-    position: fixed;
+    position: absolute;
     bottom: 2rem;
     right: 2rem;
     background-color: var(--level-4);

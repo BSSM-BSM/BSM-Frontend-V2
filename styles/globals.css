@@ -157,8 +157,9 @@ body.dark {
 }
 
 main {
-  border-radius: 1rem 0 0;
+  position: relative;
   grid-area: content;
+  border-radius: 1rem 0 0;
   background-color: var(--level-0);
   filter: var(--drop-shadow);
   overflow: hidden;

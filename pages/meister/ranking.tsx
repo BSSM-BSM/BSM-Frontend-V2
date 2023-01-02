@@ -89,7 +89,6 @@ const MeisterPage: NextPage = () => {
                 <title>마이스터 랭킹 - BSM</title>
             </Head>
             <>
-                <Banner position={BannerPos.LEFT} type={BannerType.VERTICAL} />
                 <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
             </>
             <CheckList

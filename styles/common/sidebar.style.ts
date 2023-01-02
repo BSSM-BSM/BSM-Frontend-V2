@@ -20,7 +20,7 @@ export const SidebarItem = styled.li`
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 1rem 1.5rem;
+  padding: .75rem 1.5rem;
   border-radius: .5rem;
   cursor: pointer;
   color: var(--text-level-1);

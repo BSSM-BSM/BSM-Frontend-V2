@@ -74,5 +74,6 @@ export const boardOpenAllChildCommentsState = atom<boolean>({
 
 export const boardActiveEditorState = atom<RefObject<HTMLElement> | Editor | null>({
     key: 'boardActiveEditor',
-    default: null
+    default: null,
+    dangerouslyAllowMutability: true,
 });
