@@ -1,6 +1,6 @@
 .quick_menu_section {
     width: 100%;
-    height: calc(1vh * 100);
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,8 +21,8 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    background-color: var(--level-3-opacity);
-    box-shadow: var(--shadow);
+    background-color: var(--level-2);
+    filter: var(--drop-shadow);
     padding: 2rem;
     border-radius: .75rem;
     transition: .25s;
@@ -53,39 +53,40 @@
 }
 
 .sub_content {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: normal;
 }
 
 .main_content {
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 .meister .sub_content {
     display: flex;
     align-items: center;
     gap: 1rem;
+    font-size: 1.4rem;
 }
 
 .meister .main_content {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
 }
 
 .meister .main_content span:nth-child(2) {
     margin-left: .5rem;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--text-level-1);
 }
 
 .meister_info {
     display: inline-flex;
     align-items: center;
-    gap: .1rem;
+    gap: .3rem;
 }
 
 .refresh {
-    width: 2rem !important;
-    height: 2rem !important;
+    width: 1.8rem !important;
+    height: 1.8rem !important;
     padding: 0 !important;
 }
 
@@ -138,16 +139,13 @@
 }
 
 /* 세로 메뉴 */
-@media screen and (min-width: 0px) and (max-width: 780px) {
+@media screen and (min-width: 0px) and (max-width: 980px) {
     .quick_menu_list {
         column-gap: 2rem;
     }
 }
 
-@media screen and (min-width: 0px) and (max-width: 750px) and (min-height: 600px) {
-    .quick_menu_section {
-        padding-top: 10rem;
-    }
+@media screen and (min-width: 0px) and (max-width: 980px) and (min-height: 600px) {
     
     .quick_menu_list {
         grid-template-columns: 1fr;

@@ -62,7 +62,7 @@
 }
 
 .input_wrap.number .input ~ .placeholder {
-    padding: 0 .5rem;
+    padding: 0 1rem;
 }
 
 .input:is(

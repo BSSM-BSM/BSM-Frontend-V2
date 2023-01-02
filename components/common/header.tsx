@@ -146,30 +146,6 @@ export const Header = () => {
           <div className={styles.title}>
             <h2>{headerOption.title}</h2>
           </div>
-          <ul className={styles.right}>
-            <DropdownMenu
-              className={styles.dropdown}
-              title='학교'
-              titleClassName={styles.item}
-              menus={[
-                {text: '급식', callback: () => router.push('/meal')},
-                {text: '시간표', callback: () => router.push('/timetable')},
-                {text: '점수 / 상벌점', callback: () => router.push('/meister')},
-                {text: '학교 홈페이지', callback: () => window.open('https://school.busanedu.net/bssm-h/main.do', '_blank', 'noopener noreferrer')}
-              ]}
-            />
-            <DropdownMenu
-              className={styles.dropdown}
-              title='커뮤니티'
-              titleClassName={styles.item}
-              menus={[
-                {text: '자유 게시판', callback: () => router.push('/board/board')},
-                {text: '학생 게시판', callback: () => router.push('/board/student')},
-                {text: '소프트웨어', callback: () => router.push('/board/software')},
-                {text: '공지사항', callback: () => router.push('/board/notice')}
-              ]}
-            />
-          </ul>
         </nav>
       </div>
       <div className={`${styles.side} ${sideBar? styles.on: ''}`}>

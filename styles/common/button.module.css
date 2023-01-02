@@ -11,7 +11,7 @@
     font-weight: bold;
     cursor: pointer;
     border-radius: .5rem;
-    background-color: var(--level-2);
+    background-color: var(--level-3);
     box-shadow: var(--shadow);
     transition: .25s;
 }
