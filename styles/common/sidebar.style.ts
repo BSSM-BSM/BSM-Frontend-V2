@@ -4,7 +4,6 @@ export const Sidebar = styled.aside`
   width: 25rem;
   grid-area: sidebar;
   @media screen and (max-width: 650px) {
-    width: 0;
     display: none;
   }
 `;
@@ -55,8 +54,8 @@ export const SidebarItemContent = styled.div`
 
 export const SidebarUserProfile = styled.div`
   border-radius: 50%;
-  width: 3rem !important;
-  height: 3rem !important;
+  width: 2.75rem !important;
+  height: 2.75rem !important;
   overflow: hidden;
 `;
 

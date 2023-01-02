@@ -1,6 +1,6 @@
 .comment_wrap {
-    overflow: auto;
     margin: 2rem 0 5rem;
+    padding: 30px 5px;
     background-color: var(--level-3);
     border-radius: 1rem;
     box-shadow: var(--shadow);

@@ -1,5 +1,5 @@
 .time_wrap {
-    position: fixed;
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -16,7 +16,7 @@
 
 .time_line {
     pointer-events: none;
-    position: fixed;
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -95,7 +95,7 @@
 }
 
 .sync_button {
-    position: fixed;
+    position: absolute;
     z-index: 2;
     right: 3rem;
     bottom: 3rem;
@@ -115,7 +115,7 @@
 }
 
 .select_day {
-    position: fixed;
+    position: absolute;
     z-index: 2;
     top: 50%;
     left: 1rem;
@@ -145,7 +145,7 @@
 }
 
 .select_box {
-    position: fixed;
+    position: absolute;
     z-index: 2;
     top: calc(50% - 13rem);
     right: 1rem;

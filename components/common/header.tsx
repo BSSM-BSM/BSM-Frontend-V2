@@ -164,7 +164,7 @@ export const Header = () => {
             menus={[
               {text: '자유 게시판', callback: () => router.push('/board/board')},
               {text: '학생 게시판', callback: () => router.push('/board/student')},
-              {text: '소프트웨어', callback: () => router.push('/board/software')},
+              {text: '코드 공유', callback: () => router.push('/board/notice')},
               {text: '공지사항', callback: () => router.push('/board/notice')}
             ]}
           />

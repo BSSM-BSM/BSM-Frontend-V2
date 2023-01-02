@@ -60,10 +60,10 @@ const Home: NextPage = () => {
           </Link>
         </li>
         <li>
-          <Link href='/board/software'>
+          <Link href='/board/code'>
             <a className={styles.menu}>
-              <img className={styles.icon} src='/icons/people.svg' alt='software board'></img>
-              소프트웨어 게시판
+              <img className={styles.icon} src='/icons/people.svg' alt='code share'></img>
+              코드 공유
             </a>
           </Link>
         </li>

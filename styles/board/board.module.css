@@ -103,7 +103,7 @@
 }
 
 .write {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     right: 2rem;
     background-color: var(--level-4);

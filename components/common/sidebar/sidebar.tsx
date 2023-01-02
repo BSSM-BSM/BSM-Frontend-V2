@@ -54,9 +54,9 @@ const Sidebar = () => {
         <SidebarItem
           Icon={BiCodeAlt}
           iconSize={26}
-          onClick={() => router.push('/board/software')}
+          onClick={() => router.push('/board/code')}
         >
-          코드 게시판
+          코드 공유
         </SidebarItem>
         <SidebarItem
           Icon={AiOutlineBell}

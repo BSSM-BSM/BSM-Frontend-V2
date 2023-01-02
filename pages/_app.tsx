@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <div className='wrap'>
       <RecoilRoot>
         <Sidebar />
-        <main>
+        <main className='scroll-bar'>
           <Component {...pageProps} />
         </main>
         <>
