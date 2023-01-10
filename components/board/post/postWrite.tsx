@@ -34,8 +34,8 @@ export const PostWrite = ({
   editPost,
   setPost
 }: PostWriteProps) => {
-  const {ajax} = useAjax();
-  const {openModal} = useModal();
+  const { ajax } = useAjax();
+  const { openModal } = useModal();
   const router = useRouter();
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
@@ -97,17 +97,17 @@ export const PostWrite = ({
     return new Promise(async (resolve, reject) => {
       let file = new FormData();
       file.append('file', blobInfo.blob());
-      
+
       const [data, error] = await ajax<UploadFileRes>({
         method: HttpMethod.POST,
         payload: file,
         url: '/post/upload',
-        config:{
+        config: {
           timeout: 0
         },
-        errorCallback:(data) => {
-          if (!data) return reject({message: '알 수 없는 에러가 발생하였습니다', remove: true});
-          reject({message: data.message, remove: true});
+        errorCallback: (data) => {
+          if (!data) return reject({ message: '알 수 없는 에러가 발생하였습니다', remove: true });
+          reject({ message: data.message, remove: true });
         }
       });
       if (error) return;
@@ -116,7 +116,7 @@ export const PostWrite = ({
   }
 
   return (
-    <div className={`container _110 ${styles.post_write_wrap}`}>
+    <div className={`container _110 ${styles.post_write}`}>
       <TextInput
         setCallback={setTitle}
         value={title}
@@ -125,7 +125,7 @@ export const PostWrite = ({
         full
       />
       <Editor
-        tinymceScriptSrc={process.env.NODE_ENV === 'development'? undefined: '/lib/tinymce/tinymce.min.js'}
+        tinymceScriptSrc={process.env.NODE_ENV === 'development' ? undefined : '/lib/tinymce/tinymce.min.js'}
         onInit={(_, editor) => setEditor(editor)}
         init={{
           language: 'ko_KR',
@@ -134,10 +134,10 @@ export const PostWrite = ({
           mobile: {
             menubar: true,
           },
-          skin: localStorage.getItem('theme') == 'dark'? 'oxide-dark': undefined,
+          skin: localStorage.getItem('theme') == 'dark' ? 'oxide-dark' : undefined,
           content_css: localStorage.getItem('theme') ?? undefined,
           plugins: [
-            'code','autolink','lists','link','image','charmap','preview','anchor','searchreplace','visualblocks','media','table','wordcount','codesample'
+            'code', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks', 'media', 'table', 'wordcount', 'codesample'
           ],
           toolbar: 'undo redo codesample | bold italic | alignleft alignright aligncenter alignjustify | emoticon image media | preview code',
           codesample_global_prismjs: true,
@@ -162,21 +162,21 @@ export const PostWrite = ({
         value={content}
         onEditorChange={content => setContent(content)}
       />
-        <div className="rows gap-1">
-          <CheckList
-            className='flex-main'
-            currentItem={category}
-            callback={item => setCategory(item.id)}
-            itemList={[
-              {id: 'normal', name: '일반'},
-              ...Object.values(categoryList)
-            ]}
-          />
-          {
-            editPost
+      <div className="rows gap-1">
+        <CheckList
+          className='flex-main'
+          currentItem={category}
+          callback={item => setCategory(item.id)}
+          itemList={[
+            { id: 'normal', name: '일반' },
+            ...Object.values(categoryList)
+          ]}
+        />
+        {
+          editPost
             ? <Button className='accent' onClick={modifyPost}>글 수정</Button>
             : <Button className='accent' onClick={writePost}>글 작성</Button>
-          }
+        }
       </div>
     </div>
   );

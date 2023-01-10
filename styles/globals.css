@@ -62,13 +62,14 @@ body {
   --input: rgba(192, 192, 192, .3);
   
   --dim: rgba(0, 0, 0, .2);
-  --shadow: .1rem .1rem 1rem rgba(0, 0, 0, .2);
+  --shadow: .1rem .1rem .5rem rgba(0, 0, 0, .15);
   --shadow-level-1: .2rem .2rem 5rem rgba(0, 0, 0, .2);
   --drop-shadow: drop-shadow(rgba(90, 90, 90, 0.1) 0px 2px 5px);
   --hover: rgba(0, 0, 0, .2);;
   --bright: brightness(0);
   --visited: #800080;
 }
+
 body.dark {
   color-scheme: dark;
 
@@ -110,7 +111,6 @@ body.dark {
   --dim: rgba(0, 0, 0, .2);
   --shadow: none;
   --shadow-level-1: none;
-  --drop-shadow: none;
   --hover: #a8aaad66;
   --bright: brightness(20);
   --visited: #f4a4ff;
@@ -151,7 +151,7 @@ body.dark {
     "header header"
     "sidebar content";
   grid-template-rows: 5.4rem;
-  grid-template-columns: min-content;
+  grid-template-columns: 25rem;
   width: 100%;
   height: calc(1vh * 100);
 }
@@ -169,7 +169,7 @@ main {
   grid-area: content;
   border-radius: 1rem 0 0;
   background-color: var(--level-0);
-  filter: var(--drop-shadow);
+  box-shadow: var(--shadow);
   overflow: hidden !important;
   overflow-y: overlay !important;
 }

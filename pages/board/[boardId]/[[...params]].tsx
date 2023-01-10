@@ -146,7 +146,7 @@ const BoardPage: NextPage = () => {
         && boardList[boardId]
         && <>
           <BoardView boardId={boardId} board={boardList[boardId]} />
-          <div className={`${postStyles.post} ${postOpen ? postStyles.open : ''} scroll-bar`}>
+          <div className={`${postStyles.post} ${postOpen ? postStyles.open : ''}`}>
             {
               post?.id === Number(postId)
               && <PostView
@@ -161,7 +161,7 @@ const BoardPage: NextPage = () => {
       }
       {
         typeof boardId === 'string'
-        && <div className={`${postStyles.post} ${boardList[boardId] && postId === 'write' ? postStyles.open : ''}`}>
+        && <div className={`${postStyles.post} ${postStyles.post_write_wrap} ${boardList[boardId] && postId === 'write' ? postStyles.open : ''}`}>
           <PostWrite
             boardId={boardId}
             postId={postId}

@@ -90,7 +90,7 @@
     width: 15rem;
 }
 
-@media screen and (min-width: 0) and (max-width: 750px) {
+@media screen and (min-width: 0) and (max-width: 1000px) {
     .ranking_list {
         font-size: 1.8rem;
     }

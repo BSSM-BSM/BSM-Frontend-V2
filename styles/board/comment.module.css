@@ -1,7 +1,7 @@
 .comment_wrap {
     margin: 2rem 0 5rem;
     padding: 30px 5px;
-    background-color: var(--level-3);
+    background-color: var(--level-2);
     border-radius: 1rem;
     box-shadow: var(--shadow);
 }
@@ -37,7 +37,7 @@
     padding: 1rem;
     border-radius: 1rem;
     color: var(--text-level-2);
-    background-color: var(--level-2);
+    background-color: var(--level-4);
     cursor: pointer;
     transition: .25s;
 }

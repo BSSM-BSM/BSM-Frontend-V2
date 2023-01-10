@@ -167,7 +167,7 @@
     background-color: var(--accent);
 }
 
-@media screen and (min-width: 0) and (max-width: 750px) {
+@media screen and (min-width: 0) and (max-width: 900px) {
     .select_day {
         top: auto;
         bottom: 2rem;

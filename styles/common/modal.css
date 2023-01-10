@@ -20,9 +20,9 @@
     font-weight: bold;
     word-break: keep-all;
     padding: 1.5rem 1rem 1rem;
-    border-radius: 2rem;
+    border-radius: 1rem;
     box-shadow: var(--shadow);
-    background-color: var(--level-1);
+    background-color: var(--level-2);
     z-index: 101;
     animation: modal_show 100ms ease-out;
 }
@@ -98,8 +98,10 @@
 
 .modal .close_button {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: .75rem;
+    right: .75rem;
+    background-size: 3.5rem;
+    opacity: .7;
 }
 
 .modal--bottom-menu-box {

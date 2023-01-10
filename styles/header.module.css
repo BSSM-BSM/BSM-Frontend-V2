@@ -72,11 +72,11 @@
 }
 
 .top_menu_bar .title {
+  max-width: calc(100vw - 12rem);
   display: flex;
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding: 0 1rem;
   overflow: hidden;
 }
 
