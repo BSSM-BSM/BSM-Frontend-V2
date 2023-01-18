@@ -1,81 +1,81 @@
 @keyframes blocking_click {
-    0% {
-        pointer-events: none;
-    }
-    99%{}
-    100% {
-        pointer-events: visible;
-    }
+  0% {
+    pointer-events: none;
+  }
+  99% {}
+  100% {
+    pointer-events: visible;
+  }
 }
 
 .dropdown_menu {
-    z-index: 10;
-    position: relative;
-    display: inline-block;
-    color: var(--text);
+  z-index: 10;
+  position: relative;
+  display: inline-block;
+  color: var(--text);
 }
 
 .title {
-    position: relative;
-    padding-right: 2rem;
-    font-weight: bold;
-    cursor: pointer;
+  position: relative;
+  padding-right: 2rem;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .title.mark::after {
-    content: ' ▼';
+  content: ' ▼';
 }
 
 .dropdown_content {
-    transform: translateY(-1.5rem);
-    right: 0;
-    opacity: 0;
-    pointer-events: none;
-    position:  absolute;
-    min-width: 100%;
-    padding: .5rem;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    word-break: keep-all;
-    border-radius: .5rem;
-    box-shadow: var(--shadow);
-    background-color: var(--level-2);
-    transition: all .25s;
+  transform: translateY(-1.5rem);
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  min-width: 100%;
+  padding: .5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  word-break: keep-all;
+  border-radius: .5rem;
+  box-shadow: var(--shadow);
+  background-color: var(--level-2);
+  transition: all .25s;
 }
 
 .dropdown_menu:hover .dropdown_content {
-    transform: translateY(0) !important;
-    opacity: 1;
-    animation: blocking_click 250ms ease;
-    animation-fill-mode: forwards;
+  transform: translateY(0) !important;
+  opacity: 1;
+  animation: blocking_click 250ms ease;
+  animation-fill-mode: forwards;
 }
 
 .option {
-    display: inline-block;
-    padding: 1rem 1.4rem;
-    width: 100%;
-    cursor: pointer;
-    transition: .25s;
-    border-radius: .5rem;
+  display: inline-block;
+  padding: 1rem 1.4rem;
+  width: 100%;
+  cursor: pointer;
+  transition: .25s;
+  border-radius: .5rem;
 }
 
 .option:hover {
-    background-color: var(--hover);
+  background-color: var(--hover);
 }
 
 .option:active {
-    transform: scale(.8);
+  transform: scale(.8);
 }
 
 .meatballs_menu .title {
-    font-size: 1.7rem;
-    letter-spacing: -.3rem;
-    padding: 0 1rem 0 .75rem;
-    border-radius: .5rem;
-    background-color: var(--level-3);
+  font-size: 1.7rem;
+  letter-spacing: -.3rem;
+  padding: 0 1rem 0 .75rem;
+  border-radius: .5rem;
+  background-color: var(--level-3);
 }
 
 .meatballs_menu .dropdown_content .option {
-    width: 12rem;
+  width: 12rem;
 }

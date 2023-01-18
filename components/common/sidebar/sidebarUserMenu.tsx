@@ -29,9 +29,8 @@ const SidebarUserMenu = () => {
             <Image
               src={profileSrc}
               onError={() => setProfileSrc(DefaultProfilePic)}
-              width='128px'
-              height='128px'
               alt='user profile'
+              fill
             />
           </S.SidebarUserProfile>
         }

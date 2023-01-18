@@ -1,19 +1,21 @@
-import styles from '../styles/meal.module.css';
+'use client';
+
+import styles from '../../styles/meal.module.css';
 import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { HttpMethod, useAjax } from "../hooks/useAjax";
-import { useOverlay } from "../hooks/useOverlay";
-import { screenScaleState, headerOptionState, pushSubscriptionState } from "../store/common.store";
-import { MealTime, MealType } from "../types/mealTypes";
-import { PushPermission, subscribe } from "../utils/webPush";
-import { MealItem } from '../components/meal/mealItem';
-import { Button } from '../components/common/buttons/button';
-import { dateToShortDateStr, shrotDateStrToDate, timeToTotalSecond } from '../utils/date';
-import { numberInBetween } from '../utils/util';
-import { BannerType } from '../types/bannerType';
-import { Banner, BannerPos } from '../components/common/banner';
+import { HttpMethod, useAjax } from "../../hooks/useAjax";
+import { useOverlay } from "../../hooks/useOverlay";
+import { screenScaleState, headerOptionState, pushSubscriptionState } from "../../store/common.store";
+import { MealTime, MealType } from "../../types/mealTypes";
+import { subscribe } from "../../utils/webPush";
+import { MealItem } from '../../components/meal/mealItem';
+import { Button } from '../../components/common/buttons/button';
+import { dateToShortDateStr, shrotDateStrToDate, timeToTotalSecond } from '../../utils/date';
+import { numberInBetween } from '../../utils/util';
+import { BannerType } from '../../types/bannerType';
+import { Banner, BannerPos } from '../../components/common/banner';
 
 type MealRes = {
     [index in MealTime]: {

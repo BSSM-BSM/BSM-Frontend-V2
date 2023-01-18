@@ -1,133 +1,136 @@
 .meals_wrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  text-align: center;
 }
 
 .meals {
-    position: absolute;
-    left: 50%;
-    top: calc(50% + 5rem);
-    transform: translate(-50%, -50%);
-    width: 115%;
-    display: flex;
-    pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 5rem);
+  transform: translate(-50%, -50%);
+  width: 115%;
+  display: flex;
+  pointer-events: none;
 }
 
 .meals li {
-    font-size: 1.5rem;
-    flex: 1;
-    padding: 1.5rem .5rem;
-    min-height: 25rem;
-    pointer-events: all;
-    cursor: pointer;
-    transition: .2s;
-    user-select: none;
+  font-size: 1.5rem;
+  flex: 1;
+  padding: 1.5rem .5rem;
+  min-height: 25rem;
+  pointer-events: all;
+  cursor: pointer;
+  transition: .2s;
+  user-select: none;
 }
 
-.meals li > div {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    box-shadow: var(--shadow-level-1);
-    border-radius: 2rem;
-    opacity: .65;
-    transition: .2s;
+.meals li>div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-shadow: var(--shadow-level-1);
+  border-radius: 2rem;
+  opacity: .65;
+  transition: .2s;
 }
 
 .meals:not(:hover) li.center,
 .meals li:hover {
-    transform: scale(1.25);
-    flex: 1.25;
-    padding: 0 2rem;
-    margin: 0 5rem;
-    font-size: 1.7rem;
+  transform: scale(1.25);
+  flex: 1.25;
+  padding: 0 2rem;
+  margin: 0 5rem;
+  font-size: 1.7rem;
 }
 
-.meals:not(:hover) li.center > div,
-.meals li:hover > div {
-    opacity: 1;
+.meals:not(:hover) li.center>div,
+.meals li:hover>div {
+  opacity: 1;
 }
 
 .meals:not(:hover) li.center h3,
 .meals li:hover h3 {
-    font-size: 1.8rem;
+  font-size: 1.8rem;
 }
 
-.meals li.date_color_0 > div {
-    background-color: var(--level-1);
+.meals li.date_color_0>div {
+  background-color: var(--level-2);
 }
 
-.meals li.date_color_1 > div {
-    background-color: var(--level-2);
-}
-
-body:global(.dark)
-.meals li.date_color_1 > div {
-    background-color: var(--level-3);
+.meals li.date_color_1>div {
+  background-color: var(--level-3);
 }
 
 .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
 }
 
 .date {
-    width: 100%;
-    position: absolute;
-    font-size: 1.6rem;
-    top: -4rem;
-    left: 50%;
-    transform: translateX(-50%);
-    pointer-events: none;
+  width: 100%;
+  position: absolute;
+  font-size: 1.6rem;
+  top: -4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 
 .meal_info {
-    font-size: 1.5rem;
-    padding: .5rem;
-    border-radius: 2rem 2rem 0 0;
+  font-size: 1.5rem;
+  padding: .5rem;
+  border-radius: 2rem 2rem 0 0;
 }
 
-.meal_info.red {background-color: var(--red);}
-.meal_info.yellow {background-color: var(--yellow);}
-.meal_info.green {background-color: var(--green);}
+.meal_info.red {
+  background-color: var(--red);
+}
+
+.meal_info.yellow {
+  background-color: var(--yellow);
+}
+
+.meal_info.green {
+  background-color: var(--green);
+}
 
 .notification_button {
-    position: absolute;
-    z-index: 1;
-    right: 3rem;
-    bottom: 3rem;
-    padding: 1.5rem 2rem;
-    border: none;
-    border-radius: .75rem;
-    font-size: 1.6rem;
-    font-weight: bold;
-    background-color: var(--level-2);
-    cursor: pointer;
-    transition: .25s;
-    box-shadow: var(--shadow);
+  position: absolute;
+  z-index: 1;
+  right: 3rem;
+  bottom: 3rem;
+  padding: 1.5rem 2rem;
+  border: none;
+  border-radius: .75rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  background-color: var(--level-2);
+  cursor: pointer;
+  transition: .25s;
+  box-shadow: var(--shadow);
 }
 
 .notification_button:hover {
-    background-color: var(--hover);
+  background-color: var(--hover);
 }
 
 @media screen and (min-width: 0) and (max-width: 750px) {
-    .meals {
-        width: 150%;
-    }
+  .meals {
+    width: 150%;
+  }
 
-    .meals:not(:hover) li.center,
-    .meals li:hover {
-        margin: 0 3%;
-    }
+  .meals:not(:hover) li.center,
+  .meals li:hover {
+    margin: 0 3%;
+  }
 }

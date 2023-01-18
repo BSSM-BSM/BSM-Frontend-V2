@@ -50,8 +50,8 @@ export const CommentList = ({
                       <Image
                         src={profileSrc}
                         onError={() => setProfileSrc(DefaultProfilePic)}
-                        width='128px'
-                        height='128px'
+                        width='128'
+                        height='128'
                         alt='user profile'
                       />
                     </div>

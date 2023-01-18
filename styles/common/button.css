@@ -1,4 +1,4 @@
-.button-wrap > * {
-    cursor: pointer;
-    transition: .25s;
+.button-wrap>* {
+  cursor: pointer;
+  transition: .25s;
 }

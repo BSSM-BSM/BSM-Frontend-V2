@@ -1,88 +1,88 @@
 .banner {
-    position: fixed;
-    z-index: 5;
-    border-radius: .5rem;
-    overflow: hidden;
+  position: fixed;
+  z-index: 5;
+  border-radius: .5rem;
+  overflow: hidden;
 }
 
 .banner::after {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 0 .25rem;
-    font-size: 1.4rem;
-    content: '광고';
-    color: white;
-    background-color: rgba(0, 0, 0, .5);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 .25rem;
+  font-size: 1.4rem;
+  content: '광고';
+  color: white;
+  background-color: rgba(0, 0, 0, .5);
 }
 
 .banner:is(.horizontal, .vertical) {
-    object-fit: fill;
+  object-fit: fill;
 }
 
 .banner.horizontal,
 .banner.horizontal img {
-    max-width: 40rem;
-    width: calc(100% - 1rem);
-    height: 4rem;
+  max-width: 40rem;
+  width: calc(100% - 1rem);
+  height: 4rem;
 }
 
 .banner.horizontal img {
-    width: 100%;
+  width: 100%;
 }
 
 .banner.vertical,
 .banner.vertical img {
-    width: 4rem;
-    max-height: 30rem;
-    height: 100%;
+  width: 4rem;
+  max-height: 30rem;
+  height: 100%;
 }
 
 .banner:is(.top, .bottom) {
-    left: 50%;
-    transform: translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .banner:is(.left, .right) {
-    top: 50%;
-    transform: translateY(-50%);
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .banner.top {
-    position: absolute;
-    top: 7rem;
+  position: absolute;
+  top: 7rem;
 }
 
 .banner.bottom {
-    bottom: 1rem;
+  bottom: 1rem;
 }
 
 .banner.left {
-    left: 1rem;
+  left: 1rem;
 }
 
 .banner.right {
-    right: 1.5rem;
+  right: 1.5rem;
 }
 
 @media screen and (min-width: 0) and (max-width: 1300px) {
-    .banner.vertical {
-        display: none;
-    }
+  .banner.vertical {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 0) and (max-width: 720px) {
-    .banner.top {
-        top: 6rem;
-    }
+  .banner.top {
+    top: 6rem;
+  }
 
-    .banner.bottom {
-        bottom: 0rem;
-    }
+  .banner.bottom {
+    bottom: 0rem;
+  }
 }
 
 @media screen and (min-height: 0) and (max-height: 600px) {
-    .banner.horizontal {
-        display: none;
-    }
+  .banner.horizontal {
+    display: none;
+  }
 }

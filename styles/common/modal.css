@@ -1,145 +1,146 @@
 #modal-wrap {
-    pointer-events: none;
-    position: fixed;
-    z-index: 99;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  pointer-events: none;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal {
-    pointer-events: all;
-    margin: 6rem 0 0 0;
-    min-width: 20rem;
-    min-height: 6rem;
-    position: absolute;
-    font-weight: bold;
-    word-break: keep-all;
-    padding: 1.5rem 1rem 1rem;
-    border-radius: 1rem;
-    box-shadow: var(--shadow);
-    background-color: var(--level-2);
-    z-index: 101;
-    animation: modal_show 100ms ease-out;
+  pointer-events: all;
+  margin: 6rem 0 0 0;
+  min-width: 20rem;
+  min-height: 6rem;
+  position: absolute;
+  font-weight: bold;
+  word-break: keep-all;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  background-color: var(--level-2);
+  z-index: 101;
+  animation: modal_show 100ms ease-out;
 }
 
 .modal--title {
-    margin: 0 5rem;
-    text-align: center;
-    font-size: 2.2rem;
+  margin: 0 5rem;
+  text-align: center;
+  font-size: 2.2rem;
 }
 
 .modal.main {
-    width: 40rem;
+  width: 40rem;
 }
 
 .modal.big {
-    min-width: 60rem;
-    max-width: 80rem;
+  min-width: 60rem;
+  max-width: 80rem;
 }
 
 @media screen and (min-width: 0px) and (max-width: 800px) {
-    .modal {
-        max-width: calc(100% - 1rem) !important;
-        min-width: 0 !important;
-    }
+  .modal {
+    max-width: calc(100% - 1rem) !important;
+    min-width: 0 !important;
+  }
 }
 
 @keyframes modal_show {
-    from {
-        transform: scale(1.2);
-    }
-    to {
-        transform: scale(1);
-    }
+  from {
+    transform: scale(1.2);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
 
 .modal--menu {
-    display: flex;
+  display: flex;
 }
 
 .modal--menu li {
-    padding: 1rem;
-    flex: 1;
-    transition: .25s;
-    cursor: pointer;
+  padding: 1rem;
+  flex: 1;
+  transition: .25s;
+  cursor: pointer;
 }
 
 .modal--menu li:first-child {
-    border-radius: 1rem 0 0 1rem;
+  border-radius: 1rem 0 0 1rem;
 }
 
 .modal--menu li:last-child {
-    border-radius: 0 1rem 1rem 0;
+  border-radius: 0 1rem 1rem 0;
 }
 
 .modal--menu li:hover {
-    background-color: var(--hover);
+  background-color: var(--hover);
 }
 
 .modal--menu li.active {
-    background-color: var(--level-2);
+  background-color: var(--level-2);
 }
 
 .modal--content {
-    margin-top: 1rem;
-    text-align: center;
-    max-height: calc(100vh - 15rem);
-    overflow-y: auto;
+  margin-top: 1rem;
+  text-align: center;
+  max-height: calc(100vh - 15rem);
+  overflow-y: auto;
 }
 
 .modal form {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .modal .close_button {
-    position: absolute;
-    top: .75rem;
-    right: .75rem;
-    background-size: 3.5rem;
-    opacity: .7;
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  background-size: 3.5rem;
+  opacity: .7;
 }
 
 .modal--bottom-menu-box {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1rem 0;
 }
 
 .modal--bottom-menu-box span {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .modal.modal .input:is([type=text], [type=password]) {
-    width:100% !important;
+  width: 100% !important;
 }
 
 
 .modal--content {
-    overflow: auto;
+  overflow: auto;
 }
 
 .modal--content::-webkit-scrollbar {
-    width: .4rem !important;
+  width: .4rem !important;
 }
 
 .modal--content::-webkit-scrollbar-thumb {
-    border: 0 !important;
+  border: 0 !important;
 }
 
 .modal .list li span:nth-child(1) {
-    min-width: auto;
+  min-width: auto;
 }
 
 .modal .list li span:is(
-    :nth-child(2),
-    :nth-child(3)
+  :nth-child(2),
+  :nth-child(3)
 ) {
-    font-size: 1.3rem;
-    font-weight: normal;
+  font-size: 1.3rem;
+  font-weight: normal;
 }

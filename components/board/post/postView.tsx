@@ -9,7 +9,7 @@ import { escapeAttrValue, FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { useEffect, useMemo, useState } from 'react';
 import { headerOptionState } from '../../../store/common.store';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Head from 'next/head';
 import DefaultProfilePic from '../../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
@@ -134,8 +134,8 @@ export const PostView = ({
             <Image
               src={profileSrc}
               onError={() => setProfileSrc(DefaultProfilePic)}
-              width='128px'
-              height='128px'
+              width='128'
+              height='128'
               alt='user profile'
             />
           </div>

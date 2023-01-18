@@ -9,54 +9,52 @@ import { renderEmoticon } from '../../utils/emoticon';
 import { CommentList } from './commentItem';
 
 const commentXssFilter = new FilterXSS({
-    whiteList: {
-        img: ['e_id', 'e_idx', 'e_type']
-    }
+  whiteList: {
+    img: ['e_id', 'e_idx', 'e_type']
+  }
 });
 
 export const CommentView = ({
-    commentList,
-    loadComments,
-    boardDetailTime
+  commentList,
+  loadComments,
+  boardDetailTime
 }: {
-    commentList: (Comment | DeletedComment)[],
-    loadComments: Function,
-    boardDetailTime: boolean
+  commentList: (Comment | DeletedComment)[],
+  loadComments: Function,
+  boardDetailTime: boolean
 }) => {
-    const {ajax} = useAjax();
-    const [boardAndPostId] = useRecoilState(boardAndPostIdState);
-    const { boardId, postId } = boardAndPostId;
+  const { ajax } = useAjax();
+  const [boardAndPostId] = useRecoilState(boardAndPostIdState);
+  const { boardId, postId } = boardAndPostId;
 
-    const deleteComment = async (id: number) => {
-        if (!confirm('정말 삭제하시겠습니까?')) return;
-        const [, error] = await ajax({
-            url: `comment/${boardId}/${postId}/${id}`,
-            method: HttpMethod.DELETE,
-        });
-        if (error) return;
+  const deleteComment = async (id: number) => {
+    if (!confirm('정말 삭제하시겠습니까?')) return;
+    const [, error] = await ajax({
+      url: `comment/${boardId}/${postId}/${id}`,
+      method: HttpMethod.DELETE,
+    });
+    if (error) return;
 
-        loadComments();
-    }
+    loadComments();
+  }
 
-    useEffect(() => {
-        renderEmoticon();
-    }, [commentList]);
+  useEffect(() => {
+    renderEmoticon();
+  }, [commentList]);
 
-    return (
-        <div className={`${styles.comment_wrap} scroll-bar horizontal`}>
-            {
-                commentList.map(comment => (
-                    <CommentList
-                        key={`${boardId}/${postId}/${comment.id}`}
-                        comment={comment}
-                        loadComments={loadComments}
-                        deleteComment={deleteComment}
-                        boardDetailTime={boardDetailTime}
-                        commentXssFilter={commentXssFilter}
-                        boardAndPostId={boardAndPostId}
-                    />
-                ))
-            }
-        </div>
-    );
+  return (
+    <div className={`${styles.comment_wrap} scroll-bar horizontal`}>
+      {commentList.map(comment => (
+        <CommentList
+          key={`${boardId}/${postId}/${comment.id}`}
+          comment={comment}
+          loadComments={loadComments}
+          deleteComment={deleteComment}
+          boardDetailTime={boardDetailTime}
+          commentXssFilter={commentXssFilter}
+          boardAndPostId={boardAndPostId}
+        />
+      ))}
+    </div>
+  );
 };

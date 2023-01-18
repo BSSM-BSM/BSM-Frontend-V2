@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['bssm.kro.kr', 'auth.bssm.kro.kr']
+    domains: ['bssm.kro.kr', 'auth.bssm.kro.kr'],
+    minimumCacheTTL: 60,
   },
   reactStrictMode: false,
   swcMinify: true,
   experimental: {
-    images: {
-      allowFutureImage: true
-    },
+    appDir: true
   },
   rewrites() {
     return [

@@ -1,124 +1,124 @@
 .ranking_list {
-    display: flex;
-    flex-direction: column;
-    gap: .75rem;
-    font-size: 2rem;
-    padding: 0 .5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  font-size: 1.8rem;
+  padding: 0 .5rem;
 }
 
-.ranking_list li {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    padding-right: 2rem;
-    background-color: var(--level-3);
-    border-radius: 2rem;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: .25s;
+.item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  padding-right: 2rem;
+  background-color: var(--level-3);
+  border-radius: 2rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: .25s;
 }
 
-.ranking_list li:hover {
-    background-color: var(--hover);
+.item:hover {
+  background-color: var(--hover);
 }
 
 .rank {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 5rem;
-    height: 5rem;
-    background-color: var(--level-0);
-    border-radius: 50%;
-    font-weight: bold;
-    margin-right: 2rem;
-    font-size: 1.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: var(--level-0);
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 2rem;
+  font-size: 1.5rem;
 }
 
-.rank::after {
-    margin-left: .25rem;
-    content: '위';
+.rank::before {
+  margin-right: .15rem;
+  content: '#';
 }
 
 .info_wrap {
-    display: flex;
-    justify-content: space-between;
-    flex: auto;
+  display: flex;
+  justify-content: space-between;
+  flex: auto;
 }
 
 .score_info_wrap {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
 }
 
 .student_info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: bold;
 }
 
 .student_info span:nth-child(3) {
-    color: var(--text-level-2);
-    font-size: 1.6rem;
-    cursor: pointer;
+  color: var(--text-level-2);
+  font-size: 1.6rem;
+  cursor: pointer;
 }
 
 .score_info {
-    display: flex;
+  display: flex;
 }
 
 .score_info span {
-    width: 10rem;
+  width: 10rem;
 }
 
 .score_info span:nth-child(1)::after {
-    content: '점';
+  content: '점';
 }
 
 .score_info span:nth-child(2)::before {
-    content: '상점: ';
+  content: '상점: ';
 }
 
 .score_info span:nth-child(3)::before {
-    content: '벌점: ';
+  content: '벌점: ';
 }
 
 .last_update {
-    font-size: 1.6rem;
-    color: var(--text-level-1);
-    width: 15rem;
+  color: var(--text-level-1);
+  width: 15rem;
 }
 
 @media screen and (min-width: 0) and (max-width: 1000px) {
-    .ranking_list {
-        font-size: 1.8rem;
-    }
+  .ranking_list {
+    font-size: 1.7rem;
+  }
 
-    .rank {
-        margin-right: 1rem;
-        font-size: 1.6rem;
-    }
+  .rank {
+    margin-right: 1rem;
+    font-size: 1.4rem;
+  }
 
-    .info_wrap {
-        flex-direction: column;
-    }
+  .info_wrap {
+    flex-direction: column;
+  }
 
-    .score_info_wrap {
-        font-size: 1.6rem;
-        justify-content: space-between;
-    }
+  .score_info_wrap {
+    font-size: 1.4rem;
+    gap: .25rem;
+    justify-content: space-between;
+  }
 
-    .score_info {
-        gap: 1rem;
-    }
-    
-    .score_info span {
-        width: auto;
-    }
+  .score_info {
+    gap: 1rem;
+  }
 
-    .last_update {
-        font-size: 1.5rem;
-        width: auto;
-    }
+  .score_info span {
+    width: auto;
+  }
+
+  .last_update {
+    width: auto;
+  }
 }

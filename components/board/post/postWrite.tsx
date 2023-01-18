@@ -5,7 +5,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinymceEditor } from "tinymce";
 import { TextInput } from "../../common/inputs/textInput";
 import { Category, DetailPost } from "../../../types/boardType";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { boardActiveEditorState, boardAnonymousModeState } from '../../../store/board.store';
 import { useModal } from '../../../hooks/useModal';

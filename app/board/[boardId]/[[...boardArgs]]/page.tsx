@@ -1,27 +1,38 @@
-import postStyles from '../../../styles/board/post/post.module.css';
+'use client';
+
+import postStyles from '../../../../styles/board/post/post.module.css';
 import type { NextPage } from 'next'
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { HttpMethod, useAjax } from '../../../hooks/useAjax';
-import { headerOptionState } from '../../../store/common.store';
-import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
-import { BoardView } from '../../../components/board/boardView';
-import { PostView } from '../../../components/board/post/postView';
-import { boardAndPostIdState, boardAnonymousModeState, postOpenState, postState } from '../../../store/board.store';
-import { PostWrite } from '../../../components/board/post/postWrite';
-import { EmoticonBoxWrap } from '../../../components/board/emoticonBox';
+import { HttpMethod, useAjax } from '../../../../hooks/useAjax';
+import { headerOptionState } from '../../../../store/common.store';
+import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../../types/boardType';
+import { BoardView } from '../../../../components/board/boardView';
+import { PostView } from '../../../../components/board/post/postView';
+import { boardAndPostIdState, boardAnonymousModeState, postOpenState, postState } from '../../../../store/board.store';
+import { PostWrite } from '../../../../components/board/post/postWrite';
+import { EmoticonBoxWrap } from '../../../../components/board/emoticonBox';
+import React from 'react';
 
-const BoardPage: NextPage = () => {
+interface BoardPageProps {
+  params: {
+    boardId: string,
+    boardArgs?: string[]
+  },
+  searchParams: {
+    [index: string]: string
+  }
+}
+
+const BoardPage = ({params}: BoardPageProps) => {
   const { ajax } = useAjax();
   const [, setHeaderOption] = useRecoilState(headerOptionState);
-  const router = useRouter();
   const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
   const [boardAnonymousMode] = useRecoilState(boardAnonymousModeState);
 
-  const { boardId } = router.query;
-  const [postId, editPostId] = router.query.params?.length ? router.query.params : [undefined, undefined];
+  const {boardId} = params
+  const [postId, editPostId] = params.boardArgs ?? [undefined, undefined];
   const [boardList, setBoardList] = useState<{ [index: string]: Board }>({});
   const [post, setPost] = useRecoilState(postState);
   const [postOpen, setPostOpen] = useRecoilState(postOpenState);

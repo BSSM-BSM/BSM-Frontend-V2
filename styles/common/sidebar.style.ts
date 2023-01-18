@@ -54,8 +54,9 @@ export const SidebarItemContent = styled.div`
 
 export const SidebarUserProfile = styled.div`
   border-radius: 50%;
-  width: 2.75rem !important;
-  height: 2.75rem !important;
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
   overflow: hidden;
 `;
 
@@ -69,4 +70,3 @@ export const SidebarUserName = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-

@@ -7,7 +7,7 @@ import { BiCodeAlt } from 'react-icons/bi';
 import { AiOutlineBell } from 'react-icons/ai';
 import SidebarItem from './sidebarItem';
 import SidebarUserMenu from './sidebarUserMenu';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
   const router = useRouter();

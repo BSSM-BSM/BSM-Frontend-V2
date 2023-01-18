@@ -1,196 +1,196 @@
 .time_wrap {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    height: calc(25% + 10rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: calc(25% + 10rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .time_wrap h2:first-child {
-    font-size: 3.4rem;
+  font-size: 3.4rem;
 }
 
 .time_line {
-    pointer-events: none;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    height: 15rem;
-    border: solid 2px var(--text);
-    opacity: .8;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  height: 15rem;
+  border: solid 2px var(--text);
+  opacity: .8;
 }
 
 .timetable {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-    padding: calc(50vh - 5rem) 50%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  padding: calc(50vh - 5rem) 50%;
 }
 
 .timetable li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 35rem;
-    width: 100%;
-    height: 8rem;
-    position: relative;
-    word-break: keep-all;
-    font-size: 2rem;
-    font-weight: bold;
-    box-shadow: var(--shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 35rem;
+  width: 100%;
+  height: 8rem;
+  position: relative;
+  word-break: keep-all;
+  font-size: 2rem;
+  font-weight: bold;
+  box-shadow: var(--shadow);
 }
 
 .timetable li:nth-child(2n + 1) {
-    background-color: var(--level-2);
+  background-color: var(--level-2);
 }
 
 .timetable li:nth-child(2n) {
-    background-color: var(--level-5);
+  background-color: var(--level-5);
 }
 
 .timetable li.active {
-    background-color: var(--accent);
+  background-color: var(--accent);
 }
 
 .timetable li.active span:last-child {
-    color: var(--level-0);
+  color: var(--level-0);
 }
 
 .break {
-    min-width: 15rem !important;
+  min-width: 15rem !important;
 }
 
 .break .class_name:last-child {
-    font-size: 1.6rem;
+  font-size: 1.6rem;
 }
 
 .timetable li:first-child {
-    border-radius: 1.5rem 0 0 1.5rem;
+  border-radius: 1.5rem 0 0 1.5rem;
 }
 
 .timetable li:last-child {
-    border-radius: 0 1.5rem 1.5rem 0;
+  border-radius: 0 1.5rem 1.5rem 0;
 }
 
 .timetable li:first-child:last-child {
-    border-radius: 1.5rem;
+  border-radius: 1.5rem;
 }
 
 .start_time {
-    position: absolute;
-    top: calc(100% + 2rem);
-    right: 100%;
-    transform: translateX(50%);
+  position: absolute;
+  top: calc(100% + 2rem);
+  right: 100%;
+  transform: translateX(50%);
 }
 
 .sync_button {
-    position: absolute;
-    z-index: 2;
-    right: 3rem;
-    bottom: 3rem;
-    padding: 1.5rem 2rem;
-    border: none;
-    border-radius: 1rem;
-    font-size: 1.6rem;
-    font-weight: bold;
-    background-color: var(--level-3);
-    cursor: pointer;
-    transition: .25s;
-    box-shadow: var(--shadow);
+  position: absolute;
+  z-index: 2;
+  right: 3rem;
+  bottom: 3rem;
+  padding: 1.5rem 2rem;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  background-color: var(--level-3);
+  cursor: pointer;
+  transition: .25s;
+  box-shadow: var(--shadow);
 }
 
 .sync_button:hover {
-    background-color: var(--hover);
+  background-color: var(--hover);
 }
 
 .select_day {
-    position: absolute;
-    z-index: 2;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-    background-color: var(--level-3);
-    cursor: pointer;
-    font-size: 2rem;
-    font-weight: bold;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: var(--shadow);
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  background-color: var(--level-3);
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
 }
 
 .select_day li {
-    padding: 1rem 2rem;
-    transition: .25s;
-    border-radius: .5rem;
+  padding: 1rem 2rem;
+  transition: .25s;
+  border-radius: .5rem;
 }
 
 .select_day li:hover {
-    background-color: var(--hover);
+  background-color: var(--hover);
 }
 
 .select_day li.active {
-    background-color: var(--accent);
-    color: var(--level-0);
+  background-color: var(--accent);
+  color: var(--level-0);
 }
 
 .select_box {
-    position: absolute;
-    z-index: 2;
-    top: calc(50% - 13rem);
-    right: 1rem;
-    display: flex;
-    gap: 1rem;
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 13rem);
+  right: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .timetable_list {
-    display: flex;
-    background-color: var(--level-2-opacity);
-    border-radius: 1rem;
+  display: flex;
+  background-color: var(--level-2-opacity);
+  border-radius: 1rem;
 }
 
 .timetable_list li {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .timetable_list li.active {
-    background-color: var(--accent);
+  background-color: var(--accent);
 }
 
 @media screen and (min-width: 0) and (max-width: 900px) {
-    .select_day {
-        top: auto;
-        bottom: 2rem;
-        transform: none;
-    }
+  .select_day {
+    top: auto;
+    bottom: 2rem;
+    transform: none;
+  }
 
-    .select_box {
-        top: auto;
-        bottom: 2rem;
-        transition: .25s;
-    }
+  .select_box {
+    top: auto;
+    bottom: 2rem;
+    transition: .25s;
+  }
 
-    .select_box ul {
-        bottom: 100%;
-        transform: translateY(1.5rem);
-    }
+  .select_box ul {
+    bottom: 100%;
+    transform: translateY(1.5rem);
+  }
 
-    .sync_button {
-        right: 2.5rem;
-        bottom: 2rem;
-    }
+  .sync_button {
+    right: 2.5rem;
+    bottom: 2rem;
+  }
 
-    .sync_button ~ .select_box {
-        bottom: 8rem;
-    }
+  .sync_button~.select_box {
+    bottom: 8rem;
+  }
 }

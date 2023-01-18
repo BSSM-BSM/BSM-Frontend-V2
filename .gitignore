@@ -3,6 +3,8 @@
 ecosystem.config.js
 .env
 
+.vscode
+
 # dependencies
 /node_modules
 /.pnp

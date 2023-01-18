@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
@@ -16,6 +16,7 @@ import { DropdownMenu } from './dropdownMenu';
 export const Header = () => {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
   const { openModal } = useModal();
   const { ajax } = useAjax();
   const { showToast } = useOverlay();
@@ -26,11 +27,12 @@ export const Header = () => {
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
 
   useEffect(() => {
-    Router.events.on('routeChangeStart', () => setSideBar(false));
     setMounted(true);
     getUserInfo(ajax, setUser);
     return () => setMounted(false);
   }, []);
+
+  useEffect(() => setSideBar(false), [pathname]);
 
   useEffect(() => {
     setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
@@ -135,7 +137,7 @@ export const Header = () => {
         <nav className={styles.top_menu_bar}>
           <ul className={styles.left}>
             <li className={styles.home}>
-              <Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link>
+              <Link href='/' className={`${styles.item} ${styles.home}`}>BSM</Link>
             </li>
             {allMenuView()}
             <div className={styles.title}>
@@ -152,11 +154,11 @@ export const Header = () => {
         <div className={`close_button ${styles.close_button}`} onClick={() => setSideBar(false)}></div>
         <div className={`dim ${styles.dim}`} onClick={() => setSideBar(false)}></div>
         <ul className={styles.menus}>
-          <li><Link href='/'><a className={`${styles.item} ${styles.home}`}>BSM</a></Link></li>
+          <li><Link href='/' className={`${styles.item} ${styles.home}`}>BSM</Link></li>
           <li>{userMenuView()}</li>
-          <li><Link href='/timetable'><a className={styles.item}>시간표</a></Link></li>
-          <li><Link href='/meal'><a className={styles.item}>급식</a></Link></li>
-          <li><Link href='/meister'><a className={styles.item}>점수 / 상벌점</a></Link></li>
+          <li><Link href='/timetable' className={styles.item}>시간표</Link></li>
+          <li><Link href='/meal' className={styles.item}>급식</Link></li>
+          <li><Link href='/meister' className={styles.item}>점수 / 상벌점</Link></li>
           <DropdownMenu
             className={styles.dropdown}
             title='커뮤니티'
@@ -179,8 +181,8 @@ export const Header = () => {
               {text: 'BGIT', callback: () => window.open('https://bgit.bssm.kro.kr', '_blank')}
             ]}
           />
-          <li><a className={styles.item} target='_blank' rel='noopener noreferrer' href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
-          <li><a className={styles.item} href='https://github.com/BSSM-BSM'>깃허브</a></li>
+          <li className={styles.item}><a target='_blank' rel='noopener noreferrer' href='https://school.busanedu.net/bssm-h/main.do'>학교 홈페이지</a></li>
+          <li className={styles.item}><a href='https://github.com/BSSM-BSM'>깃허브</a></li>
         </ul>
       </div>
     </header>

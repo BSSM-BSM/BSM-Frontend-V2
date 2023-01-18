@@ -1,167 +1,165 @@
 .input_wrap {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    width: 37.5rem;
-    transition: .25s;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 37.5rem;
+  transition: .25s;
 }
 
 .input_wrap.number {
-    width: 5.5rem;
+  width: 5.5rem;
 }
 
 .input_wrap.full {
-    width: 100%;
+  width: 100%;
 }
 
 .input_wrap .input {
-    border: none;
-    outline: none;
-    width: 100%;
-    padding: 1.3rem 1.5rem;
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: var(--text);
-    background-color: var(--input);
-    border-radius: .5rem;
-    text-align: left;
-    transition: .25s;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 1.3rem 1.5rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--text);
+  background-color: var(--input);
+  border-radius: .5rem;
+  text-align: left;
+  transition: .25s;
 }
 
 .input_wrap.number .input {
-    padding: 1rem 0 1rem 1rem;
+  padding: 1rem 0 1rem 1rem;
 }
 
 .input_wrap :is(
-    .input,
-    textarea
+  .input,
+  textarea
 ):hover {
-    box-shadow: var(--shadow) inset;
+  box-shadow: var(--shadow) inset;
 }
 
 .placeholder {
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    left: 0;
-    padding: 1.5rem;
-    font-weight: bold;
-    pointer-events: none;
-    color: var(--text);
-    white-space: nowrap;
-    transition: .15s;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  left: 0;
+  padding: 1.5rem;
+  font-weight: bold;
+  pointer-events: none;
+  color: var(--text);
+  white-space: nowrap;
+  transition: .15s;
 }
 
-.placeholder > * {
-    pointer-events: all;
+.placeholder>* {
+  pointer-events: all;
 }
 
 .placeholder:has(*) {
-    width: 100%;
+  width: 100%;
 }
 
-.input_wrap.number .input ~ .placeholder {
-    padding: 0 1rem;
+.input_wrap.number .input~.placeholder {
+  padding: 0 1rem;
 }
 
 .input:is(
-    :valid,
-    :focus,
-    .active
+  :valid,
+  :focus,
+  .active
 ) {
-    background: none !important;
+  background: none !important;
 }
 
 .input:is(
-    :valid,
-    :focus,
-    .active
-) ~ .placeholder {
-    left: 0;
-    transform: translate(1.5rem, -2.1rem);
-    font-size: 1.3rem;
-    color: var(--accent);
+  :valid,
+  :focus,
+  .active
+)~.placeholder {
+  left: 0;
+  transform: translate(1.5rem, -2.1rem);
+  font-size: 1.3rem;
+  color: var(--accent);
 }
 
 .input:is(
-    :valid,
-    :focus,
-    .active
-) ~ .placeholder > *,
-.input:is(
-    :valid,
-    :focus,
-    .active
-) ~ .placeholder:not(:has(*)) {
-    padding: 0 .5rem;
-    background-color: var(--level-0);
+  :valid,
+  :focus,
+  .active
+)~.placeholder > *,
+.input:is( :valid,
+  :focus,
+  .active)~.placeholder:not(:has(*)) {
+  padding: 0 .5rem;
+  background-color: var(--level-1);
 }
 
 .input_wrap.number .input:is(
-    :valid,
-    :focus,
-    .active
+  :valid,
+  :focus,
+  .active
 ) ~ .placeholder {
-    transform: translate(.5rem, -1.8rem);
+  transform: translate(.5rem, -1.8rem);
 }
 
 .input_wrap .input:focus {
-    box-shadow: 0 0 0 .2rem var(--main) inset;
+  box-shadow: 0 0 0 .2rem var(--main) inset;
 }
 
 .input_wrap .input:is(
-    :valid,
-    .active
+  :valid,
+  .active
 ):not(:focus) {
-    box-shadow: 0 0 0 .2rem var(--text-level-1) inset;
+  box-shadow: 0 0 0 .2rem var(--text-level-1) inset;
 }
 
 .input_wrap .input:is(
-    :valid,
-    .active
+  :valid,
+  .active
 ):not(:focus) ~ .placeholder {
-    color: var(--text-level-1);
+  color: var(--text-level-1);
 }
 
 .input_wrap .input:not(:valid, .active):not(:focus) {
-    color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0);
 }
 
 .input_wrap .input[disabled] {
-    opacity: .3;
-    color: rgba(0, 0, 0, 0);
-    cursor: not-allowed;
+  opacity: .3;
+  color: rgba(0, 0, 0, 0);
+  cursor: not-allowed;
 }
 
-.input_wrap .input[disabled] ~ .placeholder {
-    opacity: .3;
+.input_wrap .input[disabled]~.placeholder {
+  opacity: .3;
 }
 
 .input_wrap:active {
-    transform: scale(.95);
+  transform: scale(.95);
 }
 
-.input_wrap.number:active  {
-    transform: scale(.8);
+.input_wrap.number:active {
+  transform: scale(.8);
 }
 
 .editor {
-    width: 100%;
-    border-radius: 1rem;
+  width: 100%;
+  border-radius: 1rem;
 }
 
 .editor .input {
-    width: 100%;
-    white-space: pre-wrap;
+  width: 100%;
+  white-space: pre-wrap;
 }
 
 .editor .placeholder {
-    top: 1.5rem;
-    left: 1.5rem;
-    padding: 0;
+  top: 1.5rem;
+  left: 1.5rem;
+  padding: 0;
 }
 
 .editor .placeholder:has(*) {
-    width: calc(100% - 3rem);
+  width: calc(100% - 3rem);
 }
