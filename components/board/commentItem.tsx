@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { boardOpenAllChildCommentsState, parentCommentState } from '../../store/board.store';
+import { parentCommentState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
 import { BoardAndPostId, Comment, DeletedComment } from "../../types/boardType"
 import DefaultProfilePic from '../../public/icons/profile_default.png';
@@ -10,6 +10,7 @@ import { UserInfoLink } from './userInfoLink';
 import { getProfileSrc } from '../../utils/userUtil';
 import { elapsedTime } from '../../utils/date';
 import { DropdownMenu } from '../common/dropdownMenu';
+import { boardOpenAllChildCommentsState } from '../../store/setting/board.store';
 
 export const CommentList = ({
   comment,

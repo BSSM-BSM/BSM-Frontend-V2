@@ -4,7 +4,7 @@ import { Board, Comment, DeletedComment, DetailPost } from "../../../types/board
 import { CommentView } from '../commentView';
 import { CommentWrite } from '../commentWrite';
 import { useRecoilState } from 'recoil';
-import { boardDetailTimeState, postListState, postState } from '../../../store/board.store';
+import { postListState, postState } from '../../../store/board.store';
 import { escapeAttrValue, FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { useEffect, useMemo, useState } from 'react';
@@ -24,6 +24,7 @@ import { getProfileSrc } from '../../../utils/userUtil';
 import { elapsedTime } from '../../../utils/date';
 import { DropdownMenu } from '../../common/dropdownMenu';
 import { PostNavBar } from './postNavBar';
+import { boardDetailTimeState } from '../../../store/setting/board.store';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({

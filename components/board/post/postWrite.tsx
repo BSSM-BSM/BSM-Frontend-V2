@@ -6,15 +6,15 @@ import { Editor as TinymceEditor } from "tinymce";
 import { TextInput } from "../../common/inputs/textInput";
 import { Category, DetailPost } from "../../../types/boardType";
 import { useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
-import { boardActiveEditorState, boardAnonymousModeState } from '../../../store/board.store';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { boardActiveEditorState, postIdState } from '../../../store/board.store';
 import { useModal } from '../../../hooks/useModal';
 import { Button } from '../../common/buttons/button';
 import { CheckList } from '../../common/buttons/checkList';
+import { boardAnonymousModeState } from '../../../store/setting/board.store';
 
 interface PostWriteProps {
   boardId: string,
-  postId?: string
   categoryList: {
     [index: string]: Category
   },
@@ -29,7 +29,6 @@ interface UploadFileRes {
 
 export const PostWrite = ({
   boardId,
-  postId,
   categoryList,
   editPost,
   setPost
@@ -37,6 +36,7 @@ export const PostWrite = ({
   const { ajax } = useAjax();
   const { openModal } = useModal();
   const router = useRouter();
+  const postId = useRecoilValue(postIdState);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<string>('normal');

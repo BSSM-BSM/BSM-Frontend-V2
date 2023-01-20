@@ -4,76 +4,46 @@ import { Editor } from "tinymce";
 import { BoardAndPostId, Comment, DetailPost, Post } from "../types/boardType";
 import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
 
-export const postListState = atom<Post[]>({
-    key: 'postList',
-    default: []
+export const postIdState = atom<'write' | number | undefined>({
+  key: 'postId',
+  default: undefined
 });
 
-export const postLimitState = atom<number>({
-    key: 'postLimit',
-    default: 15,
-    effects: [localStorageEffect({
-        key: 'postLimit',
-        type: LocalStorageType.number,
-        defaultValue: 15
-    })]
+export const editPostIdState = atom<number | undefined>({
+  key: 'editPostId',
+  default: undefined
+});
+
+export const postListState = atom<Post[]>({
+  key: 'postList',
+  default: []
 });
 
 export const boardAndPostIdState = atom<BoardAndPostId>({
-    key: 'boardAndPostId',
-    default: {
-        boardId: '',
-        postId: 0
-    }
+  key: 'boardAndPostId',
+  default: {
+    boardId: '',
+    postId: 0
+  }
 });
 
 export const postState = atom<DetailPost | null>({
-    key: 'post',
-    default: null
+  key: 'post',
+  default: null
 });
 
 export const postOpenState = atom<boolean>({
-    key: 'postOpen',
-    default: false
+  key: 'postOpen',
+  default: false
 });
 
 export const parentCommentState = atom<Comment | null>({
-    key: 'parentComment',
-    default: null
-});
-
-export const boardDetailTimeState = atom<boolean>({
-    key: 'boardDetailTime',
-    default: false,
-    effects: [localStorageEffect({
-        key: 'boardDetailTime',
-        type: LocalStorageType.boolean,
-        defaultValue: false
-    })]
-});
-
-export const boardAnonymousModeState = atom<boolean>({
-    key: 'boardAnonymousMode',
-    default: false,
-    effects: [localStorageEffect({
-        key: 'boardAnonymousMode',
-        type: LocalStorageType.boolean,
-        defaultValue: false
-    })]
-});
-
-export const boardOpenAllChildCommentsState = atom<boolean>({
-    key: 'boardOpenAllChildComments',
-    default: false,
-    effects: [localStorageEffect({
-        key: 'boardOpenAllChildComments',
-        type: LocalStorageType.boolean,
-        defaultValue: false
-    })]
+  key: 'parentComment',
+  default: null
 });
 
 export const boardActiveEditorState = atom<RefObject<HTMLElement> | Editor | null>({
-    key: 'boardActiveEditor',
-    default: null,
-    dangerouslyAllowMutability: true,
+  key: 'boardActiveEditor',
+  default: null,
+  dangerouslyAllowMutability: true,
 });

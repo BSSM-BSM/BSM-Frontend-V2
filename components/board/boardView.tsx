@@ -5,9 +5,10 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { Board, PostListRes } from '../../types/boardType';
 import { PostItem } from './postItem';
 import { useRecoilState } from 'recoil';
-import { postLimitState, postListState } from '../../store/board.store';
+import { postListState } from '../../store/board.store';
 import Link from 'next/link';
 import { CheckList } from '../common/buttons/checkList';
+import { postLimitState } from '../../store/setting/board.store';
 
 interface BoardViewProps {
   boardId: string,
