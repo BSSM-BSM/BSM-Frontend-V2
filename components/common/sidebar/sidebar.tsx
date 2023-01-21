@@ -8,15 +8,19 @@ import { AiOutlineBell } from 'react-icons/ai';
 import SidebarItem from './sidebarItem';
 import SidebarUserMenu from './sidebarUserMenu';
 import { useRouter } from 'next/navigation';
+import { useRecoilState } from 'recoil';
+import { pageState } from '../../../store/common.store';
 
 const Sidebar = () => {
   const router = useRouter();
+  const [] = useRecoilState(pageState);
 
   return (
     <S.Sidebar>
       <S.SidebarItemList>
         <SidebarUserMenu />
         <SidebarItem
+          id='meal'
           Icon={MdOutlineFastfood}
           iconSize={22}
           onClick={() => router.push('/meal')}
@@ -24,6 +28,7 @@ const Sidebar = () => {
           급식
         </SidebarItem>
         <SidebarItem
+          id='meister'
           Icon={AiOutlineUser}
           iconSize={26}
           onClick={() => router.push('/meister')}
@@ -31,6 +36,7 @@ const Sidebar = () => {
           마이스터 역량 인증제
         </SidebarItem>
         <SidebarItem
+          id='timetable'
           Icon={BsCalendar4}
           iconSize={22}
           onClick={() => router.push('/timetable')}
@@ -38,6 +44,8 @@ const Sidebar = () => {
           시간표
         </SidebarItem>
         <SidebarItem
+          id='board'
+          subId='board'
           Icon={IoPeopleOutline}
           iconSize={26}
           onClick={() => router.push('/board/board')}
@@ -45,6 +53,8 @@ const Sidebar = () => {
           자유 게시판
         </SidebarItem>
         <SidebarItem
+          id='board'
+          subId='student'
           Icon={IoSchoolOutline}
           iconSize={26}
           onClick={() => router.push('/board/student')}
@@ -52,6 +62,8 @@ const Sidebar = () => {
           학생 게시판
         </SidebarItem>
         <SidebarItem
+          id='board'
+          subId='code'
           Icon={BiCodeAlt}
           iconSize={26}
           onClick={() => router.push('/board/code')}
@@ -59,6 +71,8 @@ const Sidebar = () => {
           코드 공유
         </SidebarItem>
         <SidebarItem
+          id='board'
+          subId='notice'
           Icon={AiOutlineBell}
           iconSize={26}
           onClick={() => router.push('/board/notice')}

@@ -5,20 +5,20 @@ import manageStyles from '../../../styles/timetable/timetable-manage.module.css'
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { headerOptionState } from '../../../store/common.store';
-import { TimetableInfo, TimetableManageInfo, TimetableManageMode } from '../../../types/timetableType';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { headerOptionState, pageState } from '../../../store/common.store';
+import { TimetableInfo, TimetableManageInfo, TimetableManageMode } from '../../../types/timetable.type';
 import { TimetableList } from '../../../components/timetable/timetableList';
 import { dayNames } from '../../../utils/date';
 import { TimetableItemManageMenu } from '../../../components/timetable/timetableItemManageMenu';
 import { useModal } from '../../../hooks/useModal';
-import { useRouter } from 'next/router';
 import { TimetableManageSideBar } from '../../../components/timetable/timetableManageSideBar';
 import { useSearchParams } from 'next/navigation';
 
-const TimetableManagePage: NextPage = () => {
+const TimetableManagePage = () => {
   const searchParams = useSearchParams();
-  const [, setHeaderOption] = useRecoilState(headerOptionState);
+  const setHeaderOption = useSetRecoilState(headerOptionState);
+  const setPage = useSetRecoilState(pageState);
   const { openModal } = useModal();
   const [grade, setGrade] = useState(0);
   const [classNo, setClassNo] = useState(0);
@@ -32,6 +32,7 @@ const TimetableManagePage: NextPage = () => {
 
   useEffect(() => {
     setHeaderOption({ title: '시간표 관리' });
+    setPage({ id: 'timetable' });
   }, []);
 
   useEffect(() => {

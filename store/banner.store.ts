@@ -1,6 +1,6 @@
 import axios from "axios";
 import { selector } from "recoil";
-import { Banner } from "../types/bannerType";
+import { Banner } from "../types/banner.type";
 
 export const bannerState = selector<Banner[]>({
     key: 'banner',

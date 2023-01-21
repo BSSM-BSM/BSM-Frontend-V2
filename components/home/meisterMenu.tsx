@@ -5,8 +5,8 @@ import { useRecoilState } from "recoil";
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
 import { useModal } from "../../hooks/useModal";
 import { userState } from "../../store/account.store";
-import { HomeMenuMeisterInfo } from "../../types/meisterType";
-import { UserRole } from "../../types/userType";
+import { HomeMenuMeisterInfo } from "../../types/meister.type";
+import { UserRole } from "../../types/user.type";
 import Modal from "../common/modal";
 import { elapsedTime } from '../../utils/date';
 

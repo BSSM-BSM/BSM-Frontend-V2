@@ -1,20 +1,21 @@
 'use client';
 
 import styles from '../styles/home.module.css';
-import type { NextPage } from 'next'
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import Link from 'next/link';
-import { headerOptionState } from '../store/common.store';
+import { headerOptionState, pageState } from '../store/common.store';
 import Head from 'next/head';
 import { MeisterHomeMenu } from '../components/home/meisterMenu';
 import { UserHomeMenu } from '../components/home/userMenu';
 
-const Home: NextPage = () => {
-  const [, setHeaderOption] = useRecoilState(headerOptionState);
+const Home = () => {
+  const setHeaderOption = useSetRecoilState(headerOptionState);
+  const setPage = useSetRecoilState(pageState);
 
   useEffect(() => {
-      setHeaderOption({title: ''});
+    setHeaderOption({ title: '' });
+    setPage({ id: 'home' });
   }, []);
 
   return (<>

@@ -1,6 +1,6 @@
 import styles from '../../styles/meal.module.css';
 import { Dispatch, SetStateAction } from "react";
-import { MealType } from "../../types/mealTypes";
+import { MealType } from "../../types/meal.types";
 import { dateToKoreanDateStr, shrotDateStrToDate } from '../../utils/date';
 
 interface MealItemProps {

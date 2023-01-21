@@ -8,10 +8,7 @@ import React from 'react';
 interface BoardPageProps {
   params: {
     boardId: string,
-    boardArgs?: string[]
-  },
-  searchParams: {
-    [index: string]: string
+    boardArgs: string[]
   }
 }
 

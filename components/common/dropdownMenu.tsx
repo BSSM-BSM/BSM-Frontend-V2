@@ -1,7 +1,7 @@
 import styles from '../../styles/common/dropdown-menu.module.css';
 import { ReactNode } from "react"
-import { DropdownMenuOption } from "../../store/common.store"
 import { Button } from './buttons/button';
+import { DropdownMenuOption } from '../../types/common/dropdown.type';
 
 interface DropdownMenuProps {
   title?: string | ReactNode,

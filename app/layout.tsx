@@ -3,6 +3,7 @@
 import '../styles/globals.css'
 import { ReactNode, useEffect } from "react";
 import { RecoilRoot } from "recoil";
+import RecoilNexus from 'recoil-nexus';
 import { Header } from "../components/common/header";
 import { LoginBox } from "../components/common/accountPopup";
 import { SettingBox } from "../components/common/settingPopup";
@@ -67,6 +68,7 @@ export default function RootLayout({
         <div className='wrap'>
           <StyledComponentsRegistry>
             <RecoilRoot>
+              <RecoilNexus />
               <Sidebar />
               <main className='scroll-bar'>{children}</main>
               <>

@@ -68,6 +68,8 @@ body {
   --hover: rgba(0, 0, 0, .2);;
   --bright: brightness(0);
   --visited: #800080;
+
+  --background: var(--level-2);
 }
 
 body.dark {
@@ -92,7 +94,7 @@ body.dark {
   --text-level-2: #888a8d;
   --text-level-3: #585a5d;
   
-  --level-0: #202020;
+  --level-0: #1a1a1a;
   --level-1: #282828;
   --level-2: #303030;
   --level-3: #383838;
@@ -114,6 +116,8 @@ body.dark {
   --hover: #a8aaad66;
   --bright: brightness(20);
   --visited: #f4a4ff;
+
+  --background: var(--level-0);
 }
 
 html, body {
@@ -131,7 +135,7 @@ html {
 }
 
 body {
-  background-color: var(--level-2);
+  background-color: var(--background);
   color: var(--text);
   font-size: 1.5rem;
   transition: background-color .5s;
@@ -139,10 +143,6 @@ body {
   line-height: 1.2;
   font-family: NotoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-body.dark {
-  background-color: var(--level-0);
 }
 
 .wrap {
@@ -168,14 +168,10 @@ main {
   position: relative;
   grid-area: content;
   border-radius: 1rem 0 0;
-  background-color: var(--level-0);
+  background-color: var(--level-1);
   box-shadow: var(--shadow);
   overflow: hidden !important;
   overflow-y: overlay !important;
-}
-
-body.dark main {
-  background-color: var(--level-1);
 }
 
 body, .scroll-bar {

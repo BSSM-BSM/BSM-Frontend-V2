@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
 import styles from '../../styles/meister/ranking.module.css';
-import { MeisterRanking, MeisterResultType } from '../../types/meisterType';
-import { UserRole } from '../../types/userType';
+import { MeisterRanking, MeisterResultType } from '../../types/meister.type';
+import { UserRole } from '../../types/user.type';
 import { elapsedTime } from '../../utils/date';
 
 interface MeisterRankingItemProps {

@@ -1,7 +1,7 @@
 import styles from '../../styles/board/emoticon.module.css';
 import { ChangeEvent, useEffect, useState } from "react"
 import { HttpMethod, useAjax } from "../../hooks/useAjax"
-import { Emoticon, EmoticonItem } from "../../types/boardType"
+import { Emoticon, EmoticonItem } from "../../types/board.type"
 import Modal from "../common/modal"
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
@@ -58,14 +58,14 @@ const EmoticonBox = () => {
     }
 
     return (
-        <Modal id='emoticon' title='이모티콘 넣기' callback={loadEmoticons}>
+        <Modal id='emoticon' title='이모티콘 넣기' onOpen={loadEmoticons}>
             <ul className={`${styles.emoticon_list} scroll-bar horizontal`}>{
                 emoticonList.map(emoticon => (
                     <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
                         <Image
                             src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
-                            width='100px'
-                            height='50px'
+                            width='100'
+                            height='50'
                             alt={emoticon.name}
                         />
                     </li>
@@ -162,13 +162,13 @@ const EmoticonManageBox = () => {
         <Modal
             id='emoticon_manage_box'
             title='이모티콘 관리'
-            callback={() => {
+            onOpen={() => {
                 setSelectMenuIdx(0);
                 if (selectMenuIdx === -1) return;
                 loadEmoticons();
             }}
             menuList={menuList}
-            selectMenuCallback={idx => {
+            onSelectMenu={idx => {
                 setSelectId(0);
                 setSelectMenuIdx(idx);
             }}
@@ -178,8 +178,8 @@ const EmoticonManageBox = () => {
                     <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
                         <Image
                             src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
-                            width='100px'
-                            height='50px'
+                            width='100'
+                            height='50'
                             alt={emoticon.name}
                         />
                     </li>

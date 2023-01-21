@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { activePageCheck } from "../../utils/page";
 
 export const Sidebar = styled.aside`
   width: 25rem;
@@ -12,10 +13,13 @@ export const SidebarItemList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: .5rem;
-  padding: .5rem;
+  padding: .5rem 0;
 `;
 
-export const SidebarItem = styled.li`
+export const SidebarItem = styled.li<{
+  id?: string,
+  subId?: string
+}>`
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -23,15 +27,33 @@ export const SidebarItem = styled.li`
   border-radius: .5rem;
   cursor: pointer;
   color: var(--text-level-1);
+  ${({id, subId}) => 
+    (id && activePageCheck({id, subId}) )
+    ?`
+      z-index: 1;
+      background-color: var(--level-1);
+      margin-left: .5rem;
+      border-radius: .5rem 0 0 .5rem;
+      filter: var(--drop-shadow);
+      clip-path: inset(-10px 0 -10px -10px);
+      color: var(--accent);
+      svg {
+        color: var(--accent) !important;
+      }
+    `
+    :`
+      margin: 0 .5rem;
+    `
+  };
   font-weight: bold;
   transition: .25s;
+  overflow: hidden;
   svg {
-    transition: color .25s;
+    transition: .25s;
     color: var(--text);
   }
-  overflow: hidden;
   &:hover {
-    background-color: var(--hover);
+    background-color: var(--level-1);
     filter: var(--drop-shadow);
     color: var(--accent);
     svg {

@@ -1,7 +1,7 @@
 import styles from '../../styles/common/banner.module.css';
 import { useRecoilValueLoadable } from "recoil"
 import { bannerState } from "../../store/banner.store"
-import { BannerType } from "../../types/bannerType"
+import { BannerType } from "../../types/banner.type"
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 

@@ -4,7 +4,7 @@ import { HttpMethod, useAjax } from "../../../hooks/useAjax";
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinymceEditor } from "tinymce";
 import { TextInput } from "../../common/inputs/textInput";
-import { Category, DetailPost } from "../../../types/boardType";
+import { Category, DetailPost } from "../../../types/board.type";
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { boardActiveEditorState, postIdState } from '../../../store/board.store';

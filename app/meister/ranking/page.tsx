@@ -5,27 +5,29 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
-import { MeisterRanking } from '../../../types/meisterType';
+import { MeisterRanking } from '../../../types/meister.type';
 import { MeisterRankingItem } from '../../../components/meister/rankingItem';
 import { useOverlay } from '../../../hooks/useOverlay';
-import { headerOptionState } from '../../../store/common.store';
-import { useRecoilState } from 'recoil';
+import { headerOptionState, pageState } from '../../../store/common.store';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { CheckList } from '../../../components/common/buttons/checkList';
 import { userState } from '../../../store/account.store';
-import { UserRole } from '../../../types/userType';
+import { UserRole } from '../../../types/user.type';
 import { Banner, BannerPos } from '../../../components/common/banner';
-import { BannerType } from '../../../types/bannerType';
+import { BannerType } from '../../../types/banner.type';
 
-const MeisterPage: NextPage = () => {
-  const [, setHeaderOption] = useRecoilState(headerOptionState);
+const MeisterPage = () => {
+  const setHeaderOption = useSetRecoilState(headerOptionState);
+  const setPage = useSetRecoilState(pageState);
   const { ajax } = useAjax();
   const { showAlert, showToast } = useOverlay();
   const [rankingList, setRankingList] = useState<MeisterRanking[]>([]);
   const [user] = useRecoilState(userState);
   const [grade, setGrade] = useState<number>(0);
-
+  
   useEffect(() => {
     setHeaderOption({ title: '마이스터 랭킹', allMenu: { goBack: true } });
+    setPage({id: 'meister'});
   }, []);
 
   useEffect(() => {

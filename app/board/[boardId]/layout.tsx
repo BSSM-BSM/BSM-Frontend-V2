@@ -7,8 +7,8 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { BoardView } from '../../../components/board/boardView';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { boardAndPostIdState, editPostIdState, postIdState, postOpenState, postState } from '../../../store/board.store';
-import { headerOptionState } from '../../../store/common.store';
-import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/boardType';
+import { headerOptionState, pageState } from '../../../store/common.store';
+import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/board.type';
 import { PostView } from '../../../components/board/post/postView';
 import { EmoticonBoxWrap } from '../../../components/board/emoticonBox';
 import { PostWrite } from '../../../components/board/post/postWrite';
@@ -18,9 +18,6 @@ interface BoardLayoutProps {
   children: ReactNode,
   params: {
     boardId: string
-  },
-  searchParams: {
-    [index: string]: string
   }
 }
 
@@ -32,17 +29,20 @@ const BoardLayout = ({
 }: BoardLayoutProps) => {
   const { ajax } = useAjax();
   const setHeaderOption = useSetRecoilState(headerOptionState);
+  const setPage = useSetRecoilState(pageState);
   const setBoardAndPostId = useSetRecoilState(boardAndPostIdState);
   const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
-
+  
   const postId = useRecoilValue(postIdState);
   const editPostId = useRecoilValue(editPostIdState);
   const [boardList, setBoardList] = useState<{ [index: string]: Board }>({});
   const [post, setPost] = useRecoilState(postState);
   const [postOpen, setPostOpen] = useRecoilState(postOpenState);
   const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
-
+  
   useEffect(() => {
+    setPage({id: 'home', subId: boardId});
+
     if (typeof boardId !== 'string')
       setHeaderOption({ title: '' });
     else if (postId === undefined)

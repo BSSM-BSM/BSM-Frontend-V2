@@ -2,7 +2,7 @@ import * as S from '../../../styles/common/sidebar.style';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userState } from "../../../store/account.store";
-import { UserRole } from "../../../types/userType";
+import { UserRole } from "../../../types/user.type";
 import Image, { StaticImageData } from 'next/image';
 import DefaultProfilePic from '../../../public/icons/profile_default.png';
 import { useModal } from '../../../hooks/useModal';

@@ -1,5 +1,5 @@
 import styles from '../../styles/timetable/timetable.module.css';
-import { TimetableInfo } from "../../types/timetableType"
+import { TimetableInfo } from "../../types/timetable.type"
 
 interface Props {
     timetableList: TimetableInfo[]

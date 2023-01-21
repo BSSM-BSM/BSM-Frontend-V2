@@ -1,6 +1,6 @@
 import styles from '../../../styles/board/post/post-nav-bar.module.css';
 import Link from "next/link";
-import { Post } from "../../../types/boardType";
+import { Post } from "../../../types/board.type";
 
 interface PostNavBarProps {
   boardId: string,

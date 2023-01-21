@@ -4,22 +4,23 @@ import styles from '../../styles/meister/index.module.css';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import Link from 'next/link';
 import { TextInput } from '../../components/common/inputs/textInput';
 import { NumberInput } from '../../components/common/inputs/numberInput';
-import { headerOptionState } from '../../store/common.store';
-import { UserRole } from '../../types/userType';
+import { headerOptionState, pageState } from '../../store/common.store';
+import { UserRole } from '../../types/user.type';
 import { Button } from '../../components/common/buttons/button';
-import { MeisterInfo } from '../../types/meisterType';
+import { MeisterInfo } from '../../types/meister.type';
 import { Banner, BannerPos } from '../../components/common/banner';
-import { BannerType } from '../../types/bannerType';
+import { BannerType } from '../../types/banner.type';
 import { useSearchParams } from 'next/navigation';
 
-const MeisterPage: NextPage = () => {
-  const [, setHeaderOption] = useRecoilState(headerOptionState);
+const MeisterPage = () => {
+  const setHeaderOption = useSetRecoilState(headerOptionState);
+  const setPage = useSetRecoilState(pageState);
   const { ajax } = useAjax();
   const searchParams = useSearchParams();
   const [noPw, setNoPw] = useState(true);
@@ -37,6 +38,11 @@ const MeisterPage: NextPage = () => {
   });
 
   useEffect(() => {
+    setHeaderOption({ title: '마이스터 점수 및 상벌점 조회', allMenu: { goBack: true } });
+    setPage({ id: 'meister' });
+  }, []);
+
+  useEffect(() => {
     if (
       searchParams.get('grade') &&
       searchParams.get('classNo') &&
@@ -52,10 +58,6 @@ const MeisterPage: NextPage = () => {
     setClassNo(user.student.classNo);
     setStudentNo(user.student.studentNo);
   }, [user]);
-
-  useEffect(() => {
-    setHeaderOption({ title: '마이스터 점수 및 상벌점 조회', allMenu: { goBack: true } });
-  }, []);
 
   const meisterPointPostProcessing = () => {
     document.querySelectorAll('.fas.fa-sad-cry').forEach((item) => {

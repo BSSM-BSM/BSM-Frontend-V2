@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { parentCommentState } from '../../store/board.store';
 import styles from '../../styles/board/comment.module.css';
-import { BoardAndPostId, Comment, DeletedComment } from "../../types/boardType"
+import { BoardAndPostId, Comment, DeletedComment } from "../../types/board.type"
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect, useState } from 'react';

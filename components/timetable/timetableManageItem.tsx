@@ -1,6 +1,6 @@
 import styles from '../../styles/timetable/timetable-manage.module.css'
 import { Dispatch, SetStateAction } from "react";
-import { TimetableManageInfo } from "../../types/timetableType";
+import { TimetableManageInfo } from "../../types/timetable.type";
 import { elapsedTime, MilliSecondTime } from '../../utils/date';
 
 interface TimetableManageItemProps {

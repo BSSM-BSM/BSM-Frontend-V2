@@ -2,7 +2,7 @@ import styles from '../../styles/board/board.module.css';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { Board, PostListRes } from '../../types/boardType';
+import { Board, PostListRes } from '../../types/board.type';
 import { PostItem } from './postItem';
 import { useRecoilState } from 'recoil';
 import { postListState } from '../../store/board.store';

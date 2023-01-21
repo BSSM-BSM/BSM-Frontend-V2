@@ -1,6 +1,6 @@
 import styles from '../../../styles/board/post/post.module.css';
 import commentStyles from '../../../styles/board/comment.module.css';
-import { Board, Comment, DeletedComment, DetailPost } from "../../../types/boardType";
+import { Board, Comment, DeletedComment, DetailPost } from "../../../types/board.type";
 import { CommentView } from '../commentView';
 import { CommentWrite } from '../commentWrite';
 import { useRecoilState } from 'recoil';

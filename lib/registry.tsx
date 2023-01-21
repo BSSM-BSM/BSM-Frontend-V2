@@ -13,7 +13,8 @@ export default function StyledComponentsRegistry({
 
   useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
-    styledComponentsStyleSheet.seal();
+    // @ts-ignore
+    styledComponentsStyleSheet.instance.clearTag();
     return <>{styles}</>;
   });
 

@@ -1,6 +1,6 @@
 import styles from '../../styles/timetable/timetable-manage.module.css'
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { TimetableInfo, TimetableManageInfo, TimetableManageItemType } from "../../types/timetableType";
+import { TimetableInfo, TimetableManageInfo, TimetableManageItemType } from "../../types/timetable.type";
 import { TimetableManageItem } from './timetableManageItem';
 import { Button } from '../common/buttons/button';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';

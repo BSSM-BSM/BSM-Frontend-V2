@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { boardAndPostIdState, postOpenState, postState } from '../../store/board.store';
 import styles from '../../styles/board/board.module.css';
-import { Category, DetailPost, Post } from "../../types/boardType";
+import { Category, DetailPost, Post } from "../../types/board.type";
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { useState } from 'react';

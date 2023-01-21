@@ -6,12 +6,13 @@ import { HttpMethod, useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
 import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
-import { DropdownMenuOption, headerOptionState } from '../../store/common.store';
+import { headerOptionState } from '../../store/common.store';
 import styles from '../../styles/header.module.css';
 import DefaultProfilePic from '../../public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { getUserInfo, getProfileSrc } from '../../utils/userUtil';
 import { DropdownMenu } from './dropdownMenu';
+import { DropdownMenuOption } from '../../types/common/dropdown.type';
 
 export const Header = () => {
   const [mounted, setMounted] = useState(false);

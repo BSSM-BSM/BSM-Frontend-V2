@@ -9,7 +9,7 @@ import { useModal } from '../../hooks/useModal';
 import { userState } from '../../store/account.store';
 import { getUserInfo } from '../../utils/userUtil';
 
-const OauthPage: NextPage = () => {
+const OauthPage = () => {
   const { ajax } = useAjax();
   const { closeModal } = useModal();
   const [, setUser] = useRecoilState(userState);
