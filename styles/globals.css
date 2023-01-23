@@ -150,8 +150,8 @@ body {
   grid-template-areas: 
     "header header"
     "sidebar content";
-  grid-template-rows: 5.4rem;
-  grid-template-columns: 25rem;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   width: 100%;
   height: calc(1vh * 100);
 }
@@ -160,7 +160,8 @@ body {
   .wrap {
     grid-template-areas: 
     "header header"
-    "content content";
+    "content content"
+    "navbar navbar";
   }
 }
   
@@ -170,11 +171,13 @@ main {
   border-radius: 1rem 0 0;
   background-color: var(--level-1);
   box-shadow: var(--shadow);
-  overflow: hidden !important;
-  overflow-y: overlay !important;
+  overflow: hidden;
+  overflow-y: auto;
+  overflow-y: overlay;
 }
 
 body, .scroll-bar {
+  overflow: auto;
   overflow: overlay;
 }
 
@@ -263,15 +266,15 @@ label, summary{
 }
 
 .left {
-  text-align: left !important;
+  text-align: left;
 }
 
 .right {
-  text-align: right !important;
+  text-align: right;
 }
 
 .center {
-  text-align: center !important;
+  text-align: center;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
@@ -526,6 +529,6 @@ label, summary{
 
 .user-profile img {
   border-radius: 50%;
-  width: 2rem !important;
-  height: 2rem !important;
+  width: 2rem;
+  height: 2rem;
 }

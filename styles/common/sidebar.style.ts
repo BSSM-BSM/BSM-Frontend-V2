@@ -27,6 +27,9 @@ export const SidebarItem = styled.li<{
   border-radius: .5rem;
   cursor: pointer;
   color: var(--text-level-1);
+  font-weight: bold;
+  transition: .25s;
+  overflow: hidden;
   ${({id, subId}) => 
     (id && activePageCheck({id, subId}) )
     ?`
@@ -35,7 +38,7 @@ export const SidebarItem = styled.li<{
       margin-left: .5rem;
       border-radius: .5rem 0 0 .5rem;
       filter: var(--drop-shadow);
-      clip-path: inset(-10px 0 -10px -10px);
+      clip-path: inset(-1rem 0 -1rem -1rem);
       color: var(--accent);
       svg {
         color: var(--accent) !important;
@@ -45,12 +48,9 @@ export const SidebarItem = styled.li<{
       margin: 0 .5rem;
     `
   };
-  font-weight: bold;
-  transition: .25s;
-  overflow: hidden;
   svg {
     transition: .25s;
-    color: var(--text);
+    color: var(--text-level-1);
   }
   &:hover {
     background-color: var(--level-1);

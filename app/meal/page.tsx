@@ -132,7 +132,7 @@ const MealPage = () => {
   }
 
   const calcViewRange = () => {
-    const screenWidth = (window.innerWidth / screenScale) * 100;
+    const screenWidth = ((window.innerWidth - 250) / screenScale) * 100;
     let range = Math.floor(screenWidth / 250);
     if (range < 3) range = 3;
     if (range % 2 === 0) range++;
@@ -229,7 +229,7 @@ const MealPage = () => {
         <title>급식 - BSM</title>
       </Head>
       <>
-        <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
+        <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
       </>
       {
         pushSubscription === null &&

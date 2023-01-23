@@ -1,5 +1,6 @@
 'use client';
 
+import boardStyles from '../../../styles/board/board.module.css';
 import postStyles from '../../../styles/board/post/post.module.css';
 import Head from 'next/head';
 import { ReactNode, useEffect, useState } from 'react';
@@ -13,6 +14,7 @@ import { PostView } from '../../../components/board/post/postView';
 import { EmoticonBoxWrap } from '../../../components/board/emoticonBox';
 import { PostWrite } from '../../../components/board/post/postWrite';
 import { boardAnonymousModeState } from '../../../store/setting/board.store';
+import Link from 'next/link';
 
 interface BoardLayoutProps {
   children: ReactNode,
@@ -41,7 +43,7 @@ const BoardLayout = ({
   const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
   
   useEffect(() => {
-    setPage({id: 'home', subId: boardId});
+    setPage({id: 'board', subId: boardId});
 
     if (typeof boardId !== 'string')
       setHeaderOption({ title: '' });
@@ -161,6 +163,12 @@ const BoardLayout = ({
         boardList[boardId] &&
         <>
           <BoardView boardId={boardId} board={boardList[boardId]} />
+          {
+            boardList[boardId].postPermission &&
+            <Link href={`/board/${boardId}/write`} className={boardStyles.write}>
+              <img src='/icons/pen.svg' alt='글쓰기' />
+            </Link>
+          }
           <div className={`${postStyles.post} ${postOpen ? postStyles.open : ''}`}>
             {
               typeof postId === 'number' &&

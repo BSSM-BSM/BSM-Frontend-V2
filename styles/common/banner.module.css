@@ -1,5 +1,5 @@
 .banner {
-  position: fixed;
+  position: absolute;
   z-index: 5;
   border-radius: .5rem;
   overflow: hidden;
@@ -50,7 +50,7 @@
 
 .banner.top {
   position: absolute;
-  top: 7rem;
+  top: 1rem;
 }
 
 .banner.bottom {
@@ -68,16 +68,6 @@
 @media screen and (min-width: 0) and (max-width: 1300px) {
   .banner.vertical {
     display: none;
-  }
-}
-
-@media screen and (min-width: 0) and (max-width: 720px) {
-  .banner.top {
-    top: 6rem;
-  }
-
-  .banner.bottom {
-    bottom: 0rem;
   }
 }
 

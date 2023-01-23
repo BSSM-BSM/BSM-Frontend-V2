@@ -14,6 +14,7 @@ import ModalDim from "../components/common/modalDim";
 import StyledComponentsRegistry from '../lib/registry';
 import Script from 'next/script';
 import Sidebar from '../components/common/sidebar/sidebar';
+import Navbar from '../components/common/navbar/navbar';
 
 export default function RootLayout({
   children,
@@ -70,7 +71,8 @@ export default function RootLayout({
             <RecoilRoot>
               <RecoilNexus />
               <Sidebar />
-              <main className='scroll-bar'>{children}</main>
+              <Navbar />
+              <main>{children}</main>
               <>
                 <Header />
                 <LoginBox />
