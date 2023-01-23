@@ -1,7 +1,6 @@
 'use client';
 
 import styles from '../../styles/meal.module.css';
-import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";

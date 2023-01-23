@@ -12,6 +12,7 @@ import { useModal } from '../../../hooks/useModal';
 import { Button } from '../../common/buttons/button';
 import { CheckList } from '../../common/buttons/checkList';
 import { boardAnonymousModeState } from '../../../store/setting/board.store';
+import { themeState } from '../../../store/common.store';
 
 interface PostWriteProps {
   boardId: string,
@@ -33,6 +34,7 @@ export const PostWrite = ({
   editPost,
   setPost
 }: PostWriteProps) => {
+  const theme = useRecoilValue(themeState);
   const { ajax } = useAjax();
   const { openModal } = useModal();
   const router = useRouter();
@@ -134,8 +136,8 @@ export const PostWrite = ({
           mobile: {
             menubar: true,
           },
-          skin: localStorage.getItem('theme') == 'dark' ? 'oxide-dark' : undefined,
-          content_css: localStorage.getItem('theme') ?? undefined,
+          skin: theme === 'dark' ? 'oxide-dark' : undefined,
+          content_css: theme ?? undefined,
           plugins: [
             'code', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks', 'media', 'table', 'wordcount', 'codesample'
           ],

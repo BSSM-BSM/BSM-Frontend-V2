@@ -1,6 +1,5 @@
 'use client';
 
-import type { NextPage } from 'next'
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';

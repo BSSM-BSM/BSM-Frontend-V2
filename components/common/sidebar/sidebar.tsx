@@ -8,12 +8,12 @@ import { AiOutlineBell } from 'react-icons/ai';
 import SidebarItem from './sidebarItem';
 import SidebarUserMenu from './sidebarUserMenu';
 import { useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { pageState } from '../../../store/common.store';
 
 const Sidebar = () => {
   const router = useRouter();
-  const [] = useRecoilState(pageState);
+  const _page = useRecoilValue(pageState);
 
   return (
     <S.Sidebar>

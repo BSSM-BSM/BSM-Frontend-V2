@@ -8,10 +8,9 @@ export const activePageCheck = ({
   id: string,
   subId?: string
 }) => {
+  if (typeof window === 'undefined') return false;
   const {id: currentId, subId: currentSubId} = getRecoil(pageState);
 
-  console.log(1, currentId === id)
   if (!subId) return currentId === id;
-  console.log(2, currentId === id)
   return currentSubId === subId;
 }

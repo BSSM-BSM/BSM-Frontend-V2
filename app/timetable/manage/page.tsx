@@ -2,10 +2,9 @@
 
 import styles from '../../../styles/timetable/timetable.module.css';
 import manageStyles from '../../../styles/timetable/timetable-manage.module.css';
-import { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { headerOptionState, pageState } from '../../../store/common.store';
 import { TimetableInfo, TimetableManageInfo, TimetableManageMode } from '../../../types/timetable.type';
 import { TimetableList } from '../../../components/timetable/timetableList';

@@ -1,6 +1,6 @@
 import * as S from '../../../styles/common/sidebar.style';
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { userState } from "../../../store/account.store";
 import { UserRole } from "../../../types/user.type";
 import Image, { StaticImageData } from 'next/image';
@@ -13,7 +13,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 const SidebarUserMenu = () => {
   const { openModal } = useModal();
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
-  const [user] = useRecoilState(userState);
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
       setProfileSrc(getProfileSrc(user.isLogin? user.code: 0));
