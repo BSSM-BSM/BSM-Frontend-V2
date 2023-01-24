@@ -45,7 +45,7 @@ const Navbar = () => {
           id='board'
           Icon={IoPeopleOutline}
           iconSize={26}
-          onClick={() => router.push('/board/board')}
+          onClick={() => router.push('/board')}
         >
           커뮤니티
         </NavbarItem>

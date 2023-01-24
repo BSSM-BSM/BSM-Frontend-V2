@@ -126,7 +126,7 @@ export const Header = () => {
         <span className='line'></span>
         <span className='line'></span>
       </>}
-      titleClassName={`${styles.item} menu-button`}
+      titleClassName='menu-button'
       menus={dropdownMenu}
       className={`${styles.dropdown} ${styles.all_menu}`}
     />

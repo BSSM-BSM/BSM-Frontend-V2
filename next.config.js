@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  compiler: {
+    styledComponents: true
+  },
   images: {
     domains: ['bssm.kro.kr', 'auth.bssm.kro.kr'],
     minimumCacheTTL: 60,
