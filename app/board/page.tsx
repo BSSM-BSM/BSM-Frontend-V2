@@ -11,7 +11,7 @@ import { IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
 import { BiCodeAlt } from 'react-icons/bi';
 import { AiOutlineBell } from 'react-icons/ai';
 
-const MeisterPage = () => {
+const BoardListPage = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
   const setPage = useSetRecoilState(pageState);
   const router = useRouter();
@@ -59,4 +59,4 @@ const MeisterPage = () => {
   );
 }
 
-export default MeisterPage;
+export default BoardListPage;

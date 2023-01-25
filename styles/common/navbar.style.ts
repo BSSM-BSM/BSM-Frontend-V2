@@ -29,7 +29,7 @@ export const NavbarItem = styled.li<{
   padding: .5rem;
   cursor: pointer;
   color: var(--text-level-1);
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   font-weight: bold;
   text-align: center;
   transition: .25s;
@@ -67,8 +67,8 @@ export const NavbarIconWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.4rem;
+  height: 2.4rem;
 `;
 
 export const NavbarItemContent = styled.div`

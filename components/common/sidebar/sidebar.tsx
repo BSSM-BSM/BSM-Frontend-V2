@@ -2,7 +2,7 @@ import * as S from '../../../styles/common/sidebar.style';
 import { AiOutlineUser } from 'react-icons/ai';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { BsCalendar4 } from 'react-icons/bs';
-import { IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
+import { IoExtensionPuzzleOutline, IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
 import { BiCodeAlt } from 'react-icons/bi';
 import { AiOutlineBell } from 'react-icons/ai';
 import SidebarItem from './sidebarItem';
@@ -78,6 +78,14 @@ const Sidebar = () => {
           onClick={() => router.push('/board/notice')}
         >
           공지사항
+        </SidebarItem>
+        <SidebarItem
+          id='service'
+          Icon={IoExtensionPuzzleOutline}
+          iconSize={26}
+          onClick={() => router.push('/service')}
+        >
+          모든 서비스
         </SidebarItem>
       </S.SidebarItemList>
     </S.Sidebar>
