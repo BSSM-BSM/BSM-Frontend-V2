@@ -26,7 +26,7 @@ const OauthPage = () => {
     (async () => {
       const [, error] = await ajax<LoginRes>({
         method: HttpMethod.POST,
-        url: `user/oauth/bsm?code=${authCode}`
+        url: `auth/oauth/bsm?code=${authCode}`
       });
       if (error) return;
 

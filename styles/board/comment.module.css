@@ -62,7 +62,7 @@
 }
 
 .write_bar {
-    position: absolute;
+    position: fixed;
     min-width: 50rem;
     bottom: 0;
     left: 50%;
