@@ -65,12 +65,13 @@ export const PostWrite = ({
 
   const writePost = async () => {
     const [newPostId, error] = await ajax<number>({
-      url: `post/${boardId}`,
+      url: 'post',
       method: HttpMethod.POST,
       payload: {
+        boardId,
         title,
         content,
-        category,
+        categoryId: category,
         anonymous: boardAnonymousMode
       }
     });
@@ -80,12 +81,14 @@ export const PostWrite = ({
 
   const modifyPost = async () => {
     const [, error] = await ajax({
-      url: `post/${boardId}/${editPost?.id}`,
+      url: 'post',
       method: HttpMethod.PUT,
       payload: {
+        boardId,
+        postId: editPost?.id,
         title,
         content,
-        category,
+        categoryId: category,
         anonymous: boardAnonymousMode
       }
     });
@@ -103,7 +106,7 @@ export const PostWrite = ({
       const [data, error] = await ajax<UploadFileRes>({
         method: HttpMethod.POST,
         payload: file,
-        url: '/post/upload',
+        url: '/post/file',
         config: {
           timeout: 0
         },

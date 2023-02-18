@@ -28,8 +28,10 @@ export const CommentWrite = ({
   const writeComment = async () => {
     const [, error] = await ajax({
       method: HttpMethod.POST,
-      url: `comment/${boardId}/${postId}`,
+      url: 'comment',
       payload: {
+        boardId,
+        postId,
         depth: depth + 1,
         parentId,
         content,

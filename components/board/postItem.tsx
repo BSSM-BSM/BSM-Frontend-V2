@@ -26,7 +26,7 @@ export const PostItem = ({
   category,
   title,
   createdAt,
-  hit,
+  view,
   totalComments,
   totalLikes
 }: PostItemProps) => {
@@ -81,7 +81,7 @@ export const PostItem = ({
             <div className={styles.post_info}>
               {totalLikes !== 0 && <span className={styles.total_likes}>{totalLikes}</span>}
               <span className={`${styles.post_hit} rows gap-05`}>
-                <span>{hit}</span>
+                <span>{view}</span>
                 <img src="/icons/view.svg" alt="viewers" />
               </span>
               {category !== null && <span>{categoryList[category]?.name}</span>}

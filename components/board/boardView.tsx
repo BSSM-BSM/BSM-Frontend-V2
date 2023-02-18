@@ -37,15 +37,22 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
     setLoading(true);
     const [data, error] = await ajax<PostListRes>({
       method: HttpMethod.GET,
-      url: `post/${boardId}?i=${startPostId}&l=${postLimit}&c=${postCategory}`,
+      url: `post/${boardId}${startPostId === -1? '/recent': ''}`,
+      config: {
+        params: {
+          startPostId,
+          limit: postLimit,
+          category: postCategory
+        }
+      },
       errorCallback() {
         setLoading(false);
       }
     });
     if (error) return;
 
-    if (startPostId === -1) setPostList(data.posts);
-    else if (data.posts.length) setPostList(prev => [...prev, ...data.posts]);
+    if (startPostId === -1) setPostList(data.postList);
+    else if (data.postList.length) setPostList(prev => [...prev, ...data.postList]);
     setLoading(false);
   }
 

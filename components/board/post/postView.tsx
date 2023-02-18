@@ -92,11 +92,13 @@ export const PostView = ({
     Prism.highlightAll();
   }, [post]);
 
-  const postLike = async (like: number) => {
+  const postLike = async (like: string) => {
     const [data, error] = await ajax<LikeRes>({
-      url: `like/${board.boardId}/${post.id}`,
+      url: 'like',
       method: HttpMethod.POST,
       payload: {
+        boardId: board.boardId,
+        postId: post.id,
         like
       },
     });
@@ -148,7 +150,7 @@ export const PostView = ({
               </span>
               <div className='rows gap-2 gray'>
                 <span>{post.totalComments} 댓글</span>
-                <span>조회 {post.hit}</span>
+                <span>조회 {post.view}</span>
                 <span>{
                   boardDetailTime
                     ? new Date(post.createdAt).toLocaleString()
@@ -170,11 +172,11 @@ export const PostView = ({
         />
       </div>
       <div className={styles.like_wrap}>
-        <button onClick={() => postLike(1)} className={`button-wrap ${styles.like} ${post.like === 1 ? styles.on : ''}`}>
+        <button onClick={() => postLike(post.like === 1 ? 'NONE': 'LIKE')} className={`button-wrap ${styles.like} ${post.like === 1 ? styles.on : ''}`}>
           <img src="/icons/like.svg" alt="like" />
         </button>
         <span>{post.totalLikes}</span>
-        <button onClick={() => postLike(-1)} className={`button-wrap ${styles.dislike} ${post.like === -1 ? styles.on : ''}`}>
+        <button onClick={() => postLike(post.like === -1 ? 'NONE': 'DISLIKE')} className={`button-wrap ${styles.dislike} ${post.like === -1 ? styles.on : ''}`}>
           <img src="/icons/like.svg" alt="dislike" />
         </button>
       </div>
