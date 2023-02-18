@@ -1,16 +1,16 @@
 import styles from '../../styles/timetable/timetable.module.css';
-import { TimetableInfo } from "../../types/timetable.type"
+import { Timetable } from "../../types/timetable.type"
 
-interface Props {
-    timetableList: TimetableInfo[]
+interface TimetableListProps {
+  timetable: Timetable
 }
 
 export const TimetableList = ({
-    timetableList
-}: Props) => <>
-    <ul className={styles.timetable_list}>{
-        timetableList
-            .filter(timetable => timetable.type === 'class')
-            .map(timetable => <li key={`${timetable.startTime}/${timetable.endTime}`}>{timetable.className}</li>)
-    }</ul>
+  timetable
+}: TimetableListProps) => <>
+  <ul className={styles.timetable_list}>{
+    timetable
+      .filter(item => item.type === 'class')
+      .map(item => <li key={`${item.startTime}/${item.endTime}`}>{item.className}</li>)
+  }</ul>
 </>

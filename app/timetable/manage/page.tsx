@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerOptionState, pageState } from '../../../store/common.store';
-import { TimetableInfo, TimetableManageInfo, TimetableManageMode } from '../../../types/timetable.type';
+import { Timetable, TimetableDayType, TimetableItem, TimetableListType, TimetableManageInfo, TimetableManageMode } from '../../../types/timetable.type';
 import { TimetableList } from '../../../components/timetable/timetableList';
 import { dayNames } from '../../../utils/date';
 import { TimetableItemManageMenu } from '../../../components/timetable/timetableItemManageMenu';
@@ -22,10 +22,11 @@ const TimetableManagePage = () => {
   const [grade, setGrade] = useState(0);
   const [classNo, setClassNo] = useState(0);
   const [day, setDay] = useState(new Date().getDay());
+  const [dayKey, setDayKey] = useState(TimetableDayType.SUN);
 
   const [manageItem, setManageItem] = useState<TimetableManageInfo | null>(null);
-  const [allTimetableList, setAllTimetableList] = useState<TimetableInfo[][]>([]);
-  const [timetableList, setTimetableList] = useState<TimetableInfo[]>([]);
+  const [timetableList, setTimetableList] = useState<TimetableListType | null>(null);
+  const [timetable, setTimetable] = useState<Timetable>([]);
   const [selectIdx, setSelectIdx] = useState(0);
   const [mode, setMode] = useState<TimetableManageMode>(TimetableManageMode.ADD);
 
@@ -41,18 +42,23 @@ const TimetableManagePage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if (!allTimetableList) return setTimetableList([]);
-
-    setTimetableList(allTimetableList[day] ?? []);
-  }, [day, allTimetableList]);
+    setDayKey(TimetableDayType[day] as unknown as TimetableDayType);
+  }, [day]);
 
   useEffect(() => {
-    if (!allTimetableList) return;
-    setAllTimetableList(prev => {
-      prev[day] = timetableList;
+    if (!timetableList) return setTimetable([]);
+
+    setTimetable(timetableList[dayKey] ?? []);
+  }, [dayKey, timetableList]);
+
+  useEffect(() => {
+    if (!timetableList) return;
+    setTimetableList(prev => {
+      if (!prev) return prev;
+      prev[dayKey] = timetable;
       return prev;
     });
-  }, [timetableList])
+  }, [timetable])
 
   const addHandler = () => {
     setMode(TimetableManageMode.ADD);
@@ -66,13 +72,13 @@ const TimetableManagePage = () => {
 
   const deleteHandler = (i: number) => {
     if (!confirm('정말 삭제하시겠습니까?')) return;
-    setTimetableList(prev => [
+    setTimetable(prev => [
       ...prev.slice(0, i),
       ...prev.slice(i + 1)
     ]);
   }
 
-  const timetableItem = (timetable: TimetableInfo, i: number) => (
+  const timetableItem = (timetable: TimetableItem, i: number) => (
     <li key={i} className={styles[timetable.type]} onClick={() => setSelectIdx(i)}>
       {
         i === 0 &&
@@ -104,9 +110,9 @@ const TimetableManagePage = () => {
     <Head>
       <title>시간표 관리 - BSM</title>
     </Head>
-    <TimetableItemManageMenu timetableList={timetableList} setTimetableList={setTimetableList} selectIdx={selectIdx} mode={mode} />
+    <TimetableItemManageMenu timetable={timetable} setTimetable={setTimetable} selectIdx={selectIdx} mode={mode} />
     <div className='container _120 rows'>
-      <TimetableList timetableList={timetableList} />
+      <TimetableList timetable={timetable} />
     </div>
     <ul className={`${styles.select_day} button-wrap`}>{
       dayNames.map((name, i) => (
@@ -121,8 +127,8 @@ const TimetableManagePage = () => {
     }</ul>
     <TimetableManageSideBar
       setManageItem={setManageItem}
-      allTimetableList={allTimetableList}
-      setAllTimetableList={setAllTimetableList}
+      timetableList={timetableList}
+      setTimetableList={setTimetableList}
       grade={grade}
       classNo={classNo}
       setGrade={setGrade}
@@ -130,11 +136,11 @@ const TimetableManagePage = () => {
     />
     <div className={styles.timetable_wrap}>
       <ul className={`${styles.timetable} scroll-bar horizontal`}>
-        {timetableList.map((timetable, i) => timetableItem(timetable, i))}
+        {timetable.map((timetable, i) => timetableItem(timetable, i))}
       </ul>
       {
         manageItem &&
-        !timetableList.length &&
+        !timetable.length &&
         <div className={manageStyles.no_timetable}>
           <p>아래 버튼을 눌러 시간표를 추가하세요</p>
           <button onClick={() => { setSelectIdx(-1); addHandler() }} className={manageStyles.add_item}><span>+</span></button>

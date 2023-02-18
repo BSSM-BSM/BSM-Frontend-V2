@@ -1,6 +1,6 @@
 import styles from '../../styles/timetable/timetable-manage.module.css'
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { TimetableInfo, TimetableManageMode } from "../../types/timetable.type";
+import { Timetable, TimetableItem, TimetableManageMode } from "../../types/timetable.type";
 import { Button } from "../common/buttons/button";
 import { NumberInput } from "../common/inputs/numberInput";
 import { TextInput } from "../common/inputs/textInput";
@@ -10,8 +10,8 @@ import { shortTimeStrToTotalSecond } from '../../utils/date';
 import { useOverlay } from '../../hooks/useOverlay';
 
 interface TimetableItemManageMenuProps {
-  timetableList: TimetableInfo[],
-  setTimetableList: Dispatch<SetStateAction<TimetableInfo[]>>,
+  timetable: Timetable,
+  setTimetable: Dispatch<SetStateAction<Timetable>>,
   selectIdx: number,
   mode: TimetableManageMode
 }
@@ -23,8 +23,8 @@ export const TimetableItemManageMenu = (props: TimetableItemManageMenuProps) => 
 );
 
 const AddTimetable = ({
-  timetableList,
-  setTimetableList,
+  timetable,
+  setTimetable,
   selectIdx,
   mode
 }: TimetableItemManageMenuProps) => {
@@ -38,7 +38,7 @@ const AddTimetable = ({
   const [classType, setClassType] = useState('normal');
 
   const init = () => {
-    if (!timetableList[selectIdx]) return;
+    if (!timetable[selectIdx]) return;
 
     if (mode === TimetableManageMode.ADD) {
       setClassName('');
@@ -49,7 +49,7 @@ const AddTimetable = ({
       setClassType('normal');
 
     } else if (mode === TimetableManageMode.EDIT) {
-      const currentTimetable = timetableList[selectIdx];
+      const currentTimetable = timetable[selectIdx];
       const tempStartTime = currentTimetable.startTime.split(':');
       const tempEndTime = currentTimetable.endTime.split(':');
 
@@ -63,7 +63,7 @@ const AddTimetable = ({
   }
 
   const addTimetable = (startTime: string, endTime: string) => {
-    setTimetableList(prev => [
+    setTimetable(prev => [
       ...prev.slice(0, selectIdx + 1),
       {
         className,
@@ -77,7 +77,7 @@ const AddTimetable = ({
   }
 
   const editTimetable = (startTime: string, endTime: string) => {
-    setTimetableList(prev => {
+    setTimetable(prev => {
       prev[selectIdx] = {
         className,
         startTime,

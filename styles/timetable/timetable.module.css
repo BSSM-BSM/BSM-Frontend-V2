@@ -34,7 +34,7 @@
   display: flex;
   width: 100%;
   overflow-x: auto;
-  padding: calc(50vh - 5rem) 50%;
+  padding: calc(50% - 2.5rem) 50%;
 }
 
 .timetable li {

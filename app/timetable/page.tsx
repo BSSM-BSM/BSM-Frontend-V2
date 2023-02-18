@@ -12,7 +12,7 @@ import { numberInBetween } from '../../utils/util';
 import { headerOptionState, pageState } from '../../store/common.store';
 import { UserRole } from '../../types/user.type';
 import { TimetableClassMenu } from '../../components/timetable/timetableClassMenu';
-import { TimetableInfo } from '../../types/timetable.type';
+import { Timetable, TimetableDayType, TimetableListRes, TimetableListType } from '../../types/timetable.type';
 import { TimetableList } from '../../components/timetable/timetableList';
 import { Button } from '../../components/common/buttons/button';
 import { dateToShortTimeStr, dayNames, shortTimeStrToTotalSecond } from '../../utils/date';
@@ -27,8 +27,9 @@ const TimetablePage = () => {
   const [grade, setGrade] = useState(0);
   const [classNo, setClassNo] = useState(0);
   const [day, setDay] = useState(new Date().getDay());
-  const [allTimetableList, setAllTimetableList] = useState<TimetableInfo[][]>([]);
-  const [timetableList, setTimetableList] = useState<TimetableInfo[]>([]);
+  const [dayKey, setDayKey] = useState(TimetableDayType.SUN);
+  const [timetableList, setTimetableList] = useState<TimetableListType | null>(null);
+  const [timetable, setTimetable] = useState<Timetable>([]);
   const [time, setTime] = useState('');
   const [date, setDate] = useState('');
 
@@ -59,20 +60,24 @@ const TimetablePage = () => {
   }, [grade, classNo]);
 
   useEffect(() => {
-    if (!allTimetableList.length) return setTimetableList([]);;
+    setDayKey(TimetableDayType[day] as unknown as TimetableDayType);
+  }, [day]);
+  
+  useEffect(() => {
+    if (!timetableList) return setTimetable([]);;
 
-    if (!allTimetableList[day]?.length) {
+    if (!timetableList[dayKey]?.length) {
       showAlert('시간표 데이터가 없습니다');
     }
-    setTimetableList(allTimetableList[day] ?? []);
+    setTimetable(timetableList[dayKey] ?? []);
     if (day !== new Date().getDay()) {
       setFocus(false);
       setCurrentTimeIndex(-1);
     }
-  }, [day, allTimetableList]);
+  }, [dayKey, timetableList]);
 
   const timeTableRender = () => {
-    if (!timetableList.length) return;
+    if (!timetable.length) return;
 
     const newDate = new Date();
 
@@ -93,7 +98,7 @@ const TimetablePage = () => {
 
   useInterval(timeTableRender, 500);
 
-  useEffect(timeTableRender, [timetableList]);
+  useEffect(timeTableRender, [timetable]);
   useEffect(() => {
     timetableListRef.current?.scrollTo({
       left: scrollX
@@ -105,7 +110,7 @@ const TimetablePage = () => {
     let endTotalTime = 0;
     let currentTotalTime = 0;
     let currentTimeIndex = 0;
-    timetableList.some((timetable, i) => {
+    timetable.some((timetable, i) => {
       startTotalTime = shortTimeStrToTotalSecond(timetable.startTime);
       endTotalTime = shortTimeStrToTotalSecond(timetable.endTime);
       currentTotalTime = shortTimeStrToTotalSecond(dateToShortTimeStr(newDate));
@@ -121,7 +126,7 @@ const TimetablePage = () => {
       const breaktimeElOffset = 150;
       let totalOffset = 0;
 
-      timetableList.some((timetable, i) => {
+      timetable.some((timetable, i) => {
         if (currentTimeIndex <= i) {
           totalOffset += ((currentTotalTime - startTotalTime) / (endTotalTime - startTotalTime)) * (timetable.type === 'break' ? breaktimeElOffset : normalElOffset);
           return true;
@@ -137,16 +142,16 @@ const TimetablePage = () => {
   }
 
   const loadTimetableInfo = async () => {
-    const [data, error] = await ajax<TimetableInfo[][]>({
+    const [data, error] = await ajax<TimetableListRes>({
       url: `timetable/${grade}/${classNo}`,
       method: HttpMethod.GET,
       errorCallback() {
-        setAllTimetableList([]);
+        setTimetableList(null);
       }
     });
     if (error) return;
 
-    setAllTimetableList(data);
+    setTimetableList(data.timetableList);
   }
 
   return (
@@ -155,7 +160,7 @@ const TimetablePage = () => {
         <title>시간표 - BSM</title>
       </Head>
       <div className='container _120 rows'>
-        <TimetableList timetableList={timetableList} />
+        <TimetableList timetable={timetable} />
       </div>
       <ul className={`${styles.select_day} button-wrap`}>{
         dayNames.map((name, i) => (
@@ -188,7 +193,7 @@ const TimetablePage = () => {
           <h2 className={!focus ? 'gray' : ''}>{time}</h2>
           <h2>{date}</h2>
         </div>
-        {timetableList.length > 0 && <div className={styles.time_line}></div>}
+        {timetable.length > 0 && <div className={styles.time_line}></div>}
         <ul
           className={`${styles.timetable} scroll-bar horizontal`}
           ref={timetableListRef}
@@ -198,7 +203,7 @@ const TimetablePage = () => {
             }
           }}
         >{
-            timetableList.map((timetable, i) => (
+            timetable.map((timetable, i) => (
               <li key={i} className={`${styles[timetable.type]} ${i === currentTimeIndex ? styles.active : ''}`}>
                 {
                   i !== 0 &&

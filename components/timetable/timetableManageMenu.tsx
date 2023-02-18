@@ -1,8 +1,6 @@
 import styles from '../../styles/timetable/timetable-manage.module.css'
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { TimetableInfo, TimetableManageMode } from "../../types/timetable.type";
+import { useState } from "react";
 import { Button } from "../common/buttons/button";
-import { NumberInput } from "../common/inputs/numberInput";
 import { TextInput } from "../common/inputs/textInput";
 import Modal from "../common/modal";
 import { useModal } from '../../hooks/useModal';
@@ -36,7 +34,7 @@ const CreateTimetable = ({
   }
 
   const createTimetable = async () => {
-    const [, error] = await ajax<TimetableInfo[][]>({
+    const [, error] = await ajax({
       url: `admin/timetable`,
       method: HttpMethod.POST,
       payload: {
