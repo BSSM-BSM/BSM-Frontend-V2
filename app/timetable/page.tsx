@@ -38,6 +38,8 @@ const TimetablePage = () => {
   const [scrollX, setScrollX] = useState(0);
   const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
 
+  let classIdx = 0;
+
   useEffect(() => {
     setHeaderOption({ title: '시간표' });
     setPage({ id: 'timetable' });
@@ -203,18 +205,24 @@ const TimetablePage = () => {
             }
           }}
         >{
-            timetable.map((timetable, i) => (
-              <li key={i} className={`${styles[timetable.type]} ${i === currentTimeIndex ? styles.active : ''}`}>
-                {
-                  i !== 0 &&
-                  <span className={styles.start_time}>
-                    {timetable.startTime.split(':').filter((str, j) => j != 2).join(':')}
-                  </span>
-                }
-                <span className={styles.class_name}>{timetable.className}</span>
-              </li>
-            ))
-          }</ul>
+          timetable.map((item, i) => (
+            <li key={i} className={`${styles[item.type]} ${i === currentTimeIndex ? styles.active : ''}`}>
+              {
+                i !== 0 &&
+                <span className={styles.start_time}>
+                  {item.startTime.split(':').filter((str, j) => j != 2).join(':')}
+                </span>
+              }
+              {
+                item.type === 'class' &&
+                <span className={styles.class_idx}>
+                  {++classIdx} 교시
+                </span>
+              }
+              <span className={styles.class_name}>{item.className}</span>
+            </li>
+          ))
+        }</ul>
       </div>
     </>
   );

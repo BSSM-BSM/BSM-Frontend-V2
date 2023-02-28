@@ -44,7 +44,8 @@
 }
 
 .edit_item {
-  top: calc(0% - 5rem);
+  transform: translateX(-2.25rem);
+  bottom: calc(0% - 5rem);
   letter-spacing: -.75rem;
   background-color: var(--level-5);
 }
@@ -56,6 +57,7 @@
 }
 
 .delete_item {
+  transform: translateX(2.25rem);
   bottom: calc(0% - 5rem);
   letter-spacing: -1rem;
   background-color: var(--level-5);

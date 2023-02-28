@@ -34,7 +34,7 @@
   display: flex;
   width: 100%;
   overflow-x: auto;
-  padding: calc(50% - 2.5rem) 50%;
+  padding: calc(50vh - 8rem) 50%;
 }
 
 .timetable li {
@@ -92,6 +92,13 @@
   top: calc(100% + 2rem);
   right: 100%;
   transform: translateX(50%);
+  font-size: 1.7rem;
+}
+
+.class_idx {
+  position: absolute;
+  bottom: calc(100% + 2rem);
+  font-size: 1.8rem;
 }
 
 .sync_button {

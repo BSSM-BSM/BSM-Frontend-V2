@@ -30,6 +30,8 @@ const TimetableManagePage = () => {
   const [selectIdx, setSelectIdx] = useState(0);
   const [mode, setMode] = useState<TimetableManageMode>(TimetableManageMode.ADD);
 
+  let classIdx = 0;
+
   useEffect(() => {
     setHeaderOption({ title: '시간표 관리' });
     setPage({ id: 'timetable' });
@@ -78,8 +80,8 @@ const TimetableManagePage = () => {
     ]);
   }
 
-  const timetableItem = (timetable: TimetableItem, i: number) => (
-    <li key={i} className={styles[timetable.type]} onClick={() => setSelectIdx(i)}>
+  const timetableItem = (item: TimetableItem, i: number) => (
+    <li key={i} className={styles[item.type]} onClick={() => setSelectIdx(i)}>
       {
         i === 0 &&
         <button
@@ -96,13 +98,19 @@ const TimetableManagePage = () => {
       {
         i !== 0 &&
         <span className={styles.start_time}>
-          {timetable.startTime.split(':').filter((str, j) => j != 2).join(':')}
+          {item.startTime.split(':').filter((str, j) => j != 2).join(':')}
+        </span>
+      }
+      {
+        item.type === 'class' &&
+        <span className={styles.class_idx}>
+          {++classIdx} 교시
         </span>
       }
       <button onClick={addHandler} className={`${manageStyles.add_item} ${manageStyles.right}`}><span>+</span></button>
       <button onClick={editHandler} className={manageStyles.edit_item}><span>···</span></button>
       <button onClick={() => deleteHandler(i)} className={manageStyles.delete_item}><span>-</span></button>
-      <span className={styles.class_name}>{timetable.className}</span>
+      <span className={styles.class_name}>{item.className}</span>
     </li>
   );
 
@@ -136,7 +144,7 @@ const TimetableManagePage = () => {
     />
     <div className={styles.timetable_wrap}>
       <ul className={`${styles.timetable} scroll-bar horizontal`}>
-        {timetable.map((timetable, i) => timetableItem(timetable, i))}
+        {timetable.map((item, i) => timetableItem(item, i))}
       </ul>
       {
         manageItem &&
