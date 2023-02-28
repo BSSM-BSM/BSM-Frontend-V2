@@ -7,7 +7,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
 import { useOverlay } from "../../hooks/useOverlay";
 import { screenScaleState, headerOptionState, pushSubscriptionState, pageState } from "../../store/common.store";
-import { MealTime, MealType } from "../../types/meal.types";
+import { MealRes, MealTime, MealTimeRange, MealType } from "../../types/meal.types";
 import { subscribe } from "../../utils/webPush";
 import { MealItem } from '../../components/meal/mealItem';
 import { Button } from '../../components/common/buttons/button';
@@ -15,36 +15,6 @@ import { dateToShortDateStr, shrotDateStrToDate, timeToTotalSecond } from '../..
 import { numberInBetween } from '../../utils/util';
 import { BannerType } from '../../types/banner.type';
 import { Banner, BannerPos } from '../../components/common/banner';
-
-type MealRes = {
-  [index in MealTime]: {
-    content: string,
-    cal: number
-  } | null;
-};
-
-const MealTimeRange = [
-  {
-    startSecond: 0, // 0:00
-    endSecond: 27600, // 7:40
-    timeName: MealTime.MORNING
-  },
-  {
-    startSecond: 27600, // 7:40
-    endSecond: 45600, // 12:40
-    timeName: MealTime.LUNCH
-  },
-  {
-    startSecond: 45600, // 12:40
-    endSecond: 66000, // 18:20
-    timeName: MealTime.DINNER
-  },
-  {
-    startSecond: 66000, // 18:20
-    endSecond: 86400, // 24:00
-    timeName: MealTime.MORNING
-  }
-]
 
 const MealPage = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
@@ -104,30 +74,23 @@ const MealPage = () => {
       const [data, error] = await ajax<MealRes>({
         url: `meal/${date}`,
         method: HttpMethod.GET,
-        errorCallback(data) {
-          if (data && 'statusCode' in data && data.statusCode === 404) {
-            resolve([{
-              date,
-              content: '급식이 없습니다'
-            }]);
-            return true;
-          }
-        },
       });
       if (error) return reject();
-
-      const tempMealList: MealType[] = [];
-      Object.entries(data).forEach(value => {
-        if (!value[1]) return;
-        tempMealList.push({
+      
+      if (!Object.keys(data.data).length) {
+        resolve([{
           date,
-          time: Object.values(MealTime)[
-            Object.keys(MealTime).indexOf(value[0].toUpperCase())
-          ],
-          ...value[1]
-        });
-      });
-      resolve(tempMealList);
+          content: '급식이 없습니다'
+        }]);
+      }
+
+      resolve(
+        data.keys.map(key => ({
+          ...data.data[key],
+          time: MealTime[key],
+          date
+        }))
+      );
     })
   }
 
@@ -186,7 +149,9 @@ const MealPage = () => {
         loadPromises.next ?? []
       ]);
 
-      setMealList(prev => [...prevMeals, ...prev, ...nextMeals]);
+      setMealList(prev => {
+        return [...prevMeals, ...prev, ...nextMeals];
+      });
       if (prevMeals.length) {
         setMealIdx(prev => prev + prevMeals.length);
       }
