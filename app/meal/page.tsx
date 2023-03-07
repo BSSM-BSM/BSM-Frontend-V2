@@ -76,7 +76,6 @@ const MealPage = () => {
         method: HttpMethod.GET,
       });
       if (error) return reject();
-      
       if (!Object.keys(data.data).length) {
         resolve([{
           date,
@@ -84,6 +83,8 @@ const MealPage = () => {
         }]);
       }
 
+      const keys = Object.keys(MealTime);
+      data.keys = data.keys.sort((a, b) => keys.indexOf(a) - keys.indexOf(b));
       resolve(
         data.keys.map(key => ({
           ...data.data[key],

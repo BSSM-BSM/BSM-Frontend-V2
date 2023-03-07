@@ -10,6 +10,8 @@ import { UserRole } from "../../types/user.type";
 import Modal from "../common/modal";
 import { elapsedTime } from '../../utils/date';
 
+const meisterInactivated = true;
+
 export const MeisterHomeMenu = () => {
   const [user] = useRecoilState(userState);
   const [meisterInfo, setMeisterInfo] = useState<HomeMenuMeisterInfo>({
@@ -25,6 +27,8 @@ export const MeisterHomeMenu = () => {
   }, [user]);
 
   const loadMeisterInfo = async (type?: string) => {
+    if (meisterInactivated) return;
+
     setMeisterInfo({
       isLoading: true,
       lastUpdate: '',
@@ -71,6 +75,17 @@ export const MeisterHomeMenu = () => {
   const meisterInfoView = () => {
     const { isLoading, error, score, positivePoint, negativePoint } = meisterInfo;
 
+    if (meisterInactivated) {
+      return (
+        <>
+          <span>마이스터 역량인증제가 비활성화됨</span>
+          <span onClick={e => {
+            e.preventDefault();
+            openModal('meister_inactivated');
+          }}>자세히 보기</span>
+        </>
+      );
+    }
     if (isLoading) return '로딩중';
     if (error === 'auth') return '로그인후 이용 가능합니다';
     if (error === 'notStudent') return '학생만 이용 가능합니다';
@@ -116,6 +131,12 @@ export const MeisterHomeMenu = () => {
             {meisterInfo.uniqNo}
             <summary>초기 비밀번호 보기</summary>
           </details>
+        </div>
+      </Modal>
+      <Modal type="main" id="meister_inactivated" title="마이스터 역량인증제">
+        <div>
+          <p>아직 마이스터 역량인증제의 {(new Date).getFullYear()}년 버전이 오픈하지 않았습니다.</p>
+          <span>자세한 내용은 </span><a href="https://bssm.meistergo.co.kr" className='accent-text'>마이스터 역량 인증제 사이트</a><span>를 확인해주세요.</span>
         </div>
       </Modal>
     </>
