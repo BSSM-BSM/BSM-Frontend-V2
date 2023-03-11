@@ -37,7 +37,7 @@ const MeisterPage = () => {
   });
 
   useEffect(() => {
-    setHeaderOption({ title: '마이스터 점수 및 상벌점 조회', allMenu: { goBack: true } });
+    setHeaderOption({ title: '마이스터 점수 및 상벌점 조회' });
     setPage({ id: 'meister' });
   }, []);
 

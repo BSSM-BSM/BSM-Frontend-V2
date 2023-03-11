@@ -46,7 +46,7 @@
   letter-spacing: -.1rem;
 }
 
-.item.all_menu {
+.all_menu {
   padding: 0 1.1rem;
   height: 100%;
 }
@@ -97,8 +97,7 @@
   display: none;
 }
 
-@media screen and (min-width: 0px) and (max-width: 720px) {
-  
+@media screen and (max-width: 650px) {
   .top_menu_bar .right,
   .top_menu_bar .home {
     display: none !important;
@@ -119,86 +118,10 @@
   }
 }
 
-.side {
-  position: fixed;
-  z-index: 100;
-  right: 100%;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  transition: right .4s;
-  font-size: 1.6rem;
-}
-
-.side.on {
-  right: 0;
-}
-
-.side .dim {
-  position: absolute;
-  background-color: rgba(0, 0, 0, .8);
-  z-index: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: .25s;
-}
-
-.side .menus {
-  z-index: 1;
-  width: 18rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  pointer-events: none;
-}
-
-.side .menus > :is(li, .dropdown) {
-  pointer-events: all;
-}
-
-.side .menus :is(
-  li,
-  .dropdown
-) {
-  width: 100%;
-}
-
-.side .item:hover {
-  background-color: #80808066;
-}
-
-.side .dropdown ul {
-  width: 100%;
-  z-index: 2;
-}
-
-.side .close_button {
-  position: absolute;
-  top: 1rem !important;
-  right: 1rem !important;
-  left: auto !important;
-  filter: none !important;
-  z-index: 1;
-}
-
-.side .home {
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0 2rem 0;
-  font-size: 2.6rem;
-}
-
-.side .home:hover {
-  background: none;
-}
-
-.side :is(.item, .item > *) {
-  color: white;
+@media screen and (min-width: 651px) {
+  .top_menu_bar .all_menu {
+    display: none !important;
+  }
 }
 
 .setting {
@@ -210,42 +133,4 @@
 .setting img {
   width: 2.2rem;
   filter: var(--bright);
-}
-
-.user_profile_wrap {
-  width: 100%;
-}
-
-.user_profile {
-  display: flex;
-  justify-content: center;
-  padding: 0;
-}
-
-.user_profile > div {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  max-width: 18rem;
-  padding: 0 1rem;
-}
-
-.user_profile span {
-  flex: 1;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-left: 1rem;
-  font-size: 1.6rem;
-}
-
-.user_profile :global(.user-profile) {
-  height: 5.2rem;
-  width: 5.2rem;
-}
-
-.user_profile :global(.user-profile) img {
-  padding: .75rem !important;
-  width: 5.2rem !important;
-  height: 5.2rem !important;
 }

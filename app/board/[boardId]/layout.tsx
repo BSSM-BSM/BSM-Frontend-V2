@@ -52,9 +52,6 @@ const BoardLayout = ({
     else if (postId === 'write')
       setHeaderOption({
         title: `글쓰기 ${boardAnonymousMode ? '(익명 On)' : '(익명 Off)'}`,
-        allMenu: {
-          goBack: true
-        }
       });
   }, [boardId, postId, boardList, post, boardAnonymousMode]);
 

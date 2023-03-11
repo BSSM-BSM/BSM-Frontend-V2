@@ -9,10 +9,12 @@ export const Sidebar = styled.aside<{
   overflow-y: auto;
   overflow-x: hidden;
   grid-area: sidebar;
-  transition: width .25s;
+  transition: all .25s;
   @media screen and (max-width: 650px) {
+    transform: translateX(0rem);
     ${({isOpen}) => (!isOpen) && `
       width: 0;
+      transform: translateX(-25rem);
     `}
   }
 `;

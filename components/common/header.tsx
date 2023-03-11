@@ -10,8 +10,10 @@ import styles from '../../styles/header.module.css';
 import { getUserInfo } from '../../utils/userUtil';
 import { DropdownMenu } from './dropdownMenu';
 import { DropdownMenuOption } from '../../types/common/dropdown.type';
+import { usePathname } from 'next/navigation';
 
 export const Header = () => {
+  const pathname = usePathname();
   const { openModal } = useModal();
   const { ajax } = useAjax();
   const { showToast } = useOverlay();
@@ -23,6 +25,8 @@ export const Header = () => {
   useEffect(() => {
     getUserInfo(ajax, setUser);
   }, []);
+
+  useEffect(() => setSideBar(false), [pathname]);
 
   const logout = async () => {
     const [, error] = await ajax({

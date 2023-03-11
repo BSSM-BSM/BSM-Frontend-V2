@@ -46,6 +46,6 @@ export const pageState = atom<PageState>({
 });
 
 export const sideBarState = atom<boolean>({
-  key: 'title',
+  key: 'sideBar',
   default: false
 });

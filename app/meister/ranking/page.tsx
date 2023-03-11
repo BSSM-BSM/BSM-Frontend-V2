@@ -25,7 +25,7 @@ const MeisterPage = () => {
   const [grade, setGrade] = useState<number>(0);
   
   useEffect(() => {
-    setHeaderOption({ title: '마이스터 랭킹', allMenu: { goBack: true } });
+    setHeaderOption({ title: '마이스터 랭킹' });
     setPage({id: 'meister'});
   }, []);
 

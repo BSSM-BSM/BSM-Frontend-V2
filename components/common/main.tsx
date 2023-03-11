@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { sideBarState } from '../../store/common.store';
 import Sidebar from './sidebar/sidebar';
 import Navbar from './navbar/navbar';
@@ -16,13 +16,15 @@ export const Main = ({
 }: {
   children: ReactNode;
 }) => {
-  const sideBar = useRecoilValue(sideBarState);
+  const [sideBar, setSideBar] = useRecoilState(sideBarState);
 
   return (
     <div className={`wrap ${sideBar? 'side_bar_open': ''}`}>
       <Sidebar />
       <Navbar />
-      <main>{children}</main>
+      <main onClick={() => setSideBar(false)}>
+        {children}
+      </main>
       <>
         <Header />
         <LoginBox />
