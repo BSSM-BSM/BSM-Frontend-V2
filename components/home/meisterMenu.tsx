@@ -10,7 +10,7 @@ import { UserRole } from "../../types/user.type";
 import Modal from "../common/modal";
 import { elapsedTime } from '../../utils/date';
 
-const meisterInactivated = true;
+const meisterInactivated = false;
 
 export const MeisterHomeMenu = () => {
   const [user] = useRecoilState(userState);

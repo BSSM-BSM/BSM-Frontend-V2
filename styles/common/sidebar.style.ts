@@ -1,15 +1,24 @@
 import styled from "styled-components";
 import { activePageCheck } from "../../utils/page";
 
-export const Sidebar = styled.aside`
+export const Sidebar = styled.aside<{
+  isOpen?: boolean
+}>`
   width: 25rem;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   grid-area: sidebar;
+  transition: width .25s;
   @media screen and (max-width: 650px) {
-    display: none;
+    ${({isOpen}) => (!isOpen) && `
+      width: 0;
+    `}
   }
 `;
 
 export const SidebarItemList = styled.ul`
+  width: 25rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;

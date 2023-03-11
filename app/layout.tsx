@@ -4,17 +4,9 @@ import '../styles/globals.css'
 import { ReactNode, useEffect } from "react";
 import { RecoilRoot } from "recoil";
 import RecoilNexus from 'recoil-nexus';
-import { Header } from "../components/common/header";
-import { LoginBox } from "../components/common/accountPopup";
-import { SettingBox } from "../components/common/settingPopup";
-import Toast from "../components/common/overlay/toast";
-import Alert from "../components/common/overlay/alert";
-import LoadingDim from "../components/common/overlay/loadingDim";
-import ModalDim from "../components/common/modalDim";
 import StyledComponentsRegistry from '../lib/registry';
 import Script from 'next/script';
-import Sidebar from '../components/common/sidebar/sidebar';
-import Navbar from '../components/common/navbar/navbar';
+import { Main } from '../components/common/main';
 
 export default function RootLayout({
   children,
@@ -66,25 +58,12 @@ export default function RootLayout({
       <body className="dark">
         <div id="modal-wrap" />
         <div id="overlay-wrap" />
-        <div className='wrap'>
-          <StyledComponentsRegistry>
-            <RecoilRoot>
-              <RecoilNexus />
-              <Sidebar />
-              <Navbar />
-              <main>{children}</main>
-              <>
-                <Header />
-                <LoginBox />
-                <SettingBox />
-                <Toast />
-                <Alert />
-                <LoadingDim />
-                <ModalDim />
-              </>
-            </RecoilRoot>
-          </StyledComponentsRegistry>
-        </div>
+        <StyledComponentsRegistry>
+          <RecoilRoot>
+            <RecoilNexus />
+            <Main>{children}</Main>
+          </RecoilRoot>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

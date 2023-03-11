@@ -2,7 +2,7 @@
   grid-area: header;
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   font-size: 1.5rem;
   font-weight: bold;
   user-select: none;

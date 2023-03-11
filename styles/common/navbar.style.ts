@@ -4,7 +4,7 @@ import { activePageCheck } from "../../utils/page";
 export const Navbar = styled.nav`
   z-index: 1;
   display: none;
-  width: 100%;
+  width: 100vw;
   grid-area: navbar;
   @media screen and (max-width: 650px) {
     display: flex;

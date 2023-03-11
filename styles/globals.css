@@ -138,7 +138,6 @@ body {
   background-color: var(--background);
   color: var(--text);
   font-size: 1.5rem;
-  transition: background-color .5s;
   vertical-align: middle;
   line-height: 1.2;
   font-family: NotoSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -155,15 +154,6 @@ body {
   width: 100%;
   height: calc(1vh * 100);
 }
-
-@media screen and (max-width: 650px) {
-  .wrap {
-    grid-template-areas: 
-    "header header"
-    "content content"
-    "navbar navbar";
-  }
-}
   
 main {
   position: relative;
@@ -174,6 +164,20 @@ main {
   overflow: hidden;
   overflow-y: auto;
   overflow-y: overlay;
+  width: calc(100vw - 25rem);
+}
+
+@media screen and (max-width: 650px) {
+  .wrap {
+    grid-template-areas: 
+    "header header"
+    "sidebar content"
+    "navbar navbar";
+    overflow: hidden;
+  }
+  main {
+    width: 100vw;
+  }
 }
 
 body, .scroll-bar {

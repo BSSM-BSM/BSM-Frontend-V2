@@ -34,7 +34,6 @@ export const headerOptionState = atom<HeaderOptionState>({
   key: 'title',
   default: {
     title: '',
-    allMenu: undefined,
     optionMenu: undefined
   }
 });
@@ -44,4 +43,9 @@ export const pageState = atom<PageState>({
   default: {
     id: null
   }
+});
+
+export const sideBarState = atom<boolean>({
+  key: 'title',
+  default: false
 });

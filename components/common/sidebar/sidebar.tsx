@@ -1,5 +1,5 @@
 import * as S from '../../../styles/common/sidebar.style';
-import { AiOutlineUser } from 'react-icons/ai';
+import { AiFillGithub, AiOutlineUser } from 'react-icons/ai';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { BsCalendar4 } from 'react-icons/bs';
 import { IoExtensionPuzzleOutline, IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
@@ -9,14 +9,15 @@ import SidebarItem from './sidebarItem';
 import SidebarUserMenu from './sidebarUserMenu';
 import { useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
-import { pageState } from '../../../store/common.store';
+import { pageState, sideBarState } from '../../../store/common.store';
 
 const Sidebar = () => {
   const router = useRouter();
-  const _page = useRecoilValue(pageState);
+  const _page = useRecoilValue(pageState); // 페이지 이동 감지용 state
+  const sideBar = useRecoilValue(sideBarState);
 
   return (
-    <S.Sidebar>
+    <S.Sidebar isOpen={sideBar}>
       <S.SidebarItemList>
         <SidebarUserMenu />
         <SidebarItem
@@ -86,6 +87,13 @@ const Sidebar = () => {
           onClick={() => router.push('/service')}
         >
           모든 서비스
+        </SidebarItem>
+        <SidebarItem
+          Icon={AiFillGithub}
+          iconSize={26}
+          onClick={() => window.location.href = 'https://github.com/BSSM-BSM'}
+        >
+          깃허브
         </SidebarItem>
       </S.SidebarItemList>
     </S.Sidebar>
