@@ -27,7 +27,16 @@ export const SidebarItemList = styled.ul`
   padding: .5rem 0;
 `;
 
-export const SidebarItem = styled.li<{
+export const SidebarItemWrap = styled.li<{
+  order?: number
+}>`
+  z-index: 1;
+  ${({order}) => order && `
+    transition: .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms);
+  `}
+`;
+
+export const SidebarItem = styled.div<{
   id?: string,
   subId?: string
 }>`
@@ -39,12 +48,11 @@ export const SidebarItem = styled.li<{
   cursor: pointer;
   color: var(--text-level-1);
   font-weight: bold;
-  transition: .25s;
+  transition: all .25s;
   overflow: hidden;
   ${({id, subId}) => 
     (id && activePageCheck({id, subId}) )
     ?`
-      z-index: 1;
       background-color: var(--level-1);
       margin-left: .5rem;
       border-radius: .5rem 0 0 .5rem;
@@ -73,6 +81,25 @@ export const SidebarItem = styled.li<{
   }
 `;
 
+export const SidebarNestedItemList = styled.ul<{
+  isOpen: boolean
+}>`
+  margin-left: 1.5rem;
+  & > ${SidebarItemWrap} {
+    ${({isOpen}) => isOpen
+    ? `
+      transform: translateX(0);
+      max-height: 4.5rem;
+      opacity: 1;
+    `
+    : `
+      transform: translateX(calc(-100% - .5rem));
+      max-height: 0;
+      opacity: 0;
+    `}
+  }
+`
+
 export const SidebarIconWrap = styled.div`
   display: flex;
   justify-content: center;
@@ -84,6 +111,21 @@ export const SidebarIconWrap = styled.div`
 export const SidebarItemContent = styled.div`
   overflow: hidden;
 `;
+
+export const SidebarDropdownButtom = styled.div<{
+  isOpen: boolean
+}>`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  font-size: 2.6rem;
+  & > svg {
+    ${({isOpen}) => isOpen
+    ? 'transform: rotate(180deg);'
+    : 'transform: rotate(0deg);'}
+  }
+  
+`
 
 export const SidebarUserProfile = styled.div`
   border-radius: 50%;

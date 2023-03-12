@@ -16,6 +16,49 @@ const Sidebar = () => {
   const _page = useRecoilValue(pageState); // 페이지 이동 감지용 state
   const sideBar = useRecoilValue(sideBarState);
 
+  const boardDropdownMenu = <>
+    <SidebarItem
+      id='board'
+      subId='board'
+      Icon={IoPeopleOutline}
+      iconSize={26}
+      onClick={() => router.push('/board/board')}
+      order={1}
+    >
+      자유 게시판
+    </SidebarItem>
+    <SidebarItem
+      id='board'
+      subId='student'
+      Icon={IoSchoolOutline}
+      iconSize={26}
+      onClick={() => router.push('/board/student')}
+      order={2}
+    >
+      학생 게시판
+    </SidebarItem>
+    <SidebarItem
+      id='board'
+      subId='code'
+      Icon={BiCodeAlt}
+      iconSize={26}
+      onClick={() => router.push('/board/code')}
+      order={3}
+    >
+      코드 공유
+    </SidebarItem>
+    <SidebarItem
+      id='board'
+      subId='notice'
+      Icon={AiOutlineBell}
+      iconSize={26}
+      onClick={() => router.push('/board/notice')}
+      order={4}
+    >
+      공지사항
+    </SidebarItem>
+  </>;
+
   return (
     <S.Sidebar isOpen={sideBar}>
       <S.SidebarItemList>
@@ -46,39 +89,12 @@ const Sidebar = () => {
         </SidebarItem>
         <SidebarItem
           id='board'
-          subId='board'
           Icon={IoPeopleOutline}
           iconSize={26}
-          onClick={() => router.push('/board/board')}
+          dropdownMenu={boardDropdownMenu}
+          dropdownInitialOpen={true}
         >
-          자유 게시판
-        </SidebarItem>
-        <SidebarItem
-          id='board'
-          subId='student'
-          Icon={IoSchoolOutline}
-          iconSize={26}
-          onClick={() => router.push('/board/student')}
-        >
-          학생 게시판
-        </SidebarItem>
-        <SidebarItem
-          id='board'
-          subId='code'
-          Icon={BiCodeAlt}
-          iconSize={26}
-          onClick={() => router.push('/board/code')}
-        >
-          코드 공유
-        </SidebarItem>
-        <SidebarItem
-          id='board'
-          subId='notice'
-          Icon={AiOutlineBell}
-          iconSize={26}
-          onClick={() => router.push('/board/notice')}
-        >
-          공지사항
+          커뮤니티
         </SidebarItem>
         <SidebarItem
           id='service'

@@ -81,12 +81,6 @@ export const PostView = ({
   useEffect(() => {
     setHeaderOption({
       title: post.title,
-      allMenu: {
-        goBack: true
-      },
-      optionMenu: post.permission
-        ? { dropdownMenu }
-        : undefined
     });
     setProfileSrc(getProfileSrc(post.user.code));
     Prism.highlightAll();

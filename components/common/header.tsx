@@ -16,9 +16,7 @@ export const Header = () => {
   const pathname = usePathname();
   const { openModal } = useModal();
   const { ajax } = useAjax();
-  const { showToast } = useOverlay();
   const setUser = useSetRecoilState(userState);
-  const resetUser = useResetRecoilState(userState);
   const [headerOption] = useRecoilState(headerOptionState);
   const setSideBar = useSetRecoilState(sideBarState);
 
@@ -27,17 +25,6 @@ export const Header = () => {
   }, []);
 
   useEffect(() => setSideBar(false), [pathname]);
-
-  const logout = async () => {
-    const [, error] = await ajax({
-      method: HttpMethod.DELETE,
-      url: 'auth/logout',
-    });
-    if (error) return;
-
-    resetUser();
-    showToast('로그아웃 되었습니다');
-  }
 
   const optionMenuView = () => {
     if (headerOption.optionMenu?.dropdownMenu) {
