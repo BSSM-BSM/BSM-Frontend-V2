@@ -48,7 +48,7 @@ const SidebarUserMenu = () => {
     <SidebarItem
       Icon={FiLogOut}
       iconSize={24}
-      onClick={() => openModal('login')}
+      onClick={logout}
       order={2}
     >
       로그아웃

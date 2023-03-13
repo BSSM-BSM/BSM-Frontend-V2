@@ -23,7 +23,7 @@ export const MeisterHomeMenu = () => {
   const { ajax } = useAjax();
 
   useEffect(() => {
-    loadMeisterInfo();
+    user.isLogin && loadMeisterInfo();
   }, [user]);
 
   const loadMeisterInfo = async (type?: string) => {

@@ -1,8 +1,6 @@
 import * as S from '../../../styles/common/sidebar.style';
 import { IconType } from "react-icons/lib/esm/iconBase";
 import { ReactNode, useState } from 'react';
-import { AiOutlineDown } from 'react-icons/ai';
-import { BiChevronDown } from 'react-icons/bi';
 import { FiChevronDown } from 'react-icons/fi';
 
 interface SidebarItemProps {

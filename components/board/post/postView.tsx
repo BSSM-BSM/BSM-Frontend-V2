@@ -166,11 +166,11 @@ export const PostView = ({
         />
       </div>
       <div className={styles.like_wrap}>
-        <button onClick={() => postLike(post.like === 1 ? 'NONE': 'LIKE')} className={`button-wrap ${styles.like} ${post.like === 1 ? styles.on : ''}`}>
+        <button onClick={() => postLike(post.myLike === 1 ? 'NONE': 'LIKE')} className={`button-wrap ${styles.like} ${post.myLike === 1 ? styles.on : ''}`}>
           <img src="/icons/like.svg" alt="like" />
         </button>
         <span>{post.totalLikes}</span>
-        <button onClick={() => postLike(post.like === -1 ? 'NONE': 'DISLIKE')} className={`button-wrap ${styles.dislike} ${post.like === -1 ? styles.on : ''}`}>
+        <button onClick={() => postLike(post.myLike === -1 ? 'NONE': 'DISLIKE')} className={`button-wrap ${styles.dislike} ${post.myLike === -1 ? styles.on : ''}`}>
           <img src="/icons/like.svg" alt="dislike" />
         </button>
       </div>

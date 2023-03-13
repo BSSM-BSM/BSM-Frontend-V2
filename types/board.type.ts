@@ -39,7 +39,7 @@ export interface Post {
 export interface DetailPost extends Post {
   content: string,
   permission: boolean,
-  like: number,
+  myLike: number,
   anonymous: boolean
 }
 
