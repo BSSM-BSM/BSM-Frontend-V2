@@ -6,11 +6,10 @@ import { HttpMethod, useAjax } from "../../hooks/useAjax";
 import { useModal } from "../../hooks/useModal";
 import { userState } from "../../store/account.store";
 import { HomeMenuMeisterInfo } from "../../types/meister.type";
-import { UserRole } from "../../types/user.type";
 import Modal from "../common/modal";
 import { elapsedTime } from '../../utils/date';
 
-const meisterInactivated = false;
+const meisterActivated = true;
 
 export const MeisterHomeMenu = () => {
   const [user] = useRecoilState(userState);
@@ -23,25 +22,17 @@ export const MeisterHomeMenu = () => {
   const { ajax } = useAjax();
 
   useEffect(() => {
-    user.isLogin && loadMeisterInfo();
+    loadMeisterInfo();
   }, [user]);
 
   const loadMeisterInfo = async (type?: string) => {
-    if (meisterInactivated) return;
+    if (!meisterActivated) return;
 
     setMeisterInfo({
       isLoading: true,
       lastUpdate: '',
       error: false
     });
-
-    if (user.isLogin && user.role !== UserRole.STUDENT) {
-      return setMeisterInfo({
-        isLoading: false,
-        lastUpdate: new Date().toString(),
-        error: 'notStudent'
-      });
-    }
 
     const [data, error] = await ajax<HomeMenuMeisterInfo>({
       url: `meister${type === 'update' ? '/update' : ''}`,
@@ -52,6 +43,14 @@ export const MeisterHomeMenu = () => {
             isLoading: false,
             lastUpdate: new Date().toString(),
             error: 'auth'
+          });
+          return true;
+        }
+        if (typeof data === 'object' && 'statusCode' in data && data.statusCode === 403) {
+          setMeisterInfo({
+            isLoading: false,
+            lastUpdate: new Date().toString(),
+            error: 'notStudent'
           });
           return true;
         }
@@ -75,7 +74,7 @@ export const MeisterHomeMenu = () => {
   const meisterInfoView = () => {
     const { isLoading, error, score, positivePoint, negativePoint } = meisterInfo;
 
-    if (meisterInactivated) {
+    if (!meisterActivated) {
       return (
         <>
           <span>마이스터 역량인증제가 비활성화됨</span>

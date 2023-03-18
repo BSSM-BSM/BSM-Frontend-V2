@@ -102,7 +102,7 @@ export const PostView = ({
       if (prev === null) return prev;
       return {
         ...prev,
-        like: data.like,
+        myLike: data.like,
         totalLikes: data.totalLikes
       }
     });
