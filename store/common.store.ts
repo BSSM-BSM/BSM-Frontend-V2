@@ -34,6 +34,7 @@ export const headerOptionState = atom<HeaderOptionState>({
   key: 'title',
   default: {
     title: '',
+    headTitle: '',
     optionMenu: undefined
   }
 });

@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useAjax } from '../../hooks/useAjax';
 import { useModal } from '../../hooks/useModal';
-import { useOverlay } from '../../hooks/useOverlay';
 import { userState } from '../../store/account.store';
 import { headerOptionState, sideBarState } from '../../store/common.store';
 import styles from '../../styles/header.module.css';

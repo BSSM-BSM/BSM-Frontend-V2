@@ -1,6 +1,5 @@
 'use client';
 
-import Head from 'next/head';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerOptionState, pageState } from '../../store/common.store';
@@ -18,15 +17,12 @@ const ServiceListPage = () => {
   const setPage = useSetRecoilState(pageState);
 
   useEffect(() => {
-    setHeaderOption({ title: '모든 서비스' });
+    setHeaderOption({ title: '모든 서비스', headTitle: '모든 서비스 - BSM' });
     setPage({ id: 'service' });
   }, []);
 
   return (
     <div className='container _50'>
-      <Head>
-        <title>모든 서비스 - BSM</title>
-      </Head>
       <>
         <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
       </>

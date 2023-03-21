@@ -1,7 +1,6 @@
 'use client';
 
 import styles from '../../styles/timetable/timetable.module.css';
-import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
@@ -41,7 +40,7 @@ const TimetablePage = () => {
   let classIdx = 0;
 
   useEffect(() => {
-    setHeaderOption({ title: '시간표' });
+    setHeaderOption({ title: '시간표', headTitle: '시간표 - BSM' });
     setPage({ id: 'timetable' });
   }, []);
 
@@ -158,9 +157,6 @@ const TimetablePage = () => {
 
   return (
     <>
-      <Head>
-        <title>시간표 - BSM</title>
-      </Head>
       <div className='container _120 rows'>
         <TimetableList timetable={timetable} />
       </div>

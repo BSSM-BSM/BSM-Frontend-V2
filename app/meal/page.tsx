@@ -1,7 +1,6 @@
 'use client';
 
 import styles from '../../styles/meal.module.css';
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { HttpMethod, useAjax } from "../../hooks/useAjax";
@@ -31,7 +30,7 @@ const MealPage = () => {
 
   // init
   useEffect(() => {
-    setHeaderOption({ title: '급식' });
+    setHeaderOption({ title: '급식', headTitle: '급식 - BSM' });
     setPage({ id: 'meal' });
     (async () => {
       const initialMeal = await loadMealList(dateToShortDateStr(new Date));
@@ -191,9 +190,6 @@ const MealPage = () => {
 
   return (
     <div>
-      <Head>
-        <title>급식 - BSM</title>
-      </Head>
       <>
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
       </>

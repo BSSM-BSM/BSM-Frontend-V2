@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { useRecoilState } from 'recoil';
-import { sideBarState } from '../../store/common.store';
+import { ReactNode, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { headerOptionState, sideBarState } from '../../store/common.store';
 import Sidebar from './sidebar/sidebar';
 import Navbar from './navbar/navbar';
 import { LoginBox } from './accountPopup';
@@ -17,6 +17,15 @@ export const Main = ({
   children: ReactNode;
 }) => {
   const [sideBar, setSideBar] = useRecoilState(sideBarState);
+  const {title, headTitle} = useRecoilValue(headerOptionState);
+
+  useEffect(() => {
+    if (headTitle) {
+      document.title = headTitle;
+    } else {
+      document.title = title ?? '';
+    }
+  }, [title]);
 
   return (
     <div className={`wrap ${sideBar? 'side_bar_open': ''}`}>

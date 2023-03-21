@@ -1,7 +1,6 @@
 'use client';
 
 import styles from '../../styles/meister/index.module.css';
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
@@ -37,7 +36,7 @@ const MeisterPage = () => {
   });
 
   useEffect(() => {
-    setHeaderOption({ title: '마이스터 점수 및 상벌점 조회' });
+    setHeaderOption({ title: '마이스터 점수 및 상벌점 조회', headTitle: '마이스터 역량인증제 - BSM' });
     setPage({ id: 'meister' });
   }, []);
 
@@ -100,9 +99,6 @@ const MeisterPage = () => {
 
   return (
     <div className='container _100'>
-      <Head>
-        <title>마이스터 역량인증제 - BSM</title>
-      </Head>
       <>
         <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
       </>

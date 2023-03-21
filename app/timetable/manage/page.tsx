@@ -2,7 +2,6 @@
 
 import styles from '../../../styles/timetable/timetable.module.css';
 import manageStyles from '../../../styles/timetable/timetable-manage.module.css';
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerOptionState, pageState } from '../../../store/common.store';
@@ -33,7 +32,7 @@ const TimetableManagePage = () => {
   let classIdx = 0;
 
   useEffect(() => {
-    setHeaderOption({ title: '시간표 관리' });
+    setHeaderOption({ title: '시간표 관리', headTitle: '시간표 관리 - BSM' });
     setPage({ id: 'timetable' });
   }, []);
 
@@ -115,9 +114,6 @@ const TimetableManagePage = () => {
   );
 
   return (<>
-    <Head>
-      <title>시간표 관리 - BSM</title>
-    </Head>
     <TimetableItemManageMenu timetable={timetable} setTimetable={setTimetable} selectIdx={selectIdx} mode={mode} />
     <div className='container _120 rows'>
       <TimetableList timetable={timetable} />

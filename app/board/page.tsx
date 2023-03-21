@@ -1,6 +1,5 @@
 'use client';
 
-import Head from 'next/head';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerOptionState, pageState } from '../../store/common.store';
@@ -17,15 +16,12 @@ const BoardListPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setHeaderOption({ title: '커뮤니티' });
+    setHeaderOption({ title: '커뮤니티', headTitle: '커뮤니티 - BSM' });
     setPage({ id: 'board' });
   }, []);
 
   return (
     <div className='container _50'>
-      <Head>
-        <title>커뮤니티 - BSM</title>
-      </Head>
       <>
         <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
       </>

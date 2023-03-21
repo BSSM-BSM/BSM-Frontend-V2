@@ -1,7 +1,6 @@
 'use client';
 
 import styles from '../../../styles/meister/ranking.module.css';
-import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { HttpMethod, useAjax } from '../../../hooks/useAjax';
 import { MeisterRanking } from '../../../types/meister.type';
@@ -25,7 +24,7 @@ const MeisterPage = () => {
   const [grade, setGrade] = useState<number>(0);
   
   useEffect(() => {
-    setHeaderOption({ title: '마이스터 랭킹' });
+    setHeaderOption({ title: '마이스터 랭킹', headTitle: '마이스터 랭킹 - BSM' });
     setPage({id: 'meister'});
   }, []);
 
@@ -88,9 +87,6 @@ const MeisterPage = () => {
 
   return (
     <div className='container _100'>
-      <Head>
-        <title>마이스터 랭킹 - BSM</title>
-      </Head>
       <>
         <Banner position={BannerPos.RIGHT} type={BannerType.VERTICAL} />
       </>
