@@ -154,7 +154,6 @@ export const PostView = ({
                   <DropdownMenu
                     meatballsMenu={true}
                     menus={dropdownMenu}
-                    className='post-dropdown-menu'
                   />}
               </div>
             </div>

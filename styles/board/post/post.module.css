@@ -1,50 +1,50 @@
 .post {
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    min-height: 100%;
-    top: 0;
-    left: 100%;
-    padding: 5rem .5rem 1rem;
-    background-color: var(--level-1);
-    transition: .25s;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 100%;
+  padding: 5rem .5rem 1rem;
+  background-color: var(--level-1);
+  transition: .25s;
 }
 
 .post.open {
-    left: 0;
+  left: 0;
 }
 
 .post_wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 0 1rem;
 }
 
 .title {
-    font-size: 2rem;
-    text-align: left;
+  font-size: 2rem;
+  text-align: left;
 }
 
 .post_info {
-    display: flex;
-    gap: 2rem;
+  display: flex;
+  gap: 2rem;
 }
 
 .user_profile,
 .user_profile img {
-    width: 5.5rem !important;
-    height: 5.5rem !important;
+  width: 5.5rem !important;
+  height: 5.5rem !important;
 }
 
 .post_content {
-    text-align: initial;
-    overflow-x: auto;
-    overflow-y: hidden;
+  text-align: initial;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .post_content img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .post_write_wrap {
@@ -52,76 +52,72 @@
 }
 
 .post_write {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: .5rem;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: .5rem;
+  height: 100%;
 }
 
-.post_write > * {
-    width: 100%;
+.post_write>* {
+  width: 100%;
 }
 
 .like_wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin: 5rem 0;
-    font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 5rem 0;
+  font-weight: bold;
 }
 
 .like_wrap button {
-    height: 3.5rem;
-    width: 3.5rem;
-    background-color: transparent;
-    border: none;
+  height: 3.5rem;
+  width: 3.5rem;
+  background-color: transparent;
+  border: none;
 }
 
 .like_wrap button img {
-    filter: var(--bright);
-    transition: transform .25s;
+  filter: var(--bright);
+  transition: transform .25s;
 }
 
 .like_wrap button.on img {
-    filter: brightness(0) saturate(100%);
+  filter: brightness(0) saturate(100%);
 }
 
 .like.on {
-    filter: invert(95%) sepia(3%) saturate(6824%) hue-rotate(56deg) brightness(85%) contrast(110%);
+  filter: invert(95%) sepia(3%) saturate(6824%) hue-rotate(56deg) brightness(85%) contrast(110%);
 }
 
 .dislike {
-    transform: scaleX(-1) scaleY(-1);
+  transform: scaleX(-1) scaleY(-1);
 }
 
 .dislike.on {
-    filter: invert(60%) sepia(16%) saturate(1873%) hue-rotate(316deg) brightness(104%) contrast(96%);
+  filter: invert(60%) sepia(16%) saturate(1873%) hue-rotate(316deg) brightness(104%) contrast(96%);
 }
 
 @media screen and (min-width: 0) and (max-width: 750px) {
 
-    .post {
-        padding: 2rem .5rem 1rem;
-    }
+  .post {
+    padding: 2rem .5rem 1rem;
+  }
 
-    .post_info {
-        gap: 1rem;
-        font-size: 1.3rem;
-    }
+  .post_info {
+    gap: 1rem;
+    font-size: 1.3rem;
+  }
 
-    .post_info :global(.post-dropdown-menu) {
-        display: none;
-    }
+  .title {
+    font-size: 1.6rem;
+  }
 
-    .title {
-        font-size: 1.6rem;
-    }
-
-    .user_profile,
-    .user_profile img {
-        width: 4rem !important;
-        height: 4rem !important;
-    }
+  .user_profile,
+  .user_profile img {
+    width: 4rem !important;
+    height: 4rem !important;
+  }
 }
