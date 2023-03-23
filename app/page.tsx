@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { headerOptionState, pageState } from '../store/common.store';
 import { MeisterHomeMenu } from '../components/home/meisterMenu';
 import { UserHomeMenu } from '../components/home/userMenu';
+import { Banner, BannerPos } from '../components/common/banner';
+import { BannerType } from '../types/banner.type';
 
 const Home = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
@@ -19,6 +21,9 @@ const Home = () => {
 
   return (<>
     {/* <Notice /> */}
+    <>
+      <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
+    </>
     <section className={styles.quick_menu_section}>
       <ul className={`${styles.quick_menu_list} button-wrap`}>
         <li>
