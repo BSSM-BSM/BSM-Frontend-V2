@@ -100,7 +100,7 @@ const MeisterPage = () => {
   return (
     <div className='container _100'>
       <>
-        <Banner position={BannerPos.BOTTOM} type={BannerType.HORIZONTAL} />
+        <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
       </>
       <form className={`${styles.form} cols gap-1`} autoComplete='off' onSubmit={e => {
         e.preventDefault();
