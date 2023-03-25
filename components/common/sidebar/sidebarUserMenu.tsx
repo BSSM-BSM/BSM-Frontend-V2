@@ -51,7 +51,18 @@ const SidebarUserMenu = () => {
       onClick={logout}
       order={2}
     >
-      로그아웃
+      BSM만 로그아웃
+    </SidebarItem>
+    <SidebarItem
+      Icon={FiLogOut}
+      iconSize={24}
+      onClick={() => {
+        logout();
+        window.open('https://auth.bssm.kro.kr/logout', '_blank');
+      }}
+      order={3}
+    >
+      BSM Auth도 로그아웃
     </SidebarItem>
   </>;
 
