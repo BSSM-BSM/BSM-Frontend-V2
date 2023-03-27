@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../store/account.store';
 import styles from '../../styles/meister/ranking.module.css';
@@ -13,6 +13,7 @@ interface MeisterRankingItemProps {
 }
 
 export const MeisterRankingItem = ({ ranking, i, updatePrivateRanking }: MeisterRankingItemProps) => {
+  const router = useRouter();
   const [user] = useRecoilState(userState);
   const { grade, classNo, studentNo, name } = ranking.student;
 
@@ -41,30 +42,34 @@ export const MeisterRankingItem = ({ ranking, i, updatePrivateRanking }: Meister
     }
   }
 
+  const myRankingCheck = (): boolean => (
+    user.isLogin && user.role === UserRole.STUDENT &&
+    grade === user.student.grade &&
+    classNo === user.student.classNo &&
+    studentNo === user.student.studentNo
+  );
+
+  const viewMyMeisterInfo = () => router.push(`/meister?grade=${grade}&classNo=${classNo}&studentNo=${studentNo}`);
+
   return (
-    <li>
-      <Link className={styles.item} href={`/meister?grade=${grade}&classNo=${classNo}&studentNo=${studentNo}`}>
-        <div className={styles.rank}>{i + 1}</div>
-        <div className={styles.info_wrap}>
-          <div className={styles.student_info}>
-            <span>
-              {`${grade}${classNo}${String(studentNo).padStart(2, '0')}`}
-            </span>
-            <span>{name}</span>
-            {
-              user.isLogin && user.role === UserRole.STUDENT &&
-              grade === user.student.grade &&
-              classNo === user.student.classNo &&
-              studentNo === user.student.studentNo &&
-              ranking.result !== MeisterResultType.LOGIN_ERROR &&
-              <span onClick={() => updatePrivateRanking(true)}>비공개로 변경</span>
-            }
-          </div>
-          <div className={styles.score_info_wrap}>
-            {scoreInfoView()}
-          </div>
+    <li className={styles.item} onClick={() => !myRankingCheck() && viewMyMeisterInfo()}>
+      <div className={styles.rank}>{i + 1}</div>
+      <div className={styles.info_wrap}>
+        <div className={styles.student_info}>
+          <span>
+            {`${grade}${classNo}${String(studentNo).padStart(2, '0')}`}
+          </span>
+          <span>{name}</span>
+          {
+            myRankingCheck() &&
+            ranking.result !== MeisterResultType.LOGIN_ERROR &&
+            <span onClick={() => updatePrivateRanking(true)}>비공개로 변경</span>
+          }
         </div>
-      </Link>
+        <div className={styles.score_info_wrap}>
+          {scoreInfoView()}
+        </div>
+      </div>
     </li>
   )
 };

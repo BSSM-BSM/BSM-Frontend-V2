@@ -107,7 +107,7 @@ const Sidebar = () => {
         <SidebarItem
           Icon={AiFillGithub}
           iconSize={26}
-          onClick={() => window.location.href = 'https://github.com/BSSM-BSM'}
+          onClick={() => window.open('https://github.com/BSSM-BSM', '_blank')}
         >
           깃허브
         </SidebarItem>
