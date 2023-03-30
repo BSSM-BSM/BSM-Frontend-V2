@@ -15,7 +15,7 @@
 .post_item_wrap {
   display: flex;
   border-radius: 1rem;
-  transition: .25s;
+  transition: var(--hover-transition);
   cursor: pointer;
 }
 
@@ -88,7 +88,7 @@
   align-items: center;
   border-radius: 0 1rem 1rem 0;
   background-color: var(--level-2);
-  transition: .25s;
+  transition: var(--hover-transition);
 }
 
 :is(.refresh, .write):hover {
@@ -108,7 +108,7 @@
   right: 2rem;
   background-color: var(--level-4);
   border-radius: 50%;
-  transition: .25s;
+  transition: var(--hover-transition);
   box-shadow: var(--shadow);
 }
 

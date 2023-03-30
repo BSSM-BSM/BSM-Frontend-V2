@@ -35,7 +35,7 @@
   height: 12.5rem !important;
   background-color: var(--level-2) !important;
   border-radius: 1rem !important;
-  transition: .25s !important;
+  transition: var(--hover-transition) !important;
 }
 
 .point>li:hover {

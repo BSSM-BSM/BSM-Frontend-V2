@@ -58,6 +58,7 @@ const SidebarItem = ({
         }
       </S.SidebarItem>
       {
+        dropdownMenu &&
         <S.SidebarNestedItemList isOpen={dropdownIsOpen}>
           {dropdownMenu}
         </S.SidebarNestedItemList>

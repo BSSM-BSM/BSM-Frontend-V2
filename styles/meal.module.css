@@ -25,7 +25,7 @@
   min-height: 25rem;
   pointer-events: all;
   cursor: pointer;
-  transition: .2s;
+  transition: transform .2s, margin .2s, padding .2s;
   user-select: none;
 }
 
@@ -38,7 +38,6 @@
   box-shadow: var(--shadow-level-1);
   border-radius: 2rem;
   opacity: .65;
-  transition: .2s;
 }
 
 .meals:not(:hover) li.center,
@@ -116,7 +115,7 @@
   font-weight: bold;
   background-color: var(--level-2);
   cursor: pointer;
-  transition: .25s;
+  transition: var(--hover-transition);
   box-shadow: var(--shadow);
 }
 

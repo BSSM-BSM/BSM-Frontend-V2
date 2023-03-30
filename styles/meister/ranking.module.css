@@ -15,7 +15,7 @@
   border-radius: 2rem;
   box-shadow: var(--shadow);
   cursor: pointer;
-  transition: .25s;
+  transition: var(--hover-transition);
 }
 
 .item:hover {

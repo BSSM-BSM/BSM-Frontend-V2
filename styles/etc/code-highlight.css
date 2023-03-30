@@ -11,7 +11,7 @@
   border-radius: 1rem !important;
   padding: 1rem 1.5rem !important;
   cursor: pointer !important;
-  transition: .25s !important;
+  transition: var(--hover-transition) !important;
 }
 
 .code-toolbar .toolbar-item button:hover {

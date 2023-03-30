@@ -32,7 +32,7 @@ export const NavbarItem = styled.li<{
   font-size: 1.05rem;
   font-weight: bold;
   text-align: center;
-  transition: .25s;
+  transition: var(--hover-transition), box-shadow .25s;
   overflow: hidden;
   ${({id, subId}) => 
     (id && activePageCheck({id, subId}) )
@@ -49,7 +49,7 @@ export const NavbarItem = styled.li<{
     :``
   };
   svg {
-    transition: .25s;
+    transition: color .25s;
     color: var(--text-level-1);
   }
   &:hover {

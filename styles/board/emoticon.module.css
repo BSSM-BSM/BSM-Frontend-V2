@@ -22,7 +22,7 @@
 .emoticon_item_list li {
   background-color: var(--level-2);
   cursor: pointer;
-  transition: .25s;
+  transition: var(--hover-transition);
 }
 
 .emoticon_item_list li:hover {

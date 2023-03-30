@@ -10,7 +10,7 @@
   display: flex;
   border-radius: 1rem;
   cursor: pointer;
-  transition: .25s;
+  transition: var(--hover-transition);
 }
 
 .item_wrap:hover {
@@ -39,7 +39,7 @@
   color: var(--text-level-2);
   background-color: var(--level-4);
   cursor: pointer;
-  transition: .25s;
+  transition: var(--hover-transition);
 }
 
 .view_child:hover {

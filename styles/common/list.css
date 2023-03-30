@@ -13,12 +13,10 @@
 .list li {
   border-bottom: 2px solid var(--level-1);
   padding: 1.3rem 1.5rem;
-  transition: .2s;
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: none;
-  transition: background-color .25s;
+  transition: var(--hover-transition);
 }
 
 .list li.pointer {

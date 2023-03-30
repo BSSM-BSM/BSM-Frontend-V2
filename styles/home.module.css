@@ -26,7 +26,7 @@
   filter: var(--drop-shadow);
   padding: 2rem;
   border-radius: .75rem;
-  transition: .25s;
+  transition: var(--hover-transition);
   cursor: pointer;
   font-size: 1.8rem;
   font-weight: bold;

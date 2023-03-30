@@ -7,7 +7,7 @@
   height: 3.75rem;
   border: none;
   border-radius: 50%;
-  transition: .25s;
+  transition: var(--hover-transition);
   background-color: var(--level-7);
   box-shadow: var(--shadow);
   cursor: pointer;
@@ -114,7 +114,7 @@
   justify-content: space-between;
   background-color: var(--level-5-opacity);
   backdrop-filter: blur(.5rem);
-  transition: .25s;
+  transition: transform .25s;
 }
 
 .side_bar .on_off {
@@ -155,7 +155,7 @@
 .list li {
   padding: .5rem 1rem;
   border-radius: 1rem;
-  transition: .25s;
+  transition: var(--hover-transition);
   cursor: pointer;
 }
 

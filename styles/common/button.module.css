@@ -13,7 +13,7 @@
   border-radius: .5rem;
   background-color: var(--level-3);
   box-shadow: var(--shadow);
-  transition: .25s;
+  transition: var(--hover-transition);
 }
 
 .button:hover {
@@ -51,7 +51,7 @@
   width: 1.6rem;
   background-color: white;
   border-radius: 50%;
-  transition: .25s;
+  transition: left .25s;
 }
 
 .toggle.active .slider {

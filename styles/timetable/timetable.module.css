@@ -113,7 +113,7 @@
   font-weight: bold;
   background-color: var(--level-3);
   cursor: pointer;
-  transition: .25s;
+  transition: var(--hover-transition);
   box-shadow: var(--shadow);
 }
 
@@ -138,7 +138,7 @@
 
 .select_day li {
   padding: 1rem 2rem;
-  transition: .25s;
+  transition: var(--hover-transition);
   border-radius: .5rem;
 }
 
@@ -184,7 +184,7 @@
   .select_box {
     top: auto;
     bottom: 2rem;
-    transition: .25s;
+    transition: bottom .25s;
   }
 
   .select_box ul {

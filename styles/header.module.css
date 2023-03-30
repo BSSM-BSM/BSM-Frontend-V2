@@ -31,7 +31,7 @@
   align-items: center;
   cursor: pointer;
   border-radius: .75rem;
-  transition: .25s;
+  transition: var(--hover-transition);
   padding: 1.3rem 1.8rem;
   user-select: none;
 }

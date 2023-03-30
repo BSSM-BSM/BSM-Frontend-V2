@@ -1,4 +1,4 @@
 .button-wrap>* {
   cursor: pointer;
-  transition: .25s;
+  transition: var(--hover-transition);
 }

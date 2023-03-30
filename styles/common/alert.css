@@ -38,7 +38,7 @@
   min-width: 20rem;
   padding: 1.5rem;
   background-color: var(--level-2);
-  transition: .25s;
+  transition: var(--hover-transition);
   text-align: center;
   font-weight: bold;
   color: var(--text);
@@ -100,7 +100,7 @@
   background-color: var(--red);
   backdrop-filter: blur(3px);
   border-radius: 1rem;
-  transition: .25s;
+  transition: var(--hover-transition);
   animation: alert_show 250ms ease-out;
   white-space: pre-line;
 }

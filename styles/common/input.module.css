@@ -3,7 +3,6 @@
   display: inline-flex;
   align-items: center;
   width: 37.5rem;
-  transition: .25s;
 }
 
 .input_wrap.number {
@@ -25,7 +24,7 @@
   background-color: var(--input);
   border-radius: .5rem;
   text-align: left;
-  transition: .25s;
+  transition: box-shadow .25s;
 }
 
 .input_wrap.number .input {
@@ -50,7 +49,7 @@
   pointer-events: none;
   color: var(--text);
   white-space: nowrap;
-  transition: .15s;
+  transition: var(--hover-transition), transform .15s, padding .15s, left .15s, font-size .15s;
 }
 
 .placeholder>* {

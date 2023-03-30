@@ -4,12 +4,13 @@ import { activePageCheck } from "../../utils/page";
 export const Sidebar = styled.aside<{
   isOpen?: boolean
 }>`
+  z-index: 1;
   width: 25rem;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   grid-area: sidebar;
-  transition: all .25s;
+  transition: width .25s, transform .25s;
   @media screen and (max-width: 650px) {
     transform: translateX(0rem);
     ${({isOpen}) => (!isOpen) && `
@@ -30,9 +31,8 @@ export const SidebarItemList = styled.ul`
 export const SidebarItemWrap = styled.li<{
   order?: number
 }>`
-  z-index: 1;
   ${({order}) => order && `
-    transition: .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms);
+    transition: transform .25s calc(${order} * 100ms), max-height .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms);
   `}
 `;
 
@@ -48,7 +48,7 @@ export const SidebarItem = styled.div<{
   cursor: pointer;
   color: var(--text-level-1);
   font-weight: bold;
-  transition: all .25s;
+  transition: var(--hover-transition), margin-right .25s;
   overflow: hidden;
   ${({id, subId}) => 
     (id && activePageCheck({id, subId}) )
@@ -68,7 +68,7 @@ export const SidebarItem = styled.div<{
     `
   };
   svg {
-    transition: .25s;
+    transition: color .25s;
     color: var(--text-level-1);
   }
   &:hover {
@@ -85,6 +85,7 @@ export const SidebarNestedItemList = styled.ul<{
   isOpen: boolean
 }>`
   margin-left: 1.5rem;
+  padding-top: .5rem;
   & > ${SidebarItemWrap} {
     ${({isOpen}) => isOpen
     ? `
