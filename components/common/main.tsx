@@ -8,7 +8,6 @@ import { SettingBox } from './settingPopup';
 import Toast from './overlay/toast';
 import Alert from './overlay/alert';
 import LoadingDim from './overlay/loadingDim';
-import ModalDim from './modalDim';
 import { Header } from './header';
 
 export const Main = ({
@@ -41,7 +40,6 @@ export const Main = ({
         <Toast />
         <Alert />
         <LoadingDim />
-        <ModalDim />
       </>
     </div>
   );

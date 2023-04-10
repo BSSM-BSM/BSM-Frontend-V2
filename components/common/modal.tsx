@@ -28,7 +28,7 @@ const Modal = ({
   onClose,
   onSelectMenu
 }: ModalProps) => {
-  const { closeModal } = useModal();
+  const { closeModal, closeAllModal } = useModal();
   const [mounted, setMounted] = useState(false);
   const [modalList] = useRecoilState(modalState);
   const [menuIdx, setMenuIdx] = useState(0);
@@ -50,35 +50,37 @@ const Modal = ({
     }
   }, [modalList, mounted]);
 
-  return mounted ? createPortal(
-    modalList[id] && (
-      <div className={`modal ${type ?? ''}`}>
-        <p className="modal--title">
-          {title}
-        </p>
-        {modalList[id].closeable && <div className="close_button" onClick={() => closeModal(id)}></div>}
-        <div className="modal--content scroll-bar">
-          <ul className="modal--menu">{
-            menuList?.map((menu, i) => (
-              <li
-                key={menu.name}
-                className={i === menuIdx ? 'active' : ''}
-                onClick={() => {
-                  setMenuIdx(i);
-                  onSelectMenu && onSelectMenu(i);
-                }}
-              >
-                {menu.name}
-              </li>
-            ))
-          }</ul>
-          {menuList && menuList[menuIdx]?.element}
-          {children}
+  return mounted
+    ? createPortal(
+      modalList[id] && <>
+        <div className='modal-dim' onClick={closeAllModal}></div>
+        <div className={`modal ${type ?? ''}`}>
+          <p className="modal--title">
+            {title}
+          </p>
+          {modalList[id].closeable && <div className="close_button" onClick={() => closeModal(id)}></div>}
+          <div className="modal--content scroll-bar">
+            <ul className="modal--menu">{
+              menuList?.map((menu, i) => (
+                <li
+                  key={menu.name}
+                  className={i === menuIdx ? 'active' : ''}
+                  onClick={() => {
+                    setMenuIdx(i);
+                    onSelectMenu && onSelectMenu(i);
+                  }}
+                >
+                  {menu.name}
+                </li>
+              ))
+            }</ul>
+            {menuList && menuList[menuIdx]?.element}
+            {children}
+          </div>
         </div>
-      </div>
-    ),
-    document.querySelector('#modal-wrap') as HTMLElement
-  ) : null;
+      </>,
+      document.querySelector('#modal-wrap') as HTMLElement)
+    : <></>;
 };
 
 export default Modal;

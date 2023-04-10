@@ -11,6 +11,28 @@
   align-items: center;
 }
 
+.modal-dim {
+  pointer-events: all;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dim);
+  z-index: 100;
+  animation: modal_dim 100ms ease-out;
+}
+
+@keyframes modal_dim {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .modal {
   pointer-events: all;
   margin: 6rem 0 0 0;
@@ -23,7 +45,7 @@
   border-radius: 1rem;
   box-shadow: var(--shadow);
   background-color: var(--level-2);
-  z-index: 101;
+  z-index: 100;
   animation: modal_show 100ms ease-out;
 }
 
@@ -71,11 +93,11 @@
 }
 
 .modal--menu li:first-child {
-  border-radius: 1rem 0 0 1rem;
+  border-radius: .5rem 0 0 .5rem;
 }
 
 .modal--menu li:last-child {
-  border-radius: 0 1rem 1rem 0;
+  border-radius: 0 .5rem .5rem 0;
 }
 
 .modal--menu li:hover {
@@ -83,7 +105,7 @@
 }
 
 .modal--menu li.active {
-  background-color: var(--level-2);
+  background-color: var(--level-4);
 }
 
 .modal--content {
