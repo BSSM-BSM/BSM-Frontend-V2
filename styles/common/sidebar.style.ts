@@ -32,7 +32,10 @@ export const SidebarItemWrap = styled.li<{
   order?: number
 }>`
   ${({order}) => order && `
-    transition: transform .25s calc(${order} * 100ms), max-height .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms);
+    transition: transform .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms);
+    & > ${SidebarItem} {
+      transition: var(--hover-transition), margin-right .25s, max-height .25s calc(${order} * 100ms), padding .25s calc(${order} * 100ms);
+    }
   `}
 `;
 
@@ -90,16 +93,25 @@ export const SidebarNestedItemList = styled.ul<{
     ${({isOpen}) => isOpen
     ? `
       transform: translateX(0);
-      max-height: 4.5rem;
       opacity: 1;
     `
     : `
       transform: translateX(calc(-100% - .5rem));
-      max-height: 0;
       opacity: 0;
     `}
   }
-`
+  ${SidebarItem} {
+    overflow-y: hidden;
+    ${({isOpen}) => isOpen
+    ? `
+      max-height: 4.5rem;
+    `
+    : `
+      max-height: 0 !important;
+      padding: 0 !important;
+    `}
+  }
+`;
 
 export const SidebarIconWrap = styled.div`
   display: flex;
@@ -125,8 +137,7 @@ export const SidebarDropdownButtom = styled.div<{
     ? 'transform: rotate(180deg);'
     : 'transform: rotate(0deg);'}
   }
-  
-`
+`;
 
 export const SidebarUserProfile = styled.div`
   border-radius: 50%;
