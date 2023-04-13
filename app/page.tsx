@@ -1,14 +1,14 @@
 'use client';
 
-import styles from '../styles/home.module.css';
+import styles from '@/styles/home.module.css';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import Link from 'next/link';
-import { headerOptionState, pageState } from '../store/common.store';
-import { MeisterHomeMenu } from '../components/home/meisterMenu';
-import { UserHomeMenu } from '../components/home/userMenu';
-import { Banner, BannerPos } from '../components/common/banner';
-import { BannerType } from '../types/banner.type';
+import { headerOptionState, pageState } from '@/store/common.store';
+import { MeisterHomeMenu } from '@/components/home/meisterMenu';
+import { UserHomeMenu } from '@/components/home/userMenu';
+import { Banner, BannerPos } from '@/components/common/banner';
+import { BannerType } from '@/types/banner.type';
 
 const Home = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);

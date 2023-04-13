@@ -1,18 +1,18 @@
-import styles from '../../../styles/board/post/post.module.css';
+import styles from '@/styles/board/post/post.module.css';
 import { useEffect, useState } from "react";
-import { HttpMethod, useAjax } from "../../../hooks/useAjax";
+import { HttpMethod, useAjax } from "@/hooks/useAjax";
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinymceEditor } from "tinymce";
-import { TextInput } from "../../common/inputs/textInput";
-import { Category, DetailPost } from "../../../types/board.type";
+import { TextInput } from "@/components/common/inputs/textInput";
+import { Category, DetailPost } from "@/types/board.type";
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { boardActiveEditorState, postIdState } from '../../../store/board.store';
-import { useModal } from '../../../hooks/useModal';
-import { Button } from '../../common/buttons/button';
-import { CheckList } from '../../common/buttons/checkList';
-import { boardAnonymousModeState } from '../../../store/setting/board.store';
-import { themeState } from '../../../store/common.store';
+import { boardActiveEditorState, postIdState } from '@/store/board.store';
+import { useModal } from '@/hooks/useModal';
+import { Button } from '@/components/common/buttons/button';
+import { CheckList } from '@/components/common/buttons/checkList';
+import { boardAnonymousModeState } from '@/store/setting/board.store';
+import { themeState } from '@/store/common.store';
 
 interface PostWriteProps {
   boardId: string,

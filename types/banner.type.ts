@@ -1,10 +1,10 @@
 export enum BannerType {
-    VERTICAL = 'vertical',
-    HORIZONTAL = 'horizontal'
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal'
 }
 
 export interface Banner {
-    id: string,
-    ext: string,
-    link?: string
+  id: string,
+  ext: string,
+  link?: string
 }

@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosPromise, RawAxiosRequestConfig } from "axios";
 import { useResetRecoilState } from "recoil";
-import { userState } from "../store/account.store";
-import { useModal } from "./useModal";
-import { useOverlay } from "./useOverlay";
+import { userState } from "@/store/account.store";
+import { useModal } from "@/hooks/useModal";
+import { useOverlay } from "@/hooks/useOverlay";
 
 const instance = axios.create({
   baseURL: '/api',

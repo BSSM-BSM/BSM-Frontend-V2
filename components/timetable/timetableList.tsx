@@ -1,5 +1,5 @@
-import styles from '../../styles/timetable/timetable.module.css';
-import { Timetable } from "../../types/timetable.type"
+import styles from '@/styles/timetable/timetable.module.css';
+import { Timetable } from "@/types/timetable.type"
 
 interface TimetableListProps {
   timetable: Timetable

@@ -1,12 +1,12 @@
-import styles from '../../styles/board/comment.module.css';
+import styles from '@/styles/board/comment.module.css';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil"
-import { HttpMethod, useAjax } from "../../hooks/useAjax";
-import { boardActiveEditorState, boardAndPostIdState, parentCommentState } from "../../store/board.store"
-import { EditorInput } from "../common/inputs/editorInput";
-import { useModal } from '../../hooks/useModal';
-import { Button } from '../common/buttons/button';
-import { boardAnonymousModeState } from '../../store/setting/board.store';
+import { HttpMethod, useAjax } from "@/hooks/useAjax";
+import { boardActiveEditorState, boardAndPostIdState, parentCommentState } from "@/store/board.store"
+import { EditorInput } from "@/components/common/inputs/editorInput";
+import { useModal } from '@/hooks/useModal';
+import { Button } from '@/components/common/buttons/button';
+import { boardAnonymousModeState } from '@/store/setting/board.store';
 
 interface CommentWriteProps {
   loadComments: Function

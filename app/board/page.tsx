@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { headerOptionState, pageState } from '../../store/common.store';
-import { Banner, BannerPos } from '../../components/common/banner';
-import { BannerType } from '../../types/banner.type';
+import { headerOptionState, pageState } from '@/store/common.store';
+import { Banner, BannerPos } from '@/components/common/banner';
+import { BannerType } from '@/types/banner.type';
 import { useRouter } from 'next/navigation';
 import { IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
 import { BiCodeAlt } from 'react-icons/bi';

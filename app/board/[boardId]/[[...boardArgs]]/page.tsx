@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { editPostIdState, postIdState } from '../../../../store/board.store';
+import { editPostIdState, postIdState } from '@/store/board.store';
 import React from 'react';
 
 interface BoardPageProps {

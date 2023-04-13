@@ -1,13 +1,13 @@
-import styles from '../../styles/timetable/timetable-manage.module.css'
+import styles from '@/styles/timetable/timetable-manage.module.css'
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { TimetableDayType, TimetableItem, TimetableListRes, TimetableListType, TimetableManage, TimetableManageInfo, TimetableManageItemType } from "../../types/timetable.type";
-import { TimetableManageItem } from './timetableManageItem';
-import { Button } from '../common/buttons/button';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { useModal } from '../../hooks/useModal';
-import { TimetableManageMenu } from './timetableManageMenu';
-import { TimetableClassMenu } from './timetableClassMenu';
-import { useOverlay } from '../../hooks/useOverlay';
+import { TimetableDayType, TimetableItem, TimetableListRes, TimetableListType, TimetableManage, TimetableManageInfo } from "@/types/timetable.type";
+import { TimetableManageItem } from '@/components/timetable/timetableManageItem';
+import { Button } from '@/components/common/buttons/button';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { useModal } from '@/hooks/useModal';
+import { TimetableManageMenu } from '@/components/timetable/timetableManageMenu';
+import { TimetableClassMenu } from '@/components/timetable/timetableClassMenu';
+import { useOverlay } from '@/hooks/useOverlay';
 
 interface TimetableManageListProps {
   setManageItem: Dispatch<SetStateAction<TimetableManageInfo | null>>,

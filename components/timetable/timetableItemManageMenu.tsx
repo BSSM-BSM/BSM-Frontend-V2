@@ -1,13 +1,13 @@
-import styles from '../../styles/timetable/timetable-manage.module.css'
+import styles from '@/styles/timetable/timetable-manage.module.css'
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Timetable, TimetableItem, TimetableManageMode } from "../../types/timetable.type";
-import { Button } from "../common/buttons/button";
-import { NumberInput } from "../common/inputs/numberInput";
-import { TextInput } from "../common/inputs/textInput";
-import Modal from "../common/modal";
-import { useModal } from '../../hooks/useModal';
-import { shortTimeStrToTotalSecond } from '../../utils/date';
-import { useOverlay } from '../../hooks/useOverlay';
+import { Timetable, TimetableManageMode } from "@/types/timetable.type";
+import { Button } from "@/components/common/buttons/button";
+import { NumberInput } from "@/components/common/inputs/numberInput";
+import { TextInput } from "@/components/common/inputs/textInput";
+import Modal from "@/components/common/modal";
+import { useModal } from '@/hooks/useModal';
+import { shortTimeStrToTotalSecond } from '@/utils/date';
+import { useOverlay } from '@/hooks/useOverlay';
 
 interface TimetableItemManageMenuProps {
   timetable: Timetable,

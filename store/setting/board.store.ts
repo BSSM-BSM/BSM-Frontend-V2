@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { localStorageEffect, LocalStorageType } from "../../utils/localStorage";
+import { localStorageEffect, LocalStorageType } from "@/utils/localStorage";
 
 export const postLimitState = atom<number>({
   key: 'postLimit',

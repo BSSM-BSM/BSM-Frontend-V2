@@ -1,18 +1,16 @@
-import * as S from '../../../styles/common/navbar.style';
+import * as S from '@/styles/common/navbar.style';
 import { AiOutlineUser } from 'react-icons/ai';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { BsCalendar4 } from 'react-icons/bs';
-import { IoExtensionPuzzleOutline, IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
-import { BiCodeAlt } from 'react-icons/bi';
-import { AiOutlineBell } from 'react-icons/ai';
-import NavbarItem from './navbarItem';
+import { IoExtensionPuzzleOutline, IoPeopleOutline } from 'react-icons/io5';
+import NavbarItem from '@/components/common/navbar/navbarItem';
 import { useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
-import { pageState } from '../../../store/common.store';
+import { pageState } from '@/store/common.store';
 
 const Navbar = () => {
   const router = useRouter();
-  const _page = useRecoilValue(pageState);
+  const _page = useRecoilValue(pageState); // 페이지 이동 감지용 state
 
   return (
     <S.Navbar>

@@ -1,39 +1,39 @@
 export enum UserRole {
-    STUDENT = 'STUDENT',
-    TEACHER = 'TEACHER'
+  STUDENT = 'STUDENT',
+  TEACHER = 'TEACHER'
 }
 
 export interface NoLoginUser {
-    isLogin: false
+  isLogin: false
 }
 
 interface LoginUser {
-    isLogin: true,
-    code: number,
-    nickname: string,
-    email: string,
-    level: number,
-    role: UserRole
+  isLogin: true,
+  code: number,
+  nickname: string,
+  email: string,
+  level: number,
+  role: UserRole
 }
 
 export interface Student extends LoginUser {
-    role: UserRole.STUDENT,
-    student: StudentInfo
+  role: UserRole.STUDENT,
+  student: StudentInfo
 }
 
 export interface Teacher extends LoginUser {
-    role: UserRole.TEACHER,
-    teacher: TeacherInfo
+  role: UserRole.TEACHER,
+  teacher: TeacherInfo
 }
 
 export interface StudentInfo {
-    name: string
-    enrolledAt: number,
-    grade: number,
-    classNo: number,
-    studentNo: number,
+  name: string
+  enrolledAt: number,
+  grade: number,
+  classNo: number,
+  studentNo: number,
 }
 
 export interface TeacherInfo {
-    name: string
+  name: string
 }

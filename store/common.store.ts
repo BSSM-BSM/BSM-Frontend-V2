@@ -1,8 +1,8 @@
 import { atom } from "recoil";
-import { HeaderOptionState } from "../types/common/header.type";
-import { PageState } from "../types/page.type";
-import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
-import { webPushEffect } from "../utils/webPush";
+import { HeaderOptionState } from "@/types/common/header.type";
+import { PageState } from "@/types/page.type";
+import { localStorageEffect, LocalStorageType } from "@/utils/localStorage";
+import { webPushEffect } from "@/utils/webPush";
 
 export const pushSubscriptionState = atom<PushSubscription | null>({
   key: 'pushSubscription',

@@ -1,15 +1,15 @@
-import styles from '../../styles/board/emoticon.module.css';
+import styles from '@/styles/board/emoticon.module.css';
 import { ChangeEvent, useEffect, useState } from "react"
-import { HttpMethod, useAjax } from "../../hooks/useAjax"
-import { Emoticon, EmoticonItem } from "../../types/board.type"
-import Modal from "../common/modal"
+import { HttpMethod, useAjax } from "@/hooks/useAjax"
+import { Emoticon, EmoticonItem } from "@/types/board.type"
+import Modal from "@/components/common/modal"
 import Image from 'next/image';
 import { useRecoilState } from 'recoil';
-import { boardActiveEditorState } from '../../store/board.store';
-import { TextInput } from '../common/inputs/textInput';
-import { useModal } from '../../hooks/useModal';
-import { useOverlay } from '../../hooks/useOverlay';
-import { Button } from '../common/buttons/button';
+import { boardActiveEditorState } from '@/store/board.store';
+import { TextInput } from '@/components/common/inputs/textInput';
+import { useModal } from '@/hooks/useModal';
+import { useOverlay } from '@/hooks/useOverlay';
+import { Button } from '@/components/common/buttons/button';
 
 export const EmoticonBoxWrap = () => (
   <>

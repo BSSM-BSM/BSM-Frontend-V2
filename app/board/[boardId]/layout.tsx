@@ -1,19 +1,19 @@
 'use client';
 
-import boardStyles from '../../../styles/board/board.module.css';
-import postStyles from '../../../styles/board/post/post.module.css';
+import boardStyles from '@/styles/board/board.module.css';
+import postStyles from '@/styles/board/post/post.module.css';
 import Head from 'next/head';
 import { ReactNode, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { BoardView } from '../../../components/board/boardView';
-import { HttpMethod, useAjax } from '../../../hooks/useAjax';
-import { boardAndPostIdState, editPostIdState, postIdState, postOpenState, postState } from '../../../store/board.store';
-import { headerOptionState, pageState } from '../../../store/common.store';
-import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '../../../types/board.type';
-import { PostView } from '../../../components/board/post/postView';
-import { EmoticonBoxWrap } from '../../../components/board/emoticonBox';
-import { PostWrite } from '../../../components/board/post/postWrite';
-import { boardAnonymousModeState } from '../../../store/setting/board.store';
+import { BoardView } from '@/components/board/boardView';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { boardAndPostIdState, editPostIdState, postIdState, postOpenState, postState } from '@/store/board.store';
+import { headerOptionState, pageState } from '@/store/common.store';
+import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '@/types/board.type';
+import { PostView } from '@/components/board/post/postView';
+import { EmoticonBoxWrap } from '@/components/board/emoticonBox';
+import { PostWrite } from '@/components/board/post/postWrite';
+import { boardAnonymousModeState } from '@/store/setting/board.store';
 import Link from 'next/link';
 
 interface BoardLayoutProps {

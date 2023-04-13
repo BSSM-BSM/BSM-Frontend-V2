@@ -1,18 +1,18 @@
 'use client';
 
-import styles from '../../../styles/meister/ranking.module.css';
+import styles from '@/styles/meister/ranking.module.css';
 import { useEffect, useState } from 'react';
-import { HttpMethod, useAjax } from '../../../hooks/useAjax';
-import { MeisterRanking } from '../../../types/meister.type';
-import { MeisterRankingItem } from '../../../components/meister/rankingItem';
-import { useOverlay } from '../../../hooks/useOverlay';
-import { headerOptionState, pageState } from '../../../store/common.store';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { MeisterRanking } from '@/types/meister.type';
+import { MeisterRankingItem } from '@/components/meister/rankingItem';
+import { useOverlay } from '@/hooks/useOverlay';
+import { headerOptionState, pageState } from '@/store/common.store';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { CheckList } from '../../../components/common/buttons/checkList';
-import { userState } from '../../../store/account.store';
-import { UserRole } from '../../../types/user.type';
-import { Banner, BannerPos } from '../../../components/common/banner';
-import { BannerType } from '../../../types/banner.type';
+import { CheckList } from '@/components/common/buttons/checkList';
+import { userState } from '@/store/account.store';
+import { UserRole } from '@/types/user.type';
+import { Banner, BannerPos } from '@/components/common/banner';
+import { BannerType } from '@/types/banner.type';
 
 const MeisterPage = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);

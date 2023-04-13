@@ -3,10 +3,10 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { useModal } from '../../hooks/useModal';
-import { userState } from '../../store/account.store';
-import { getUserInfo } from '../../utils/userUtil';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { useModal } from '@/hooks/useModal';
+import { userState } from '@/store/account.store';
+import { getUserInfo } from '@/utils/userUtil';
 
 const OauthPage = () => {
   const { ajax } = useAjax();

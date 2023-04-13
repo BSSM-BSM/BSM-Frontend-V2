@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { ModalState, modalState } from "../store/modal.store";
+import { ModalState, modalState } from "@/store/modal.store";
 
 interface UseModal {
   openModal: (key: string, closeable?: boolean) => void;

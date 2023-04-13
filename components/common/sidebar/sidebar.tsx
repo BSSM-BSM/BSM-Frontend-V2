@@ -1,15 +1,15 @@
-import * as S from '../../../styles/common/sidebar.style';
+import * as S from '@/styles/common/sidebar.style';
 import { AiFillGithub, AiOutlineUser } from 'react-icons/ai';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { BsCalendar4 } from 'react-icons/bs';
 import { IoExtensionPuzzleOutline, IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
 import { BiCodeAlt } from 'react-icons/bi';
 import { AiOutlineBell } from 'react-icons/ai';
-import SidebarItem from './sidebarItem';
-import SidebarUserMenu from './sidebarUserMenu';
+import SidebarItem from '@/components/common/sidebar/sidebarItem';
+import SidebarUserMenu from '@/components/common/sidebar/sidebarUserMenu';
 import { useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
-import { pageState, sideBarState } from '../../../store/common.store';
+import { pageState, sideBarState } from '@/store/common.store';
 
 const Sidebar = () => {
   const router = useRouter();

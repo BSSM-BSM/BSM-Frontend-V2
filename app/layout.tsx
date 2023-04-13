@@ -1,12 +1,12 @@
 'use client';
 
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import { ReactNode, useEffect } from "react";
 import { RecoilRoot } from "recoil";
 import RecoilNexus from 'recoil-nexus';
-import StyledComponentsRegistry from '../lib/registry';
+import StyledComponentsRegistry from '@/lib/registry';
 import Script from 'next/script';
-import { Main } from '../components/common/main';
+import { Main } from '@/components/common/main';
 
 const upadteScreenHeight = () => {
   const vh = window.innerHeight * 0.01;

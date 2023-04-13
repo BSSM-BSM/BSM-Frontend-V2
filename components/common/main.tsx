@@ -1,14 +1,14 @@
 import { ReactNode, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { headerOptionState, sideBarState } from '../../store/common.store';
-import Sidebar from './sidebar/sidebar';
-import Navbar from './navbar/navbar';
-import { LoginBox } from './accountPopup';
-import { SettingBox } from './settingPopup';
-import Toast from './overlay/toast';
-import Alert from './overlay/alert';
-import LoadingDim from './overlay/loadingDim';
-import { Header } from './header';
+import { headerOptionState, sideBarState } from '@/store/common.store';
+import Sidebar from '@/components/common/sidebar/sidebar';
+import Navbar from '@/components/common/navbar/navbar';
+import { LoginBox } from '@/components/common/accountPopup';
+import { SettingBox } from '@/components/common/settingPopup';
+import Toast from '@/components/common/overlay/toast';
+import Alert from '@/components/common/overlay/alert';
+import LoadingDim from '@/components/common/overlay/loadingDim';
+import { Header } from '@/components/common/header';
 
 export const Main = ({
   children,

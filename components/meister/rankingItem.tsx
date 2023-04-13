@@ -1,10 +1,10 @@
 import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../store/account.store';
-import styles from '../../styles/meister/ranking.module.css';
-import { MeisterRanking, MeisterResultType } from '../../types/meister.type';
-import { UserRole } from '../../types/user.type';
-import { elapsedTime } from '../../utils/date';
+import { userState } from '@/store/account.store';
+import styles from '@/styles/meister/ranking.module.css';
+import { MeisterRanking, MeisterResultType } from '@/types/meister.type';
+import { UserRole } from '@/types/user.type';
+import { elapsedTime } from '@/utils/date';
 
 interface MeisterRankingItemProps {
   ranking: MeisterRanking,

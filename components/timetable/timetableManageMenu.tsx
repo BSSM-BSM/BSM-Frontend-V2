@@ -1,10 +1,9 @@
-import styles from '../../styles/timetable/timetable-manage.module.css'
 import { useState } from "react";
-import { Button } from "../common/buttons/button";
-import { TextInput } from "../common/inputs/textInput";
-import Modal from "../common/modal";
-import { useModal } from '../../hooks/useModal';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { Button } from "@/components/common/buttons/button";
+import { TextInput } from "@/components/common/inputs/textInput";
+import Modal from "@/components/common/modal";
+import { useModal } from '@/hooks/useModal';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
 
 interface TimetableManageMenuProps {
   loadManageList: () => void,
@@ -35,7 +34,7 @@ const CreateTimetable = ({
 
   const createTimetable = async () => {
     const [, error] = await ajax({
-      url: `admin/timetable`,
+      url: `admin`,
       method: HttpMethod.POST,
       payload: {
         name,

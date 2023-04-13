@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { headerOptionState, pageState } from '../../store/common.store';
-import { Banner, BannerPos } from '../../components/common/banner';
-import { BannerType } from '../../types/banner.type';
+import { headerOptionState, pageState } from '@/store/common.store';
+import { Banner, BannerPos } from '@/components/common/banner';
+import { BannerType } from '@/types/banner.type';
 import { GiBamboo } from 'react-icons/gi';
 import { FiHardDrive } from 'react-icons/fi';
 import { FaSchool } from 'react-icons/fa';

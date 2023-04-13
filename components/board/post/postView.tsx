@@ -1,30 +1,30 @@
-import styles from '../../../styles/board/post/post.module.css';
-import commentStyles from '../../../styles/board/comment.module.css';
-import { Board, Comment, DeletedComment, DetailPost } from "../../../types/board.type";
-import { CommentView } from '../commentView';
-import { CommentWrite } from '../commentWrite';
-import { useRecoilState } from 'recoil';
-import { postListState, postState } from '../../../store/board.store';
-import { escapeAttrValue, FilterXSS } from 'xss';
-import { HttpMethod, useAjax } from '../../../hooks/useAjax';
-import { useEffect, useMemo, useState } from 'react';
-import { headerOptionState } from '../../../store/common.store';
-import { useRouter } from 'next/navigation';
-import Head from 'next/head';
-import DefaultProfilePic from '../../../public/icons/profile_default.png';
-import Image, { StaticImageData } from 'next/image';
-
 import Prism from 'prismjs';
 import "prismjs/plugins/toolbar/prism-toolbar.min";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
 import "prismjs/themes/prism-tomorrow.css";
 import "prismjs/plugins/toolbar/prism-toolbar.min.css";
-import { UserInfoLink } from '../userInfoLink';
-import { getProfileSrc } from '../../../utils/userUtil';
-import { elapsedTime } from '../../../utils/date';
-import { DropdownMenu } from '../../common/dropdownMenu';
-import { PostNavBar } from './postNavBar';
-import { boardDetailTimeState } from '../../../store/setting/board.store';
+
+import styles from '@/styles/board/post/post.module.css';
+import commentStyles from '@/styles/board/comment.module.css';
+import { Board, Comment, DeletedComment, DetailPost } from "@/types/board.type";
+import { CommentView } from '@/components/board/commentView';
+import { CommentWrite } from '@/components/board/commentWrite';
+import { useRecoilState } from 'recoil';
+import { postListState, postState } from '@/store/board.store';
+import { escapeAttrValue, FilterXSS } from 'xss';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { useEffect, useMemo, useState } from 'react';
+import { headerOptionState } from '@/store/common.store';
+import { useRouter } from 'next/navigation';
+import Head from 'next/head';
+import DefaultProfilePic from '@/public/icons/profile_default.png';
+import Image, { StaticImageData } from 'next/image';
+import { UserInfoLink } from '@/components/board/userInfoLink';
+import { getProfileSrc } from '@/utils/userUtil';
+import { elapsedTime } from '@/utils/date';
+import { DropdownMenu } from '@/components/common/dropdownMenu';
+import { PostNavBar } from '@/components/board/post/postNavBar';
+import { boardDetailTimeState } from '@/store/setting/board.store';
 
 const codeblockRegexp = /^(language\-.*)/;
 const postXssFilter = new FilterXSS({

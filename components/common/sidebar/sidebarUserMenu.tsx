@@ -1,17 +1,17 @@
-import * as S from '../../../styles/common/sidebar.style';
+import * as S from '@/styles/common/sidebar.style';
 import { useEffect, useState } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { userState } from "../../../store/account.store";
-import { UserRole } from "../../../types/user.type";
+import { userState } from "@/store/account.store";
+import { UserRole } from "@/types/user.type";
 import Image, { StaticImageData } from 'next/image';
-import DefaultProfilePic from '../../../public/icons/profile_default.png';
-import { useModal } from '../../../hooks/useModal';
-import { getProfileSrc } from '../../../utils/userUtil';
-import SidebarItem from './sidebarItem';
+import DefaultProfilePic from '@/public/icons/profile_default.png';
+import { useModal } from '@/hooks/useModal';
+import { getProfileSrc } from '@/utils/userUtil';
+import SidebarItem from '@/components/common/sidebar/sidebarItem';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
-import { HttpMethod, useAjax } from '../../../hooks/useAjax';
-import { useOverlay } from '../../../hooks/useOverlay';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { useOverlay } from '@/hooks/useOverlay';
 
 const SidebarUserMenu = () => {
   const { ajax } = useAjax();

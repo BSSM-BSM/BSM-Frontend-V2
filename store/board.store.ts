@@ -1,8 +1,7 @@
 import { RefObject } from "react";
 import { atom } from "recoil";
 import { Editor } from "tinymce";
-import { BoardAndPostId, Comment, DetailPost, Post } from "../types/board.type";
-import { localStorageEffect, LocalStorageType } from "../utils/localStorage";
+import { BoardAndPostId, Comment, DetailPost, Post } from "@/types/board.type";
 
 export const postIdState = atom<'write' | number | undefined>({
   key: 'postId',

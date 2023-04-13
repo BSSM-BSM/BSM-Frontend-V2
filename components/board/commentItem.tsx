@@ -1,16 +1,16 @@
 import { useRecoilState } from 'recoil';
-import { parentCommentState } from '../../store/board.store';
-import styles from '../../styles/board/comment.module.css';
-import { BoardAndPostId, Comment, DeletedComment } from "../../types/board.type"
-import DefaultProfilePic from '../../public/icons/profile_default.png';
+import { parentCommentState } from '@/store/board.store';
+import styles from '@/styles/board/comment.module.css';
+import { BoardAndPostId, Comment, DeletedComment } from "@/types/board.type"
+import DefaultProfilePic from '@/public/icons/profile_default.png';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect, useState } from 'react';
 import { FilterXSS } from 'xss';
 import { UserInfoLink } from './userInfoLink';
-import { getProfileSrc } from '../../utils/userUtil';
-import { elapsedTime } from '../../utils/date';
-import { DropdownMenu } from '../common/dropdownMenu';
-import { boardOpenAllChildCommentsState } from '../../store/setting/board.store';
+import { getProfileSrc } from '@/utils/userUtil';
+import { elapsedTime } from '@/utils/date';
+import { DropdownMenu } from '@/components/common/dropdownMenu';
+import { boardOpenAllChildCommentsState } from '@/store/setting/board.store';
 
 export const CommentList = ({
   comment,

@@ -1,7 +1,7 @@
-import styles from '../../../styles/common/input.module.css';
+import styles from '@/styles/common/input.module.css';
 import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, ReactNode, SetStateAction, useEffect, useState } from "react";
-import { useOverlay } from "../../../hooks/useOverlay";
-import { numberInBetween } from "../../../utils/util";
+import { useOverlay } from "@/hooks/useOverlay";
+import { numberInBetween } from "@/utils/util";
 
 interface NumberInputProps extends Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'placeholder'> {
     setCallback: Dispatch<SetStateAction<number>>,

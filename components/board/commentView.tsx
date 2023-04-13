@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { FilterXSS } from 'xss';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
-import { boardAndPostIdState } from '../../store/board.store';
-import styles from '../../styles/board/comment.module.css';
-import { Comment, DeletedComment } from "../../types/board.type"
-import { renderEmoticon } from '../../utils/emoticon';
-import { CommentList } from './commentItem';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { boardAndPostIdState } from '@/store/board.store';
+import styles from '@/styles/board/comment.module.css';
+import { Comment, DeletedComment } from "@/types/board.type"
+import { renderEmoticon } from '@/utils/emoticon';
+import { CommentList } from '@/components/board/commentItem';
 
 const commentXssFilter = new FilterXSS({
   whiteList: {

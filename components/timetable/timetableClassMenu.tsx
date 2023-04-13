@@ -1,5 +1,5 @@
 import { Dispatch } from "react"
-import { DropdownMenu } from "../common/dropdownMenu"
+import { DropdownMenu } from "@/components/common/dropdownMenu"
 
 interface TimetableClassMenuProps {
   grade: number,

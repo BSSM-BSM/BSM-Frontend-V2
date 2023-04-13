@@ -1,19 +1,19 @@
 'use client';
 
-import styles from '../../styles/meister/index.module.css';
+import styles from '@/styles/meister/index.module.css';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userState } from '../../store/account.store';
-import { HttpMethod, useAjax } from '../../hooks/useAjax';
+import { userState } from '@/store/account.store';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import Link from 'next/link';
-import { TextInput } from '../../components/common/inputs/textInput';
-import { NumberInput } from '../../components/common/inputs/numberInput';
-import { headerOptionState, pageState } from '../../store/common.store';
-import { UserRole } from '../../types/user.type';
-import { Button } from '../../components/common/buttons/button';
-import { MeisterInfo } from '../../types/meister.type';
-import { Banner, BannerPos } from '../../components/common/banner';
-import { BannerType } from '../../types/banner.type';
+import { TextInput } from '@/components/common/inputs/textInput';
+import { NumberInput } from '@/components/common/inputs/numberInput';
+import { headerOptionState, pageState } from '@/store/common.store';
+import { UserRole } from '@/types/user.type';
+import { Button } from '@/components/common/buttons/button';
+import { MeisterInfo } from '@/types/meister.type';
+import { Banner, BannerPos } from '@/components/common/banner';
+import { BannerType } from '@/types/banner.type';
 import { useSearchParams } from 'next/navigation';
 
 const MeisterPage = () => {

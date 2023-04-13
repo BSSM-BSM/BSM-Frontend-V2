@@ -1,5 +1,5 @@
 import { getRecoil } from "recoil-nexus";
-import { pageState } from "../store/common.store";
+import { pageState } from "@/store/common.store";
 
 export const activePageCheck = ({
   id,

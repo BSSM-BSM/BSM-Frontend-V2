@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { useAjax } from '../../hooks/useAjax';
-import { useModal } from '../../hooks/useModal';
-import { userState } from '../../store/account.store';
-import { headerOptionState, sideBarState } from '../../store/common.store';
-import styles from '../../styles/header.module.css';
-import { getUserInfo } from '../../utils/userUtil';
-import { DropdownMenu } from './dropdownMenu';
-import { DropdownMenuOption } from '../../types/common/dropdown.type';
+import { useAjax } from '@/hooks/useAjax';
+import { useModal } from '@/hooks/useModal';
+import { userState } from '@/store/account.store';
+import { headerOptionState, sideBarState } from '@/store/common.store';
+import styles from '@/styles/header.module.css';
+import { getUserInfo } from '@/utils/userUtil';
+import { DropdownMenu } from '@/components/common/dropdownMenu';
+import { DropdownMenuOption } from '@/types/common/dropdown.type';
 import { usePathname } from 'next/navigation';
 
 export const Header = () => {

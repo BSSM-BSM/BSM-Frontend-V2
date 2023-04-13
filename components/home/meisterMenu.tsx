@@ -1,13 +1,13 @@
-import styles from '../../styles/home.module.css';
+import styles from '@/styles/home.module.css';
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { HttpMethod, useAjax } from "../../hooks/useAjax";
-import { useModal } from "../../hooks/useModal";
-import { userState } from "../../store/account.store";
-import { HomeMenuMeisterInfo } from "../../types/meister.type";
-import Modal from "../common/modal";
-import { elapsedTime } from '../../utils/date';
+import { HttpMethod, useAjax } from "@/hooks/useAjax";
+import { useModal } from "@/hooks/useModal";
+import { userState } from "@/store/account.store";
+import { HomeMenuMeisterInfo } from "@/types/meister.type";
+import Modal from "@/components/common/modal";
+import { elapsedTime } from '@/utils/date';
 
 const meisterActivated = true;
 
