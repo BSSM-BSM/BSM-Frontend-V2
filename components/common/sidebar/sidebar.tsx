@@ -10,6 +10,7 @@ import SidebarUserMenu from '@/components/common/sidebar/sidebarUserMenu';
 import { useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
 import { pageState, sideBarState } from '@/store/common.store';
+import SidebarServiceMenu from '@/components/common/sidebar/sidebarServiceMenu';
 
 const Sidebar = () => {
   const router = useRouter();
@@ -60,7 +61,7 @@ const Sidebar = () => {
   </>;
 
   return (
-    <S.Sidebar isOpen={sideBar}>
+    <S.Sidebar isOpen={sideBar} className='scroll-bar'>
       <S.SidebarItemList>
         <SidebarUserMenu />
         <SidebarItem
@@ -96,14 +97,7 @@ const Sidebar = () => {
         >
           커뮤니티
         </SidebarItem>
-        <SidebarItem
-          id='service'
-          Icon={IoExtensionPuzzleOutline}
-          iconSize={26}
-          onClick={() => router.push('/service')}
-        >
-          모든 서비스
-        </SidebarItem>
+        <SidebarServiceMenu />
         <SidebarItem
           Icon={AiFillGithub}
           iconSize={26}

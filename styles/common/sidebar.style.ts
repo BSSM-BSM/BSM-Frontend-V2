@@ -7,13 +7,12 @@ export const Sidebar = styled.aside<{
   z-index: 1;
   width: 25rem;
   height: 100%;
-  overflow-y: auto;
   overflow-x: hidden;
   grid-area: sidebar;
   transition: width .25s, transform .25s;
   @media screen and (max-width: 650px) {
     transform: translateX(0rem);
-    ${({isOpen}) => (!isOpen) && `
+    ${({ isOpen }) => (!isOpen) && `
       width: 0;
       transform: translateX(-25rem);
     `}
@@ -31,9 +30,11 @@ export const SidebarItemList = styled.ul`
 export const SidebarItemWrap = styled.li<{
   order?: number
 }>`
-  ${({order}) => order && `
-    transition: transform .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms);
-    & > ${SidebarItem} {
+  display: flex;
+  flex-direction: column;
+  ${({ order }) => order && `
+    transition: transform .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms), margin-top .25s calc(${order} * 100ms);
+    ${SidebarItem} {
       transition: var(--hover-transition), margin-right .25s, max-height .25s calc(${order} * 100ms), padding .25s calc(${order} * 100ms);
     }
   `}
@@ -53,9 +54,9 @@ export const SidebarItem = styled.div<{
   font-weight: bold;
   transition: var(--hover-transition), margin-right .25s;
   overflow: hidden;
-  ${({id, subId}) => 
-    (id && activePageCheck({id, subId}) )
-    ?`
+  ${({ id, subId }) =>
+    (id && activePageCheck({ id, subId }))
+      ? `
       background-color: var(--level-1);
       margin-left: .5rem;
       border-radius: .5rem 0 0 .5rem;
@@ -66,7 +67,7 @@ export const SidebarItem = styled.div<{
         color: var(--accent) !important;
       }
     `
-    :`
+      : `
       margin: 0 .5rem;
     `
   };
@@ -88,21 +89,24 @@ export const SidebarNestedItemList = styled.ul<{
   isOpen: boolean
 }>`
   margin-left: 1.5rem;
-  padding-top: .5rem;
-  & > ${SidebarItemWrap} {
-    ${({isOpen}) => isOpen
+  display: flex;
+  flex-direction: column;
+  ${SidebarItemWrap} {
+    ${({ isOpen }) => isOpen
     ? `
       transform: translateX(0);
       opacity: 1;
-    `
+      margin-top: .5rem;
+      `
     : `
       transform: translateX(calc(-100% - .5rem));
       opacity: 0;
+      margin-top: 0 !important;
     `}
   }
   ${SidebarItem} {
     overflow-y: hidden;
-    ${({isOpen}) => isOpen
+    ${({ isOpen }) => isOpen
     ? `
       max-height: 4.5rem;
     `
@@ -133,7 +137,8 @@ export const SidebarDropdownButtom = styled.div<{
   align-items: center;
   font-size: 2.6rem;
   & > svg {
-    ${({isOpen}) => isOpen
+    transition: transform .25s;
+    ${({ isOpen }) => isOpen
     ? 'transform: rotate(180deg);'
     : 'transform: rotate(0deg);'}
   }
