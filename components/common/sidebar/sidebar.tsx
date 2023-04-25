@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { useRecoilValue } from 'recoil';
 import { pageState, sideBarState } from '@/store/common.store';
 import SidebarServiceMenu from '@/components/common/sidebar/sidebarServiceMenu';
+import { FaSchool } from 'react-icons/fa';
 
 const Sidebar = () => {
   const router = useRouter();
@@ -104,6 +105,14 @@ const Sidebar = () => {
           onClick={() => window.open('https://github.com/BSSM-BSM', '_blank')}
         >
           깃허브
+        </SidebarItem>
+        <SidebarItem
+          Icon={FaSchool}
+          iconSize={26}
+          onClick={() => window.open('https://school.busanedu.net/bssm-h/main.do', '_blank')}
+          order={1}
+        >
+          학교 홈페이지
         </SidebarItem>
       </S.SidebarItemList>
     </S.Sidebar>

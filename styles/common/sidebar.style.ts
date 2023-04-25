@@ -33,9 +33,9 @@ export const SidebarItemWrap = styled.li<{
   display: flex;
   flex-direction: column;
   ${({ order }) => order && `
-    transition: transform .25s calc(${order} * 100ms), opacity .1s calc(${order} * 100ms), margin-top .25s calc(${order} * 100ms);
+    transition: transform .25s calc(${order} * 50ms), opacity .1s calc(${order} * 50ms), margin-top .25s calc(${order} * 50ms);
     ${SidebarItem} {
-      transition: var(--hover-transition), margin-right .25s, max-height .25s calc(${order} * 100ms), padding .25s calc(${order} * 100ms);
+      transition: var(--hover-transition), margin-right .25s, max-height .25s calc(${order} * 50ms), padding .25s calc(${order} * 50ms);
     }
   `}
 `;

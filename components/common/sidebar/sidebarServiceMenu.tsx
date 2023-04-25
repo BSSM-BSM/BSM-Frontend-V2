@@ -1,18 +1,18 @@
 import { IoExtensionPuzzleOutline, IoGameControllerOutline } from 'react-icons/io5';
 import SidebarItem from '@/components/common/sidebar/sidebarItem';
-import { useRouter } from 'next/navigation';
-import { AiOutlineOrderedList, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineCloudServer, AiOutlineCloudUpload, AiOutlineOrderedList } from 'react-icons/ai';
 import { FiHardDrive } from 'react-icons/fi';
 import { FaSchool } from 'react-icons/fa';
 import { GiBamboo } from 'react-icons/gi';
+import { RiSurveyLine } from 'react-icons/ri';
 import { RxDiscordLogo } from 'react-icons/rx';
+import { MdLockPerson, MdOutlineHomeRepairService } from 'react-icons/md';
+import { BsWikipedia } from 'react-icons/bs';
 
 const SidebarServiceMenu = () => {
-  const router = useRouter();
-
   const bsmServiceDropdownMenu = <>
     <SidebarItem
-      Icon={AiOutlineUser}
+      Icon={MdLockPerson}
       iconSize={26}
       onClick={() => window.open('https://auth.bssm.kro.kr', '_blank')}
       order={1}
@@ -20,12 +20,12 @@ const SidebarServiceMenu = () => {
       BSM Auth
     </SidebarItem>
     <SidebarItem
-      Icon={AiOutlineOrderedList}
+      Icon={AiOutlineCloudUpload}
       iconSize={26}
-      onClick={() => window.open('https://bgit.bssm.kro.kr', '_blank')}
+      onClick={() => window.open('https://deploy.bssm.kro.kr', '_blank')}
       order={2}
     >
-      BGIT
+      BSM Deploy
     </SidebarItem>
     <SidebarItem
       Icon={FiHardDrive}
@@ -47,18 +47,42 @@ const SidebarServiceMenu = () => {
 
   const otherServiceDropdownMenu = <>
     <SidebarItem
-      Icon={FaSchool}
+      Icon={AiOutlineOrderedList}
       iconSize={26}
-      onClick={() => window.open('https://school.busanedu.net/bssm-h/main.do', '_blank')}
+      onClick={() => window.open('https://bgit.bssm.kro.kr', '_blank')}
       order={1}
     >
-      학교 홈페이지
+      BGIT
+    </SidebarItem>
+    <SidebarItem
+      Icon={BsWikipedia}
+      iconSize={26}
+      onClick={() => window.open('https://bumawiki.kro.kr', '_blank')}
+      order={2}
+    >
+      부마위키
+    </SidebarItem>
+    <SidebarItem
+      Icon={MdOutlineHomeRepairService}
+      iconSize={26}
+      onClick={() => window.open('https://portfolio.bssm.io', '_blank')}
+      order={3}
+    >
+      BSSM Portfolio
+    </SidebarItem>
+    <SidebarItem
+      Icon={RiSurveyLine}
+      iconSize={26}
+      onClick={() => window.open('https://www.simblue.kro.kr', '_blank')}
+      order={4}
+    >
+      심청이
     </SidebarItem>
     <SidebarItem
       Icon={GiBamboo}
       iconSize={26}
       onClick={() => window.open('https://bsmboo.kro.kr', '_blank')}
-      order={2}
+      order={5}
     >
       BSMBOO
     </SidebarItem>
@@ -66,7 +90,7 @@ const SidebarServiceMenu = () => {
       Icon={RxDiscordLogo}
       iconSize={26}
       onClick={() => window.open('https://nightcord.bssm.kro.kr', '_blank')}
-      order={3}
+      order={6}
     >
       NightCord
     </SidebarItem>
@@ -76,6 +100,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       order={1}
       dropdownMenu={bsmServiceDropdownMenu}
+      dropdownInitialOpen={true}
     >
       BSM 서비스
     </SidebarItem>
@@ -92,7 +117,6 @@ const SidebarServiceMenu = () => {
       id='service'
       Icon={IoExtensionPuzzleOutline}
       iconSize={26}
-      onClick={() => router.push('/service')}
       dropdownMenu={serviceDropdownMenu}
       dropdownInitialOpen={true}
     >
