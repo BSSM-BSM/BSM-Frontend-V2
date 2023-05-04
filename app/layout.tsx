@@ -9,6 +9,7 @@ import Script from 'next/script';
 import { Main } from '@/components/common/main';
 
 const upadteScreenHeight = () => {
+  if (!window) return;
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 }
@@ -22,12 +23,10 @@ export default function RootLayout({
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js");
     }
-  }, []);
-
-  useEffect(() => {
-    upadteScreenHeight();
     window.addEventListener('resize', () => upadteScreenHeight());
   }, []);
+  
+  upadteScreenHeight();
 
   return (
     <html lang="kr">
