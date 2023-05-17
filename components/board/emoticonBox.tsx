@@ -22,7 +22,8 @@ export const EmoticonBoxWrap = () => (
 const EmoticonBox = () => {
   const { ajax } = useAjax();
   const { openModal, closeModal } = useModal();
-  const [emoticonList, setEmoticonList] = useState<Emoticon[]>([]);
+  const [emoticons, setEmoticons] = useState<Emoticon[]>([]);
+  const [emoticonItems, setEmoticonItems] = useState<EmoticonItem[]>([]);
   const [selectId, setSelectId] = useState<number>(0);
   const [activeEditor] = useRecoilState(boardActiveEditorState);
 
@@ -32,12 +33,28 @@ const EmoticonBox = () => {
       method: HttpMethod.GET
     });
     if (error) return;
-    setEmoticonList(data);
+    setEmoticons(data);
   }
 
-  const insertEmoticon = (item: EmoticonItem) => {
+  const loadEmoticonItems = async () => {
+    const [data, error] = await ajax<EmoticonItem[]>({
+      url: `emoticon/${selectId}`,
+      method: HttpMethod.GET
+    });
+    if (error) return;
+    setEmoticonItems(data);
+  }
+
+  useEffect(() => {
+    if (selectId < 1) {
+      return;
+    }
+    loadEmoticonItems();
+  }, [selectId]);
+
+  const insertEmoticon = (id: number, item: EmoticonItem) => {
     if (activeEditor && 'insertContent' in activeEditor) {
-      activeEditor.insertContent(`<img src="/resource/board/emoticon/${item.id}/${item.idx}.${item.type}" e_id="${item.id}" e_idx="${item.idx}" e_type="${item.type}" class="emoticon">`);
+      activeEditor.insertContent(`<img src="/resource/board/emoticon/${id}/${item.idx}.${item.type}" e_id="${id}" e_idx="${item.idx}" e_type="${item.type}" class="emoticon">`);
       return;
     }
     if (!activeEditor?.current) return;
@@ -48,8 +65,8 @@ const EmoticonBox = () => {
 
     const range = selection?.getRangeAt(0);
     const emoticon = document.createElement('img');
-    emoticon.src = `/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`;
-    emoticon.setAttribute('e_id', `${item.id}`);
+    emoticon.src = `/resource/board/emoticon/${id}/${item.idx}.${item.type}`;
+    emoticon.setAttribute('e_id', `${id}`);
     emoticon.setAttribute('e_idx', `${item.idx}`);
     emoticon.setAttribute('e_type', `${item.type}`);
     emoticon.classList.add('emoticon');
@@ -60,7 +77,7 @@ const EmoticonBox = () => {
   return (
     <Modal id='emoticon' title='이모티콘 넣기' onOpen={loadEmoticons}>
       <ul className={`${styles.emoticon_list} scroll-bar horizontal`}>{
-        emoticonList.map(emoticon => (
+        emoticons.map(emoticon => (
           <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
             <Image
               src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
@@ -72,16 +89,14 @@ const EmoticonBox = () => {
         ))
       }</ul>
       <ul className={`${styles.emoticon_item_list} scroll-bar`}>{
-        emoticonList
-          .filter(emoticon => emoticon.id === selectId)
-          ?.[0]?.items.map(item => (
-            <li key={`${item.id}/${item.idx}`} onClick={() => insertEmoticon(item)}>
-              <img
-                src={`https://bssm.kro.kr/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`}
-                alt={String(item.idx)}
-              />
-            </li>
-          ))
+        emoticonItems.map(item => (
+          <li key={`${selectId}/${item.idx}`} onClick={() => insertEmoticon(selectId, item)}>
+            <img
+              src={`https://bssm.kro.kr/resource/board/emoticon/${selectId}/${item.idx}.${item.type}`}
+              alt={String(item.idx)}
+            />
+          </li>
+        ))
       }</ul>
       <p onClick={() => {
         openModal('emoticon_upload');
@@ -95,7 +110,8 @@ const EmoticonBox = () => {
 
 const EmoticonManageBox = () => {
   const { ajax } = useAjax();
-  const [emoticonList, setEmoticonList] = useState<Emoticon[]>([]);
+  const [emoticons, setEmoticons] = useState<Emoticon[]>([]);
+  const [emoticonItems, setEmoticonItems] = useState<EmoticonItem[]>([]);
   const [selectId, setSelectId] = useState<number>(0);
   const [selectMenuIdx, setSelectMenuIdx] = useState<number>(-1);
 
@@ -124,8 +140,25 @@ const EmoticonManageBox = () => {
     });
     if (error) return;
 
-    setEmoticonList(data);
+    setEmoticons(data);
   }
+
+
+  const loadEmoticonItems = async () => {
+    const [data, error] = await ajax<EmoticonItem[]>({
+      url: `emoticon/${selectId}`,
+      method: HttpMethod.GET
+    });
+    if (error) return;
+    setEmoticonItems(data);
+  }
+
+  useEffect(() => {
+    if (selectId < 1) {
+      return;
+    }
+    loadEmoticonItems();
+  }, [selectId]);
 
   useEffect(() => {
     if (selectMenuIdx === -1) return;
@@ -174,7 +207,7 @@ const EmoticonManageBox = () => {
       }}
     >
       <ul className={`${styles.emoticon_list} scroll-bar horizontal`}>{
-        emoticonList.map(emoticon => (
+        emoticons.map(emoticon => (
           <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
             <Image
               src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
@@ -187,16 +220,14 @@ const EmoticonManageBox = () => {
       }</ul>
       <div className='cols gap-1'>
         <ul className={`${styles.emoticon_item_list} scroll-bar`}>{
-          emoticonList
-            .filter(emoticon => emoticon.id === selectId)
-            ?.[0]?.items.map(item => (
-              <li key={`${item.id}/${item.idx}`}>
-                <img
-                  src={`https://bssm.kro.kr/resource/board/emoticon/${item.id}/${item.idx}.${item.type}`}
-                  alt={String(item.idx)}
-                />
-              </li>
-            ))
+          emoticonItems.map(item => (
+            <li key={`${selectId}/${item.idx}`}>
+              <img
+                src={`https://bssm.kro.kr/resource/board/emoticon/${selectId}/${item.idx}.${item.type}`}
+                alt={String(item.idx)}
+              />
+            </li>
+          ))
         }</ul>
         {selectId !== 0 && (
           selectMenuIdx === 0
@@ -218,7 +249,7 @@ const EmoticonUploadBox = () => {
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [emoticonList, setEmoticonList] = useState<(File | null)[]>(Array.from({ length: 4 }, _ => null));
+  const [emoticons, setEmoticons] = useState<(File | null)[]>(Array.from({ length: 4 }, _ => null));
   const [deleteMode, setDeleteMode] = useState<boolean>(false);
 
   const thumbnailInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -229,7 +260,7 @@ const EmoticonUploadBox = () => {
   const fileInputHandler = (e: ChangeEvent<HTMLInputElement>, i: number) => {
     const file = e.target.files?.[0]
     if (!file) return;
-    setEmoticonList(prev => [
+    setEmoticons(prev => [
       ...prev.slice(0, i),
       file,
       ...prev.slice(i + 1)
@@ -237,7 +268,7 @@ const EmoticonUploadBox = () => {
   }
 
   const emoticonDeleteHandler = (i: number) => {
-    setEmoticonList(prev => [
+    setEmoticons(prev => [
       ...prev.slice(0, i),
       ...prev.slice(i + 1)
     ]);
@@ -251,9 +282,9 @@ const EmoticonUploadBox = () => {
     payload.append('description', description);
     payload.append('thumbnail', thumbnail);
 
-    emoticonList.forEach(emoticon => {
+    emoticons.forEach(emoticon => {
       if (!emoticon) throw showToast('이모티콘을 모두 업로드 해주세요');
-      payload.append('emoticonList', emoticon);
+      payload.append('emoticons', emoticon);
     })
     const [, error] = await ajax({
       url: 'emoticon',
@@ -267,7 +298,7 @@ const EmoticonUploadBox = () => {
     setName('');
     setDescription('');
     setThumbnail(null);
-    setEmoticonList(Array.from({ length: 4 }, _ => null));
+    setEmoticons(Array.from({ length: 4 }, _ => null));
   }
 
   return (
@@ -315,13 +346,13 @@ const EmoticonUploadBox = () => {
           full
         />
         <ul className={`${styles.emoticon_item_list} ${styles.upload_list} scroll-bar button-wrap`}>
-          {emoticonList.map((item, i) => (
+          {emoticons.map((item, i) => (
             deleteMode
               ? <li
                 key={`upload/${i}`}
                 className={styles.delete}
                 onClick={() => {
-                  if (emoticonList.length <= 4) return showToast('이모티콘 최소 개수는 4개입니다');
+                  if (emoticons.length <= 4) return showToast('이모티콘 최소 개수는 4개입니다');
                   emoticonDeleteHandler(i);
                 }}>
                 <label>{i + 1}번 삭제</label>
@@ -347,8 +378,8 @@ const EmoticonUploadBox = () => {
               </li>
           ))}
           <li key='add' onClick={() => {
-            if (emoticonList.length >= 100) return showToast('이모티콘 최대 개수는 100개입니다');
-            setEmoticonList(prev => [...prev, null]);
+            if (emoticons.length >= 100) return showToast('이모티콘 최대 개수는 100개입니다');
+            setEmoticons(prev => [...prev, null]);
           }}>
             <label>추가</label>
           </li>

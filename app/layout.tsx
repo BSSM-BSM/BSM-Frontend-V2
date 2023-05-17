@@ -9,7 +9,7 @@ import Script from 'next/script';
 import { Main } from '@/components/common/main';
 
 const upadteScreenHeight = () => {
-  if (!window) return;
+  if (typeof window === 'undefined') return;
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 }

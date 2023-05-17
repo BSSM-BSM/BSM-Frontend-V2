@@ -79,12 +79,10 @@ export interface Emoticon {
   id: number,
   name: string,
   description: string,
-  createdAt: string,
-  items: EmoticonItem[]
+  createdAt: string
 }
 
 export interface EmoticonItem {
-  id: number,
   idx: number,
   type: string
 }
