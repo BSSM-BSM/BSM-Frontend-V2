@@ -11,60 +11,47 @@ import { UserInfoLink } from '@/components/board/userInfoLink'
 import { elapsedTime, MilliSecondTime } from '@/utils/date'
 import { getProfileSrc } from '@/utils/userUtil'
 
-interface PostItemProps extends Post {
-	boardId: string
-	categoryList: {
-		[index: string]: Category
-	}
-}
-
-export const LostFoundItem = ({ boardId, categoryList, id, user, category, title, createdAt, view, totalComments, totalLikes }: PostItemProps) => {
-	const [post, setPost] = useRecoilState(postState)
-	const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState)
-	const [, setPostOpen] = useRecoilState(postOpenState)
-	const { ajax } = useAjax()
-	const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(user.code))
-
-	const loadPost = async () => {
-		const [data, error] = await ajax<DetailPost>({
-			method: HttpMethod.GET,
-			url: `post/${boardId}/${id}`,
-			errorCallback() {
-				setPost(null)
-			},
-		})
-		if (error) return
-
-		setBoardAndPostId({
-			boardId,
-			postId: id,
-		})
-		setPostOpen(true)
-		setPost(data)
-	}
-
+export const LostFoundItem = ({ id, objectName, imgSrc, process }: { id: number; objectName: string; imgSrc: string; process: string }) => {
 	return (
 		<li className={styles.post_item_wrap}>
-			<div className={styles.post_item}>
+			<div
+				className={styles.post_item}
+				style={{
+					display: 'flex',
+					alignItems: 'center',
+				}}>
 				<div className={styles.total_comments}>
-					<img src={'images'} />
+					<img src={imgSrc} alt="" style={{ width: '40px', height: '40px' }} />
 				</div>
-				<div className="flex-main cols gap-05">
-					<Link href={`/board/${boardId}/${id}`} className={styles.post_title}>
-						{title}
+				<div
+					className="flex-main cols gap-05"
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						flexDirection: 'row',
+					}}>
+					<Link
+						href={`/board/lostfound/${id}`}
+						className={styles.post_title}
+						style={{
+							marginLeft: '8px',
+							marginRight: 'auto',
+						}}>
+						{objectName}
 					</Link>
-					<div className="rows space-between">
-						<div className={styles.post_info}>
-							<span className={styles.post_date}>{new Date(createdAt).toLocaleDateString()}</span>
-						</div>
+					<div
+						style={{
+							marginTop: '5px',
+							color: 'white',
+							fontSize: '15px',
+							marginLeft: '53vw',
+							position: 'absolute',
+							marginRight: 'auto',
+						}}>
+						{process === 'FINISHED' ? '수령 완료' : '수령 대기중'}
 					</div>
 				</div>
 			</div>
-			{post?.id === id && (
-				<Link href={`/board/${boardId}/${id}`} className={`${styles.refresh} button-wrap`} onClick={loadPost}>
-					<img src="/icons/refresh.svg" alt="refresh post" />
-				</Link>
-			)}
 		</li>
 	)
 }

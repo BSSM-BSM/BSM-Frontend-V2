@@ -68,16 +68,6 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
 				</div>
 				<ul className={styles.post_list}>
 					{postList.map((post) => {
-						if (boardId === 'lostfound') {
-							return (
-								<LostFoundItem
-									key={`${boardId}/${post.id}/${post.user.code}`}
-									{...post}
-									boardId={String(boardId)}
-									categoryList={board.categoryList}
-								/>
-							)
-						}
 						return <PostItem key={`${boardId}/${post.id}/${post.user.code}`} {...post} boardId={String(boardId)} categoryList={board.categoryList} />
 					})}
 					{postList[postList.length - 1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
