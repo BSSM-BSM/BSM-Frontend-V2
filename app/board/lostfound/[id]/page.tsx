@@ -16,21 +16,26 @@ import { UserInfoLink } from '@/components/board/userInfoLink';
 import { postXssFilter } from '@/components/board/post/postView';
 import { userState } from '@/store/account.store';
 
-const LostFoundDetail = () => {
+interface LostFoundDetailProps {
+  params: {
+    id: number;
+  };
+}
+
+const LostFoundDetail = ({ params: { id } }: LostFoundDetailProps) => {
   const { ajax } = useAjax();
-  const { id } = useParams();
   const user = useRecoilValue(userState);
   const [detail, setDetail] = React.useState({
     id: -1,
-    objectName: 'objectName',
-    imgSrc: 'https://www.busan.com/nas/data/content/image/2012/04/28/20120428000068_0.jpg',
-    location: 'x',
-    findDateTime: '2018-12-15T10:00:00',
-    description: 'x',
+    objectName: '',
+    imgSrc: '',
+    location: '',
+    findDateTime: '',
+    description: '',
     process: 'IN_PROGRESS',
     foundUser: {
       code: -1,
-      nickname: 'anonymous'
+      nickname: ''
     }
   });
   const setHeaderOption = useSetRecoilState(headerOptionState);
