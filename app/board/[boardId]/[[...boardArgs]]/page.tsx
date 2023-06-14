@@ -7,13 +7,13 @@ import React from 'react';
 
 interface BoardPageProps {
   params: {
-    boardId: string,
-    boardArgs: string[]
-  }
+    boardId: string;
+    boardArgs: string[];
+  };
 }
 
 const BoardPage = (props: BoardPageProps) => {
-  const {params} = props;
+  const { params } = props;
   const [postId, editPostId] = params.boardArgs ?? [undefined, undefined];
   const [setPostId, setEditPostId] = [useSetRecoilState(postIdState), useSetRecoilState(editPostIdState)];
 
@@ -28,7 +28,7 @@ const BoardPage = (props: BoardPageProps) => {
     setEditPostId(undefined);
   }, [editPostId]);
 
-  return (<></>);
-}
+  return <></>;
+};
 
 export default BoardPage;
