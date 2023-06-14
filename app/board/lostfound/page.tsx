@@ -2,12 +2,12 @@
 
 import boardStyles from '@/styles/board/board.module.css';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
-import { headerOptionState, pageState } from '@/store/common.store';
+import { headerOptionState, pageState, themeState } from '@/store/common.store';
 import axios from 'axios';
 import lostfoundStyle from '@/styles/board/lostfound.module.css';
 import Head from 'next/head';
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { LostFoundItem } from '@/components/board/lostfoundItem';
 import { PostWrite } from '@/components/board/post/postWrite';
 import Link from 'next/link';
@@ -17,6 +17,7 @@ const LostFound = () => {
   const { ajax } = useAjax();
   const setHeaderOption = useSetRecoilState(headerOptionState);
   const setPage = useSetRecoilState(pageState);
+  const theme = useRecoilValue(themeState);
 
   const [foundedItems, setFoundedItems] = React.useState([]);
   const [lostItems, setLostItems] = React.useState([]);
@@ -66,14 +67,34 @@ const LostFound = () => {
         <div className={lostfoundStyle.category_list}>
           <div
             className={lostfoundStyle.category}
-            style={{ backgroundColor: category === 'IN_PROGRESS' ? '#282828' : '#383838' }}
+            style={{
+              boxShadow: 'var(--shadow)',
+              backgroundColor:
+                category === 'IN_PROGRESS'
+                  ? theme === 'dark'
+                    ? '#282828'
+                    : '#FAFAFA'
+                  : theme === 'dark'
+                  ? '#383838'
+                  : '#EDEDED'
+            }}
             onClick={() => setCategory('IN_PROGRESS')}
           >
             대기중
           </div>
           <div
             className={lostfoundStyle.category}
-            style={{ backgroundColor: category === 'FINISHED' ? '#282828' : '#383838' }}
+            style={{
+              boxShadow: 'var(--shadow)',
+              backgroundColor:
+                category === 'FINISHED'
+                  ? theme === 'dark'
+                    ? '#282828'
+                    : '#FAFAFA'
+                  : theme === 'dark'
+                  ? '#383838'
+                  : '#EDEDED'
+            }}
             onClick={() => setCategory('FINISHED')}
           >
             찾은 물건
