@@ -8,10 +8,11 @@ import { useRecoilState } from 'recoil';
 import { postListState } from '@/store/board.store';
 import { CheckList } from '@/components/common/buttons/checkList';
 import { postLimitState } from '@/store/setting/board.store';
+import { LostFoundItem } from './lostfoundItem';
 
 interface BoardViewProps {
-  boardId: string,
-  board: Board
+  boardId: string;
+  board: Board;
 }
 
 export const BoardView = ({ boardId, board }: BoardViewProps) => {
@@ -36,7 +37,7 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
     setLoading(true);
     const [data, error] = await ajax<PostListRes>({
       method: HttpMethod.GET,
-      url: `post/${boardId}${startPostId === -1? '/recent': ''}`,
+      url: `post/${boardId}${startPostId === -1 ? '/recent' : ''}`,
       config: {
         params: {
           startPostId,
@@ -53,36 +54,36 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
     if (startPostId === -1) setPostList(data.postList);
     else if (data.postList.length) setPostList(prev => [...prev, ...data.postList]);
     setLoading(false);
-  }
+  };
 
   return (
     <div className={`${styles.board} scroll-bar`}>
-      <div className='container'>
+      <div className="container">
         <div className={styles.category_list_wrap}>
           <CheckList
             currentItem={postCategory}
             callback={item => setPostCategory(item.id)}
-            itemList={
-              [
-                { id: 'all', name: '전체' },
-                { id: 'normal', name: '일반' },
-                ...Object.values(board.categoryList)
-              ]
-            }
+            itemList={[
+              { id: 'all', name: '전체' },
+              { id: 'normal', name: '일반' },
+              ...Object.values(board.categoryList)
+            ]}
           />
         </div>
         <ul className={styles.post_list}>
-          {postList.map(post => (
-            <PostItem
-              key={`${boardId}/${post.id}/${post.user.code}`}
-              {...post}
-              boardId={String(boardId)}
-              categoryList={board.categoryList}
-            />
-          ))}
+          {postList.map(post => {
+            return (
+              <PostItem
+                key={`${boardId}/${post.id}/${post.user.code}`}
+                {...post}
+                boardId={String(boardId)}
+                categoryList={board.categoryList}
+              />
+            );
+          })}
           {postList[postList.length - 1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
         </ul>
       </div>
     </div>
   );
-}
+};

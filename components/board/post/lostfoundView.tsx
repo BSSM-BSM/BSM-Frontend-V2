@@ -27,7 +27,7 @@ import { PostNavBar } from '@/components/board/post/postNavBar';
 import { boardDetailTimeState } from '@/store/setting/board.store';
 
 const codeblockRegexp = /^(language\-.*)/;
-export const postXssFilter = new FilterXSS({
+const postXssFilter = new FilterXSS({
   onIgnoreTagAttr: (tag, name, value) => {
     if (name === 'style') return `${name}="${escapeAttrValue(value)}"`;
     if (tag === 'img') {
@@ -47,17 +47,7 @@ interface LikeRes {
   totalLikes: number;
 }
 
-export const PostView = ({
-  board,
-  post,
-  commentList,
-  loadComments
-}: {
-  board: Board;
-  post: DetailPost;
-  commentList: (Comment | DeletedComment)[];
-  loadComments: Function;
-}) => {
+export const LostFoundView = ({ board, post }: { board: Board; post: DetailPost }) => {
   const router = useRouter();
   const { ajax } = useAjax();
   const [, setHeaderOption] = useRecoilState(headerOptionState);
@@ -172,12 +162,6 @@ export const PostView = ({
         </button>
       </div>
       <PostNavBar {...prevAndNextPost} boardId={board.boardId} />
-      <CommentView commentList={commentList} loadComments={loadComments} boardDetailTime={boardDetailTime} />
-      {board.commentPermission && (
-        <div className={`${commentStyles.write_bar} container _110`}>
-          <CommentWrite loadComments={loadComments} />
-        </div>
-      )}
     </div>
   );
 };

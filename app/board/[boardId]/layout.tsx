@@ -17,41 +17,34 @@ import { boardAnonymousModeState } from '@/store/setting/board.store';
 import Link from 'next/link';
 
 interface BoardLayoutProps {
-  children: ReactNode,
+  children: ReactNode;
   params: {
-    boardId: string
-  }
+    boardId: string;
+  };
 }
 
-const BoardLayout = ({
-  children,
-  params: {
-    boardId
-  }
-}: BoardLayoutProps) => {
+const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
   const { ajax } = useAjax();
   const setHeaderOption = useSetRecoilState(headerOptionState);
   const setPage = useSetRecoilState(pageState);
   const setBoardAndPostId = useSetRecoilState(boardAndPostIdState);
   const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
-  
+
   const postId = useRecoilValue(postIdState);
   const editPostId = useRecoilValue(editPostIdState);
   const [boardList, setBoardList] = useState<{ [index: string]: Board }>({});
   const [post, setPost] = useRecoilState(postState);
   const [postOpen, setPostOpen] = useRecoilState(postOpenState);
   const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
-  
-  useEffect(() => {
-    setPage({id: 'board', subId: boardId});
 
-    if (typeof boardId !== 'string')
-      setHeaderOption({ title: '' });
-    else if (postId === undefined)
-      setHeaderOption({ title: boardList[boardId]?.boardName });
+  useEffect(() => {
+    setPage({ id: 'board', subId: boardId });
+
+    if (typeof boardId !== 'string') setHeaderOption({ title: '' });
+    else if (postId === undefined) setHeaderOption({ title: boardList[boardId]?.boardName });
     else if (postId === 'write')
       setHeaderOption({
-        title: `글쓰기 ${boardAnonymousMode ? '(익명 On)' : '(익명 Off)'}`,
+        title: `글쓰기 ${boardAnonymousMode ? '(익명 On)' : '(익명 Off)'}`
       });
   }, [boardId, postId, boardList, post, boardAnonymousMode]);
 
@@ -115,7 +108,7 @@ const BoardLayout = ({
         categoryList
       }
     }));
-  }
+  };
 
   const loadPostAndComments = async () => {
     if (typeof boardId !== 'string' || typeof postId !== 'number') return;
@@ -124,7 +117,7 @@ const BoardLayout = ({
       url: `post/${boardId}/${postId}`,
       errorCallback() {
         setPost(null);
-      },
+      }
     });
     if (error) return;
 
@@ -135,7 +128,7 @@ const BoardLayout = ({
     setPostOpen(true);
     setPost(data);
     loadComments();
-  }
+  };
 
   const loadComments = async () => {
     const [data, error] = await ajax<(Comment | DeletedComment)[]>({
@@ -143,45 +136,39 @@ const BoardLayout = ({
       url: `comment/${boardId}/${postId}`,
       errorCallback() {
         setCommentList([]);
-      },
+      }
     });
     if (error) return;
 
     setCommentList(data);
-  }
+  };
 
   return (
-    <div className='container'>
+    <div className="container">
       <Head>
         <title>커뮤니티 - BSM</title>
       </Head>
-      {
-        typeof boardId === 'string' &&
-        boardList[boardId] &&
+      {typeof boardId === 'string' && boardList[boardId] && (
         <>
           <BoardView boardId={boardId} board={boardList[boardId]} />
-          {
-            boardList[boardId].postPermission &&
+          {boardList[boardId].postPermission && (
             <Link href={`/board/${boardId}/write`} className={boardStyles.write}>
-              <img src='/icons/pen.svg' alt='글쓰기' />
+              <img src="/icons/pen.svg" alt="글쓰기" />
             </Link>
-          }
+          )}
           <div className={`${postStyles.post} ${postOpen ? postStyles.open : ''}`}>
-            {
-              typeof postId === 'number' &&
-              post?.id === postId &&
-              <PostView
-                board={boardList[boardId]}
-                post={post}
-                commentList={commentList}
-                loadComments={loadComments}
-              />
-            }
+            {typeof postId === 'number' && post?.id === postId && (
+              <PostView board={boardList[boardId]} post={post} commentList={commentList} loadComments={loadComments} />
+            )}
           </div>
         </>
-      }
+      )}
       {
-        <div className={`${postStyles.post} ${postStyles.post_write_wrap} ${boardList[boardId] && postId === 'write' ? postStyles.open : ''}`}>
+        <div
+          className={`${postStyles.post} ${postStyles.post_write_wrap} ${
+            boardList[boardId] && postId === 'write' ? postStyles.open : ''
+          }`}
+        >
           <PostWrite
             boardId={boardId}
             categoryList={boardList[boardId]?.categoryList ?? {}}
@@ -194,6 +181,6 @@ const BoardLayout = ({
       <EmoticonBoxWrap />
     </div>
   );
-}
+};
 
 export default BoardLayout;

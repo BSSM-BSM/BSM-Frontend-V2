@@ -29,17 +29,23 @@ export const Header = () => {
     if (headerOption.optionMenu?.dropdownMenu) {
       return dropdownMenuView(headerOption.optionMenu.dropdownMenu);
     }
-    return <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}><img src="/icons/setting.svg" alt="setting" /></li>;
-  }
+    return (
+      <li onClick={() => openModal('setting')} className={`${styles.item} ${styles.setting}`}>
+        <img src="/icons/setting.svg" alt="setting" />
+      </li>
+    );
+  };
 
   const dropdownMenuView = (dropdownMenu: DropdownMenuOption[]) => (
     <DropdownMenu
-      title={<>
-        <span className='line'></span>
-        <span className='line'></span>
-        <span className='line'></span>
-      </>}
-      titleClassName='menu-button'
+      title={
+        <>
+          <span className="line"></span>
+          <span className="line"></span>
+          <span className="line"></span>
+        </>
+      }
+      titleClassName="menu-button"
       menus={dropdownMenu}
       className={`${styles.dropdown} ${styles.all_menu}`}
     />
@@ -51,15 +57,14 @@ export const Header = () => {
         <nav className={styles.top_menu_bar}>
           <ul className={styles.left}>
             <li className={styles.home}>
-              <Link href='/' className={`${styles.item} ${styles.home}`}>BSM</Link>
+              <Link href="/" className={`${styles.item} ${styles.home}`}>
+                BSM
+              </Link>
             </li>
-            <li
-              className={`${styles.item} ${styles.all_menu} menu-button`}
-              onClick={() => setSideBar(prev => !prev)}
-            >
-              <span className='line'></span>
-              <span className='line'></span>
-              <span className='line'></span>
+            <li className={`${styles.item} ${styles.all_menu} menu-button`} onClick={() => setSideBar(prev => !prev)}>
+              <span className="line"></span>
+              <span className="line"></span>
+              <span className="line"></span>
             </li>
             <div className={styles.title}>
               <h2>{headerOption.title}</h2>
@@ -73,4 +78,4 @@ export const Header = () => {
       </div>
     </header>
   );
-}
+};
