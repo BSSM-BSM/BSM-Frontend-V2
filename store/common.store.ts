@@ -59,3 +59,13 @@ export const backgroundImageUrlState = atom<string | undefined>({
     type: LocalStorageType.string
   })]
 });
+
+export const customBackgroundOnlyHomeState = atom<boolean>({
+  key: 'customBackgroundOnlyHome',
+  default: true,
+  effects: [localStorageEffect({
+    key: 'customBackgroundOnlyHome',
+    type: LocalStorageType.boolean,
+    defaultValue: true
+  })]
+});  

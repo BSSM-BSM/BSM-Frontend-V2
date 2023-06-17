@@ -6,13 +6,17 @@
 }
 
 .post_list {
-  background-color: var(--level-1);
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  background-color: var(--level-0-opacity);
   border-radius: 1rem;
-  gap: 2rem;
-  margin: .5rem .5rem 8rem;
+  margin: 1rem .5rem 8rem;
+  padding: .5rem 0;
 }
 
 .post_item_wrap {
+  margin: 0 .5rem;
   display: flex;
   border-radius: 1rem;
   transition: var(--hover-transition);
@@ -52,20 +56,27 @@
   gap: .5rem;
 }
 
+.user_info a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .post_info {
   display: flex;
+  align-items: center;
   gap: 1rem;
-  color: var(--text-level-2);
+  color: var(--text-level-1);
 }
 
 .total_likes::after {
   content: ' ♥';
 }
 
-.post_hit img {
-  width: 2rem;
-  height: 2rem;
-  filter: var(--bright);
+.post_view {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
 }
 
 .post_load_bar {
@@ -75,7 +86,7 @@
 .category_list_wrap {
   position: sticky;
   z-index: 1;
-  top: 0;
+  top: .5rem;
   margin: 0 .5rem;
   background-color: var(--level-2-opacity);
   backdrop-filter: blur(.5rem);
@@ -131,5 +142,23 @@
   .total_comments {
     width: 3rem;
     font-size: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 651px) and (max-width: 760px) {
+  .user_info a {
+    max-width: 12rem;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .user_info a {
+    max-width: 12rem;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .user_info a {
+    max-width: 10rem;
   }
 }

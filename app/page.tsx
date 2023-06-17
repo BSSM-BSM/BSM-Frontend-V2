@@ -1,10 +1,10 @@
 'use client';
 
 import styles from '@/styles/home.module.css';
-import { CSSProperties, useEffect } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
 import Link from 'next/link';
-import { backgroundImageUrlState, headerOptionState, pageState } from '@/store/common.store';
+import { headerOptionState, pageState } from '@/store/common.store';
 import { MeisterHomeMenu } from '@/components/home/meisterMenu';
 import { UserHomeMenu } from '@/components/home/userMenu';
 import { Banner, BannerPos } from '@/components/common/banner';
@@ -17,7 +17,6 @@ const Home = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
   const setPage = useSetRecoilState(pageState);
   const { openModal } = useModal();
-  const backgroundImageUrl = useRecoilValue(backgroundImageUrlState);
 
   useEffect(() => {
     setHeaderOption({ headTitle: 'BSM - 부산소마고 지원 서비스' });
@@ -36,14 +35,7 @@ const Home = () => {
           onClick={() => openModal('edit-background-image')}
         />
       </>
-      <section
-        className={styles.quick_menu_section}
-        style={
-          {
-            '--background-image': `url(${backgroundImageUrl || process.env.NEXT_PUBLIC_DEFAULT_BACKGROUND_IMAGE_URL})`
-          } as CSSProperties
-        }
-      >
+      <section className={styles.quick_menu_section}>
         <ul className={`${styles.quick_menu_list} button-wrap`}>
           <li>
             <UserHomeMenu />

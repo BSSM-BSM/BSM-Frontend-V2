@@ -5,7 +5,7 @@ import { useModal } from "@/hooks/useModal";
 import { useOverlay } from "@/hooks/useOverlay";
 import { userState } from "@/store/account.store";
 import { boardAnonymousModeState, boardDetailTimeState, boardOpenAllChildCommentsState, postLimitState } from "@/store/setting/board.store";
-import { pushSubscriptionState, screenScaleState, themeState } from "@/store/common.store";
+import { customBackgroundOnlyHomeState, pushSubscriptionState, screenScaleState, themeState } from "@/store/common.store";
 import { subscribe, unsubscribe } from "@/utils/webPush";
 import { ToggleButton } from "@/components/common/buttons/toggleButton";
 import { NumberInput } from "@/components/common/inputs/numberInput";
@@ -23,6 +23,7 @@ export const SettingBox = () => {
   const [boardDetailTime, setBoardDetailTime] = useRecoilState(boardDetailTimeState);
   const [boardAnonymousMode, setBoardAnonymousMode] = useRecoilState(boardAnonymousModeState);
   const [boardOpenAllChildComments, setBoardOpenAllChildComments] = useRecoilState(boardOpenAllChildCommentsState);
+  const [customBackgroundOnlyHome, setCustomBackgroundOnlyHome] = useRecoilState(customBackgroundOnlyHomeState);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -59,19 +60,17 @@ export const SettingBox = () => {
             <li className='toggle'>
               <span>다크 모드</span>
               <ToggleButton
-                onCallback={
-                  () => {
-                    setTheme('dark');
-                    localStorage.setItem('theme', 'dark');
-                  }
-                }
-                offCallback={
-                  () => {
-                    setTheme('white');
-                    localStorage.setItem('theme', 'white');
-                  }
-                }
+                onCallback={() => {setTheme('dark')}}
+                offCallback={() => {setTheme('white')}}
                 value={theme === 'dark'}
+              />
+            </li>
+            <li className='toggle'>
+              <span>홈에만 커스텀 백그라운드 이미지 적용</span>
+              <ToggleButton
+                onCallback={() => {setCustomBackgroundOnlyHome(true)}}
+                offCallback={() => {setCustomBackgroundOnlyHome(false)}}
+                value={customBackgroundOnlyHome}
               />
             </li>
             <li className='picker'>

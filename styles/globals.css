@@ -104,7 +104,7 @@ body.dark {
   --level-6: #505050;
   --level-7: #585858;
 
-  --level-0-opacity: #1a1a1a88;
+  --level-0-opacity: #1a1a1aAA;
   --level-1-opacity: #20202088;
   --level-2-opacity: #2a2a2a88;
   --level-3-opacity: #30303088;
@@ -160,12 +160,15 @@ main {
   position: relative;
   grid-area: content;
   border-radius: 1rem 0 0;
-  background-color: var(--level-1);
   box-shadow: var(--shadow);
   overflow: hidden;
   overflow-y: auto;
   overflow-y: overlay;
   width: calc(100vw - 25rem);
+  background-color: var(--level-1);
+  background-image: var(--background-image);
+  background-position: center;
+  background-size: cover;
 }
 
 @media screen and (max-width: 650px) {

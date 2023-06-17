@@ -1,6 +1,12 @@
-import { ReactNode, useEffect } from 'react';
+import { CSSProperties, ReactNode, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { headerOptionState, sideBarState } from '@/store/common.store';
+import {
+  backgroundImageUrlState,
+  customBackgroundOnlyHomeState,
+  headerOptionState,
+  pageState,
+  sideBarState
+} from '@/store/common.store';
 import Sidebar from '@/components/common/sidebar/sidebar';
 import Navbar from '@/components/common/navbar/navbar';
 import { LoginBox } from '@/components/common/accountPopup';
@@ -10,13 +16,12 @@ import Alert from '@/components/common/overlay/alert';
 import LoadingDim from '@/components/common/overlay/loadingDim';
 import { Header } from '@/components/common/header';
 
-export const Main = ({
-  children,
-}: {
-  children: ReactNode;
-}) => {
+export const Main = ({ children }: { children: ReactNode }) => {
   const [sideBar, setSideBar] = useRecoilState(sideBarState);
-  const {title, headTitle} = useRecoilValue(headerOptionState);
+  const { title, headTitle } = useRecoilValue(headerOptionState);
+  const page = useRecoilValue(pageState);
+  const backgroundImageUrl = useRecoilValue(backgroundImageUrlState);
+  const customBackgroundOnlyHome = useRecoilValue(customBackgroundOnlyHomeState);
 
   useEffect(() => {
     if (headTitle) {
@@ -26,8 +31,16 @@ export const Main = ({
     }
   }, [title]);
 
+  useEffect(() => {
+    if (customBackgroundOnlyHome && page.id !== 'home') {
+      document.documentElement.style.removeProperty('--background-image');
+      return;
+    }
+    document.documentElement.style.setProperty('--background-image', `url(${backgroundImageUrl || process.env.NEXT_PUBLIC_DEFAULT_BACKGROUND_IMAGE_URL})`);
+  }, [backgroundImageUrl, customBackgroundOnlyHome]);
+
   return (
-    <div className={`wrap ${sideBar? 'side_bar_open': ''}`}>
+    <div className={`wrap ${sideBar ? 'side_bar_open' : ''}`}>
       <Sidebar />
       <Navbar />
       <main onClick={() => setSideBar(false)}>
@@ -43,4 +56,4 @@ export const Main = ({
       </>
     </div>
   );
-}
+};

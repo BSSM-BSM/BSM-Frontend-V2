@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { UserInfoLink } from '@/components/board/userInfoLink';
 import { elapsedTime, MilliSecondTime } from '@/utils/date';
 import { getProfileSrc } from '@/utils/userUtil';
+import { BsEyeFill } from 'react-icons/bs';
 
 interface PostItemProps extends Post {
   boardId: string,
@@ -80,9 +81,9 @@ export const PostItem = ({
             </div>
             <div className={styles.post_info}>
               {totalLikes !== 0 && <span className={styles.total_likes}>{totalLikes}</span>}
-              <span className={`${styles.post_hit} rows gap-05`}>
+              <span className={styles.post_view}>
                 <span>{view}</span>
-                <img src="/icons/view.svg" alt="viewers" />
+                <BsEyeFill size={20} />
               </span>
               {category !== null && <span>{categoryList[category]?.name}</span>}
               <span className={styles.post_date}>{
