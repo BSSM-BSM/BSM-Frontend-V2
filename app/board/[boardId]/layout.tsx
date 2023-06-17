@@ -7,7 +7,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { BoardView } from '@/components/board/boardView';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
-import { boardAndPostIdState, editPostIdState, postIdState, postOpenState, postState } from '@/store/board.store';
+import { boardAndPostIdState, editPostIdState, postIdState, postListState, postOpenState, postState } from '@/store/board.store';
 import { headerOptionState, pageState } from '@/store/common.store';
 import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } from '@/types/board.type';
 import { PostView } from '@/components/board/post/postView';
@@ -35,6 +35,7 @@ const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
   const [boardList, setBoardList] = useState<{ [index: string]: Board }>({});
   const [post, setPost] = useRecoilState(postState);
   const [postOpen, setPostOpen] = useRecoilState(postOpenState);
+  const setPostList = useSetRecoilState(postListState);
   const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
   useEffect(() => {
     if (typeof boardId !== 'string') return;
     setPost(null);
+    setPostList([]);
     if (boardList[boardId]) return;
 
     setBoardList(prev => ({

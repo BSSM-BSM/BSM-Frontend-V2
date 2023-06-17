@@ -42,7 +42,7 @@ const Sidebar = () => {
       </SidebarItem>
       <SidebarItem
         id="board"
-        subId="lostfound"
+        subId="lost-found"
         Icon={BsBox2}
         iconSize={20}
         onClick={() => router.push('/board/lostfound')}

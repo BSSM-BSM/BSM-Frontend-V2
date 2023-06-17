@@ -8,7 +8,6 @@ import { useRecoilState } from 'recoil';
 import { postListState } from '@/store/board.store';
 import { CheckList } from '@/components/common/buttons/checkList';
 import { postLimitState } from '@/store/setting/board.store';
-import { LostFoundItem } from './lostfoundItem';
 
 interface BoardViewProps {
   boardId: string;

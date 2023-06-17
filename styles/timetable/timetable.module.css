@@ -10,6 +10,12 @@
   align-items: center;
 }
 
+.time_wrap > * {
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  background-color: var(--level-1-opacity);
+}
+
 .time_wrap h2:first-child {
   font-size: 3.4rem;
 }
@@ -93,6 +99,9 @@
   right: 100%;
   transform: translateX(50%);
   font-size: 1.7rem;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  background-color: var(--level-1-opacity);
 }
 
 .class_idx {

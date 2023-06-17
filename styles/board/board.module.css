@@ -9,10 +9,9 @@
   display: flex;
   flex-direction: column;
   gap: .5rem;
-  background-color: var(--level-0-opacity);
+  background-color: var(--level-1-opacity);
   border-radius: 1rem;
   margin: 1rem .5rem 8rem;
-  padding: .5rem 0;
 }
 
 .post_item_wrap {
@@ -21,6 +20,10 @@
   border-radius: 1rem;
   transition: var(--hover-transition);
   cursor: pointer;
+}
+
+.post_item_wrap:first-child {
+  margin-top: .5rem;
 }
 
 .post_item_wrap:hover {
@@ -88,7 +91,7 @@
   z-index: 1;
   top: .5rem;
   margin: 0 .5rem;
-  background-color: var(--level-2-opacity);
+  background-color: var(--level-1-opacity);
   backdrop-filter: blur(.5rem);
   border-radius: 1rem;
 }

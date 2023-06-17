@@ -1,16 +1,16 @@
 import { getRecoil } from "recoil-nexus";
 import { pageState } from "@/store/common.store";
 
-export const activePageCheck = ({
-  id,
-  subId
-}: {
+interface Page {
   id: string,
   subId?: string
-}) => {
+};
+
+export const activePageCheck = ({id, subId}: Page, strict?: boolean) => {
   if (typeof window === 'undefined') return false;
   const {id: currentId, subId: currentSubId} = getRecoil(pageState);
 
-  if (!subId) return currentId === id;
-  return currentSubId === subId;
+  if (!strict && !subId) return currentId === id;
+  console.log(currentId === id && currentSubId === subId, currentId, id, currentSubId, subId)
+  return currentId === id && currentSubId === subId;
 }

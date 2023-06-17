@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   backgroundImageUrlState,
@@ -15,6 +15,16 @@ import Toast from '@/components/common/overlay/toast';
 import Alert from '@/components/common/overlay/alert';
 import LoadingDim from '@/components/common/overlay/loadingDim';
 import { Header } from '@/components/common/header';
+import { activePageCheck } from '@/utils/page';
+
+const noCustomBackgroundPages: {
+  id: string;
+  subId?: string;
+}[] = [
+  { id: 'board' },
+  { id: 'board', subId: 'lost-found' },
+  { id: 'service' }
+];
 
 export const Main = ({ children }: { children: ReactNode }) => {
   const [sideBar, setSideBar] = useRecoilState(sideBarState);
@@ -32,20 +42,24 @@ export const Main = ({ children }: { children: ReactNode }) => {
   }, [title]);
 
   useEffect(() => {
-    if (customBackgroundOnlyHome && page.id !== 'home') {
+    const noCustomBackground =
+      (customBackgroundOnlyHome && page.id !== 'home') ||
+      noCustomBackgroundPages.some(page => activePageCheck(page, true));
+    if (noCustomBackground) {
       document.documentElement.style.removeProperty('--background-image');
       return;
     }
-    document.documentElement.style.setProperty('--background-image', `url(${backgroundImageUrl || process.env.NEXT_PUBLIC_DEFAULT_BACKGROUND_IMAGE_URL})`);
-  }, [backgroundImageUrl, customBackgroundOnlyHome]);
+    document.documentElement.style.setProperty(
+      '--background-image',
+      `url(${backgroundImageUrl || process.env.NEXT_PUBLIC_DEFAULT_BACKGROUND_IMAGE_URL})`
+    );
+  }, [page, backgroundImageUrl, customBackgroundOnlyHome]);
 
   return (
     <div className={`wrap ${sideBar ? 'side_bar_open' : ''}`}>
       <Sidebar />
       <Navbar />
-      <main onClick={() => setSideBar(false)}>
-        {children}
-      </main>
+      <main onClick={() => setSideBar(false)}>{children}</main>
       <>
         <Header />
         <LoginBox />

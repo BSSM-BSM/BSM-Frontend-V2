@@ -102,59 +102,61 @@ const MeisterPage = () => {
       <>
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
       </>
-      <form className={`${styles.form} cols gap-1`} autoComplete='off' onSubmit={e => {
-        e.preventDefault();
-        loadMeisterInfo();
-      }}>
-        <div className='rows gap-05 center'>
-          <NumberInput
-            setCallback={setGrade}
-            initial={undefined}
-            value={grade}
-            min={1}
-            max={3}
-            required
-            placeholder='학년'
-          />
-          <NumberInput
-            setCallback={setClassNo}
-            initial={undefined}
-            value={classNo}
-            min={1}
-            max={4}
-            required
-            placeholder='반'
-          />
-          <NumberInput
-            setCallback={setStudentNo}
-            initial={undefined}
-            value={studentNo}
-            min={1}
-            max={16}
-            required
-            placeholder='번호'
-          />
-        </div>
-        <div className='cols gap-1 center'>
-          <TextInput
-            disabled={noPw}
-            type='password'
-            setCallback={setPw}
-            placeholder='마이스터 인증제 사이트 비밀번호'
-            required
-          />
-          <label className='checkbox center'>
-            <input type='checkbox' checked={noPw} onChange={e => setNoPw(e.target.checked)} />
-            <span>비밀번호 사용 안함</span>
-          </label>
-        </div>
-        {!noPw && <h4>조회하기 위해 마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
-        <br />
-        <div className='rows gap-1 center'>
-          <Link href='/meister/ranking'><Button>랭킹</Button></Link>
-          <Button type='submit' className='accent'>조회</Button>
-        </div>
-      </form>
+      <div className={styles.form_warp}>
+        <form className={`${styles.form} cols gap-1`} autoComplete='off' onSubmit={e => {
+          e.preventDefault();
+          loadMeisterInfo();
+        }}>
+          <div className='rows gap-05 center'>
+            <NumberInput
+              setCallback={setGrade}
+              initial={undefined}
+              value={grade}
+              min={1}
+              max={3}
+              required
+              placeholder='학년'
+            />
+            <NumberInput
+              setCallback={setClassNo}
+              initial={undefined}
+              value={classNo}
+              min={1}
+              max={4}
+              required
+              placeholder='반'
+            />
+            <NumberInput
+              setCallback={setStudentNo}
+              initial={undefined}
+              value={studentNo}
+              min={1}
+              max={16}
+              required
+              placeholder='번호'
+            />
+          </div>
+          <div className='cols gap-1 center'>
+            <TextInput
+              disabled={noPw}
+              type='password'
+              setCallback={setPw}
+              placeholder='마이스터 인증제 사이트 비밀번호'
+              required
+            />
+            <label className='checkbox center'>
+              <input type='checkbox' checked={noPw} onChange={e => setNoPw(e.target.checked)} />
+              <span>비밀번호 사용 안함</span>
+            </label>
+          </div>
+          {!noPw && <h4>조회하기 위해 마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
+          <br />
+          <div className='rows gap-2 center'>
+            <Link href='/meister/ranking'><Button>랭킹</Button></Link>
+            <Button type='submit' className='accent'>조회</Button>
+          </div>
+        </form>
+      </div>
       {
         meisterInfo.scoreHtmlContent &&
         <div className={styles.result}>

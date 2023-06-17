@@ -1,12 +1,18 @@
-.form {
+.form_warp {
+  display: inline-block;
   margin-top: 15rem;
+  padding: 3rem 1.5rem;
+  border-radius: 1.5rem;
+  background-color: var(--level-1);
 }
 
 .result {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
-  padding: 0 .5rem 6rem 0;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background-color: var(--level-1-opacity);
 }
 
 .point {

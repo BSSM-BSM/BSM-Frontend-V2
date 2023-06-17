@@ -76,13 +76,16 @@
 }
 
 .date {
-  width: 100%;
+  white-space: nowrap;
   position: absolute;
   font-size: 1.6rem;
-  top: -4rem;
+  top: -4.5rem;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
+  padding: .75rem 1.25rem;
+  border-radius: 1rem;
+  background-color: var(--level-1-opacity);
 }
 
 .meal_info {

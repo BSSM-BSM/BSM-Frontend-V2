@@ -1,15 +1,7 @@
-.container_wrap {
-  width: 100vw;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
 .category_list {
-  width: 100vw;
+  width: 100%;
   display: flex;
-  gap: 4px;
+  gap: .4rem;
 }
 
 .category {
@@ -20,13 +12,11 @@
 }
 
 .board_list {
-  width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.board {
-  width: 100%;
-  height: 50px;
-  background-color: blue;
+  gap: .5rem;
+  background-color: var(--level-1-opacity);
+  border-radius: 1rem;
+  margin: 1rem .5rem 8rem;
+  padding: .5rem 0;
 }
