@@ -3,7 +3,7 @@ import { DetailedHTMLProps, Dispatch, InputHTMLAttributes, ReactNode, SetStateAc
 import { useOverlay } from "@/hooks/useOverlay";
 
 interface TextInputProps extends Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'placeholder'> {
-  setCallback: Dispatch<SetStateAction<string>>,
+  setCallback: Dispatch<SetStateAction<string>> | Dispatch<SetStateAction<string | undefined>>,
   initial?: string,
   placeholder?: string | ReactNode,
   immediately?: boolean,

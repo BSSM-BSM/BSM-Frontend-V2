@@ -50,3 +50,12 @@ export const sideBarState = atom<boolean>({
   key: 'sideBar',
   default: false
 });
+
+export const backgroundImageUrlState = atom<string | undefined>({
+  key: 'backgroundImageUrl',
+  default: undefined,
+  effects: [localStorageEffect({
+    key: 'backgroundImageUrl',
+    type: LocalStorageType.string
+  })]
+});

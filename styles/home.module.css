@@ -5,7 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: .5rem;
+  background-image: var(--background-image);
+  background-position: center;
+  background-size: cover;
 }
 
 .quick_menu_list {
@@ -22,7 +25,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  background-color: var(--level-2);
+  background-color: var(--level-0-opacity);
   filter: var(--drop-shadow);
   padding: 2rem;
   border-radius: .75rem;
@@ -89,6 +92,21 @@
   width: 1.8rem !important;
   height: 1.8rem !important;
   padding: 0 !important;
+}
+
+.edit_background_image {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem;
+  background-color: var(--level-0-opacity);
+  border-radius: .5rem;
+  transition: var(--hover-transition);
+  cursor: pointer;
+}
+
+.edit_background_image:hover {
+  background-color: var(--hover);
 }
 
 /* 가로 메뉴 */

@@ -1,9 +1,9 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+import { ButtonHTMLAttributes, DetailedHTMLProps, MouseEventHandler, ReactNode } from 'react';
 import styles from '@/styles/common/button.module.css';
 
 interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   children?: ReactNode,
-  onClick?: () => void,
+  onClick?: MouseEventHandler<HTMLButtonElement>,
   full?: boolean
 }
 

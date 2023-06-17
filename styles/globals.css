@@ -465,6 +465,7 @@ label, summary{
   background-size: 4rem;
   background-position: center;
   border: none;
+  transition: var(--hover-transition);
   filter: var(--bright);
 }
 

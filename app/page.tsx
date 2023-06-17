@@ -1,18 +1,23 @@
 'use client';
 
 import styles from '@/styles/home.module.css';
-import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { CSSProperties, useEffect } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Link from 'next/link';
-import { headerOptionState, pageState } from '@/store/common.store';
+import { backgroundImageUrlState, headerOptionState, pageState } from '@/store/common.store';
 import { MeisterHomeMenu } from '@/components/home/meisterMenu';
 import { UserHomeMenu } from '@/components/home/userMenu';
 import { Banner, BannerPos } from '@/components/common/banner';
 import { BannerType } from '@/types/banner.type';
+import { EditBackgroundImageBox } from '@/components/home/editBackgroundImagePopup';
+import { HiOutlinePencilAlt } from 'react-icons/hi';
+import { useModal } from '@/hooks/useModal';
 
 const Home = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
   const setPage = useSetRecoilState(pageState);
+  const { openModal } = useModal();
+  const backgroundImageUrl = useRecoilValue(backgroundImageUrlState);
 
   useEffect(() => {
     setHeaderOption({ headTitle: 'BSM - 부산소마고 지원 서비스' });
@@ -21,11 +26,24 @@ const Home = () => {
 
   return (
     <>
-      {/* <Notice /> */}
       <>
+        {/* <Notice /> */}
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
+        <EditBackgroundImageBox />
+        <HiOutlinePencilAlt
+          size={20}
+          className={styles.edit_background_image}
+          onClick={() => openModal('edit-background-image')}
+        />
       </>
-      <section className={styles.quick_menu_section}>
+      <section
+        className={styles.quick_menu_section}
+        style={
+          {
+            '--background-image': `url(${backgroundImageUrl || process.env.NEXT_PUBLIC_DEFAULT_BACKGROUND_IMAGE_URL})`
+          } as CSSProperties
+        }
+      >
         <ul className={`${styles.quick_menu_list} button-wrap`}>
           <li>
             <UserHomeMenu />
