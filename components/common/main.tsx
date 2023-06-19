@@ -13,7 +13,7 @@ import { LoginBox } from '@/components/common/accountPopup';
 import { SettingBox } from '@/components/common/settingPopup';
 import Toast from '@/components/common/overlay/toast';
 import Alert from '@/components/common/overlay/alert';
-import LoadingDim from '@/components/common/overlay/loadingDim';
+import Loading from '@/components/common/overlay/loading';
 import { Header } from '@/components/common/header';
 import { activePageCheck } from '@/utils/page';
 
@@ -66,7 +66,7 @@ export const Main = ({ children }: { children: ReactNode }) => {
         <SettingBox />
         <Toast />
         <Alert />
-        <LoadingDim />
+        <Loading />
       </>
     </div>
   );

@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  background-color: var(--level-0-opacity);
+  background-color: var(--level-3-opacity);
   filter: var(--drop-shadow);
   padding: 2rem;
   border-radius: .75rem;

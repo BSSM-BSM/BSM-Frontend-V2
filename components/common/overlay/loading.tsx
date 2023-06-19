@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useRecoilState } from "recoil";
 import { loadingState } from "@/store/overlay.store";
 
-const LoadingDim = () => {
+const Loading = () => {
   const [mounted, setMounted] = useState(false);
   const [loading] = useRecoilState(loadingState);
 
@@ -14,7 +14,7 @@ const LoadingDim = () => {
 
   return mounted ? createPortal(
     loading && (
-      <div className='dim loading'>
+      <div className='loading'>
         <div>
           <span></span>
         </div>
@@ -24,4 +24,4 @@ const LoadingDim = () => {
   ) : null;
 };
 
-export default LoadingDim;
+export default Loading;
