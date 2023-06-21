@@ -1,8 +1,9 @@
 .emoticon_list {
-  max-width: 40rem;
+  max-width: 40.8rem;
   width: 100%;
   height: 6rem;
   display: flex;
+  overflow-y: hidden;
 }
 
 .emoticon_list :is(li, img) {
@@ -13,7 +14,7 @@
 }
 
 .emoticon_item_list {
-  width: 40rem;
+  width: 40.8rem;
   max-height: 40rem;
   display: flex;
   flex-wrap: wrap;
@@ -34,6 +35,20 @@
   max-width: 10rem !important;
   min-height: 10rem !important;
   max-height: 10rem !important;
+}
+
+.upload_emoticon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+}
+
+.upload_emoticon:hover {
+  background-color: var(--hover);
+  transition: var(--hover-transition);
+  cursor: pointer;
 }
 
 .upload_list li {

@@ -76,8 +76,14 @@ const EmoticonBox = () => {
 
   return (
     <Modal id='emoticon' title='이모티콘 넣기' onOpen={loadEmoticons}>
-      <ul className={`${styles.emoticon_list} scroll-bar horizontal`}>{
-        emoticons.map(emoticon => (
+      <ul className={`${styles.emoticon_list} scroll-bar horizontal`}>
+        <li key='upload' className={styles.upload_emoticon} onClick={() => {
+          openModal('emoticon_upload');
+          closeModal('emoticon');
+        }}>
+          +
+        </li>
+        {emoticons.map(emoticon => (
           <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
             <Image
               src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
@@ -86,8 +92,8 @@ const EmoticonBox = () => {
               alt={emoticon.name}
             />
           </li>
-        ))
-      }</ul>
+        ))}
+      </ul>
       <ul className={`${styles.emoticon_item_list} scroll-bar`}>{
         emoticonItems.map(item => (
           <li key={`${selectId}/${item.idx}`} onClick={() => insertEmoticon(selectId, item)}>
@@ -98,12 +104,6 @@ const EmoticonBox = () => {
           </li>
         ))
       }</ul>
-      <p onClick={() => {
-        openModal('emoticon_upload');
-        closeModal('emoticon');
-      }}>
-        이모티콘을 업로드 하고싶나요? 여기를 누르세요
-      </p>
     </Modal>
   );
 }

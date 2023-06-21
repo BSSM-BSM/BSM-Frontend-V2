@@ -165,7 +165,6 @@ main {
   box-shadow: var(--shadow);
   overflow: hidden;
   overflow-y: auto;
-  overflow-y: overlay;
   width: calc(100vw - 25rem);
   background-color: var(--level-1);
   background-image: var(--background-image);
@@ -186,24 +185,23 @@ main {
   }
 }
 
-body, .scroll-bar {
-  overflow: auto;
-  overflow: overlay;
+body, .scroll-bar:not(.horizontal) {
+  overflow-y: auto;
 }
 
-.no-overlay {
-  overflow: auto !important;
+.scroll-bar.horizontal {
+  overflow-x: auto;
 }
 
 :is(
   body,
   .scroll-bar
 )::-webkit-scrollbar {
-  width: 2rem;
+  width: .8rem;
 }
 
 .scroll-bar.horizontal::-webkit-scrollbar {
-  height: 1rem;
+  height: .8rem;
 }
 
 :is(
@@ -212,8 +210,6 @@ body, .scroll-bar {
 )::-webkit-scrollbar-thumb {
   background-color: var(--text-level-1);
   border-radius: 1rem;
-  border: .8rem solid transparent;
-  background-clip: padding-box;
 }
 
 .scroll-bar.horizontal::-webkit-scrollbar-thumb {

@@ -1,5 +1,5 @@
 import * as S from '@/styles/common/sidebar.style';
-import { AiFillGithub, AiOutlineUser } from 'react-icons/ai';
+import { AiFillGithub, AiOutlineHome, AiOutlineUser } from 'react-icons/ai';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { BsBox2, BsCalendar4 } from 'react-icons/bs';
 import { IoExtensionPuzzleOutline, IoPeopleOutline, IoSchoolOutline } from 'react-icons/io5';
@@ -77,6 +77,9 @@ const Sidebar = () => {
     <S.Sidebar isOpen={sideBar} className="scroll-bar">
       <S.SidebarItemList>
         <SidebarUserMenu />
+        <SidebarItem id="home" Icon={AiOutlineHome} iconSize={22} onClick={() => router.push('/')}>
+          메인
+        </SidebarItem>
         <SidebarItem id="meal" Icon={MdOutlineFastfood} iconSize={22} onClick={() => router.push('/meal')}>
           급식
         </SidebarItem>

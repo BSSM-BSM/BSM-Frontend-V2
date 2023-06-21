@@ -18,7 +18,7 @@ export const CheckList = <ID, T extends Menu<ID>>({
   callback,
   className
 }: CheckListProps<ID, T>) => (
-  <ul className={`${styles.check_list} button-wrap scroll-bar no-overlay horizontal ${className ?? ''}`}>{
+  <ul className={`${styles.check_list} button-wrap scroll-bar horizontal ${className ?? ''}`}>{
     itemList.map(item => (
       <li
         key={`${item.id}-${item.name}`}
