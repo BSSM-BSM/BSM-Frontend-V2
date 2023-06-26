@@ -83,7 +83,7 @@ export const PostItem = ({
               {totalLikes !== 0 && <span className={styles.total_likes}>{totalLikes}</span>}
               <span className={styles.post_view}>
                 <span>{view}</span>
-                <BsEyeFill size={20} />
+                <BsEyeFill size="2rem" />
               </span>
               {category !== null && <span>{categoryList[category]?.name}</span>}
               <span className={styles.post_date}>{

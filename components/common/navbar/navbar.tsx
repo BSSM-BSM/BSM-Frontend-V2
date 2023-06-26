@@ -18,7 +18,7 @@ const Navbar = () => {
         <NavbarItem
           id='timetable'
           Icon={BsCalendar4}
-          iconSize={20}
+          iconSize="2rem"
           onClick={() => router.push('/timetable')}
         >
           시간표
@@ -26,7 +26,7 @@ const Navbar = () => {
         <NavbarItem
           id='meister'
           Icon={AiOutlineUser}
-          iconSize={26}
+          iconSize="2.6rem"
           onClick={() => router.push('/meister')}
         >
           역량 인증제
@@ -34,7 +34,7 @@ const Navbar = () => {
         <NavbarItem
           id='meal'
           Icon={MdOutlineFastfood}
-          iconSize={22}
+          iconSize="2.2rem"
           onClick={() => router.push('/meal')}
         >
           급식
@@ -42,7 +42,7 @@ const Navbar = () => {
         <NavbarItem
           id='board'
           Icon={IoPeopleOutline}
-          iconSize={26}
+          iconSize="2.6rem"
           onClick={() => router.push('/board')}
         >
           커뮤니티
@@ -50,7 +50,7 @@ const Navbar = () => {
         <NavbarItem
           id='service'
           Icon={IoExtensionPuzzleOutline}
-          iconSize={26}
+          iconSize="2.6rem"
           onClick={() => router.push('/service')}
         >
           모든 서비스

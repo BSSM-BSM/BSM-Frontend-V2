@@ -30,7 +30,7 @@ const Home = () => {
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
         <EditBackgroundImageBox />
         <HiOutlinePencilAlt
-          size={20}
+          size="2rem"
           className={styles.edit_background_image}
           onClick={() => openModal('edit-background-image')}
         />

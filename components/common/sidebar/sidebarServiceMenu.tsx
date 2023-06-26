@@ -2,7 +2,6 @@ import { IoExtensionPuzzleOutline, IoGameControllerOutline } from 'react-icons/i
 import SidebarItem from '@/components/common/sidebar/sidebarItem';
 import { AiOutlineCloudServer, AiOutlineCloudUpload, AiOutlineOrderedList } from 'react-icons/ai';
 import { FiHardDrive } from 'react-icons/fi';
-import { FaSchool } from 'react-icons/fa';
 import { GiBamboo } from 'react-icons/gi';
 import { RiSurveyLine } from 'react-icons/ri';
 import { RxDiscordLogo } from 'react-icons/rx';
@@ -13,7 +12,7 @@ const SidebarServiceMenu = () => {
   const bsmServiceDropdownMenu = <>
     <SidebarItem
       Icon={MdLockPerson}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://auth.bssm.kro.kr', '_blank')}
       order={1}
     >
@@ -21,7 +20,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={AiOutlineCloudUpload}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://deploy.bssm.kro.kr', '_blank')}
       order={2}
     >
@@ -29,7 +28,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={FiHardDrive}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://drive.bssm.kro.kr', '_blank')}
       order={3}
     >
@@ -37,7 +36,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={IoGameControllerOutline}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://tetris.bssm.kro.kr', '_blank')}
       order={4}
     >
@@ -48,7 +47,7 @@ const SidebarServiceMenu = () => {
   const otherServiceDropdownMenu = <>
     <SidebarItem
       Icon={AiOutlineOrderedList}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://bgit.bssm.kro.kr', '_blank')}
       order={1}
     >
@@ -56,7 +55,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={BsWikipedia}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://bumawiki.kro.kr', '_blank')}
       order={2}
     >
@@ -64,7 +63,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={MdOutlineHomeRepairService}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://portfolio.bssm.io', '_blank')}
       order={3}
     >
@@ -72,7 +71,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={RiSurveyLine}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://www.simblue.kro.kr', '_blank')}
       order={4}
     >
@@ -80,7 +79,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={GiBamboo}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://bsmboo.kro.kr', '_blank')}
       order={5}
     >
@@ -88,7 +87,7 @@ const SidebarServiceMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={RxDiscordLogo}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://nightcord.bssm.kro.kr', '_blank')}
       order={6}
     >
@@ -116,7 +115,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       id='service'
       Icon={IoExtensionPuzzleOutline}
-      iconSize={26}
+      iconSize="2.6rem"
       dropdownMenu={serviceDropdownMenu}
       dropdownInitialOpen={true}
     >

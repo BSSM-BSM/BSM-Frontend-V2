@@ -39,7 +39,7 @@ const SidebarUserMenu = () => {
   const loginUserDropdownMenu = <>
     <SidebarItem
       Icon={AiOutlineUser}
-      iconSize={26}
+      iconSize="2.6rem"
       onClick={() => window.open('https://auth.bssm.kro.kr/user', '_blank')}
       order={1}
     >
@@ -47,7 +47,7 @@ const SidebarUserMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={FiLogOut}
-      iconSize={24}
+      iconSize="2.4rem"
       onClick={logout}
       order={2}
     >
@@ -55,7 +55,7 @@ const SidebarUserMenu = () => {
     </SidebarItem>
     <SidebarItem
       Icon={FiLogOut}
-      iconSize={24}
+      iconSize="2.4rem"
       onClick={() => {
         logout();
         window.open('https://auth.bssm.kro.kr/logout', '_blank');
@@ -95,7 +95,7 @@ const SidebarUserMenu = () => {
     : (
       <SidebarItem
         Icon={AiOutlineUser}
-        iconSize={26}
+        iconSize="2.6rem"
         onClick={() => openModal('login')}
       >
         로그인

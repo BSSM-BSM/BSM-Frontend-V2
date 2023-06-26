@@ -24,7 +24,7 @@ const Sidebar = () => {
         id="board"
         subId="board"
         Icon={IoPeopleOutline}
-        iconSize={26}
+        iconSize="2.6rem"
         onClick={() => router.push('/board/board')}
         order={1}
       >
@@ -34,7 +34,7 @@ const Sidebar = () => {
         id="board"
         subId="student"
         Icon={IoSchoolOutline}
-        iconSize={26}
+        iconSize="2.6rem"
         onClick={() => router.push('/board/student')}
         order={2}
       >
@@ -44,7 +44,7 @@ const Sidebar = () => {
         id="board"
         subId="lost-found"
         Icon={BsBox2}
-        iconSize={20}
+        iconSize="2rem"
         onClick={() => router.push('/board/lostfound')}
         order={3}
       >
@@ -54,7 +54,7 @@ const Sidebar = () => {
         id="board"
         subId="code"
         Icon={BiCodeAlt}
-        iconSize={26}
+        iconSize="2.6rem"
         onClick={() => router.push('/board/code')}
         order={4}
       >
@@ -64,7 +64,7 @@ const Sidebar = () => {
         id="board"
         subId="notice"
         Icon={AiOutlineBell}
-        iconSize={26}
+        iconSize="2.6rem"
         onClick={() => router.push('/board/notice')}
         order={5}
       >
@@ -77,22 +77,22 @@ const Sidebar = () => {
     <S.Sidebar isOpen={sideBar} className="scroll-bar">
       <S.SidebarItemList>
         <SidebarUserMenu />
-        <SidebarItem id="home" Icon={AiOutlineHome} iconSize={22} onClick={() => router.push('/')}>
+        <SidebarItem id="home" Icon={AiOutlineHome} iconSize="2.2rem" onClick={() => router.push('/')}>
           메인
         </SidebarItem>
-        <SidebarItem id="meal" Icon={MdOutlineFastfood} iconSize={22} onClick={() => router.push('/meal')}>
+        <SidebarItem id="meal" Icon={MdOutlineFastfood} iconSize="2.2rem" onClick={() => router.push('/meal')}>
           급식
         </SidebarItem>
-        <SidebarItem id="meister" Icon={AiOutlineUser} iconSize={26} onClick={() => router.push('/meister')}>
+        <SidebarItem id="meister" Icon={AiOutlineUser} iconSize="2.6rem" onClick={() => router.push('/meister')}>
           마이스터 역량 인증제
         </SidebarItem>
-        <SidebarItem id="timetable" Icon={BsCalendar4} iconSize={22} onClick={() => router.push('/timetable')}>
+        <SidebarItem id="timetable" Icon={BsCalendar4} iconSize="2.2rem" onClick={() => router.push('/timetable')}>
           시간표
         </SidebarItem>
         <SidebarItem
           id="board"
           Icon={IoPeopleOutline}
-          iconSize={26}
+          iconSize="2.6rem"
           dropdownMenu={boardDropdownMenu}
           dropdownInitialOpen={true}
         >
@@ -101,14 +101,14 @@ const Sidebar = () => {
         <SidebarServiceMenu />
         <SidebarItem
           Icon={AiFillGithub}
-          iconSize={26}
+          iconSize="2.6rem"
           onClick={() => window.open('https://github.com/BSSM-BSM', '_blank')}
         >
           깃허브
         </SidebarItem>
         <SidebarItem
           Icon={FaSchool}
-          iconSize={26}
+          iconSize="2.6rem"
           onClick={() => window.open('https://school.busanedu.net/bssm-h/main.do', '_blank')}
           order={1}
         >

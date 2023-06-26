@@ -7,7 +7,7 @@ interface NavbarItemProps {
   subId?: string,
   Icon?: IconType,
   IconElement?: ReactNode,
-  iconSize?: number,
+  iconSize?: number | string,
   children?: ReactNode,
   onClick?: () => void;
 }

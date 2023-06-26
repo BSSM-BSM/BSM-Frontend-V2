@@ -9,7 +9,7 @@ interface SidebarItemProps {
   order?: number,
   Icon?: IconType,
   IconElement?: ReactNode,
-  iconSize?: number,
+  iconSize?: number | string,
   children?: ReactNode,
   onClick?: () => void;
   dropdownMenu?: ReactNode,
