@@ -11,6 +11,5 @@ export const activePageCheck = ({id, subId}: Page, strict?: boolean) => {
   const {id: currentId, subId: currentSubId} = getRecoil(pageState);
 
   if (!strict && !subId) return currentId === id;
-  console.log(currentId === id && currentSubId === subId, currentId, id, currentSubId, subId)
   return currentId === id && currentSubId === subId;
 }

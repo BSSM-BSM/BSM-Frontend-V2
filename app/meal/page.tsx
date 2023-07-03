@@ -1,13 +1,13 @@
 'use client';
 
 import styles from '@/styles/meal.module.css';
-import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { HttpMethod, useAjax } from "@/hooks/useAjax";
-import { useOverlay } from "@/hooks/useOverlay";
-import { screenScaleState, headerOptionState, pushSubscriptionState, pageState } from "@/store/common.store";
-import { MealRes, MealTime, MealTimeRange, MealType } from "@/types/meal.types";
-import { subscribe } from "@/utils/webPush";
+import { useEffect, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { HttpMethod, useAjax } from '@/hooks/useAjax';
+import { useOverlay } from '@/hooks/useOverlay';
+import { screenScaleState, headerOptionState, pushSubscriptionState, pageState } from '@/store/common.store';
+import { MealRes, MealTime, MealTimeRange, MealType } from '@/types/meal.types';
+import { subscribe } from '@/utils/webPush';
 import { MealItem } from '@/components/meal/mealItem';
 import { Button } from '@/components/common/buttons/button';
 import { dateToShortDateStr, shrotDateStrToDate, timeToTotalSecond } from '@/utils/date';
@@ -33,17 +33,17 @@ const MealPage = () => {
     setHeaderOption({ title: '급식', headTitle: '급식 - BSM' });
     setPage({ id: 'meal' });
     (async () => {
-      const initialMeal = await loadMealList(dateToShortDateStr(new Date));
+      const initialMeal = await loadMealList(dateToShortDateStr(new Date()));
       calcNextTimeMeal(initialMeal);
       setMealList(initialMeal);
     })();
     window.addEventListener('resize', calcViewRange);
     return () => {
       window.removeEventListener('resize', calcViewRange);
-    }
+    };
   }, []);
 
-  useEffect(() => calcViewRange(), [screenScale])
+  useEffect(() => calcViewRange(), [screenScale]);
 
   useEffect(() => {
     renderMeal();
@@ -51,7 +51,7 @@ const MealPage = () => {
 
   const calcNextTimeMeal = (mealList: MealType[]) => {
     const nowTotalSecond = timeToTotalSecond(new Date());
-    mealList.some((meal) => {
+    mealList.some(meal => {
       return MealTimeRange.some((time, i) => {
         if (meal.time === undefined) {
           setMealIdx(prev => ++prev);
@@ -61,25 +61,22 @@ const MealPage = () => {
         if (i > mealList.length) {
           setMealIdx(prev => prev + mealList.length);
           return true;
-        };
+        }
         setMealIdx(prev => prev + i);
         return true;
       });
     });
-  }
+  };
 
   const loadMealList = (date: string): Promise<MealType[]> => {
     return new Promise(async (resolve, reject) => {
       const [data, error] = await ajax<MealRes>({
         url: `meal/${date}`,
-        method: HttpMethod.GET,
+        method: HttpMethod.GET
       });
       if (error) return reject();
       if (!Object.keys(data.data).length) {
-        resolve([{
-          date,
-          content: '급식이 없습니다'
-        }]);
+        resolve([{ date }]);
       }
 
       const keys = Object.keys(MealTime);
@@ -91,8 +88,8 @@ const MealPage = () => {
           date
         }))
       );
-    })
-  }
+    });
+  };
 
   const calcViewRange = () => {
     const screenWidth = ((window.innerWidth - 250) / screenScale) * 100;
@@ -100,7 +97,7 @@ const MealPage = () => {
     if (range < 3) range = 3;
     if (range % 2 === 0) range++;
     setViewRange(range);
-  }
+  };
 
   const renderMeal = async () => {
     if (!mealList.length) return;
@@ -109,8 +106,8 @@ const MealPage = () => {
     const offset = Math.floor(viewRange / 2);
 
     const loadPromises: {
-      prev?: Promise<MealType[]>,
-      next?: Promise<MealType[]>
+      prev?: Promise<MealType[]>;
+      next?: Promise<MealType[]>;
     } = {};
     let loadFlag = false;
 
@@ -144,10 +141,7 @@ const MealPage = () => {
       }
     });
     if (loadFlag) {
-      const [prevMeals, nextMeals] = await Promise.all([
-        loadPromises.prev ?? [],
-        loadPromises.next ?? []
-      ]);
+      const [prevMeals, nextMeals] = await Promise.all([loadPromises.prev ?? [], loadPromises.next ?? []]);
 
       setMealList(prev => {
         return [...prevMeals, ...prev, ...nextMeals];
@@ -156,7 +150,7 @@ const MealPage = () => {
         setMealIdx(prev => prev + prevMeals.length);
       }
       return;
-    };
+    }
 
     // 전부 같은 날인지 확인
     tempMealList.some((meal, i) => {
@@ -171,7 +165,7 @@ const MealPage = () => {
     });
 
     setRenderMealList(tempMealList);
-  }
+  };
 
   const checkShowMealDate = (meal: MealType, i: number): boolean => {
     const next = renderMealList[i + 1];
@@ -179,24 +173,28 @@ const MealPage = () => {
       return false;
     }
     const prev = renderMealList[i - 1];
-    if ((i == renderMealList.length - 1) && prev?.date === meal.date) {
+    if (i == renderMealList.length - 1 && prev?.date === meal.date) {
       return false;
     }
     if (prev?.date === meal.date && next?.date === meal.date) {
       return false;
     }
     return true;
-  }
+  };
 
   return (
     <div>
       <>
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
       </>
-      {
-        pushSubscription === null &&
-        <Button className={`${styles.notification_button} accent`} onClick={() => subscribe(ajax, setPushSubscription, showToast)}>급식 알림 받기</Button>
-      }
+      {pushSubscription === null && (
+        <Button
+          className={`${styles.notification_button} accent`}
+          onClick={() => subscribe(ajax, setPushSubscription, showToast)}
+        >
+          급식 알림 받기
+        </Button>
+      )}
       <div className={styles.meals_wrap}>
         <ul className={styles.meals}>
           {renderMealList.map((meal, i) => (
@@ -204,7 +202,7 @@ const MealPage = () => {
               key={`${meal.date}/${meal.time}`}
               meal={meal}
               i={i}
-              middleIdx={Math.floor((renderMealList.length) / 2)}
+              middleIdx={Math.floor(renderMealList.length / 2)}
               setMealIdx={setMealIdx}
               isSameDay={isSameDay}
               checkShowMealDate={checkShowMealDate}
@@ -214,6 +212,6 @@ const MealPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default MealPage;

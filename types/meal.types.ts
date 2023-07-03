@@ -30,7 +30,7 @@ export const MealTimeRange = [
 export interface MealType {
   date: string,
   time?: MealTime,
-  content: string,
+  content?: string,
   cal?: number
 }
 

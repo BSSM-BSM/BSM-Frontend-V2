@@ -93,6 +93,7 @@
 
 .edit_background_image {
   position: absolute;
+  z-index: 99;
   top: 1rem;
   right: 1rem;
   padding: 1rem;
