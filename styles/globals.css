@@ -124,7 +124,7 @@ body.dark {
 }
 
 :root {
-  --vh: 100%
+  --vh: 1vh;
 }
 
 html {

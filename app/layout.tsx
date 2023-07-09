@@ -25,8 +25,11 @@ export default function RootLayout({
     }
     window.addEventListener('resize', () => upadteScreenHeight());
   }, []);
+
+  useEffect(() => {
+    upadteScreenHeight();
+  }, [typeof window]);
   
-  upadteScreenHeight();
 
   return (
     <html lang="kr">
