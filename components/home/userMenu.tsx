@@ -1,4 +1,3 @@
-import styles from '@/styles/home.module.css';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userState } from "@/store/account.store";
@@ -7,6 +6,7 @@ import Image, { StaticImageData } from 'next/image';
 import DefaultProfilePic from '@/public/icons/profile_default.png';
 import { useModal } from '@/hooks/useModal';
 import { getProfileSrc } from '@/utils/userUtil';
+import * as S from '@/styles/home.style';
 
 export const UserHomeMenu = () => {
   const [mounted, setMounted] = useState(false);
@@ -25,8 +25,8 @@ export const UserHomeMenu = () => {
 
   return (
     mounted && user.isLogin
-      ? <a className={styles.menu} href='https://auth.bssm.kro.kr/user'>
-        <div className={`${styles.user_icon} user-profile`}>
+      ? <S.LoginUserMenu href='https://auth.bssm.kro.kr/user'>
+        <S.UserProfile>
           <Image
             src={profileSrc}
             onError={() => setProfileSrc(DefaultProfilePic)}
@@ -34,21 +34,21 @@ export const UserHomeMenu = () => {
             height='128'
             alt='user profile'
           />
-        </div>
+        </S.UserProfile>
         <div>
-          <div className={styles.sub_content}>
+          <h5>
             {
               user.role === UserRole.STUDENT
                 ? `${user.student.grade}학년 ${user.student.classNo}반 ${user.student.studentNo}번 ${user.student?.name}`
                 : `${user.teacher?.name} 선생님`
             }
-          </div>
-          <div className={styles.main_content}>{user.nickname}</div>
+          </h5>
+          <h4>{user.nickname}</h4>
         </div>
-      </a>
-      : <div className={styles.menu} onClick={() => openModal('login')}>
-        <img className={styles.icon} src='/icons/person.svg' alt='login' />
+      </S.LoginUserMenu>
+      : <S.NoLoginUserMenu onClick={() => openModal('login')}>
+        <img src='/icons/person.svg' alt='login' />
         <span>로그인</span>
-      </div>
+      </S.NoLoginUserMenu>
   );
 }
