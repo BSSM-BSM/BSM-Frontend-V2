@@ -1,11 +1,10 @@
 import styles from '@/styles/home.module.css';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { useModal } from '@/hooks/useModal';
 import { userState } from '@/store/account.store';
-import { HomeMenuMeisterInfo } from '@/types/meister.type';
+import { HomeWidgetMeisterInfo } from '@/types/meister.type';
 import Modal from '@/components/common/modal';
 import { elapsedTime } from '@/utils/date';
 import * as S from '@/styles/home.style';
@@ -14,9 +13,9 @@ import { TbRefresh } from 'react-icons/tb';
 
 const meisterActivated = true;
 
-export const MeisterHomeMenu = () => {
+export const MeisterHomeWidget = () => {
   const [user] = useRecoilState(userState);
-  const [meisterInfo, setMeisterInfo] = useState<HomeMenuMeisterInfo>({
+  const [meisterInfo, setMeisterInfo] = useState<HomeWidgetMeisterInfo>({
     isLoading: true,
     lastUpdate: '',
     error: false
@@ -37,7 +36,7 @@ export const MeisterHomeMenu = () => {
       error: false
     });
 
-    const [data, error] = await ajax<HomeMenuMeisterInfo>({
+    const [data, error] = await ajax<HomeWidgetMeisterInfo>({
       url: `meister${type === 'update' ? '/update' : ''}`,
       method: HttpMethod.GET,
       errorCallback(data) {
@@ -122,7 +121,7 @@ export const MeisterHomeMenu = () => {
 
   return (
     <>
-      <S.MeisterMenu href="/meister">
+      <S.MeisterWidget href="/meister">
         <AiOutlineUser size="3rem" />
         <div>
           <h5>
@@ -143,7 +142,7 @@ export const MeisterHomeMenu = () => {
           </h5>
           <h4 className={styles.main_content}>{meisterInfoView()}</h4>
         </div>
-      </S.MeisterMenu>
+      </S.MeisterWidget>
       <Modal type="main" id="meister_login_error" title="해결 방법">
         <div>
           <a href="https://bssm.meistergo.co.kr" className="accent-text">

@@ -500,6 +500,6 @@ label, summary{
 }
 
 .react-resizable-handle::after {
-  border-right: 2px solid var(--text) !important;
-  border-bottom: 2px solid var(--text) !important;
+  border-right: 2px solid var(--text-level-1) !important;
+  border-bottom: 2px solid var(--text-level-1) !important;
 }

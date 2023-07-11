@@ -18,10 +18,6 @@
 }
 
 .edit_background_image {
-  position: absolute;
-  z-index: 99;
-  top: 1rem;
-  right: 1rem;
   padding: 1rem;
   background-color: var(--level-0-opacity);
   border-radius: .5rem;

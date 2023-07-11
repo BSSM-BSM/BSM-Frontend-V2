@@ -1,13 +1,15 @@
+import { widgetLockState } from "@/store/widget.store";
 import Link from "next/link";
+import { getRecoil } from "recoil-nexus";
 import styled, { css } from "styled-components";
 
-export const MenuWrap = styled.div`
+export const WidgetWrap = styled.div`
   width: 100%;
   min-height: 100%;
   padding: .5rem;
 `;
 
-export const MenuCss = css`
+export const WidgetCss = css`
   height: 100%;
   display: flex;
   align-items: center;
@@ -19,6 +21,11 @@ export const MenuCss = css`
   font-size: 1.8rem;
   font-weight: bold;
   background-color: var(--level-3-opacity);
+
+  ${() => {
+    const isWidgetLock = getRecoil(widgetLockState);
+    return isWidgetLock ?`` : 'pointer-events: none;';
+  }}
 
   &:hover {
     background-color: var(--hover);
@@ -34,12 +41,12 @@ export const MenuCss = css`
   }
 `;
 
-export const Menu = styled.div`
-  ${MenuCss}
+export const Widget = styled.div`
+  ${WidgetCss}
 `;
 
-export const LoginUserMenu = styled(Link)`
-  ${MenuCss}
+export const LoginUserWidget = styled(Link)`
+  ${WidgetCss}
 
 `;
 
@@ -53,12 +60,12 @@ export const UserProfile = styled.div`
   }
 `
 
-export const NoLoginUserMenu = styled(Menu)`
+export const NoLoginUserWidget = styled(Widget)`
 
 `;
 
-export const MeisterMenu = styled(Link)`
-  ${MenuCss}
+export const MeisterWidget = styled(Link)`
+  ${WidgetCss}
 
   h4 {
     font-size: 1.6rem;

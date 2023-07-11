@@ -8,7 +8,7 @@ import { useModal } from '@/hooks/useModal';
 import { getProfileSrc } from '@/utils/userUtil';
 import * as S from '@/styles/home.style';
 
-export const UserHomeMenu = () => {
+export const UserHomeWidget = () => {
   const [mounted, setMounted] = useState(false);
   const { openModal } = useModal();
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
@@ -25,7 +25,7 @@ export const UserHomeMenu = () => {
 
   return (
     mounted && user.isLogin
-      ? <S.LoginUserMenu href='https://auth.bssm.kro.kr/user'>
+      ? <S.LoginUserWidget href='https://auth.bssm.kro.kr/user'>
         <S.UserProfile>
           <Image
             src={profileSrc}
@@ -45,10 +45,10 @@ export const UserHomeMenu = () => {
           </h5>
           <h4>{user.nickname}</h4>
         </div>
-      </S.LoginUserMenu>
-      : <S.NoLoginUserMenu onClick={() => openModal('login')}>
+      </S.LoginUserWidget>
+      : <S.NoLoginUserWidget onClick={() => openModal('login')}>
         <img src='/icons/person.svg' alt='login' />
         <span>로그인</span>
-      </S.NoLoginUserMenu>
+      </S.NoLoginUserWidget>
   );
 }

@@ -6,7 +6,7 @@ export interface MeisterInfo {
   negativePoint: number;
 }
 
-export interface HomeMenuMeisterInfo {
+export interface HomeWidgetMeisterInfo {
   isLoading: boolean;
   score?: number;
   positivePoint?: number;
