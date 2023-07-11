@@ -498,3 +498,8 @@ label, summary{
   width: 2rem;
   height: 2rem;
 }
+
+.react-resizable-handle::after {
+  border-right: 2px solid var(--text) !important;
+  border-bottom: 2px solid var(--text) !important;
+}

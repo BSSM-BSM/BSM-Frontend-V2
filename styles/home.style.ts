@@ -4,14 +4,11 @@ import styled, { css } from "styled-components";
 export const MenuWrap = styled.div`
   width: 100%;
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding: .5rem;
 `;
 
 export const MenuCss = css`
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 1.5rem;

@@ -4,14 +4,12 @@ import styles from '@/styles/home.module.css';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { headerOptionState, pageState } from '@/store/common.store';
-import { MeisterHomeMenu } from '@/components/home/meisterMenu';
-import { UserHomeMenu } from '@/components/home/userMenu';
 import { Banner, BannerPos } from '@/components/common/banner';
 import { BannerType } from '@/types/banner.type';
 import { EditBackgroundImageBox } from '@/components/home/editBackgroundImagePopup';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { useModal } from '@/hooks/useModal';
-import * as S from '@/styles/home.style';
+import { HomeWidget } from '@/components/home/homeWidget';
 
 const Home = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
@@ -35,10 +33,7 @@ const Home = () => {
           onClick={() => openModal('edit-background-image')}
         />
       </>
-      <S.MenuWrap>
-        <UserHomeMenu />
-        <MeisterHomeMenu />
-      </S.MenuWrap>
+      <HomeWidget />
     </>
   );
 };
