@@ -12,6 +12,18 @@ import { widgetLockState } from '@/store/widget.store';
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
+const breakpoints: { [index: string]: number } = {};
+const cols: { [index: string]: number } = {};
+const WIDGET_COL_WIDTH = 36;
+const MAX_CONTAINER_WIDTH = 1920;
+
+let maxBreakPoint = 0;
+for (let i = 4; i * WIDGET_COL_WIDTH < MAX_CONTAINER_WIDTH; i += 2) {
+  breakpoints[i] = i * WIDGET_COL_WIDTH;
+  cols[i] = i;
+  maxBreakPoint = i;
+}
+
 export const WidgetContainer = () => {
   const [widgetList, setWidgetList] = useState<Widget[]>([]);
   const isWidgetLock = useRecoilValue(widgetLockState);
@@ -23,7 +35,7 @@ export const WidgetContainer = () => {
         element: <HomeToolBox />,
         x: 1000,
         y: 0,
-        w: 2,
+        w: 3,
         h: 1,
         static: true
       },
@@ -32,9 +44,9 @@ export const WidgetContainer = () => {
         element: <UserHomeWidget />,
         x: 0,
         y: 0,
-        w: 6,
+        w: 7,
         h: 2,
-        minW: 6,
+        minW: 7,
         minH: 2,
         resizeHandles: ['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne']
       },
@@ -43,9 +55,9 @@ export const WidgetContainer = () => {
         element: <MeisterHomeWidget />,
         x: 0,
         y: 1,
-        w: 7,
+        w: 9,
         h: 2,
-        minW: 7,
+        minW: 9,
         minH: 2,
         resizeHandles: ['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne']
       }
@@ -56,20 +68,14 @@ export const WidgetContainer = () => {
     <S.WidgetWrap>
       <ResponsiveGridLayout
         layouts={{
-          lg: widgetList
+          [maxBreakPoint]: widgetList
         }}
-        breakpoints={{
-          lg: 1200,
-          md: 996,
-          sm: 768,
-          xs: 480
-        }}
-        cols={{ lg: 35, md: 10, sm: 6, xs: 4, xxs: 2 }}
+        breakpoints={breakpoints}
+        cols={cols}
         rowHeight={35}
-        width={1200}
         isResizable={!isWidgetLock}
         isDraggable={!isWidgetLock}
-        verticalCompact={false}
+        compactType={null}
       >
         {widgetList.map(widget => (
           <div key={widget.i}>{widget.element}</div>

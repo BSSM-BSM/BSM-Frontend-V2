@@ -9,13 +9,35 @@ export const WidgetWrap = styled.div`
   padding: .5rem;
 `;
 
+export const ToolBox = styled.div`
+  display: flex;
+  gap: .5rem;
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  
+  & > * {
+    padding: 1rem;
+    background-color: var(--level-3-opacity);
+    border-radius: .5rem;
+    transition: var(--hover-transition);
+    cursor: pointer;
+    &:hover {
+      background-color: var(--hover);
+    }
+  }
+`;
+
 export const WidgetCss = css`
   height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1.5rem;
   padding: 2rem;
   border-radius: .75rem;
+  overflow: hidden;
   transition: var(--hover-transition);
   cursor: pointer;
   font-size: 1.8rem;
@@ -47,7 +69,11 @@ export const Widget = styled.div`
 
 export const LoginUserWidget = styled(Link)`
   ${WidgetCss}
-
+  h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 `;
 
 export const UserProfile = styled.div`

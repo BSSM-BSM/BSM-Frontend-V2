@@ -17,18 +17,6 @@
   font-size: 1.8rem;
 }
 
-.edit_background_image {
-  padding: 1rem;
-  background-color: var(--level-0-opacity);
-  border-radius: .5rem;
-  transition: var(--hover-transition);
-  cursor: pointer;
-}
-
-.edit_background_image:hover {
-  background-color: var(--hover);
-}
-
 /* 가로 메뉴 */
 @media screen and (min-height: 0px) and (max-height: 600px) {
 
