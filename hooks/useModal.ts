@@ -2,10 +2,14 @@ import { useRecoilState } from "recoil";
 import { ModalState, modalState } from "@/store/modal.store";
 
 interface UseModal {
-  openModal: (key: string, closeable?: boolean) => void;
-  closeModal: (key: string) => void;
-  closeAllModal: () => void;
+  openModal: OpenModal;
+  closeModal: CloseModal;
+  closeAllModal: CloseAllModal;
 }
+
+export type OpenModal = (key: string, closeable?: boolean) => void;
+export type CloseModal = (key: string) => void;
+export type CloseAllModal = () => void;
 
 export const useModal = (): UseModal => {
   const [modalList, setModalList] = useRecoilState(modalState);
