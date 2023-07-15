@@ -34,7 +34,7 @@ const CreateTimetable = ({
 
   const createTimetable = async () => {
     const [, error] = await ajax({
-      url: `admin`,
+      url: 'admin/timetable',
       method: HttpMethod.POST,
       payload: {
         name,
