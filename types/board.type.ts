@@ -3,6 +3,12 @@ export interface UserInfo {
   nickname: string
 }
 
+export enum AnonymousType {
+  VISIBLE = 'VISIBLE',
+  INVISIBLE = 'INVISIBLE',
+  NO_RECORD = 'NO_RECORD'
+}
+
 export interface BoardAndPostId {
   boardId: string,
   postId: number
@@ -40,7 +46,7 @@ export interface DetailPost extends Post {
   content: string,
   permission: boolean,
   myLike: number,
-  anonymous: boolean
+  isAnonymous: boolean
 }
 
 export interface BoardListRes extends Omit<Board, 'categoryList'> {
@@ -63,6 +69,7 @@ export interface Comment {
   content: string,
   createdAt: string,
   permission: boolean,
+  isAnonymous: boolean,
   depth: number,
   delete: false,
   child?: (Comment | DeletedComment)[]
@@ -71,7 +78,8 @@ export interface Comment {
 export interface DeletedComment {
   id: number,
   depth: number,
-  delete: true
+  isAnonymous: boolean,
+  delete: true,
   child?: (Comment | DeletedComment)[]
 }
 

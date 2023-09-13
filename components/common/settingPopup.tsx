@@ -4,7 +4,7 @@ import { useAjax } from "@/hooks/useAjax";
 import { useModal } from "@/hooks/useModal";
 import { useOverlay } from "@/hooks/useOverlay";
 import { userState } from "@/store/account.store";
-import { boardAnonymousModeState, boardDetailTimeState, boardOpenAllChildCommentsState, postLimitState } from "@/store/setting/board.store";
+import { boardAnonymousModeState, boardDetailTimeState, boardNoRecordModeState, boardOpenAllChildCommentsState, postLimitState } from "@/store/setting/board.store";
 import { customBackgroundOnlyHomeState, pushSubscriptionState, screenScaleState, themeState } from "@/store/common.store";
 import { subscribe, unsubscribe } from "@/utils/webPush";
 import { ToggleButton } from "@/components/common/buttons/toggleButton";
@@ -22,6 +22,7 @@ export const SettingBox = () => {
   const [postLimit, setPostLimit] = useRecoilState(postLimitState);
   const [boardDetailTime, setBoardDetailTime] = useRecoilState(boardDetailTimeState);
   const [boardAnonymousMode, setBoardAnonymousMode] = useRecoilState(boardAnonymousModeState);
+  const [boardNoRecordMode, setBoardNoRecordMode] = useRecoilState(boardNoRecordModeState);
   const [boardOpenAllChildComments, setBoardOpenAllChildComments] = useRecoilState(boardOpenAllChildCommentsState);
   const [customBackgroundOnlyHome, setCustomBackgroundOnlyHome] = useRecoilState(customBackgroundOnlyHomeState);
 
@@ -104,7 +105,16 @@ export const SettingBox = () => {
           <ul className='list'>
             <li className='toggle'>
               <span>익명 모드</span>
-              <span>댓글 및 글쓰기시 익명으로 작성</span>
+              <span>글쓰기 시 DB에 유저 데이터 저장안함</span>
+              <ToggleButton
+                onCallback={() => setBoardNoRecordMode(true)}
+                offCallback={() => setBoardNoRecordMode(false)}
+                value={boardNoRecordMode}
+              />
+            </li>
+            <li className='toggle'>
+              <span>닉네임 숨기기</span>
+              <span>글쓰기 시 닉네임 숨김</span>
               <ToggleButton
                 onCallback={() => setBoardAnonymousMode(true)}
                 offCallback={() => setBoardAnonymousMode(false)}

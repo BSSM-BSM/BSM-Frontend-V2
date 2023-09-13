@@ -1,12 +1,13 @@
 import styles from '@/styles/board/comment.module.css';
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { HttpMethod, useAjax } from "@/hooks/useAjax";
 import { boardActiveEditorState, boardAndPostIdState, parentCommentState } from "@/store/board.store"
 import { EditorInput } from "@/components/common/inputs/editorInput";
 import { useModal } from '@/hooks/useModal';
 import { Button } from '@/components/common/buttons/button';
-import { boardAnonymousModeState } from '@/store/setting/board.store';
+import { boardAnonymousModeState, boardNoRecordModeState } from '@/store/setting/board.store';
+import { AnonymousType } from '@/types/board.type';
 
 interface CommentWriteProps {
   loadComments: Function
@@ -17,7 +18,8 @@ export const CommentWrite = ({
 }: CommentWriteProps) => {
   const { ajax } = useAjax();
   const { openModal } = useModal();
-  const [boardAnonymousMode, setBoardAnonymousMode] = useRecoilState(boardAnonymousModeState);
+  const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
+  const boardNoRecordMode = useRecoilValue(boardNoRecordModeState);
   const [boardAndPostId] = useRecoilState(boardAndPostIdState);
   const { boardId, postId } = boardAndPostId;
   const [content, setContent] = useState<string | null>('');
@@ -35,7 +37,7 @@ export const CommentWrite = ({
         depth: depth + 1,
         parentId,
         content,
-        anonymous: boardAnonymousMode
+        anonymous: boardNoRecordMode ? AnonymousType.NO_RECORD : boardAnonymousMode ? AnonymousType.INVISIBLE : AnonymousType.VISIBLE
       }
     });
     if (error) return;
@@ -61,10 +63,7 @@ export const CommentWrite = ({
           setCallback={setContent}
           placeholder={<>
             <span>{parentComment ? `${nickname}에게 답글` : '댓글'}</span>
-            <label className='rows gap-05'>
-              <span>익명</span>
-              <input type="checkbox" checked={boardAnonymousMode} onChange={e => setBoardAnonymousMode(e.target.checked)} />
-            </label>
+            <span>{boardNoRecordMode ? '(익명)' : boardAnonymousMode ? '(닉네임 숨김)' : '(닉네임 표시)'}</span>
           </>}
           className='comment-input scroll-bar'
           refCallback={setActiveEditor}

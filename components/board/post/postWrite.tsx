@@ -4,14 +4,14 @@ import { HttpMethod, useAjax } from "@/hooks/useAjax";
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinymceEditor } from "tinymce";
 import { TextInput } from "@/components/common/inputs/textInput";
-import { Category, DetailPost } from "@/types/board.type";
+import { AnonymousType, Category, DetailPost } from "@/types/board.type";
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { boardActiveEditorState, postIdState } from '@/store/board.store';
 import { useModal } from '@/hooks/useModal';
 import { Button } from '@/components/common/buttons/button';
 import { CheckList } from '@/components/common/buttons/checkList';
-import { boardAnonymousModeState } from '@/store/setting/board.store';
+import { boardAnonymousModeState, boardNoRecordModeState } from '@/store/setting/board.store';
 import { themeState } from '@/store/common.store';
 
 interface PostWriteProps {
@@ -42,7 +42,8 @@ export const PostWrite = ({
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<string>('normal');
-  const [boardAnonymousMode] = useRecoilState(boardAnonymousModeState);
+  const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
+  const boardNoRecordMode = useRecoilValue(boardNoRecordModeState);
   const [activeEditor, setActiveEditor] = useRecoilState(boardActiveEditorState);
   const [editor, setEditor] = useState<TinymceEditor>();
 
@@ -72,7 +73,7 @@ export const PostWrite = ({
         title,
         content,
         categoryId: category,
-        anonymous: boardAnonymousMode
+        anonymous: boardNoRecordMode ? AnonymousType.NO_RECORD : boardAnonymousMode ? AnonymousType.INVISIBLE : AnonymousType.VISIBLE
       }
     });
     if (error) return;
@@ -89,7 +90,7 @@ export const PostWrite = ({
         title,
         content,
         categoryId: category,
-        anonymous: boardAnonymousMode
+        anonymous: boardNoRecordMode ? AnonymousType.NO_RECORD : boardAnonymousMode ? AnonymousType.INVISIBLE : AnonymousType.VISIBLE
       }
     });
     if (error) return;

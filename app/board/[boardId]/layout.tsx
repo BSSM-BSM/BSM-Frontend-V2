@@ -13,7 +13,7 @@ import { Board, BoardListRes, Category, Comment, DeletedComment, DetailPost } fr
 import { PostView } from '@/components/board/post/postView';
 import { EmoticonBoxWrap } from '@/components/board/emoticonBox';
 import { PostWrite } from '@/components/board/post/postWrite';
-import { boardAnonymousModeState } from '@/store/setting/board.store';
+import { boardAnonymousModeState, boardNoRecordModeState } from '@/store/setting/board.store';
 import Link from 'next/link';
 
 interface BoardLayoutProps {
@@ -29,6 +29,7 @@ const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
   const setPage = useSetRecoilState(pageState);
   const setBoardAndPostId = useSetRecoilState(boardAndPostIdState);
   const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
+  const boardNoRecordMode = useRecoilValue(boardNoRecordModeState);
 
   const postId = useRecoilValue(postIdState);
   const editPostId = useRecoilValue(editPostIdState);
@@ -45,9 +46,9 @@ const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
     else if (postId === undefined) setHeaderOption({ title: boardList[boardId]?.boardName });
     else if (postId === 'write')
       setHeaderOption({
-        title: `글쓰기 ${boardAnonymousMode ? '(익명 On)' : '(익명 Off)'}`
+        title: `글쓰기 ${boardNoRecordMode ? '(익명)' : boardAnonymousMode ? '(닉네임 숨김)' : '(닉네임 표시)'}`
       });
-  }, [boardId, postId, boardList, post, boardAnonymousMode]);
+  }, [boardId, postId, boardList, post, boardAnonymousMode, boardNoRecordMode]);
 
   useEffect(() => {
     if (typeof boardId !== 'string') return;
