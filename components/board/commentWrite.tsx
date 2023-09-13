@@ -28,6 +28,7 @@ export const CommentWrite = ({
   const [, setActiveEditor] = useRecoilState(boardActiveEditorState);
 
   const writeComment = async () => {
+    if (!confirm('익명 댓글은 수정할 수 없습니다!\n정말 익명으로 작성하시겠습니까?')) return;
     const [, error] = await ajax({
       method: HttpMethod.POST,
       url: 'comment',
