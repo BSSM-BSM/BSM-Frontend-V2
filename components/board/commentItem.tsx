@@ -16,6 +16,7 @@ export const CommentList = ({
   comment,
   loadComments,
   deleteComment,
+  updateCommentNoRecordMode,
   boardDetailTime,
   commentXssFilter,
   boardAndPostId
@@ -23,6 +24,7 @@ export const CommentList = ({
   comment: Comment | DeletedComment,
   loadComments: Function,
   deleteComment: Function,
+  updateCommentNoRecordMode: Function,
   boardDetailTime: boolean,
   commentXssFilter: FilterXSS,
   boardAndPostId: BoardAndPostId
@@ -67,7 +69,8 @@ export const CommentList = ({
                           meatballsMenu={true}
                           menus={[
                             { text: '삭제', callback: () => deleteComment(comment.id) },
-                            { text: '답글', callback: () => setParentComment(comment) }
+                            { text: '답글', callback: () => setParentComment(comment) },
+                            { text: '익명으로 전환', callback: () => updateCommentNoRecordMode(comment.id) }
                           ]}
                         />
                       }
@@ -95,6 +98,7 @@ export const CommentList = ({
                   comment={child}
                   loadComments={loadComments}
                   deleteComment={deleteComment}
+                  updateCommentNoRecordMode={updateCommentNoRecordMode}
                   boardDetailTime={boardDetailTime}
                   commentXssFilter={commentXssFilter}
                   boardAndPostId={boardAndPostId}

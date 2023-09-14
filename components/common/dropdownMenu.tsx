@@ -22,7 +22,10 @@ export const DropdownMenu = ({
   className,
   titleClassName
 }: DropdownMenuProps) => (
-  <div className={`${styles.dropdown_menu} ${meatballsMenu? styles.meatballs_menu: ''} ${className}`}>
+  <div
+    className={`${styles.dropdown_menu} ${meatballsMenu? styles.meatballs_menu: ''} ${className}`}
+    onClick={e => e.stopPropagation()}
+  >
     {
       button
       ? <Button className={`${styles.title} ${titleClassName} ${mark? styles.mark: ''}`}>{meatballsMenu? '···': title}</Button>

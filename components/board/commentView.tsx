@@ -38,6 +38,17 @@ export const CommentView = ({
     loadComments();
   }
 
+  const updateCommentNoRecordMode = async (id: number) => {
+    if (!confirm('정말 익명으로 변경하시겠습니까?')) return;
+    const [, error] = await ajax({
+      url: `comment/${boardId}/${postId}/${id}/no-record`,
+      method: HttpMethod.PUT,
+    });
+    if (error) return;
+
+    loadComments();
+  }
+
   useEffect(() => {
     renderEmoticon();
   }, [commentList]);
@@ -50,6 +61,7 @@ export const CommentView = ({
           comment={comment}
           loadComments={loadComments}
           deleteComment={deleteComment}
+          updateCommentNoRecordMode={updateCommentNoRecordMode}
           boardDetailTime={boardDetailTime}
           commentXssFilter={commentXssFilter}
           boardAndPostId={boardAndPostId}
