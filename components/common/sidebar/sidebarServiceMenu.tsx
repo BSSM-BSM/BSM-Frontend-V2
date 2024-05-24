@@ -13,7 +13,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={MdLockPerson}
       iconSize="2.6rem"
-      onClick={() => window.open('https://auth.bssm.kro.kr', '_blank')}
+      onClick={() => window.open('https://auth.bssm.app', '_blank')}
       order={1}
     >
       BSM Auth
@@ -21,7 +21,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={AiOutlineCloudUpload}
       iconSize="2.6rem"
-      onClick={() => window.open('https://deploy.bssm.kro.kr', '_blank')}
+      onClick={() => window.open('https://deploy.bssm.app', '_blank')}
       order={2}
     >
       BSM Deploy
@@ -29,7 +29,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={FiHardDrive}
       iconSize="2.6rem"
-      onClick={() => window.open('https://drive.bssm.kro.kr', '_blank')}
+      onClick={() => window.open('https://drive.bssm.app', '_blank')}
       order={3}
     >
       BSM Cloud
@@ -37,7 +37,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={IoGameControllerOutline}
       iconSize="2.6rem"
-      onClick={() => window.open('https://tetris.bssm.kro.kr', '_blank')}
+      onClick={() => window.open('https://tetris.bssm.app', '_blank')}
       order={4}
     >
       BSM Tetris
@@ -48,7 +48,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={AiOutlineOrderedList}
       iconSize="2.6rem"
-      onClick={() => window.open('https://bgit.bssm.kro.kr', '_blank')}
+      onClick={() => window.open('https://bgit.bssm.app', '_blank')}
       order={1}
     >
       BGIT
@@ -56,7 +56,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={BsWikipedia}
       iconSize="2.6rem"
-      onClick={() => window.open('https://bumawiki.kro.kr', '_blank')}
+      onClick={() => window.open('https://buma.wiki', '_blank')}
       order={2}
     >
       부마위키
@@ -88,7 +88,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={RxDiscordLogo}
       iconSize="2.6rem"
-      onClick={() => window.open('https://nightcord.bssm.kro.kr', '_blank')}
+      onClick={() => window.open('https://nightcord.bssm.app', '_blank')}
       order={6}
     >
       NightCord

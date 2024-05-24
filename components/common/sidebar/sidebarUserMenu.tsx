@@ -40,7 +40,7 @@ const SidebarUserMenu = () => {
     <SidebarItem
       Icon={AiOutlineUser}
       iconSize="2.6rem"
-      onClick={() => window.open('https://auth.bssm.kro.kr/user', '_blank')}
+      onClick={() => window.open('https://auth.bssm.app/user', '_blank')}
       order={1}
     >
       내 정보
@@ -58,7 +58,7 @@ const SidebarUserMenu = () => {
       iconSize="2.4rem"
       onClick={() => {
         logout();
-        window.open('https://auth.bssm.kro.kr/logout', '_blank');
+        window.open('https://auth.bssm.app/logout', '_blank');
       }}
       order={3}
     >

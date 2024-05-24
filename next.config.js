@@ -1,10 +1,14 @@
 /** @type {import('next').NextConfig} */
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const RESOURCE_BASE_URL = process.env.NEXT_PUBLIC_RESOURCE_BASE_URL;
+
 const nextConfig = {
   compiler: {
     styledComponents: true
   },
   images: {
-    domains: ['bssm.kro.kr', 'auth.bssm.kro.kr'],
+    domains: ['auth.bssm.app'],
     minimumCacheTTL: 60
   },
   reactStrictMode: false,
@@ -16,7 +20,11 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://bssm.kro.kr/api/:path*'
+        destination: `${API_BASE_URL}/:path*`
+      },
+      {
+        source: '/resource/:path*',
+        destination: `${RESOURCE_BASE_URL}/:path*`
       }
     ];
   }

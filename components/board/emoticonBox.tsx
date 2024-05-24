@@ -86,7 +86,7 @@ const EmoticonBox = () => {
         {emoticons.map(emoticon => (
           <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
             <Image
-              src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
+              src={`/resource/board/emoticon/${emoticon.id}/0.png`}
               width='100'
               height='50'
               alt={emoticon.name}
@@ -98,7 +98,7 @@ const EmoticonBox = () => {
         emoticonItems.map(item => (
           <li key={`${selectId}/${item.idx}`} onClick={() => insertEmoticon(selectId, item)}>
             <img
-              src={`https://bssm.kro.kr/resource/board/emoticon/${selectId}/${item.idx}.${item.type}`}
+              src={`/resource/board/emoticon/${selectId}/${item.idx}.${item.type}`}
               alt={String(item.idx)}
             />
           </li>
@@ -210,7 +210,7 @@ const EmoticonManageBox = () => {
         emoticons.map(emoticon => (
           <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
             <Image
-              src={`https://bssm.kro.kr/resource/board/emoticon/${emoticon.id}/0.png`}
+              src={`/resource/board/emoticon/${emoticon.id}/0.png`}
               width='100'
               height='50'
               alt={emoticon.name}
@@ -223,7 +223,7 @@ const EmoticonManageBox = () => {
           emoticonItems.map(item => (
             <li key={`${selectId}/${item.idx}`}>
               <img
-                src={`https://bssm.kro.kr/resource/board/emoticon/${selectId}/${item.idx}.${item.type}`}
+                src={`/resource/board/emoticon/${selectId}/${item.idx}.${item.type}`}
                 alt={String(item.idx)}
               />
             </li>

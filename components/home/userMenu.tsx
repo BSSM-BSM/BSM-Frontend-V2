@@ -25,7 +25,7 @@ export const UserHomeMenu = () => {
 
   return (
     mounted && user.isLogin
-      ? <a className={styles.menu} href='https://auth.bssm.kro.kr/user'>
+      ? <a className={styles.menu} href='https://auth.bssm.app/user'>
         <div className={`${styles.user_icon} user-profile`}>
           <Image
             src={profileSrc}

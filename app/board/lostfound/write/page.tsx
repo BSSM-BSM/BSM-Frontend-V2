@@ -34,7 +34,7 @@ const Write = () => {
 
   const writeLostfound = async () => {
     const [data, error] = await ajax<any>({
-      url: 'https://bssm.kro.kr/api/lost-found/def',
+      url: '/api/lost-found/def',
       method: HttpMethod.POST,
       payload: {
         objectName: title,
