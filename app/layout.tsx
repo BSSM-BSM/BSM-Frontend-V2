@@ -8,12 +8,6 @@ import StyledComponentsRegistry from '@/lib/registry';
 import Script from 'next/script';
 import { Main } from '@/components/common/main';
 
-const upadteScreenHeight = () => {
-  if (typeof window === 'undefined') return;
-  const vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty("--vh", `${vh}px`);
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -23,13 +17,7 @@ export default function RootLayout({
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/sw.js");
     }
-    window.addEventListener('resize', () => upadteScreenHeight());
   }, []);
-
-  useEffect(() => {
-    upadteScreenHeight();
-  }, [typeof window]);
-  
 
   return (
     <html lang="kr">
