@@ -132,7 +132,7 @@ export const PostWrite = ({
         full
       />
       <Editor
-        tinymceScriptSrc={process.env.NODE_ENV === 'development' ? undefined : '/lib/tinymce/tinymce.min.js'}
+        tinymceScriptSrc={'https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js'}
         onInit={(_, editor) => setEditor(editor)}
         init={{
           language: 'ko_KR',

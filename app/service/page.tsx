@@ -36,17 +36,17 @@ const ServiceListPage = () => {
               <span>BSM Auth</span>
               <span>부산소마고 통합 계정 관리 서비스</span>
             </li>
-            <li className="pointer" onClick={() => window.open('https://deploy.bssm.app', '_blank')}>
+            <li className="pointer" onClick={() => window.open('https://deploy.bssm.kro.kr', '_blank')}>
               <AiOutlineCloudUpload size="2.2rem" />
               <span>BSM Deploy</span>
               <span>부산소마고 재학생을 위한 웹사이트 배포 서비스</span>
             </li>
-            <li className="pointer" onClick={() => window.open('https://drive.bssm.app', '_blank')}>
+            <li className="pointer" onClick={() => window.open('https://drive.bssm.kro.kr', '_blank')}>
               <FiHardDrive size="2.2rem" />
               <span>BSM Cloud</span>
               <span>파일 공유 서비스</span>
             </li>
-            <li className="pointer" onClick={() => window.open('https://tetris.bssm.app', '_blank')}>
+            <li className="pointer" onClick={() => window.open('https://tetris.bssm.kro.kr', '_blank')}>
               <IoGameControllerOutline size="2.2rem" />
               <span>BSM Tetris</span>
               <span>온라인 테트리스</span>

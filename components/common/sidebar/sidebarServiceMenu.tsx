@@ -21,7 +21,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={AiOutlineCloudUpload}
       iconSize="2.6rem"
-      onClick={() => window.open('https://deploy.bssm.app', '_blank')}
+      onClick={() => window.open('https://deploy.bssm.kro.kr', '_blank')}
       order={2}
     >
       BSM Deploy
@@ -29,7 +29,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={FiHardDrive}
       iconSize="2.6rem"
-      onClick={() => window.open('https://drive.bssm.app', '_blank')}
+      onClick={() => window.open('https://drive.bssm.kro.kr', '_blank')}
       order={3}
     >
       BSM Cloud
@@ -37,7 +37,7 @@ const SidebarServiceMenu = () => {
     <SidebarItem
       Icon={IoGameControllerOutline}
       iconSize="2.6rem"
-      onClick={() => window.open('https://tetris.bssm.app', '_blank')}
+      onClick={() => window.open('https://tetris.bssm.kro.kr', '_blank')}
       order={4}
     >
       BSM Tetris
