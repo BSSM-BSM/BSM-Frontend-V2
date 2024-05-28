@@ -12,6 +12,7 @@ import { BannerType } from '@/types/banner.type';
 import { EditBackgroundImageBox } from '@/components/home/editBackgroundImagePopup';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { useModal } from '@/hooks/useModal';
+import { Notice } from '@/components/common/notice';
 
 const Home = () => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
@@ -26,7 +27,7 @@ const Home = () => {
   return (
     <>
       <>
-        {/* <Notice /> */}
+        <Notice />
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
         <EditBackgroundImageBox />
         <HiOutlinePencilAlt
