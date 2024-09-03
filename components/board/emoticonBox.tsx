@@ -284,7 +284,7 @@ const EmoticonUploadBox = () => {
 
     emoticons.forEach(emoticon => {
       if (!emoticon) throw showToast('이모티콘을 모두 업로드 해주세요');
-      payload.append('emoticons', emoticon);
+      payload.append('emoticonList', emoticon);
     })
     const [, error] = await ajax({
       url: 'emoticon',

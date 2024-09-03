@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <>
       <>
-        <Notice />
+        {/* <Notice /> */}
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
         <EditBackgroundImageBox />
         <HiOutlinePencilAlt
