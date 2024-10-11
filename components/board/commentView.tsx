@@ -7,6 +7,7 @@ import styles from '@/styles/board/comment.module.css';
 import { Comment, DeletedComment } from "@/types/board.type"
 import { renderEmoticon } from '@/utils/emoticon';
 import { CommentList } from '@/components/board/commentItem';
+import { useInterval } from '../../hooks/useInterval';
 
 const commentXssFilter = new FilterXSS({
   whiteList: {
@@ -49,9 +50,8 @@ export const CommentView = ({
     loadComments();
   }
 
-  useEffect(() => {
-    renderEmoticon();
-  }, [commentList]);
+  useEffect(renderEmoticon, []);
+  useInterval(renderEmoticon, 1000);
 
   return (
     <div className={`${styles.comment_wrap} scroll-bar horizontal`}>

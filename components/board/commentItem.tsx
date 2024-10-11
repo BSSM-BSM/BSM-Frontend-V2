@@ -11,6 +11,7 @@ import { getProfileSrc } from '@/utils/userUtil';
 import { elapsedTime } from '@/utils/date';
 import { DropdownMenu } from '@/components/common/dropdownMenu';
 import { boardOpenAllChildCommentsState } from '@/store/setting/board.store';
+import React from 'react';
 
 export const CommentList = ({
   comment,

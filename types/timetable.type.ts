@@ -12,10 +12,7 @@ export interface TimetableListRes {
   timetableList: TimetableListType
 }
 
-export type TimetableListType = {
-  [key in keyof typeof TimetableDayType]: Timetable
-}
-
+export type TimetableListType = Record<TimetableDayType, Timetable>;
 export type Timetable = TimetableItem[];
 
 export interface TimetableItem {

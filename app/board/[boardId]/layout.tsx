@@ -15,6 +15,7 @@ import { EmoticonBoxWrap } from '@/components/board/emoticonBox';
 import { PostWrite } from '@/components/board/post/postWrite';
 import { boardAnonymousModeState, boardNoRecordModeState } from '@/store/setting/board.store';
 import Link from 'next/link';
+import React from 'react';
 
 interface BoardLayoutProps {
   children: ReactNode;

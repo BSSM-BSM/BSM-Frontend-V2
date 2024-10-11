@@ -10,6 +10,7 @@ import { TextInput } from '@/components/common/inputs/textInput';
 import { useModal } from '@/hooks/useModal';
 import { useOverlay } from '@/hooks/useOverlay';
 import { Button } from '@/components/common/buttons/button';
+import React from 'react';
 
 export const EmoticonBoxWrap = () => (
   <>

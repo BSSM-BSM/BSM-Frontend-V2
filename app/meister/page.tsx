@@ -14,13 +14,12 @@ import { Button } from '@/components/common/buttons/button';
 import { MeisterInfo } from '@/types/meister.type';
 import { Banner, BannerPos } from '@/components/common/banner';
 import { BannerType } from '@/types/banner.type';
-import { useSearchParams } from 'next/navigation';
+import React from 'react';
 
-const MeisterPage = () => {
+const MeisterPage = ({ searchParams }: { searchParams: { grade?: number; classNo?: number; studentNo?: number } }) => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
   const setPage = useSetRecoilState(pageState);
   const { ajax } = useAjax();
-  const searchParams = useSearchParams();
   const [noPw, setNoPw] = useState(true);
   const [user] = useRecoilState(userState);
   const [grade, setGrade] = useState<number>(0);
@@ -32,7 +31,7 @@ const MeisterPage = () => {
     pointHtmlContent: '',
     score: 0,
     positivePoint: 0,
-    negativePoint: 0,
+    negativePoint: 0
   });
 
   useEffect(() => {
@@ -41,35 +40,26 @@ const MeisterPage = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      searchParams.get('grade') &&
-      searchParams.get('classNo') &&
-      searchParams.get('studentNo')
-    ) return viewOtherStudent(
-      Number(searchParams.get('grade')),
-      Number(searchParams.get('classNo')),
-      Number(searchParams.get('studentNo'))
-    );
-
     if (!user.isLogin || user.role !== UserRole.STUDENT) return;
     setGrade(user.student.grade);
     setClassNo(user.student.classNo);
     setStudentNo(user.student.studentNo);
   }, [user]);
 
+  useEffect(() => {
+    if (!searchParams.grade || !searchParams.classNo || !searchParams.studentNo) return;
+    setGrade(searchParams.grade);
+    setClassNo(searchParams.classNo);
+    setStudentNo(searchParams.studentNo);
+  }, [searchParams.grade, searchParams.classNo, searchParams.studentNo]);
+
   const meisterPointPostProcessing = () => {
-    document.querySelectorAll('.fas.fa-sad-cry').forEach((item) => {
+    document.querySelectorAll('.fas.fa-sad-cry').forEach(item => {
       item?.parentElement?.parentElement?.parentElement?.parentElement?.classList.add(styles.bad);
     });
-  }
+  };
 
   useEffect(meisterPointPostProcessing, [meisterInfo]);
-
-  const viewOtherStudent = (grade: number, classNo: number, studentNo: number) => {
-    setGrade(grade);
-    setClassNo(classNo);
-    setStudentNo(studentNo);
-  }
 
   const loadMeisterInfo = async () => {
     const [data, error] = await ajax<MeisterInfo>({
@@ -87,7 +77,7 @@ const MeisterPage = () => {
           pointHtmlContent: '',
           score: 0,
           positivePoint: 0,
-          negativePoint: 0,
+          negativePoint: 0
         });
       }
     });
@@ -95,19 +85,23 @@ const MeisterPage = () => {
 
     setMeisterInfo(data);
     setPw('');
-  }
+  };
 
   return (
-    <div className='container _100'>
+    <div className="container _100">
       <>
         <Banner position={BannerPos.TOP} type={BannerType.HORIZONTAL} />
       </>
       <div className={styles.form_warp}>
-        <form className={`${styles.form} cols gap-1`} autoComplete='off' onSubmit={e => {
-          e.preventDefault();
-          loadMeisterInfo();
-        }}>
-          <div className='rows gap-05 center'>
+        <form
+          className={`${styles.form} cols gap-1`}
+          autoComplete="off"
+          onSubmit={e => {
+            e.preventDefault();
+            loadMeisterInfo();
+          }}
+        >
+          <div className="rows gap-05 center">
             <NumberInput
               setCallback={setGrade}
               initial={undefined}
@@ -115,7 +109,7 @@ const MeisterPage = () => {
               min={1}
               max={3}
               required
-              placeholder='학년'
+              placeholder="학년"
             />
             <NumberInput
               setCallback={setClassNo}
@@ -124,7 +118,7 @@ const MeisterPage = () => {
               min={1}
               max={4}
               required
-              placeholder='반'
+              placeholder="반"
             />
             <NumberInput
               setCallback={setStudentNo}
@@ -133,42 +127,43 @@ const MeisterPage = () => {
               min={1}
               max={16}
               required
-              placeholder='번호'
+              placeholder="번호"
             />
           </div>
-          <div className='cols gap-1 center'>
+          <div className="cols gap-1 center">
             <TextInput
               disabled={noPw}
-              type='password'
+              type="password"
               setCallback={setPw}
-              placeholder='마이스터 인증제 사이트 비밀번호'
+              placeholder="마이스터 인증제 사이트 비밀번호"
               required
             />
-            <label className='checkbox center'>
-              <input type='checkbox' checked={noPw} onChange={e => setNoPw(e.target.checked)} />
+            <label className="checkbox center">
+              <input type="checkbox" checked={noPw} onChange={e => setNoPw(e.target.checked)} />
               <span>비밀번호 사용 안함</span>
             </label>
           </div>
           {!noPw && <h4>조회하기 위해 마이스터 인증제 사이트 비밀번호가 필요합니다.</h4>}
           <br />
-          <div className='rows gap-2 center'>
-            <Link href='/meister/ranking'><Button>랭킹</Button></Link>
-            <Button type='submit' className='accent'>조회</Button>
+          <div className="rows gap-2 center">
+            <Link href="/meister/ranking">
+              <Button>랭킹</Button>
+            </Link>
+            <Button type="submit" className="accent">
+              조회
+            </Button>
           </div>
         </form>
       </div>
-      {
-        meisterInfo.scoreHtmlContent &&
+      {meisterInfo.scoreHtmlContent && (
         <div className={styles.result}>
-          <h3 className='right'>
-            {`상점: ${meisterInfo.positivePoint} 벌점: ${meisterInfo.negativePoint}`}
-          </h3>
+          <h3 className="right">{`상점: ${meisterInfo.positivePoint} 벌점: ${meisterInfo.negativePoint}`}</h3>
           <div className={styles.score} dangerouslySetInnerHTML={{ __html: meisterInfo.scoreHtmlContent }}></div>
           <div className={styles.point} dangerouslySetInnerHTML={{ __html: meisterInfo.pointHtmlContent }}></div>
         </div>
-      }
+      )}
     </div>
   );
-}
+};
 
 export default MeisterPage;

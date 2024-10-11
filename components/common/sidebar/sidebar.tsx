@@ -12,6 +12,7 @@ import { useRecoilValue } from 'recoil';
 import { pageState, sideBarState } from '@/store/common.store';
 import SidebarServiceMenu from '@/components/common/sidebar/sidebarServiceMenu';
 import { FaSchool } from 'react-icons/fa';
+import React from 'react';
 
 const Sidebar = () => {
   const router = useRouter();

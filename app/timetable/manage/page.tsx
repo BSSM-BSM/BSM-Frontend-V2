@@ -11,10 +11,9 @@ import { dayNames } from '@/utils/date';
 import { TimetableItemManageMenu } from '@/components/timetable/timetableItemManageMenu';
 import { useModal } from '@/hooks/useModal';
 import { TimetableManageSideBar } from '@/components/timetable/timetableManageSideBar';
-import { useSearchParams } from 'next/navigation';
+import React from 'react';
 
-const TimetableManagePage = () => {
-  const searchParams = useSearchParams();
+const TimetableManagePage = ({ searchParams }: { searchParams: { grade?: number; classNo?: number; day?: number } }) => {
   const setHeaderOption = useSetRecoilState(headerOptionState);
   const setPage = useSetRecoilState(pageState);
   const { openModal } = useModal();
@@ -37,10 +36,10 @@ const TimetableManagePage = () => {
   }, []);
 
   useEffect(() => {
-    setGrade(Number(searchParams.get('grade') ?? 1));
-    setClassNo(Number(searchParams.get('classNo') ?? 1));
-    setDay(Number(searchParams.get('day') ?? 0));
-  }, [searchParams]);
+    setGrade(Number(searchParams.grade ?? 1));
+    setClassNo(Number(searchParams.classNo ?? 1));
+    setDay(Number(searchParams.day ?? 0));
+  }, [searchParams.grade, searchParams.classNo, searchParams.day]);
 
   useEffect(() => {
     setDayKey(TimetableDayType[day] as unknown as TimetableDayType);

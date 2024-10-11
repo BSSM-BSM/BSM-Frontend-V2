@@ -1,32 +1,31 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { useModal } from '@/hooks/useModal';
 import { userState } from '@/store/account.store';
 import { getUserInfo } from '@/utils/userUtil';
+import React from 'react';
 
-const OauthPage = () => {
+const OauthPage = ({ searchParams }: { searchParams: { code?: string } }) => {
   const { ajax } = useAjax();
   const { closeModal } = useModal();
   const [, setUser] = useRecoilState(userState);
   const router = useRouter();
-  const searchParams = useSearchParams();
-    const authCode = searchParams.get('code');
 
   interface LoginRes {
-    accessToken: string,
-    refreshToken: string
+    accessToken: string;
+    refreshToken: string;
   }
 
   useEffect(() => {
-    if (!authCode) return;
+    if (!searchParams.code) return;
     (async () => {
       const [, error] = await ajax<LoginRes>({
         method: HttpMethod.POST,
-        url: `auth/oauth/bsm?code=${authCode}`
+        url: `auth/oauth/bsm?code=${searchParams.code}`
       });
       if (error) return;
 
@@ -34,9 +33,9 @@ const OauthPage = () => {
       closeModal('login');
       router.push('/');
     })();
-  }, [authCode]);
+  }, [searchParams.code]);
 
-  return (<></>);
-}
+  return <></>;
+};
 
 export default OauthPage;
