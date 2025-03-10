@@ -50,8 +50,8 @@ export const CommentView = ({
     loadComments();
   }
 
-  useEffect(renderEmoticon, []);
-  useInterval(renderEmoticon, 1000);
+  useEffect(renderEmoticon);
+  useInterval(renderEmoticon, 100);
 
   return (
     <div className={`${styles.comment_wrap} scroll-bar horizontal`}>

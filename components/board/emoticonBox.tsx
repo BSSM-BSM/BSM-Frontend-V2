@@ -86,10 +86,8 @@ const EmoticonBox = () => {
         </li>
         {emoticons.map(emoticon => (
           <li key={emoticon.id} onClick={() => setSelectId(emoticon.id)}>
-            <Image
+            <img
               src={`/resource/board/emoticon/${emoticon.id}/0.png`}
-              width='100'
-              height='50'
               alt={emoticon.name}
             />
           </li>
