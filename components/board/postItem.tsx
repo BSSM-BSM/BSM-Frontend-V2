@@ -35,7 +35,7 @@ export const PostItem = ({
   const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
   const [, setPostOpen] = useRecoilState(postOpenState);
   const { ajax } = useAjax();
-  const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(user.code));
+  const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(user.id));
 
   const loadPost = async () => {
     const [data, error] = await ajax<DetailPost>({
@@ -77,7 +77,7 @@ export const PostItem = ({
                   alt='user profile'
                 />
               </div>
-              <UserInfoLink userCode={user.code} nickname={user.nickname} />
+              <UserInfoLink userId={user.id} nickname={user.nickname} />
             </div>
             <div className={styles.post_info}>
               {totalLikes !== 0 && <span className={styles.total_likes}>{totalLikes}</span>}

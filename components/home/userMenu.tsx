@@ -20,7 +20,7 @@ export const UserHomeMenu = () => {
   }, []);
 
   useEffect(() => {
-    setProfileSrc(getProfileSrc(user.isLogin ? user.code : 0));
+    setProfileSrc(getProfileSrc(user.isLogin ? user.id : 0));
   }, [user]);
 
   return (

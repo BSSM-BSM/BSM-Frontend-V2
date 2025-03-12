@@ -23,7 +23,7 @@ export const getUserInfo = async (ajax: Ajax, setUser: SetterOrUpdater<NoLoginUs
   return userInfo;
 }
 
-export const getProfileSrc = (userCode: number): string | StaticImageData =>
-  userCode > 0
-    ? `https://auth.bssm.app/resource/user/profile/${userCode}.png`
+export const getProfileSrc = (userId: number): string | StaticImageData =>
+  userId > 0
+    ? `https://auth.bssm.app/resource/user/profile/${userId}.png`
     : DefaultProfilePic;

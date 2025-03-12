@@ -73,7 +73,7 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
           {postList.map(post => {
             return (
               <PostItem
-                key={`${boardId}/${post.id}/${post.user.code}`}
+                key={`${boardId}/${post.id}/${post.user.id}`}
                 {...post}
                 boardId={String(boardId)}
                 categoryList={board.categoryList}

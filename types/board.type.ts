@@ -1,5 +1,5 @@
 export interface UserInfo {
-  code: number,
+  id: number,
   nickname: string
 }
 
@@ -63,7 +63,7 @@ export interface PostListRes {
 export interface Comment {
   id: number,
   user: {
-    code: number,
+    id: number,
     nickname: string
   },
   content: string,

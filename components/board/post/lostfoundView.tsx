@@ -72,7 +72,7 @@ export const LostFoundView = ({ board, post }: { board: Board; post: DetailPost 
     setHeaderOption({
       title: post.title
     });
-    setProfileSrc(getProfileSrc(post.user.code));
+    setProfileSrc(getProfileSrc(post.user.id));
     Prism.highlightAll();
   }, [post]);
 
@@ -130,7 +130,7 @@ export const LostFoundView = ({ board, post }: { board: Board; post: DetailPost 
             <h2 className={styles.title}>{post.title}</h2>
             <div className="rows space-between">
               <span className="bold">
-                <UserInfoLink userCode={post.user.code} nickname={post.user.nickname} />
+                <UserInfoLink userId={post.user.id} nickname={post.user.nickname} />
               </span>
               <div className="rows gap-2 gray">
                 <span>{post.totalComments} 댓글</span>

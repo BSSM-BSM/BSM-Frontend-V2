@@ -1,13 +1,13 @@
 interface UserInfoLinkProps {
   nickname: string,
-  userCode: number
+  userId: number
 }
 
 export const UserInfoLink = ({
   nickname,
-  userCode
+  userId
 }: UserInfoLinkProps) => (
-  userCode > 0
-  ? <a target='_blank' rel='noopener noreferrer' href={`https://auth.bssm.app/user/${userCode}`}>{nickname}</a>
+  userId > 0
+  ? <a target='_blank' rel='noopener noreferrer' href={`https://auth.bssm.app/user/${userId}`}>{nickname}</a>
   : <span className="gray">{nickname}</span>
 );

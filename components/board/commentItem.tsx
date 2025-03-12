@@ -37,7 +37,7 @@ export const CommentList = ({
   const { boardId, postId } = boardAndPostId;
 
   useEffect(() => {
-    setProfileSrc(getProfileSrc(!comment.delete ? comment.user.code : -1));
+    setProfileSrc(getProfileSrc(!comment.delete ? comment.user.id : -1));
   }, [comment]);
 
   return (
@@ -62,7 +62,7 @@ export const CommentList = ({
                   </div>
                   <div className='cols flex-main'>
                     <div className='rows space-between bold'>
-                      <UserInfoLink userCode={comment.user.code} nickname={comment.user.nickname} />
+                      <UserInfoLink userId={comment.user.id} nickname={comment.user.nickname} />
                       {
                         !comment.delete &&
                         comment.permission &&

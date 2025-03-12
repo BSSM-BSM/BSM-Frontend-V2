@@ -33,7 +33,7 @@ const LostFoundDetail = ({ params: { id } }: LostFoundDetailProps) => {
     description: '',
     process: 'IN_PROGRESS',
     foundUser: {
-      code: -1,
+      id: -1,
       nickname: ''
     }
   });
@@ -77,7 +77,7 @@ const LostFoundDetail = ({ params: { id } }: LostFoundDetailProps) => {
             <h2 className={styles.title}>{detail?.objectName}</h2>
             <div className="rows space-between">
               <span className="bold">
-                <UserInfoLink userCode={detail.foundUser.code} nickname={detail.foundUser.nickname} />
+                <UserInfoLink userId={detail.foundUser.id} nickname={detail.foundUser.nickname} />
               </span>
             </div>
             <br />
@@ -90,7 +90,7 @@ const LostFoundDetail = ({ params: { id } }: LostFoundDetailProps) => {
             <div className="rows space-between">
               <span>물품 상태 : {detail.process === 'FINISHED' ? '수령 완료' : '수령 대기중'}</span>
             </div>
-            {detail.process !== 'FINISHED' && user.isLogin && user.code === detail.foundUser.code && (
+            {detail.process !== 'FINISHED' && user.isLogin && user.id === detail.foundUser.id && (
               <button style={{ padding: '10px' }} onClick={onClickProcessDone}>
                 수령 완료 처리하기
               </button>

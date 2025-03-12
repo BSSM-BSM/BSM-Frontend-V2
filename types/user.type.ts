@@ -9,7 +9,7 @@ export interface NoLoginUser {
 
 interface LoginUser {
   isLogin: true,
-  code: number,
+  id: number,
   nickname: string,
   email: string,
   level: number,
