@@ -125,7 +125,7 @@ const MeisterPage = ({ searchParams }: { searchParams: { grade?: number; classNo
               initial={undefined}
               value={studentNo}
               min={1}
-              max={16}
+              max={20}
               required
               placeholder="번호"
             />
