@@ -5,7 +5,7 @@ import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { Board, PostListRes } from '@/types/board.type';
 import { PostItem } from '@/components/board/postItem';
 import { useRecoilState } from 'recoil';
-import { postListState } from '@/store/board.store';
+import { postListState, postOpenState } from '@/store/board.store';
 import { CheckList } from '@/components/common/buttons/checkList';
 import { postLimitState } from '@/store/setting/board.store';
 
@@ -21,6 +21,7 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
   const [postCategory, setPostCategory] = useState<string>('all');
   const [loading, setLoading] = useState<boolean>(false);
   const [postLoadRef, inView] = useInView();
+  const [isPostOpen] = useRecoilState(postOpenState);
 
   useEffect(() => {
     if (loading) return;
@@ -80,7 +81,9 @@ export const BoardView = ({ boardId, board }: BoardViewProps) => {
               />
             );
           })}
-          {postList[postList.length - 1]?.id > 1 && <li ref={postLoadRef} className={styles.post_load_bar}></li>}
+          {!isPostOpen && postList[postList.length - 1]?.id > 1 && (
+            <li ref={postLoadRef} className={styles.post_load_bar}></li>
+          )}
         </ul>
       </div>
     </div>
