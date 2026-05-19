@@ -1,7 +1,7 @@
 import styles from '@/styles/home.module.css';
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { HttpMethod, useAjax } from "@/hooks/useAjax";
 import { useModal } from "@/hooks/useModal";
 import { userState } from "@/store/account.store";
@@ -12,7 +12,7 @@ import { elapsedTime } from '@/utils/date';
 const meisterActivated = true;
 
 export const MeisterHomeMenu = () => {
-  const [user] = useRecoilState(userState);
+  const [user] = useAtom(userState);
   const [meisterInfo, setMeisterInfo] = useState<HomeMenuMeisterInfo>({
     isLoading: true,
     lastUpdate: '',

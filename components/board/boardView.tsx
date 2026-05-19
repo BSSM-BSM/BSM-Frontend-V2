@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { Board, PostListRes } from '@/types/board.type';
 import { PostItem } from '@/components/board/postItem';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { postListState, postOpenState } from '@/store/board.store';
 import { CheckList } from '@/components/common/buttons/checkList';
 import { postLimitState } from '@/store/setting/board.store';
@@ -16,12 +16,12 @@ interface BoardViewProps {
 
 export const BoardView = ({ boardId, board }: BoardViewProps) => {
   const { ajax } = useAjax();
-  const [postLimit] = useRecoilState(postLimitState);
-  const [postList, setPostList] = useRecoilState(postListState);
+  const [postLimit] = useAtom(postLimitState);
+  const [postList, setPostList] = useAtom(postListState);
   const [postCategory, setPostCategory] = useState<string>('all');
   const [loading, setLoading] = useState<boolean>(false);
   const [postLoadRef, inView] = useInView();
-  const [isPostOpen] = useRecoilState(postOpenState);
+  const [isPostOpen] = useAtom(postOpenState);
 
   useEffect(() => {
     if (loading) return;

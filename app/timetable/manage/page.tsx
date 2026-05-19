@@ -3,7 +3,7 @@
 import styles from '@/styles/timetable/timetable.module.css';
 import manageStyles from '@/styles/timetable/timetable-manage.module.css';
 import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useSetAtom } from 'jotai';
 import { headerOptionState, pageState } from '@/store/common.store';
 import { Timetable, TimetableDayType, TimetableItem, TimetableListType, TimetableManageInfo, TimetableManageMode } from '@/types/timetable.type';
 import { TimetableList } from '@/components/timetable/timetableList';
@@ -11,11 +11,10 @@ import { dayNames } from '@/utils/date';
 import { TimetableItemManageMenu } from '@/components/timetable/timetableItemManageMenu';
 import { useModal } from '@/hooks/useModal';
 import { TimetableManageSideBar } from '@/components/timetable/timetableManageSideBar';
-import React from 'react';
 
 const TimetableManagePage = ({ searchParams }: { searchParams: { grade?: number; classNo?: number; day?: number } }) => {
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
   const { openModal } = useModal();
   const [grade, setGrade] = useState(0);
   const [classNo, setClassNo] = useState(0);

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { userState } from '@/store/account.store';
 import styles from '@/styles/meister/ranking.module.css';
 import { MeisterRanking, MeisterResultType } from '@/types/meister.type';
@@ -14,7 +14,7 @@ interface MeisterRankingItemProps {
 
 export const MeisterRankingItem = ({ ranking, i, updatePrivateRanking }: MeisterRankingItemProps) => {
   const router = useRouter();
-  const [user] = useRecoilState(userState);
+  const [user] = useAtom(userState);
   const { grade, classNo, studentNo, name } = ranking.student;
 
   const scoreInfoView = () => {

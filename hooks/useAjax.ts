@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosPromise, RawAxiosRequestConfig } from 'axios';
-import { useResetRecoilState } from 'recoil';
+import { useResetAtom } from 'jotai/utils';
 import { userState } from '@/store/account.store';
 import { useModal } from '@/hooks/useModal';
 import { useOverlay } from '@/hooks/useOverlay';
@@ -43,7 +43,7 @@ interface AjaxType<T> {
 export const useAjax = () => {
   const { loading, showAlert, showToast } = useOverlay();
   const { openModal } = useModal();
-  const resetUser = useResetRecoilState(userState);
+  const resetUser = useResetAtom(userState);
 
   const ajax: Ajax = async <T>({ method, url, payload, config, errorCallback }: AjaxType<T>) => {
     loading(true);

@@ -1,10 +1,7 @@
 import { ReactNode } from "react";
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-export const loadingState = atom<boolean>({
-  key: 'loadingState',
-  default: false
-});
+export const loadingState = atom<boolean>(false);
 
 export const toastState = atom<{
   [index: string]: {
@@ -12,29 +9,20 @@ export const toastState = atom<{
     status: string,
     content: string | ReactNode
   }
-}>({
-  key: 'toastState',
-  default: {}
-});
+}>({});
 
 export const alertState = atom<{
   status: string,
   msg: string | null
 }>({
-  key: 'alert',
-  default: {
-    status: '',
-    msg: null
-  }
+  status: '',
+  msg: null
 });
 
 export const alertTimerState = atom<{
   removeTimer: NodeJS.Timer | null,
   hideTimer: NodeJS.Timer | null
 }>({
-  key: 'alertTimer',
-  default: {
-    removeTimer: null,
-    hideTimer: null
-  }
+  removeTimer: null,
+  hideTimer: null
 });

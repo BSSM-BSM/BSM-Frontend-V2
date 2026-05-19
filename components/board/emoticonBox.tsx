@@ -4,13 +4,12 @@ import { HttpMethod, useAjax } from "@/hooks/useAjax"
 import { Emoticon, EmoticonItem } from "@/types/board.type"
 import Modal from "@/components/common/modal"
 import Image from 'next/image';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { boardActiveEditorState } from '@/store/board.store';
 import { TextInput } from '@/components/common/inputs/textInput';
 import { useModal } from '@/hooks/useModal';
 import { useOverlay } from '@/hooks/useOverlay';
 import { Button } from '@/components/common/buttons/button';
-import React from 'react';
 
 export const EmoticonBoxWrap = () => (
   <>
@@ -26,7 +25,7 @@ const EmoticonBox = () => {
   const [emoticons, setEmoticons] = useState<Emoticon[]>([]);
   const [emoticonItems, setEmoticonItems] = useState<EmoticonItem[]>([]);
   const [selectId, setSelectId] = useState<number>(0);
-  const [activeEditor] = useRecoilState(boardActiveEditorState);
+  const [activeEditor] = useAtom(boardActiveEditorState);
 
   const loadEmoticons = async () => {
     const [data, error] = await ajax<Emoticon[]>({

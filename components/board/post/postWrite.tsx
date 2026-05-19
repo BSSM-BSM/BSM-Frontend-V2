@@ -6,7 +6,7 @@ import { Editor as TinymceEditor } from "tinymce";
 import { TextInput } from "@/components/common/inputs/textInput";
 import { AnonymousType, Category, DetailPost } from "@/types/board.type";
 import { useRouter } from 'next/navigation';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useAtom, useAtomValue } from 'jotai';
 import { boardActiveEditorState, postIdState } from '@/store/board.store';
 import { useModal } from '@/hooks/useModal';
 import { Button } from '@/components/common/buttons/button';
@@ -34,17 +34,17 @@ export const PostWrite = ({
   editPost,
   setPost
 }: PostWriteProps) => {
-  const theme = useRecoilValue(themeState);
+  const theme = useAtomValue(themeState);
   const { ajax } = useAjax();
   const { openModal } = useModal();
   const router = useRouter();
-  const postId = useRecoilValue(postIdState);
+  const postId = useAtomValue(postIdState);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<string>('normal');
-  const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
-  const boardNoRecordMode = useRecoilValue(boardNoRecordModeState);
-  const [activeEditor, setActiveEditor] = useRecoilState(boardActiveEditorState);
+  const boardAnonymousMode = useAtomValue(boardAnonymousModeState);
+  const boardNoRecordMode = useAtomValue(boardNoRecordModeState);
+  const [activeEditor, setActiveEditor] = useAtom(boardActiveEditorState);
   const [editor, setEditor] = useState<TinymceEditor>();
 
   useEffect(() => {
@@ -135,7 +135,7 @@ export const PostWrite = ({
         tinymceScriptSrc={process.env.NODE_ENV === 'development' ? undefined : '/resource/lib/tinymce/tinymce.min.js'}
         onInit={(_, editor) => setEditor(editor)}
         init={{
-          language: 'ko_KR',
+          language: 'ko-KR',
           height: '100%',
           menubar: true,
           mobile: {

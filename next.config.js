@@ -14,8 +14,7 @@ const nextConfig = {
     ],
     minimumCacheTTL: 60
   },
-  reactStrictMode: false,
-  swcMinify: true
+  reactStrictMode: true
 };
 
 module.exports = nextConfig;

@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { ModalState, modalState } from "@/store/modal.store";
 
 interface UseModal {
@@ -8,7 +8,7 @@ interface UseModal {
 }
 
 export const useModal = (): UseModal => {
-  const [modalList, setModalList] = useRecoilState(modalState);
+  const [modalList, setModalList] = useAtom(modalState);
 
   const openModal = (key: string, closeable?: boolean) => {
     if (modalList[key] && (closeable === undefined || modalList[key].closeable === closeable)) {

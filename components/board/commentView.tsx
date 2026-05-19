@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { boardAndPostIdState } from '@/store/board.store';
@@ -25,7 +25,7 @@ export const CommentView = ({
   boardDetailTime: boolean
 }) => {
   const { ajax } = useAjax();
-  const [boardAndPostId] = useRecoilState(boardAndPostIdState);
+  const [boardAndPostId] = useAtom(boardAndPostIdState);
   const { boardId, postId } = boardAndPostId;
 
   const deleteComment = async (id: number) => {

@@ -9,7 +9,7 @@ import commentStyles from '@/styles/board/comment.module.css';
 import { Board, Comment, DeletedComment, DetailPost } from '@/types/board.type';
 import { CommentView } from '@/components/board/commentView';
 import { CommentWrite } from '@/components/board/commentWrite';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { postListState, postState } from '@/store/board.store';
 import { escapeAttrValue, FilterXSS } from 'xss';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
@@ -50,10 +50,10 @@ interface LikeRes {
 export const LostFoundView = ({ board, post }: { board: Board; post: DetailPost }) => {
   const router = useRouter();
   const { ajax } = useAjax();
-  const [, setHeaderOption] = useRecoilState(headerOptionState);
-  const [, setPost] = useRecoilState(postState);
-  const [postList, setPostList] = useRecoilState(postListState);
-  const [boardDetailTime] = useRecoilState(boardDetailTimeState);
+  const [, setHeaderOption] = useAtom(headerOptionState);
+  const [, setPost] = useAtom(postState);
+  const [postList, setPostList] = useAtom(postListState);
+  const [boardDetailTime] = useAtom(boardDetailTimeState);
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
   const dropdownMenu = [
     { text: '글 수정', callback: () => router.push(`/board/${board.boardId}/write/${post.id}`) },

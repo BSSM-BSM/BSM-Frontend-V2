@@ -1,9 +1,6 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 import { NoLoginUser, Student, Teacher } from "@/types/user.type";
 
 export const userState = atom<NoLoginUser | Student | Teacher>({
-  key: 'user',
-  default: {
-    isLogin: false
-  }
+  isLogin: false
 });

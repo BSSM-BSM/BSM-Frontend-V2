@@ -1,6 +1,6 @@
 import styles from '@/styles/board/comment.module.css';
 import { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil"
+import { useAtom, useAtomValue } from "jotai"
 import { HttpMethod, useAjax } from "@/hooks/useAjax";
 import { boardActiveEditorState, boardAndPostIdState, parentCommentState } from "@/store/board.store"
 import { EditorInput } from "@/components/common/inputs/editorInput";
@@ -18,14 +18,14 @@ export const CommentWrite = ({
 }: CommentWriteProps) => {
   const { ajax } = useAjax();
   const { openModal } = useModal();
-  const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
-  const boardNoRecordMode = useRecoilValue(boardNoRecordModeState);
-  const [boardAndPostId] = useRecoilState(boardAndPostIdState);
+  const boardAnonymousMode = useAtomValue(boardAnonymousModeState);
+  const boardNoRecordMode = useAtomValue(boardNoRecordModeState);
+  const [boardAndPostId] = useAtom(boardAndPostIdState);
   const { boardId, postId } = boardAndPostId;
   const [content, setContent] = useState<string | null>('');
-  const [parentComment, setParentComment] = useRecoilState(parentCommentState);
+  const [parentComment, setParentComment] = useAtom(parentCommentState);
   const { depth, id: parentId, user: { nickname } } = parentComment ?? { depth: -1, id: 0, user: {} };
-  const [, setActiveEditor] = useRecoilState(boardActiveEditorState);
+  const [, setActiveEditor] = useAtom(boardActiveEditorState);
 
   const writeComment = async () => {
     if (boardNoRecordMode && !confirm('익명 댓글은 수정할 수 없습니다!\n정말 익명으로 작성하시겠습니까?')) return;

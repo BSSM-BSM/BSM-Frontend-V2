@@ -3,11 +3,11 @@ import { TextInput } from '@/components/common/inputs/textInput';
 import Modal from '@/components/common/modal';
 import { useModal } from '@/hooks/useModal';
 import { backgroundImageUrlState } from '@/store/common.store';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 
 export const EditBackgroundImageBox = () => {
   const { closeModal } = useModal();
-  const [backgroundImageUrl, setBackgroundImageUrl] = useRecoilState(backgroundImageUrlState);
+  const [backgroundImageUrl, setBackgroundImageUrl] = useAtom(backgroundImageUrlState);
 
   return (
     <Modal type="main" id="edit-background-image" title="배경 이미지 변경">

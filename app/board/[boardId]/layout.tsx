@@ -4,7 +4,7 @@ import boardStyles from '@/styles/board/board.module.css';
 import postStyles from '@/styles/board/post/post.module.css';
 import Head from 'next/head';
 import { ReactNode, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { BoardView } from '@/components/board/boardView';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { boardAndPostIdState, editPostIdState, postIdState, postListState, postOpenState, postState } from '@/store/board.store';
@@ -15,7 +15,6 @@ import { EmoticonBoxWrap } from '@/components/board/emoticonBox';
 import { PostWrite } from '@/components/board/post/postWrite';
 import { boardAnonymousModeState, boardNoRecordModeState } from '@/store/setting/board.store';
 import Link from 'next/link';
-import React from 'react';
 
 interface BoardLayoutProps {
   children: ReactNode;
@@ -26,18 +25,18 @@ interface BoardLayoutProps {
 
 const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
   const { ajax } = useAjax();
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
-  const setBoardAndPostId = useSetRecoilState(boardAndPostIdState);
-  const boardAnonymousMode = useRecoilValue(boardAnonymousModeState);
-  const boardNoRecordMode = useRecoilValue(boardNoRecordModeState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
+  const setBoardAndPostId = useSetAtom(boardAndPostIdState);
+  const boardAnonymousMode = useAtomValue(boardAnonymousModeState);
+  const boardNoRecordMode = useAtomValue(boardNoRecordModeState);
 
-  const postId = useRecoilValue(postIdState);
-  const editPostId = useRecoilValue(editPostIdState);
+  const postId = useAtomValue(postIdState);
+  const editPostId = useAtomValue(editPostIdState);
   const [boardList, setBoardList] = useState<{ [index: string]: Board }>({});
-  const [post, setPost] = useRecoilState(postState);
-  const [postOpen, setPostOpen] = useRecoilState(postOpenState);
-  const setPostList = useSetRecoilState(postListState);
+  const [post, setPost] = useAtom(postState);
+  const [postOpen, setPostOpen] = useAtom(postOpenState);
+  const setPostList = useSetAtom(postListState);
   const [commentList, setCommentList] = useState<(Comment | DeletedComment)[]>([]);
 
   useEffect(() => {

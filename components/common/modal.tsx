@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { useModal } from "@/hooks/useModal";
 import { modalState } from "@/store/modal.store";
 
@@ -30,7 +30,7 @@ const Modal = ({
 }: ModalProps) => {
   const { closeModal, closeAllModal } = useModal();
   const [mounted, setMounted] = useState(false);
-  const [modalList] = useRecoilState(modalState);
+  const [modalList] = useAtom(modalState);
   const [menuIdx, setMenuIdx] = useState(0);
 
   useEffect(() => {

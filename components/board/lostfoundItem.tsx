@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { boardAndPostIdState, postOpenState, postState } from '@/store/board.store';
 import styles from '@/styles/board/board.module.css';

@@ -1,71 +1,31 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 import { HeaderOptionState } from "@/types/common/header.type";
 import { PageState } from "@/types/page.type";
-import { localStorageEffect, LocalStorageType } from "@/utils/localStorage";
-import { webPushEffect } from "@/utils/webPush";
+import { localStorageAtom } from "@/utils/localStorage";
+import { getPushSubscription } from "@/utils/webPush";
 
-export const pushSubscriptionState = atom<PushSubscription | null>({
-  key: 'pushSubscription',
-  default: null,
-  effects: [webPushEffect() ?? null]
-})
+export const pushSubscriptionState = atom<PushSubscription | null>(null);
+pushSubscriptionState.onMount = (setAtom) => {
+  getPushSubscription().then(setAtom);
+};
 
-export const themeState = atom<string>({
-  key: 'theme',
-  default: 'dark',
-  effects: [localStorageEffect({
-    key: 'theme',
-    type: LocalStorageType.string,
-    defaultValue: 'dark'
-  })]
-});
+export const themeState = localStorageAtom<string>('theme', 'dark');
 
-export const screenScaleState = atom<number>({
-  key: 'screenScale',
-  default: 100,
-  effects: [localStorageEffect({
-    key: 'screenScale',
-    type: LocalStorageType.number,
-    defaultValue: 100
-  })]
-});
+export const screenScaleState = localStorageAtom<number>('screenScale', 100);
 
 export const headerOptionState = atom<HeaderOptionState>({
-  key: 'title',
-  default: {
-    title: '',
-    headTitle: '',
-    optionMenu: undefined
-  }
+  title: '',
+  headTitle: '',
+  optionMenu: undefined
 });
 
 export const pageState = atom<PageState>({
-  key: 'page',
-  default: {
-    id: null
-  }
+  id: null
 });
 
-export const sideBarState = atom<boolean>({
-  key: 'sideBar',
-  default: false
-});
+export const sideBarState = atom<boolean>(false);
 
-export const backgroundImageUrlState = atom<string | undefined>({
-  key: 'backgroundImageUrl',
-  default: undefined,
-  effects: [localStorageEffect({
-    key: 'backgroundImageUrl',
-    type: LocalStorageType.string
-  })]
-});
+export const backgroundImageUrlState = localStorageAtom<string | undefined>('backgroundImageUrl', undefined);
 
-export const customBackgroundOnlyHomeState = atom<boolean>({
-  key: 'customBackgroundOnlyHome',
-  default: true,
-  effects: [localStorageEffect({
-    key: 'customBackgroundOnlyHome',
-    type: LocalStorageType.boolean,
-    defaultValue: true
-  })]
-});  
+export const customBackgroundOnlyHomeState = localStorageAtom<boolean>('customBackgroundOnlyHome', true);

@@ -2,17 +2,16 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { useModal } from '@/hooks/useModal';
 import { userState } from '@/store/account.store';
 import { getUserInfo } from '@/utils/userUtil';
-import React from 'react';
 
 const OauthPage = ({ searchParams }: { searchParams: { code?: string } }) => {
   const { ajax } = useAjax();
   const { closeModal } = useModal();
-  const [, setUser] = useRecoilState(userState);
+  const [, setUser] = useAtom(userState);
   const router = useRouter();
 
   interface LoginRes {

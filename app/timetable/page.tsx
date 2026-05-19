@@ -2,7 +2,7 @@
 
 import styles from '@/styles/timetable/timetable.module.css';
 import { useEffect, useRef, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useAtom, useSetAtom } from 'jotai';
 import { userState } from '@/store/account.store';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { useInterval } from '@/hooks/useInterval';
@@ -17,12 +17,12 @@ import { Button } from '@/components/common/buttons/button';
 import { dateToShortTimeStr, dayNames, shortTimeStrToTotalSecond } from '@/utils/date';
 
 const TimetablePage = () => {
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
 
   const { ajax } = useAjax();
   const { showAlert } = useOverlay();
-  const [user] = useRecoilState(userState);
+  const [user] = useAtom(userState);
   const [grade, setGrade] = useState(0);
   const [classNo, setClassNo] = useState(0);
   const [day, setDay] = useState(new Date().getDay());

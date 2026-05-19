@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useSetAtom } from 'jotai';
 import { editPostIdState, postIdState } from '@/store/board.store';
-import React from 'react';
 
 interface BoardPageProps {
   params: {
@@ -15,7 +14,7 @@ interface BoardPageProps {
 const BoardPage = (props: BoardPageProps) => {
   const { params } = props;
   const [postId, editPostId] = params.boardArgs ?? [undefined, undefined];
-  const [setPostId, setEditPostId] = [useSetRecoilState(postIdState), useSetRecoilState(editPostIdState)];
+  const [setPostId, setEditPostId] = [useSetAtom(postIdState), useSetAtom(editPostIdState)];
 
   useEffect(() => {
     if (postId === 'write') return setPostId(postId);

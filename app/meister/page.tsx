@@ -2,7 +2,7 @@
 
 import styles from '@/styles/meister/index.module.css';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useAtom, useSetAtom } from 'jotai';
 import { userState } from '@/store/account.store';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import Link from 'next/link';
@@ -14,14 +14,13 @@ import { Button } from '@/components/common/buttons/button';
 import { MeisterInfo } from '@/types/meister.type';
 import { Banner, BannerPos } from '@/components/common/banner';
 import { BannerType } from '@/types/banner.type';
-import React from 'react';
 
 const MeisterPage = ({ searchParams }: { searchParams: { grade?: number; classNo?: number; studentNo?: number } }) => {
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
   const { ajax } = useAjax();
   const [noPw, setNoPw] = useState(true);
-  const [user] = useRecoilState(userState);
+  const [user] = useAtom(userState);
   const [grade, setGrade] = useState<number>(0);
   const [classNo, setClassNo] = useState<number>(0);
   const [studentNo, setStudentNo] = useState<number>(0);

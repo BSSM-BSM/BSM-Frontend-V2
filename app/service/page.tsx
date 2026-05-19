@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useSetAtom } from 'jotai';
 import { headerOptionState, pageState } from '@/store/common.store';
 import { Banner, BannerPos } from '@/components/common/banner';
 import { BannerType } from '@/types/banner.type';
@@ -11,11 +11,10 @@ import { RxDiscordLogo } from 'react-icons/rx';
 import { AiOutlineOrderedList, AiOutlineUser } from 'react-icons/ai';
 import { IoGameControllerOutline } from 'react-icons/io5';
 import { BsWikipedia } from 'react-icons/bs';
-import React from 'react';
 
 const ServiceListPage = () => {
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
 
   useEffect(() => {
     setHeaderOption({ title: '모든 서비스', headTitle: '모든 서비스 - BSM' });

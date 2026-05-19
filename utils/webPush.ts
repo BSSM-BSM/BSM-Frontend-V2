@@ -1,14 +1,7 @@
-import { SetterOrUpdater } from 'recoil';
 import { Ajax, HttpMethod } from '@/hooks/useAjax';
 import { ShowToast } from '@/hooks/useOverlay';
 
-export const webPushEffect =
-  () =>
-  ({ setSelf }: any) => {
-    (async () => {
-      setSelf(await getPushSubscription());
-    })();
-  };
+type SetterOrUpdater<T> = (value: T | ((prev: T) => T)) => void;
 
 export enum PushPermission {
   PROMPT = 'prompt',

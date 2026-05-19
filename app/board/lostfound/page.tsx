@@ -6,15 +6,15 @@ import { headerOptionState, pageState, themeState } from '@/store/common.store';
 import lostfoundStyle from '@/styles/board/lostfound.module.css';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { LostFoundItem } from '@/components/board/lostfoundItem';
 import Link from 'next/link';
 
 const LostFound = () => {
   const { ajax } = useAjax();
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
-  const theme = useRecoilValue(themeState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
+  const theme = useAtomValue(themeState);
 
   const [foundedItems, setFoundedItems] = useState([]);
   const [lostItems, setLostItems] = useState([]);

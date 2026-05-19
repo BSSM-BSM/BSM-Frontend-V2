@@ -1,5 +1,6 @@
 import styles from '@/styles/common/banner.module.css';
-import { useRecoilValueLoadable } from "recoil"
+import { useAtomValue } from "jotai";
+import { loadable } from "jotai/utils"
 import { bannerState } from "@/store/banner.store"
 import { BannerType } from "@/types/banner.type"
 import { useEffect, useState } from 'react';
@@ -18,13 +19,15 @@ interface BannerProps {
 }
 
 export const Banner = ({ position, type }: BannerProps) => {
-  const bannerList = useRecoilValueLoadable(bannerState);
+  const bannerList = useAtomValue(loadable(bannerState));
   const [bannerIdx, setBannerIdx] = useState<number>(0);
-  const banner = bannerList.contents?.[bannerIdx];
+  const banner = bannerList.state === 'hasData' ? bannerList.data?.[bannerIdx] : undefined;
   const className = `${styles.banner} ${styles[position]} ${styles[type]}`;
 
   useEffect(() => {
-    setBannerIdx(Math.floor(Math.random() * bannerList.contents?.length));
+    if (bannerList.state === 'hasData') {
+      setBannerIdx(Math.floor(Math.random() * bannerList.data?.length));
+    }
   }, [bannerList]);
 
   return (

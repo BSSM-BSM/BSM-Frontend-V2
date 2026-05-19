@@ -1,6 +1,6 @@
 import styles from '@/styles/home.module.css';
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { userState } from "@/store/account.store";
 import { UserRole } from "@/types/user.type";
 import Image, { StaticImageData } from 'next/image';
@@ -12,7 +12,7 @@ export const UserHomeMenu = () => {
   const [mounted, setMounted] = useState(false);
   const { openModal } = useModal();
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
-  const [user] = useRecoilState(userState);
+  const [user] = useAtom(userState);
 
   useEffect(() => {
     setMounted(true);

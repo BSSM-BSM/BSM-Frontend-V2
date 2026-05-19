@@ -7,9 +7,8 @@ import 'prismjs/plugins/toolbar/prism-toolbar.min.css';
 import styles from '@/styles/board/post/post.module.css';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { headerOptionState, pageState } from '@/store/common.store';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useAtomValue, useSetAtom } from 'jotai';
 import Head from 'next/head';
 import { UserInfoLink } from '@/components/board/userInfoLink';
 import { postXssFilter } from '@/components/board/post/postView';
@@ -23,7 +22,7 @@ interface LostFoundDetailProps {
 
 const LostFoundDetail = ({ params: { id } }: LostFoundDetailProps) => {
   const { ajax } = useAjax();
-  const user = useRecoilValue(userState);
+  const user = useAtomValue(userState);
   const [detail, setDetail] = useState({
     id: -1,
     objectName: '',
@@ -37,8 +36,8 @@ const LostFoundDetail = ({ params: { id } }: LostFoundDetailProps) => {
       nickname: ''
     }
   });
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
 
   useEffect(() => {
     setPage({ id: 'board', subId: 'lost-found' });

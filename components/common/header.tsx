@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useAtom, useSetAtom } from 'jotai';
 import { useAjax } from '@/hooks/useAjax';
 import { useModal } from '@/hooks/useModal';
 import { userState } from '@/store/account.store';
@@ -15,9 +15,9 @@ export const Header = () => {
   const pathname = usePathname();
   const { openModal } = useModal();
   const { ajax } = useAjax();
-  const setUser = useSetRecoilState(userState);
-  const [headerOption] = useRecoilState(headerOptionState);
-  const setSideBar = useSetRecoilState(sideBarState);
+  const setUser = useSetAtom(userState);
+  const [headerOption] = useAtom(headerOptionState);
+  const setSideBar = useSetAtom(sideBarState);
 
   useEffect(() => {
     getUserInfo(ajax, setUser);

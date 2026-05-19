@@ -2,7 +2,7 @@
 
 import styles from '@/styles/meal.module.css';
 import { useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useAtom, useSetAtom } from 'jotai';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { useOverlay } from '@/hooks/useOverlay';
 import { screenScaleState, headerOptionState, pushSubscriptionState, pageState } from '@/store/common.store';
@@ -16,8 +16,8 @@ import { BannerType } from '@/types/banner.type';
 import { Banner, BannerPos } from '@/components/common/banner';
 
 const MealPage = () => {
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
   const { ajax } = useAjax();
   const { showToast } = useOverlay();
   const [mealList, setMealList] = useState<MealType[]>([]);
@@ -25,8 +25,8 @@ const MealPage = () => {
   const [mealIdx, setMealIdx] = useState<number>(0);
   const [viewRange, setViewRange] = useState<number>(5);
   const [isSameDay, setIsSameDay] = useState<boolean>(false);
-  const [screenScale] = useRecoilState(screenScaleState);
-  const [pushSubscription, setPushSubscription] = useRecoilState(pushSubscriptionState);
+  const [screenScale] = useAtom(screenScaleState);
+  const [pushSubscription, setPushSubscription] = useAtom(pushSubscriptionState);
 
   // init
   useEffect(() => {

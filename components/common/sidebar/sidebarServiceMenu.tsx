@@ -7,7 +7,6 @@ import { RiSurveyLine } from 'react-icons/ri';
 import { RxDiscordLogo } from 'react-icons/rx';
 import { MdLockPerson, MdOutlineHomeRepairService } from 'react-icons/md';
 import { BsWikipedia } from 'react-icons/bs';
-import React from 'react';
 
 const SidebarServiceMenu = () => {
   const bsmServiceDropdownMenu = <>

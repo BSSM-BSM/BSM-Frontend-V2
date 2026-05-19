@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useAtom, useAtomValue } from 'jotai';
 import {
   backgroundImageUrlState,
   customBackgroundOnlyHomeState,
@@ -27,11 +27,11 @@ const noCustomBackgroundPages: {
 ];
 
 export const Main = ({ children }: { children: ReactNode }) => {
-  const [sideBar, setSideBar] = useRecoilState(sideBarState);
-  const { title, headTitle } = useRecoilValue(headerOptionState);
-  const page = useRecoilValue(pageState);
-  const backgroundImageUrl = useRecoilValue(backgroundImageUrlState);
-  const customBackgroundOnlyHome = useRecoilValue(customBackgroundOnlyHomeState);
+  const [sideBar, setSideBar] = useAtom(sideBarState);
+  const { title, headTitle } = useAtomValue(headerOptionState);
+  const page = useAtomValue(pageState);
+  const backgroundImageUrl = useAtomValue(backgroundImageUrlState);
+  const customBackgroundOnlyHome = useAtomValue(customBackgroundOnlyHomeState);
 
   useEffect(() => {
     if (headTitle) {

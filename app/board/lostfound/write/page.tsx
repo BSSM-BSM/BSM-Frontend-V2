@@ -1,19 +1,15 @@
 'use client';
 
 import styles from '@/styles/board/post/post.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinymceEditor } from 'tinymce';
 import { TextInput } from '@/components/common/inputs/textInput';
-import { Category, DetailPost } from '@/types/board.type';
 import { useRouter } from 'next/navigation';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { boardActiveEditorState, postIdState } from '@/store/board.store';
+import { useAtomValue } from 'jotai';
 import { useModal } from '@/hooks/useModal';
 import { Button } from '@/components/common/buttons/button';
-import { CheckList } from '@/components/common/buttons/checkList';
-import { boardAnonymousModeState } from '@/store/setting/board.store';
 import { themeState } from '@/store/common.store';
 
 interface UploadFileRes {
@@ -23,7 +19,7 @@ interface UploadFileRes {
 
 const Write = () => {
   const { ajax } = useAjax();
-  const theme = useRecoilValue(themeState);
+  const theme = useAtomValue(themeState);
   const router = useRouter();
   const [title, setTitle] = useState<string>('');
   const [mainImgSrc, setMainImgSrc] = useState<string>('');
@@ -78,7 +74,7 @@ const Write = () => {
         tinymceScriptSrc={process.env.NODE_ENV === 'development' ? undefined : '/lib/tinymce/tinymce.min.js'}
         onInit={(_, editor) => setEditor(editor)}
         init={{
-          language: 'ko_KR',
+          language: 'ko-KR',
           height: '100vh',
           menubar: true,
           mobile: {

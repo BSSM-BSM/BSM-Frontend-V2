@@ -2,8 +2,6 @@
 
 import '@/styles/globals.css'
 import { ReactNode, useEffect } from "react";
-import { RecoilRoot } from "recoil";
-import RecoilNexus from 'recoil-nexus';
 import StyledComponentsRegistry from '@/lib/registry';
 import Script from 'next/script';
 import { Main } from '@/components/common/main';
@@ -59,10 +57,7 @@ export default function RootLayout({
         <div id="modal-wrap" />
         <div id="overlay-wrap" />
         <StyledComponentsRegistry>
-          <RecoilRoot>
-            <RecoilNexus />
             <Main>{children}</Main>
-          </RecoilRoot>
         </StyledComponentsRegistry>
       </body>
     </html>

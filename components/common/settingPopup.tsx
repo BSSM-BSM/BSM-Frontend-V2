@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { useAjax } from "@/hooks/useAjax";
 import { useModal } from "@/hooks/useModal";
 import { useOverlay } from "@/hooks/useOverlay";
@@ -14,17 +14,17 @@ import Modal from "@/components/common/modal";
 export const SettingBox = () => {
   const { ajax } = useAjax();
   const { showToast } = useOverlay();
-  const [user] = useRecoilState(userState);
+  const [user] = useAtom(userState);
   const { openModal } = useModal();
-  const [pushSubscription, setPushSubscription] = useRecoilState(pushSubscriptionState);
-  const [theme, setTheme] = useRecoilState(themeState);
-  const [screenScale, setScreenScale] = useRecoilState(screenScaleState);
-  const [postLimit, setPostLimit] = useRecoilState(postLimitState);
-  const [boardDetailTime, setBoardDetailTime] = useRecoilState(boardDetailTimeState);
-  const [boardAnonymousMode, setBoardAnonymousMode] = useRecoilState(boardAnonymousModeState);
-  const [boardNoRecordMode, setBoardNoRecordMode] = useRecoilState(boardNoRecordModeState);
-  const [boardOpenAllChildComments, setBoardOpenAllChildComments] = useRecoilState(boardOpenAllChildCommentsState);
-  const [customBackgroundOnlyHome, setCustomBackgroundOnlyHome] = useRecoilState(customBackgroundOnlyHomeState);
+  const [pushSubscription, setPushSubscription] = useAtom(pushSubscriptionState);
+  const [theme, setTheme] = useAtom(themeState);
+  const [screenScale, setScreenScale] = useAtom(screenScaleState);
+  const [postLimit, setPostLimit] = useAtom(postLimitState);
+  const [boardDetailTime, setBoardDetailTime] = useAtom(boardDetailTimeState);
+  const [boardAnonymousMode, setBoardAnonymousMode] = useAtom(boardAnonymousModeState);
+  const [boardNoRecordMode, setBoardNoRecordMode] = useAtom(boardNoRecordModeState);
+  const [boardOpenAllChildComments, setBoardOpenAllChildComments] = useAtom(boardOpenAllChildCommentsState);
+  const [customBackgroundOnlyHome, setCustomBackgroundOnlyHome] = useAtom(customBackgroundOnlyHomeState);
 
   useEffect(() => {
     if (theme === 'dark') {

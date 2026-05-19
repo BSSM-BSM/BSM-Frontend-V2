@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { parentCommentState } from '@/store/board.store';
 import styles from '@/styles/board/comment.module.css';
 import { BoardAndPostId, Comment, DeletedComment } from "@/types/board.type"
@@ -11,7 +11,6 @@ import { getProfileSrc } from '@/utils/userUtil';
 import { elapsedTime } from '@/utils/date';
 import { DropdownMenu } from '@/components/common/dropdownMenu';
 import { boardOpenAllChildCommentsState } from '@/store/setting/board.store';
-import React from 'react';
 
 export const CommentList = ({
   comment,
@@ -30,9 +29,9 @@ export const CommentList = ({
   commentXssFilter: FilterXSS,
   boardAndPostId: BoardAndPostId
 }) => {
-  const [, setParentComment] = useRecoilState(parentCommentState);
+  const [, setParentComment] = useAtom(parentCommentState);
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(-1));
-  const [boardOpenAllChildComments] = useRecoilState(boardOpenAllChildCommentsState);
+  const [boardOpenAllChildComments] = useAtom(boardOpenAllChildCommentsState);
   const [viewChild, setViewChild] = useState<boolean>(boardOpenAllChildComments || comment.depth < 4);
   const { boardId, postId } = boardAndPostId;
 

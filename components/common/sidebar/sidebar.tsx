@@ -8,16 +8,15 @@ import { AiOutlineBell } from 'react-icons/ai';
 import SidebarItem from '@/components/common/sidebar/sidebarItem';
 import SidebarUserMenu from '@/components/common/sidebar/sidebarUserMenu';
 import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
+import { useAtomValue } from 'jotai';
 import { pageState, sideBarState } from '@/store/common.store';
 import SidebarServiceMenu from '@/components/common/sidebar/sidebarServiceMenu';
 import { FaSchool } from 'react-icons/fa';
-import React from 'react';
 
 const Sidebar = () => {
   const router = useRouter();
-  const _page = useRecoilValue(pageState); // 페이지 이동 감지용 state
-  const sideBar = useRecoilValue(sideBarState);
+  const _page = useAtomValue(pageState); // 페이지 이동 감지용 state
+  const sideBar = useAtomValue(sideBarState);
 
   const boardDropdownMenu = (
     <>

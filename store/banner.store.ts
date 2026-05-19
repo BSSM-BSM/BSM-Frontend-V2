@@ -1,10 +1,7 @@
 import axios from "axios";
-import { selector } from "recoil";
+import { atom } from "jotai";
 import { Banner } from "@/types/banner.type";
 
-export const bannerState = selector<Banner[]>({
-  key: 'banner',
-  get: async () => {
-    return (await axios.get<Banner[]>('/api/banner')).data
-  }
+export const bannerState = atom(async () => {
+  return (await axios.get<Banner[]>('/api/banner')).data
 });

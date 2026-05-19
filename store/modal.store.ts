@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
 export interface ModalState {
   [index: string]: {
@@ -7,7 +7,4 @@ export interface ModalState {
   }
 }
 
-export const modalState = atom<ModalState>({
-  key: 'modalState',
-  default: {}
-});
+export const modalState = atom<ModalState>({});

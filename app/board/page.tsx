@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useSetAtom } from 'jotai';
 import { headerOptionState, pageState } from '@/store/common.store';
 import { Banner, BannerPos } from '@/components/common/banner';
 import { BannerType } from '@/types/banner.type';
@@ -11,8 +11,8 @@ import { BiCodeAlt } from 'react-icons/bi';
 import { AiOutlineBell } from 'react-icons/ai';
 
 const BoardListPage = () => {
-  const setHeaderOption = useSetRecoilState(headerOptionState);
-  const setPage = useSetRecoilState(pageState);
+  const setHeaderOption = useSetAtom(headerOptionState);
+  const setPage = useSetAtom(pageState);
   const router = useRouter();
 
   useEffect(() => {

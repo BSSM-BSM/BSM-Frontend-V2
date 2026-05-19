@@ -1,6 +1,7 @@
 import * as S from '@/styles/common/sidebar.style';
 import { useEffect, useState } from "react";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useAtomValue } from "jotai";
+import { useResetAtom } from "jotai/utils";
 import { userState } from "@/store/account.store";
 import { UserRole } from "@/types/user.type";
 import Image, { StaticImageData } from 'next/image';
@@ -16,10 +17,10 @@ import { useOverlay } from '@/hooks/useOverlay';
 const SidebarUserMenu = () => {
   const { ajax } = useAjax();
   const { showToast } = useOverlay();
-  const resetUser = useResetRecoilState(userState);
+  const resetUser = useResetAtom(userState);
   const { openModal } = useModal();
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(DefaultProfilePic);
-  const user = useRecoilValue(userState);
+  const user = useAtomValue(userState);
 
   useEffect(() => {
       setProfileSrc(getProfileSrc(user.isLogin? user.id: 0));

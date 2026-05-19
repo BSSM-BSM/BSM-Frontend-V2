@@ -5,12 +5,12 @@ import { BsCalendar4 } from 'react-icons/bs';
 import { IoExtensionPuzzleOutline, IoPeopleOutline } from 'react-icons/io5';
 import NavbarItem from '@/components/common/navbar/navbarItem';
 import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
+import { useAtomValue } from 'jotai';
 import { pageState } from '@/store/common.store';
 
 const Navbar = () => {
   const router = useRouter();
-  const _page = useRecoilValue(pageState); // 페이지 이동 감지용 state
+  const _page = useAtomValue(pageState); // 페이지 이동 감지용 state
 
   return (
     <S.Navbar>

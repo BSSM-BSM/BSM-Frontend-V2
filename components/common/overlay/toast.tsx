@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { toastState } from "@/store/overlay.store";
 
 const Toast = () => {
   const [mounted, setMounted] = useState(false);
-  const [toastList] = useRecoilState(toastState);
+  const [toastList] = useAtom(toastState);
 
   useEffect(() => {
     setMounted(true);

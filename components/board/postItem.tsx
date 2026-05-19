@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { boardAndPostIdState, postOpenState, postState } from '@/store/board.store';
 import styles from '@/styles/board/board.module.css';
@@ -31,9 +31,9 @@ export const PostItem = ({
   totalComments,
   totalLikes
 }: PostItemProps) => {
-  const [post, setPost] = useRecoilState(postState);
-  const [, setBoardAndPostId] = useRecoilState(boardAndPostIdState);
-  const [, setPostOpen] = useRecoilState(postOpenState);
+  const [post, setPost] = useAtom(postState);
+  const [, setBoardAndPostId] = useAtom(boardAndPostIdState);
+  const [, setPostOpen] = useAtom(postOpenState);
   const { ajax } = useAjax();
   const [profileSrc, setProfileSrc] = useState<string | StaticImageData>(getProfileSrc(user.id));
 
