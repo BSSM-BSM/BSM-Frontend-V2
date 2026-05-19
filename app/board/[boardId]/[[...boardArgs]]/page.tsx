@@ -1,18 +1,18 @@
 'use client';
 
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { useSetAtom } from 'jotai';
 import { editPostIdState, postIdState } from '@/store/board.store';
 
 interface BoardPageProps {
-  params: {
+  params: Promise<{
     boardId: string;
     boardArgs: string[];
-  };
+  }>;
 }
 
 const BoardPage = (props: BoardPageProps) => {
-  const { params } = props;
+  const params = use(props.params);
   const [postId, editPostId] = params.boardArgs ?? [undefined, undefined];
   const [setPostId, setEditPostId] = [useSetAtom(postIdState), useSetAtom(editPostIdState)];
 

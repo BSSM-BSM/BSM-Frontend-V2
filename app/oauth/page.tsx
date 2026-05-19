@@ -1,14 +1,15 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, use } from 'react';
 import { useAtom } from 'jotai';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { useModal } from '@/hooks/useModal';
 import { userState } from '@/store/account.store';
 import { getUserInfo } from '@/utils/userUtil';
 
-const OauthPage = ({ searchParams }: { searchParams: { code?: string } }) => {
+const OauthPage = (props: { searchParams: Promise<{ code?: string }> }) => {
+  const searchParams = use(props.searchParams);
   const { ajax } = useAjax();
   const { closeModal } = useModal();
   const [, setUser] = useAtom(userState);

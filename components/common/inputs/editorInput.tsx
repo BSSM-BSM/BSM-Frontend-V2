@@ -23,7 +23,7 @@ export const EditorInput = (props: EditorInputProps) => {
     full,
     refCallback
   } = props;
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
 
   useEffect(() => {
     if (!contentRef.current) return;

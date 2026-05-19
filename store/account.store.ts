@@ -1,6 +1,6 @@
-import { atom } from "jotai";
 import { NoLoginUser, Student, Teacher } from "@/types/user.type";
+import { atomWithReset } from "jotai/utils";
 
-export const userState = atom<NoLoginUser | Student | Teacher>({
+export const userState = atomWithReset<NoLoginUser | Student | Teacher>({
   isLogin: false
 });

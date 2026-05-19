@@ -3,7 +3,7 @@
 import boardStyles from '@/styles/board/board.module.css';
 import postStyles from '@/styles/board/post/post.module.css';
 import Head from 'next/head';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, use } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { BoardView } from '@/components/board/boardView';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
@@ -18,12 +18,17 @@ import Link from 'next/link';
 
 interface BoardLayoutProps {
   children: ReactNode;
-  params: {
+  params: Promise<{
     boardId: string;
-  };
+  }>;
 }
 
-const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
+const BoardLayout = (props: BoardLayoutProps) => {
+  const params = use(props.params);
+
+  const { boardId } = params;
+  const { children } = props;
+
   const { ajax } = useAjax();
   const setHeaderOption = useSetAtom(headerOptionState);
   const setPage = useSetAtom(pageState);
@@ -168,9 +173,8 @@ const BoardLayout = ({ children, params: { boardId } }: BoardLayoutProps) => {
       )}
       {
         <div
-          className={`${postStyles.post} ${postStyles.post_write_wrap} ${
-            boardList[boardId] && postId === 'write' ? postStyles.open : ''
-          }`}
+          className={`${postStyles.post} ${postStyles.post_write_wrap} ${boardList[boardId] && postId === 'write' ? postStyles.open : ''
+            }`}
         >
           <PostWrite
             boardId={boardId}

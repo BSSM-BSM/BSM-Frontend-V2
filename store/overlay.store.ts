@@ -20,8 +20,8 @@ export const alertState = atom<{
 });
 
 export const alertTimerState = atom<{
-  removeTimer: NodeJS.Timer | null,
-  hideTimer: NodeJS.Timer | null
+  removeTimer: NodeJS.Timeout | null,
+  hideTimer: NodeJS.Timeout | null
 }>({
   removeTimer: null,
   hideTimer: null

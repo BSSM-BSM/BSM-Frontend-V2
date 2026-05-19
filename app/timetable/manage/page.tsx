@@ -2,7 +2,7 @@
 
 import styles from '@/styles/timetable/timetable.module.css';
 import manageStyles from '@/styles/timetable/timetable-manage.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useSetAtom } from 'jotai';
 import { headerOptionState, pageState } from '@/store/common.store';
 import { Timetable, TimetableDayType, TimetableItem, TimetableListType, TimetableManageInfo, TimetableManageMode } from '@/types/timetable.type';
@@ -12,7 +12,10 @@ import { TimetableItemManageMenu } from '@/components/timetable/timetableItemMan
 import { useModal } from '@/hooks/useModal';
 import { TimetableManageSideBar } from '@/components/timetable/timetableManageSideBar';
 
-const TimetableManagePage = ({ searchParams }: { searchParams: { grade?: number; classNo?: number; day?: number } }) => {
+const TimetableManagePage = (
+  props: { searchParams: Promise<{ grade?: number; classNo?: number; day?: number }> }
+) => {
+  const searchParams = use(props.searchParams);
   const setHeaderOption = useSetAtom(headerOptionState);
   const setPage = useSetAtom(pageState);
   const { openModal } = useModal();

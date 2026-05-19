@@ -5,7 +5,7 @@ import { useModal } from '@/hooks/useModal';
 import { useOverlay } from '@/hooks/useOverlay';
 
 const instance = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://bssm.app/api',
   headers: {
     Pragma: 'no-cache'
   },

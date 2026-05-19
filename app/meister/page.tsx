@@ -1,7 +1,7 @@
 'use client';
 
 import styles from '@/styles/meister/index.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { userState } from '@/store/account.store';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
@@ -15,7 +15,10 @@ import { MeisterInfo } from '@/types/meister.type';
 import { Banner, BannerPos } from '@/components/common/banner';
 import { BannerType } from '@/types/banner.type';
 
-const MeisterPage = ({ searchParams }: { searchParams: { grade?: number; classNo?: number; studentNo?: number } }) => {
+const MeisterPage = (
+  props: { searchParams: Promise<{ grade?: number; classNo?: number; studentNo?: number }> }
+) => {
+  const searchParams = use(props.searchParams);
   const setHeaderOption = useSetAtom(headerOptionState);
   const setPage = useSetAtom(pageState);
   const { ajax } = useAjax();

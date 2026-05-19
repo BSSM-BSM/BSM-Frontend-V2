@@ -7,7 +7,7 @@ import 'prismjs/plugins/toolbar/prism-toolbar.min.css';
 import styles from '@/styles/board/post/post.module.css';
 import { HttpMethod, useAjax } from '@/hooks/useAjax';
 import { headerOptionState, pageState } from '@/store/common.store';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
 import Head from 'next/head';
 import { UserInfoLink } from '@/components/board/userInfoLink';
@@ -15,12 +15,16 @@ import { postXssFilter } from '@/components/board/post/postView';
 import { userState } from '@/store/account.store';
 
 interface LostFoundDetailProps {
-  params: {
+  params: Promise<{
     id: number;
-  };
+  }>;
 }
 
-const LostFoundDetail = ({ params: { id } }: LostFoundDetailProps) => {
+const LostFoundDetail = (props: LostFoundDetailProps) => {
+  const params = use(props.params);
+
+  const { id } = params;
+
   const { ajax } = useAjax();
   const user = useAtomValue(userState);
   const [detail, setDetail] = useState({

@@ -1,6 +1,6 @@
 import * as S from '@/styles/common/navbar.style';
-import { IconType } from "react-icons/lib/esm/iconBase";
 import { ReactNode } from 'react';
+import { IconType } from 'react-icons';
 
 interface NavbarItemProps {
   id?: string,
