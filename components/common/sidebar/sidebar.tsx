@@ -12,6 +12,7 @@ import { useAtomValue } from 'jotai';
 import { pageState, sideBarState } from '@/store/common.store';
 import SidebarServiceMenu from '@/components/common/sidebar/sidebarServiceMenu';
 import { FaSchool } from 'react-icons/fa';
+import { SiUptimekuma } from "react-icons/si";
 
 const Sidebar = () => {
   const router = useRouter();
@@ -99,6 +100,13 @@ const Sidebar = () => {
           커뮤니티
         </SidebarItem>
         <SidebarServiceMenu />
+        <SidebarItem
+          Icon={SiUptimekuma}
+          iconSize="2.6rem"
+          onClick={() => window.open('https://status.bssm.app/status/bsm', '_blank')}
+        >
+          Uptime
+        </SidebarItem>
         <SidebarItem
           Icon={AiFillGithub}
           iconSize="2.6rem"

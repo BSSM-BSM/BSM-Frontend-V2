@@ -50,12 +50,12 @@ const Home = () => {
               <span>급식</span>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/timetable" className={styles.menu}>
               <img className={styles.icon} src="/icons/timetable.svg" alt="timetable"></img>
               시간표
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/board/board" className={styles.menu}>
               <img className={styles.icon} src="/icons/people.svg" alt="free board"></img>
@@ -68,12 +68,12 @@ const Home = () => {
               학생 게시판
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/board/code" className={styles.menu}>
               <img className={styles.icon} src="/icons/people.svg" alt="code share"></img>
               코드 공유
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/board/notice" className={styles.menu}>
               <img className={styles.icon} src="/icons/people.svg" alt="notice"></img>
