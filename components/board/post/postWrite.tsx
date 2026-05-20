@@ -133,9 +133,10 @@ export const PostWrite = ({
       />
       <Editor
         tinymceScriptSrc={process.env.NODE_ENV === 'development' ? undefined : '/resource/lib/tinymce/tinymce.min.js'}
+        licenseKey='gpl'
         onInit={(_, editor) => setEditor(editor)}
         init={{
-          language: 'ko-KR',
+          language: 'ko_KR',
           height: '100%',
           menubar: true,
           mobile: {
