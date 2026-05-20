@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { ModalState, modalState } from "@/store/modal.store";
 
 interface UseModal {
-  openModal: (key: string, closeable?: boolean) => void;
+  openModal: ({ key, closeable }: { key: string, closeable?: boolean }, props?: unknown) => void;
   closeModal: (key: string) => void;
   closeAllModal: () => void;
 }
@@ -10,7 +10,7 @@ interface UseModal {
 export const useModal = (): UseModal => {
   const [modalList, setModalList] = useAtom(modalState);
 
-  const openModal = (key: string, closeable?: boolean) => {
+  const openModal: UseModal['openModal'] = ({ key, closeable }, props) => {
     if (modalList[key] && (closeable === undefined || modalList[key].closeable === closeable)) {
       return;
     }
@@ -19,7 +19,8 @@ export const useModal = (): UseModal => {
       ...prev,
       [key]: {
         isOpen: true,
-        closeable: closeable ?? true
+        closeable: closeable ?? true,
+        props
       }
     }));
   }

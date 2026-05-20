@@ -14,3 +14,22 @@ export const numberInBetween = (start: number | undefined, end: number | undefin
   if (given >= start && given <= end) return true;
   return false;
 }
+
+export const leftTime = (milliSecond: number) => {
+  const times = [
+    { name: "년", time: 1000 * 60 * 60 * 24 * 365 },
+    { name: "개월", time: 1000 * 60 * 60 * 24 * 30 },
+    { name: "일", time: 1000 * 60 * 60 * 24 },
+    { name: "시간", time: 1000 * 60 * 60 },
+    { name: "분", time: 1000 * 60 },
+    { name: "초", time: 1000 }
+  ];
+  let leftTime = milliSecond;
+  const formatedTimeList = [];
+  for (const value of times) {
+    if (leftTime / value.time < 1) continue;
+    formatedTimeList.push(`${Math.floor(leftTime / value.time)}${value.name}`);
+    leftTime %= value.time;
+  }
+  return formatedTimeList.join(' ');
+}

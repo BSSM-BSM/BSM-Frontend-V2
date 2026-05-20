@@ -46,7 +46,7 @@ export const UserHomeMenu = () => {
           <div className={styles.main_content}>{user.nickname}</div>
         </div>
       </a>
-      : <div className={styles.menu} onClick={() => openModal('login')}>
+      : <div className={styles.menu} onClick={() => openModal({ key: 'login' })}>
         <img className={styles.icon} src='/icons/person.svg' alt='login' />
         <span>로그인</span>
       </div>

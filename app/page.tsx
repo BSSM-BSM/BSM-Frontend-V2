@@ -33,7 +33,7 @@ const Home = () => {
         <HiOutlinePencilAlt
           size="2rem"
           className={styles.edit_background_image}
-          onClick={() => openModal('edit-background-image')}
+          onClick={() => openModal({ key: 'edit-background-image' })}
         />
       </>
       <section className={styles.quick_menu_section}>

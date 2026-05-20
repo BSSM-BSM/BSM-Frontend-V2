@@ -3,7 +3,8 @@ import { atom } from "jotai";
 export interface ModalState {
   [index: string]: {
     isOpen: boolean,
-    closeable: boolean
+    closeable: boolean,
+    props?: unknown
   }
 }
 

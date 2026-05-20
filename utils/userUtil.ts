@@ -2,25 +2,25 @@ import { Ajax, HttpMethod } from "@/hooks/useAjax";
 import { NoLoginUser, Student, Teacher } from "@/types/user.type";
 import { StaticImageData } from 'next/image';
 import DefaultProfilePic from '@/public/icons/profile_default.png';
+import { SetStateAction } from "jotai";
+import { Dispatch } from "react";
 
-type SetterOrUpdater<T> = (value: T | ((prev: T) => T)) => void;
+export const getUserInfo = async (ajax: Ajax, setUser: Dispatch<SetStateAction<NoLoginUser| Student| Teacher>>) => {
+    localStorage.removeItem('user');
+    const [data, error] = await ajax<Student | Teacher>({
+        method: HttpMethod.GET,
+        url: 'user',
+        errorCallback(data) {
+            if (data && 'statusCode' in data && data.statusCode === 401) {
+                return true;
+            }
+        },
+    });
+    if (error) return;
 
-export const getUserInfo = async (ajax: Ajax, setUser: SetterOrUpdater<NoLoginUser | Student | Teacher>) => {
-  localStorage.removeItem('user');
-  const [data, error] = await ajax<Student | Teacher>({
-    method: HttpMethod.GET,
-    url: 'user',
-    errorCallback(data) {
-      if (data && 'statusCode' in data && data.statusCode === 401) {
-        return true;
-      }
-    },
-  });
-  if (error) return;
-
-  const userInfo: (Student | Teacher) = { ...data, isLogin: true };
-  setUser(userInfo);
-  return userInfo;
+    const userInfo: (Student| Teacher) = {...data, isLogin: true};
+    setUser(userInfo);
+    return userInfo;
 }
 
 export const getProfileSrc = (userId: number): string | StaticImageData =>

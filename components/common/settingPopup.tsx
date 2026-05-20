@@ -43,7 +43,7 @@ export const SettingBox = () => {
     return (<li>
       <h3>관리자 메뉴</h3>
       <ul className='list'>
-        <li className='pointer' onClick={() => openModal('emoticon_manage_box')}>
+        <li className='pointer' onClick={() => openModal({ key: 'emoticon_manage_box' })}>
           <span>이모티콘 관리</span>
           <span>커뮤니티 페이지</span>
         </li>

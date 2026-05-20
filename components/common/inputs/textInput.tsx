@@ -21,7 +21,8 @@ export const TextInput = (props: TextInputProps) => {
     pattern,
     className = '',
     immediately,
-    full
+    full,
+    hidden
   } = props;
   const [tempValue, setTempValue] = useState(initial);
   const { showToast } = useOverlay();
@@ -39,7 +40,7 @@ export const TextInput = (props: TextInputProps) => {
   }
 
   return (
-    <div className={`${styles.input_wrap} ${full ? styles.full : ''}`}>
+    <div className={`${styles.input_wrap} ${full ? styles.full : ''}`} hidden={hidden}>
       <input
         {...props}
         className={`${styles.input} ${className}`}

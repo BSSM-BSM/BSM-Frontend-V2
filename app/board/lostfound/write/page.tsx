@@ -105,7 +105,7 @@ const Write = () => {
             tinymceEditor.ui.registry.addButton('emoticon', {
               text: '이모티콘',
               onAction: () => {
-                openModal('emoticon');
+                openModal({ key: 'emoticon' });
               }
             });
           },

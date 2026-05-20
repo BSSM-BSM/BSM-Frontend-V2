@@ -80,7 +80,7 @@ export const MeisterHomeMenu = () => {
           <span>마이스터 역량인증제가 비활성화됨</span>
           <span onClick={e => {
             e.preventDefault();
-            openModal('meister_inactivated');
+            openModal({ key: 'meister_inactivated' });
           }}>자세히 보기</span>
         </>
       );
@@ -93,7 +93,7 @@ export const MeisterHomeMenu = () => {
         <span>정보를 자동으로 불러올 수 없습니다</span>
         <span onClick={e => {
           e.preventDefault();
-          openModal('meister_login_error');
+          openModal({ key: 'meister_login_error' });
         }}>해결 방법</span>
       </>
     );

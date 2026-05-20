@@ -7,7 +7,7 @@
 @import url(etc/oauth.css);
 @import url(board/emoticon.css);
 
-a, abbr, acronym, address, applet, article, aside, audio, b, big, body, button, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, input, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, tr, tt, u, ul, var, video
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, button, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, input, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, textarea, tfoot, th, thead, time, tr, tt, u, ul, var, video
 {
   margin: 0;
   padding: 0;
@@ -65,7 +65,7 @@ body {
   --shadow: .1rem .1rem .5rem rgba(0, 0, 0, .15);
   --shadow-level-1: .2rem .2rem 5rem rgba(0, 0, 0, .2);
   --drop-shadow: drop-shadow(rgba(90, 90, 90, 0.1) 0px 2px 5px);
-  --hover: #a8aaadaa;
+  --hover: rgba(0, 0, 0, .2);
   --hover-transition: background .25s;
   --bright: brightness(0);
   --visited: #800080;
@@ -103,20 +103,18 @@ body.dark {
   --level-5: #484848;
   --level-6: #505050;
   --level-7: #585858;
-  
-  --level-0-opacity: #1a1a1aaa;
-  --level-1-opacity: #282828aa;
-  --level-2-opacity: #303030aa;
-  --level-3-opacity: #383838aa;
-  --level-4-opacity: #404040aa;
-  --level-5-opacity: #484848aa;
-  --level-6-opacity: #505050aa;
-  --level-7-opacity: #585858aa;
+
+  --level-0-opacity: #1a1a1a88;
+  --level-1-opacity: #20202088;
+  --level-2-opacity: #2a2a2a88;
+  --level-3-opacity: #30303088;
+  --level-4-opacity: #3a3a3a88;
+  --level-5-opacity: #40404088;
   
   --dim: rgba(0, 0, 0, .4);
   --shadow: none;
   --shadow-level-1: none;
-  --hover: #60606088;
+  --hover: #a8aaad66;
   --bright: brightness(20);
   --visited: #f4a4ff;
 
@@ -149,6 +147,10 @@ body {
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .wrap {
   display: grid;
   grid-template-areas: 
@@ -167,6 +169,7 @@ main {
   box-shadow: var(--shadow);
   overflow: hidden;
   overflow-y: auto;
+  overflow-y: overlay;
   width: calc(100vw - 25rem);
   background-color: var(--level-1);
   background-image: var(--background-image);
@@ -187,31 +190,34 @@ main {
   }
 }
 
-body, .scroll-bar:not(.horizontal) {
-  overflow-y: auto;
+main, .scroll-bar {
+  overflow: auto;
+  overflow: overlay;
 }
 
-.scroll-bar.horizontal {
-  overflow-x: auto;
+.no-overlay {
+  overflow: auto !important;
 }
 
 :is(
-  body,
+  main,
   .scroll-bar
 )::-webkit-scrollbar {
-  width: .8rem;
+  width: 2rem;
 }
 
 .scroll-bar.horizontal::-webkit-scrollbar {
-  height: .8rem;
+  height: 1rem;
 }
 
 :is(
-  body,
+  main,
   .scroll-bar
 )::-webkit-scrollbar-thumb {
   background-color: var(--text-level-1);
   border-radius: 1rem;
+  border: .8rem solid transparent;
+  background-clip: padding-box;
 }
 
 .scroll-bar.horizontal::-webkit-scrollbar-thumb {
@@ -254,10 +260,6 @@ a {
   color: var(--text);
 }
 
-blockquote {
-  margin: 0 2rem;
-}
-
 img{
   width: auto; 
   filter: brightness(1);
@@ -270,7 +272,7 @@ input::-webkit-inner-spin-button {
 }
 
 input[type=number] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 label, summary{
@@ -334,6 +336,7 @@ label, summary{
 }
 
 .container._50 {max-width: 50rem;}
+.container._70 {max-width: 70rem;}
 .container._100 {max-width: 100rem;}
 .container._110 {max-width: 110rem;}
 
@@ -395,18 +398,8 @@ label, summary{
   transform: translateY(-.295rem) rotate(25deg);
 }
 
-.dim {
-  pointer-events: all;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--dim);
-  z-index: 100;
-}
-
 .loading {
+  pointer-events: all;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -472,7 +465,6 @@ label, summary{
   background-size: 4rem;
   background-position: center;
   border: none;
-  transition: var(--hover-transition);
   filter: var(--bright);
 }
 

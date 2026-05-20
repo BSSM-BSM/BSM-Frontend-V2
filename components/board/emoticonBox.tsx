@@ -78,7 +78,7 @@ const EmoticonBox = () => {
     <Modal id='emoticon' title='이모티콘 넣기' onOpen={loadEmoticons}>
       <ul className={`${styles.emoticon_list} scroll-bar horizontal`}>
         <li key='upload' className={styles.upload_emoticon} onClick={() => {
-          openModal('emoticon_upload');
+          openModal({ key: 'emoticon_upload' });
           closeModal('emoticon');
         }}>
           +

@@ -72,7 +72,7 @@ export const CommentWrite = ({
       }
       <div className={styles.write_bar_menu}>
         {parentComment && <Button className='delete' onClick={() => setParentComment(null)}>취소</Button>}
-        <Button className={styles.emoticon_button} onClick={() => openModal('emoticon')}><img src='/icons/emoticon.svg' alt='emoticon' /></Button>
+        <Button className={styles.emoticon_button} onClick={() => openModal({ key: 'emoticon' })}><img src='/icons/emoticon.svg' alt='emoticon' /></Button>
         <Button onClick={writeComment}>쓰기</Button>
       </div>
     </div>

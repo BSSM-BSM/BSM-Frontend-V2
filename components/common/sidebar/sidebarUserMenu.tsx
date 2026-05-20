@@ -97,7 +97,7 @@ const SidebarUserMenu = () => {
       <SidebarItem
         Icon={AiOutlineUser}
         iconSize="2.6rem"
-        onClick={() => openModal('login')}
+        onClick={() => openModal({ key: 'login' })}
       >
         로그인
       </SidebarItem>

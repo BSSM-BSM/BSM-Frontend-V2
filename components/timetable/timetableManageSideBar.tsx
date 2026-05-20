@@ -154,7 +154,7 @@ export const TimetableManageSideBar = ({
         {
           manageList.map((item, i) => <TimetableManageItem key={item.id} item={item} selectId={selectId} setSelectId={setSelectId} />)
         }
-        <Button full onClick={() => openModal('createTimetable')}>새로 만들기</Button>
+        <Button full onClick={() => openModal({ key: 'createTimetable' })}>새로 만들기</Button>
       </ul>
       {
         selectId !== 0 &&

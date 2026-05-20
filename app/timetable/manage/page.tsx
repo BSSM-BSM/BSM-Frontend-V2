@@ -64,12 +64,12 @@ const TimetableManagePage = (
 
   const addHandler = () => {
     setMode(TimetableManageMode.ADD);
-    openModal('manageTimetableItem');
+    openModal({ key: 'manageTimetableItem' });
   }
 
   const editHandler = () => {
     setMode(TimetableManageMode.EDIT);
-    openModal('manageTimetableItem');
+    openModal({ key: 'manageTimetableItem' });
   }
 
   const deleteHandler = (i: number) => {

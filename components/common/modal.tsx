@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { useModal } from "@/hooks/useModal";
 import { modalState } from "@/store/modal.store";
 
-interface ModalProps {
+interface ModalProps<T> {
   children?: ReactNode,
   id: string,
   type?: string,
@@ -13,12 +13,12 @@ interface ModalProps {
     name: string,
     element: ReactNode
   }[],
-  onOpen?: () => void;
+  onOpen?: (props: T) => void;
   onClose?: () => void;
   onSelectMenu?: (i: number) => void
 }
 
-const Modal = ({
+const Modal = <T extends unknown>({
   children,
   id,
   type,
@@ -27,7 +27,7 @@ const Modal = ({
   onOpen,
   onClose,
   onSelectMenu
-}: ModalProps) => {
+}: ModalProps<T>) => {
   const { closeModal, closeAllModal } = useModal();
   const [mounted, setMounted] = useState(false);
   const [modalList] = useAtom(modalState);
@@ -42,7 +42,7 @@ const Modal = ({
     if (!mounted) return;
 
     if (onOpen && modalList[id]) {
-      onOpen();
+      onOpen(modalList[id].props as T);
     }
 
     if (onClose && !modalList[id]) {
