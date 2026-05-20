@@ -19,16 +19,16 @@ interface BannerProps {
 }
 
 export const Banner = ({ position, type }: BannerProps) => {
-  const bannerList = useAtomValue(loadable(bannerState));
+  const bannerList = useAtomValue(bannerState);
   const [bannerIdx, setBannerIdx] = useState<number>(0);
-  const banner = bannerList.state === 'hasData' ? bannerList.data?.[bannerIdx] : undefined;
+  const banner = bannerList[bannerIdx];
   const className = `${styles.banner} ${styles[position]} ${styles[type]}`;
 
   useEffect(() => {
-    if (bannerList.state === 'hasData') {
-      setBannerIdx(Math.floor(Math.random() * bannerList.data?.length));
+    if (bannerList?.length) {
+      setBannerIdx(Math.floor(Math.random() * bannerList.length));
     }
-  }, [bannerList]);
+  }, [bannerList?.length]);
 
   return (
     banner && (
