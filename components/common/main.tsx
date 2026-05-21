@@ -16,6 +16,7 @@ import Alert from '@/components/common/overlay/alert';
 import Loading from '@/components/common/overlay/loading';
 import { Header } from '@/components/common/header';
 import { activePageCheck } from '@/utils/page';
+import { InvalidClientTimeBox } from '@/components/common/invalidClientTimePopup';
 
 const noCustomBackgroundPages: {
   id: string;
@@ -67,6 +68,7 @@ export const Main = ({ children }: { children: ReactNode }) => {
         <Toast />
         <Alert />
         <Loading />
+        <InvalidClientTimeBox />
       </>
     </div>
   );
