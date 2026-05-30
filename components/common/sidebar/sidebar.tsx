@@ -103,7 +103,7 @@ const Sidebar = () => {
         <SidebarItem
           Icon={SiUptimekuma}
           iconSize="2.6rem"
-          onClick={() => window.open('https://status.bssm.app/status/bsm', '_blank')}
+          onClick={() => window.open('https://status.bssm.app', '_blank')}
         >
           Uptime
         </SidebarItem>
